@@ -1,5 +1,5 @@
 site:
-  title: "From Development to Deployment: Securing The Software Supply Chain with Red Hat OpenShift"
+  title: "Red Hat Trusted Application Pipeline Demonstration"
   url: https://redhat-scholars.github.io/course-template
   start_page: modules::index.adoc
 

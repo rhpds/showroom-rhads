@@ -1,0 +1,88 @@
+== Code Change & Pipeline
+
+As a developer, I want to get into the code so I will click *Source Code Repository*
+
+image::code-change-1.png[]
+
+This opens the GitLab UI for the newly generated repository.  
+
+image::code-change-2.png[]
+
+I know what to do with a git repo, I clone it, I change it!
+
+Narrator: There are at least 3 different ways to make a change to this source and and see the SSCS-focused pipeline triggered.  
+
+1. The developer could use the GitLab UI.
+2. The developer could use Dev Spaces
+3. The developer could use a local IDE on their laptop.
+
+For the purposes of this demonstration, let's try Dev Spaces. 
+
+=== Dev Spaces
+
+Going back to Developer Hub tab, click *Open Component in catalog*
+
+image::code-change-3.png[]
+
+Developer: I saw all the logging fly by and now I am interested in exploring this new software component. 
+
+After I open the Component I can click *OpenShift Dev Spaces (VS Code)*
+
+Narrator: Dev Spaces is a Kubernetes native workspace and IDE capability that is part of the OpenShift platform.  This tool allows your platform team to offer dynamic in-cluster IDE that requires zero configuration and effort by your app developers.  
+
+image::code-change-dev-spaces-1.png[]
+
+image::code-change-dev-spaces-2.png[]
+
+image::code-change-dev-spaces-3.png[]
+
+image::code-change-dev-spaces-4.png[]
+
+image::code-change-dev-spaces-5.png[]
+
+image::code-change-dev-spaces-6.png[]
+
+image::code-change-dev-spaces-7.png[]
+
+image::code-change-dev-spaces-8.png[]
+
+=== Code Exploration
+
+Narrator:  Early when we were exploring the Catalog, you might have been wondering what the magic was, how did the git repo become part of the Catalog?  A key file is called *catalog-info.yaml*
+
+image::code-change-code-1.png[]
+
+A deeper dive session will be needed to drill-down into this yaml file along with more information on how Backstage Templates execute.  
+
+If you remember, we mentioned the phrase "docs as code" earlier in the session, that is handled as markdown files within the codebase. 
+
+image::code-change-code-2.png[]
+
+Developer: As part of the interview process, I remember that this team described how they like to handle docs.  They leverage the creation of markdown files inside of a *docs* folder within the code repository and the template pre-populated the repository for me.  For now, I am just going to add a wee bit of markdown to see how this shows up later inside the portal. Of course I will come back and create ample documentation because it is just another file inside of my IDE and inside of my repository.
+
+image::code-change-code-3.png[]
+
+For now, I want to dive into the code *src/main/resources/META-INF/index.html* Let me just make a change where it says "Congratulations".  I will hit Cntrl-F and type "congrat"
+
+image::code-change-code-4.png[]
+
+I will make this say "Aloha Andrew"
+
+image::code-change-code-5.png[]
+
+I was hired to be an enterprise Java developer and I know the Quarkus framework, the super fast, super lightweight, optimized for cloud native microservices runtime.   So let's look at that Java code.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
