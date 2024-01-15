@@ -10,7 +10,8 @@
 
 == 3. Golden Path Template
 
-== 4. Code Change & Pipeline
+== 4. Code Change
 
-== 5. SSCS (Software Supply Chain Security)
+== 5. Pipeline Exploration
+
 

@@ -9,45 +9,57 @@ Within a large enterprise the time required for a newly hired app developer to b
 
 This is the story of how Red Hat imbues your software supply chain with the content, templates, signatures, attestations, and SBOMs that accelerate your custom application development across the software development lifcycle of code, build, deploy and run.  This is the story of how Red Hat empowers your Platform Engineering teams who then in turn super charge your custom application developers.
 
-You might have heard the phrase "shift-left" as it relates to security practices.  That phrase primarily focuses on the idea that security checks should not simply be executed manually(human-powered) and at the very end of the path-to-production pipeline but brought forward in time. 
+You might have heard the phrase "shift-left" as it relates to security practices.  That phrase primarily focuses on the idea that security checks should not simply be executed manually (human-powered) and at the very end of the path-to-production pipeline but brought forward in time.
 
 In this demonstration, we are going to see the ultimate of "shift-left" by introducing security checks at the point of code entry.  We are also going to see "shift-down", injection of security practices from the moment of project creation, embodied by the golden path template, and fully integrated into the platform itself. 
 
 Remember the ultimate goal of a well managed platform-as-a-product (PaaP) is to serve its customers, and in the case of an IDP, that means the enterprise application development teams.  The IDP can best serve its customers by dramatically lowering the developer's cognitive load, allowing app devs to focus on the code that contributes to the next business outcome.  
 
 In this story, we are are going to hear about 3 major new ideas:
+
 * Software Catalog - one URL to rule them all
 * Documentation as Code
-* Templates with golden paths that aid in securing your software supply chain
+* Templates with golden paths that automate securing your software supply chain
 
 == Pre-stage Setup
 
-Consider the following steps BEFORE sharing your screen with the audience.  This allows the presenter to switch between the developer and PE perspectives.  During the presentation you are primarily within the developer perspective, focusing on Developer Hub as the primary user experience.
+Consider the following steps *BEFORE* sharing your screen with the audience.  This allows the presenter to switch between the developer and PE perspectives.  During the presentation you are primarily within the developer perspective, focusing on Developer Hub as the primary user experience.
 
-* browser 1: login as developer 
-* browser 2: login as platform engineer - using incognito mode or a 2nd browser (e.g. Firefox vs Safari)
-* run the end-to-end to cache images and validate your flow/narrative
-* previously started a Dev Space OR
-* double check your local laptop git, mvn and IDE (VS Code, IntelliJ) are ready to go
+* Browser 1: login as developer 
+* Browser 2: login as platform engineer - using incognito mode or a 2nd browser (e.g. Firefox vs Safari)
+* Run the end-to-end to cache images and validate your flow/narrative
+* Previously started a Dev Space or
+* Double check your local laptop git, mvn and IDE (VS Code, IntelliJ) are ready to go
 
+https://www.youtube.com/watch?v=n1IrNe5MmZg[Why Backstage?]
 
 == Login as developer 
 
 image::login-dev-user1-1.png[]
 
+*Click GitLab*
+
 image::login-dev-user1-2.png[]
+
+Enter *user1* and the password provided
 
 image::login-dev-user1-3.png[]
 
+*Click Authorize*
+
 image::login-dev-user1-4.png[]
 
+Enter an email address for Keycloack like `user1@opentlc.com`
+
 image::login-dev-user1-5.png[]
+
+Arriving at the Welcome screen
 
 image::login-dev-user1-6.png[]
 
 == Login as platform engineer
 
-In a 2nd browser, open up the tabs for the Platform Engineer (OpenShift Admin)
+In a 2nd browser or Incognito browser, open up the tabs for the Platform Engineer (OpenShift Admin)
 
 === Login to OpenShift Console
 
@@ -81,7 +93,7 @@ image::login-quay-admin-1.png[]
 
 image::login-quay-admin-2.png[]
 
-=== ArgoCD
+=== Login to ArgoCD
 
 image::login-argocd-admin-1.png[]
 
