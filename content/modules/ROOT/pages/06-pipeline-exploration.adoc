@@ -4,11 +4,13 @@ As a developer, I can see all the steps involved with the corporate standard pip
 
 image::pipeline-exploration-1.png[]
 
-Narrator: Now, for our architects and platform engineers in the room, you want to pull back the curtains and see how this magic works, your customer, the app developer is happy with a green pipeline and the simplicity of "git commit and git push" but your DevOps engineers would like to dig deeper into how this better secures the software supply chain.
+Narrator: Now, for our architects and platform engineers in the room, you want to pull back the curtains and see how this magic works, your customer, the app developer is happy with a green pipeline and the simplicity of "git commit and git push" but your DevOps engineers would like to dig deeper into how this better secures the software supply chain.  Before go behind the scenes let's first explore the rest of the developer user experience.
 
 Developer Hub pre-integrates several curated plug-ins that are great for overall developer experience.  A lot has happened with the execution of this pipeline.
 
 The first step in the pipeline is a simple `git clone`.   The next step is basically a `mvn package` and then running of Sonarqube.  All pretty standard for CI pipelines.  Get the code, compile/build the code, run some scans. 
+
+=== Build Sign Image
 
 It is the *build-sign-image* where things get super interesting. 
 
@@ -37,9 +39,11 @@ These ACS polices can be seen on the following screen, just look for *Build* pol
 
 image::pipeline-exploration-5.png[]
 
+=== Topology
+
 Click on *Topology* 
 
-As a developer, you want to see your handy work, did my applicatio really deploy to the dev environment?
+As a developer, I want to see my handy work, did my applicatio really deploy to the dev environment?
 
 image::pipeline-exploration-6.png[]
 
@@ -47,14 +51,11 @@ Note: pre-prod and prod have NOT yet deployed
 
 image::pipeline-exploration-7.png[]
 
-You can also explore the *API* inside the portal
+I can also explore the *API* inside the portal
 
 image::pipeline-exploration-8.png[]
 
 image::pipeline-exploration-9.png[]
 
 Note: This UX is depends on the openapi.yaml being updated correctly.  If you are using `quarkus:dev` while editing the code them it gets updated automatically as ExampleResource.java is updated.
-
-
-
 

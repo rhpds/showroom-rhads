@@ -10,3 +10,5 @@
 
 * xref:06-pipeline-exploration.adoc[6. Pipeline Exploration]
 
+* xref:07-platform-engineering.adoc[6. Platform Engineering]
+
