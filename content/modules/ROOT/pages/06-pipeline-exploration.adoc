@@ -16,18 +16,45 @@ image::pipeline-exploration-2.png[]
 
 The template is leveraging Tekton Chains, a Kubernetes Custom Resource Definition (CRD) controller, that nicely augments the supply chain security within OpenShift Pipelines. This tool's capacity to automatically sign task runs, and its adoption of advanced attestation formats like in-toto and SLA provenance, bring a higher degree of trust and verification to our processes.   Tekton Chains works like an independent observer within the cluster, it signs, attests and stores additional artifacts as OCI images alongside with your container image. 
 
-If you look on the *Image Registry* tab you will see there is a *.att*, *.sig* and *.sbom* sitting side-by-side with the resulting container image produced by the pipeline.
+If you look on the *Image Registry* tab you will see there is are *.att*, *.sig* and *.sbom* sitting side-by-side with the resulting container image produced by the pipeline.
 
 image::pipeline-exploration-3.png[]
 
 This plug-in using Quay, you might remember we selected Quay in the template wizard. Quay offers yet another aspect of supply chain security, it is constantly scanning your container images at rest. Your developers might not be actively coding and if nobody has pushed a change recently then the pipeline might not have run in a while.  
 
-Back to the pipeline itself and let's look at the 3 ACS tasks
+Back to the pipeline itself and let's look at the 3 Advanced Cluster Security tasks leveraging *roxctl*
 
 image::pipeline-exploration-4.png[]
 
 
+The bottom-most task is performing CVE scanning.  You can double-click on the node to see the logs. 
 
+The middle task is performing a policy check.  These policies might be things like 'No log4j allowed' or perhaps no curl, wget nor a package manager in a production image.  
 
+The top-most task is perform yaml scanning and it might identify that your Deployment.yaml has not properly configured its resource request and limit. 
+
+These ACS polices can be seen on the following screen, just look for *Build* policies under lifecycle.
+
+image::pipeline-exploration-5.png[]
 
 Click on *Topology* 
+
+As a developer, you want to see your handy work, did my applicatio really deploy to the dev environment?
+
+image::pipeline-exploration-6.png[]
+
+Note: pre-prod and prod have NOT yet deployed
+
+image::pipeline-exploration-7.png[]
+
+You can also explore the *API* inside the portal
+
+image::pipeline-exploration-8.png[]
+
+image::pipeline-exploration-9.png[]
+
+Note: This UX is depends on the openapi.yaml being updated correctly.  If you are using `quarkus:dev` while editing the code them it gets updated automatically as ExampleResource.java is updated.
+
+
+
+
