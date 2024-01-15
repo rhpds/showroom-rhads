@@ -2,13 +2,15 @@
 
 Narrator:  One of the biggest challenges with onboarding a new hire or even simply moving a developer from one team to another is that each codebase often has unique standards.  
 
-You might have heard the phrase "golden path template" and if you were in the Netherlands you might call this concept the "kings road".  The idea is fairly simple though I have to admit it is a challenge to implement.  All the corporate standards can be embodied as code.  You might hear this theme a fair bit "as code" and everything stored in a git repository.
+You might have heard the phrase "golden path template" and if you were in the Netherlands you might call this concept the "kings road".  The idea is fairly simple though I have to admit it is a challenge to implement.  All the corporate standards can be embodied as code.  You might hear this theme a fair bit "as code" and everything stored in a git repository.  
 
-Note: the templates here will be customized by each organization but I want to show you one with some interesting supply chain security capabilities.
+The core idea of a golden path template is that it is the well worn, well supported path to production.  If the developer stays on the path then their app easily lands in production.  Remember code offers no business value until it lands in production.
+
+Note: the templates here will be customized by each organization but we want to show you one with some interesting supply chain security capabilities. In addition, how a template provisions infrastructure will be unique per organization.  In this demo case, the template leverages ArgoCD aka OpenShift GitOps to dynamically provision OpenShift resources like Namespaces and secrets. 
 
 image::golden-path-template-1.png[]
 
-Developer: OK, as a new hire, just started on the job 1-hour ago, I have my laptop with my favorite IDE.  I know Java and I know enterprise app development patterns *BUT* I do not know how this organization defines their SDLC, their software development lifecycle.  Every organization designs their path-to-production, their pipelines in unique ways...I really wish to just try something out, to see how the end-to-end works around here.
+Developer: OK, as a new hire, I just started on the job 1-hour ago, I have my laptop with my favorite IDE.  I was hired because I know Java and I know enterprise app development patterns *BUT* I do NOT know how this organization defines their SDLC, their software development lifecycle.  Every organization designs their own bespoke path-to-production, their pipelines in unique ways...I really wish to just try something out, to see how the end-to-end workflow works around here.  Let me just try out this self-service magic.
 
 So I click on *Create* and I remember my boss telling me that this company had an out-of-the-box template.  I am Quarkus developer so I will pick *Securing a Quarkus Service Software Supply Chain* by clicking *Choose*
 
@@ -26,11 +28,11 @@ image::golden-path-template-3.png[]
 
 I will click on *NEXT STEP*
 
-Narrator: All of these wizard steps, all of these prompts are customizable by your organization.  As a matter of fact, a template is just another set of files in your git repository.  You want to be open to pull requests or merge requests. You want a culture that encourages collaboration and contribution.  Perhaps you have heard of the phrase "Inner Sourcing" recently.   Inner Sourcing is a whole presentation unto itself but for now, let just keep going with our story.  
+Narrator: All of these wizard steps, all of these prompts are customizable by your organization.  As a matter of fact, a template is just another set of files in your git repository.  You want to be open to pull requests or merge requests. You want a culture that encourages collaboration and contribution.  Perhaps you have heard of the phrase "Inner Sourcing" recently.   Inner Sourcing is a whole presentation unto itself but for now, let just keep going with our developer story.  
 
 https://about.gitlab.com/topics/version-control/what-is-innersource/
 
-Developer: I remember during the interviews that we discussed that company has been modernizing to containers and Kubernetes.  I remember they said they use the Quay container registry so I will select *Quay*
+Developer: I remember during the interviews that we discussed that the company has been modernizing to containers and Kubernetes.  I remember they said they use the Quay container registry so I will select *Quay*
 
 image::golden-path-templates-4.png[]
 
@@ -38,7 +40,7 @@ And take all the defaults.  I will click on *NEXT STEP*
 
 image::golden-path-template-5.png[]
 
-I heard this organization uses Gitlab, I will just take the defaults and click on *NEXT STEP*
+I heard this organization uses Gitlab, I will just take the defaults and click  *NEXT STEP*
 
 image::golden-path-template-6.png[]
 
@@ -48,7 +50,7 @@ image::golden-path-template-7.png[]
 
 Narrator: Now a LOT has happened in the background, for our developer, it was a few simple points and clicks, answer a few questions, all self-service, no tickets, no waiting.  The way this template is configured it requires a code change to kick off the pipeline.
 
-
+Let's go make a code change.
 
 
 
