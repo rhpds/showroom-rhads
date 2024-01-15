@@ -8,3 +8,5 @@
 
 * xref:05-code-change.adoc[5. Code Change]
 
+* xref:06-pipeline-exploration.adoc[6. Pipeline Exploration]
+

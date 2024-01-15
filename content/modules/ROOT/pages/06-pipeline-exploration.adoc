@@ -1,0 +1,33 @@
+== Pipeline Exploration
+
+As a developer, I can see all the steps involved with the corporate standard pipeline and *GREEN is good*.  As a developer, that makes me happy, I do not have worry about all the details.
+
+image::pipeline-exploration-1.png[]
+
+Narrator: Now, for our architects and platform engineers in the room, you want to pull back the curtains and see how this magic works, your customer, the app developer is happy with a green pipeline and the simplicity of "git commit and git push" but your DevOps engineers would like to dig deeper into how this better secures the software supply chain.
+
+Developer Hub pre-integrates several curated plug-ins that are great for overall developer experience.  A lot has happened with the execution of this pipeline.
+
+The first step in the pipeline is a simple `git clone`.   The next step is basically a `mvn package` and then running of Sonarqube.  All pretty standard for CI pipelines.  Get the code, compile/build the code, run some scans. 
+
+It is the *build-sign-image* where things get super interesting. 
+
+image::pipeline-exploration-2.png[]
+
+The template is leveraging Tekton Chains, a Kubernetes Custom Resource Definition (CRD) controller, that nicely augments the supply chain security within OpenShift Pipelines. This tool's capacity to automatically sign task runs, and its adoption of advanced attestation formats like in-toto and SLA provenance, bring a higher degree of trust and verification to our processes.   Tekton Chains works like an independent observer within the cluster, it signs, attests and stores additional artifacts as OCI images alongside with your container image. 
+
+If you look on the *Image Registry* tab you will see there is a *.att*, *.sig* and *.sbom* sitting side-by-side with the resulting container image produced by the pipeline.
+
+image::pipeline-exploration-3.png[]
+
+This plug-in using Quay, you might remember we selected Quay in the template wizard. Quay offers yet another aspect of supply chain security, it is constantly scanning your container images at rest. Your developers might not be actively coding and if nobody has pushed a change recently then the pipeline might not have run in a while.  
+
+Back to the pipeline itself and let's look at the 3 ACS tasks
+
+image::pipeline-exploration-4.png[]
+
+
+
+
+
+Click on *Topology* 

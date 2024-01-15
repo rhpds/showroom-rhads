@@ -18,6 +18,13 @@ Narrator: There are at least 3 different ways to make a change to this source an
 
 For the purposes of this demonstration, let's try Dev Spaces. 
 
+Note: The Dependency Analytics plug-in for VS Code is available 
+
+https://marketplace.visualstudio.com/items?itemName=redhat.fabric8-analytics[VS Code]
+
+https://plugins.jetbrains.com/plugin/12541-red-hat-dependency-analytics[Jetbrains IntelliJ]
+
+
 === Dev Spaces
 
 Going back to Developer Hub tab, click *Open Component in catalog*
@@ -70,7 +77,107 @@ I will make this say "Aloha Andrew"
 
 image::code-change-code-5.png[]
 
-I was hired to be an enterprise Java developer and I know the Quarkus framework, the super fast, super lightweight, optimized for cloud native microservices runtime.   So let's look at that Java code.
+I was hired to be an enterprise Java developer and I know the Quarkus framework, the super fast, super lightweight, optimized for cloud native microservices runtime.   So let's look at that Java code and make a change.
+
+image::code-change-code-6.png[]
+
+
+=== Dependency Analytics 
+
+Note: If you have the Dependency Analytics plug-in installed then you can attempt the next section.  
+
+As an application developer, my favorite keys on the keyboard are Cntrl-C and Cntrl-V (or Command-C and Command-V for Mac-users).  The magic of copy & paste is how I function as a developer.  When I have a question, I go ask Google, perhaps these days it might be ChatGPT, but I ask the internet and the internet responds. In many cases, I am sent to StackOverflow and I find great things to copy & paste. For instance, what if I wanted a nice Model-View-Controller framework or perhaps a logging framework, they are easily found via Google, StackOverflow and a quick visit to Maven Central.
+
+https://central.sonatype.com/artifact/org.apache.struts/struts2-core/2.5.2/overview[Maven Central]
+
+image::code-change-code-12.png[]
+
+Open the pom.xml and add in the following dependencies
+
+[source,xml]
+----
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.14.1</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+----
+
+*Do not hit save*
+
+You should see some small red squiggles 
+
+image::code-change-code-13.png[]
+
+This is the Dependency Analytics IDE plug-in providing an early warning signal.  Remember we said that at Red Hat we aim to help you better secure your software supply chain across your SDLC, from code, to build, through deployment and into the runtime environment.    In this case, the IDE plug-in is helping the developer to head off a problem BEFORE it enters your enterprise supply chain.  Red Hat will be doing more in this area to provide recommendations in the future.  As you can see we are partnered with  
+
+image::code-change-code-14.png[]
+
+You can manually open the report tab by clicking on the "Found N vulnerabilities" at the bottom of VS Code. 
+
+image::code-change-code-15.png[]
+
+=== Now Back to your regularly scheduled programming
+
+
+Developer: OK, I have made some changes, I really should spend some time properly testing my code but what I really want to understand is the path-to-production and see the pipeline in action.
+
+So let me check-in my code.   Give it a commit message.
+
+image::code-change-code-7.png[]
+
+image::code-change-code-8.png[]
+
+image::code-change-code-9.png[]
+
+image::code-change-code-10.png[]
+
+Now I want to jump back to the portal and let's see what is happening.
+
+image::code-change-code-11.png[]
+
+The pipeline is running.  As a developer, I onboarded to the corporate standard pipeline with no effort. I have only been working at this new company for a few hours having just received my new laptop and VPN access. And I am already seeing things run end-to-end. 
+
+Narrator: While that pipeline is running, let's look behind the scenes to get a feel for how all this magic is happening.  The Platform Engineer needs to better understand the magic.  
+
+If we go look at the git repository that the template generated and click on *Settings* then *Webhooks* we can see the pipeline is triggered.
+
+image::explain-pipeline-magic-1.png[]
+
+image::explain-pipeline-magic-2.png[]
+
+Also, as a developer, I am curious to know how everything provisioned, in the case of this template, it uses ArgoCD for Namespace, application and even pipeline provisioning leveraging GitOps and a gi repo as the source of truth. 
+
+image::explain-pipeline-magic-3.png[]
+
+Now, let's go explore the pipeline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
