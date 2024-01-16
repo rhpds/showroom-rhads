@@ -1,4 +1,4 @@
-== Introduction and Challenge Overview
+== Introduction
 
 Red Hat Trusted Application Pipeline
 
