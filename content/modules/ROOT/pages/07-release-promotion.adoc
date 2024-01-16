@@ -4,6 +4,8 @@ Narrator: Now that the developer has done their job, let see what the experience
 
 Every enterprise has a unique SDLC, a bespoke path to production, but there are some common attributes, you typically start with a dev environment, pre-production (e.g. staging) and then production.  There are normally some rules and some triggers that promote a "build" from one environment to another.  With in this golden path template we leverage ArgoCD - OpenShift GitOps to continously deploy to across dev, pre-prod and production but it does require an update to the gitops repository to cause the deployment.  If you remember there were webhooks configured on the newly generated git repo for push, tag and release events.  To promote this latest code change to pre-prod, you simply create a *tag* in GitLab which triggers a promotion-focused Tekton pipeline, which updates the gitops repository causing ArgoCD to deploy. 
 
+=== Promote to Pre-Prod
+
 First access the GitLab UI, there is a convenient link on the Overview tab
 
 image::promotion-1.png[]
@@ -37,6 +39,25 @@ Enterprise Contract, as part of this promotion pipeline, is verifing that the co
 https://enterprisecontract.dev/
 
 
+Once the release pipeline has completed, you can see your application has been promoted to *pre-prod* and is available via the *Topology* plug-in.
+
+image::promotion-7.png[]
+
+=== Promote to Prod
+
+To promote to Production use the *Create Release* feature of the GitLab UI. 
+
+image::promotion-8.png[]
+
+Give the release a title and click the *Create release* button
+
+image::promotion-9.png[]
+
+Another release pipeline will be triggered and if the enterprise contract passes then the container image will be promoted production.
+
+image::promotion-10.png[]
+
+image::promotion-11.png[]
 
 
 
