@@ -10,5 +10,11 @@
 
 * xref:06-pipeline-exploration.adoc[6. Pipeline Exploration]
 
-* xref:07-platform-engineering.adoc[6. Platform Engineering]
+* xref:07-release-promotion.adoc[7. Release & Promotion]
+
+* xref:08-platform-engineering.adoc[8. Platform Engineering]
+
+* xref:09-trusted-profile-analyzer.adoc[9. Trusted Profile Analyzer]
+
+* xref:10-tips.adoc[10. Tips]
 

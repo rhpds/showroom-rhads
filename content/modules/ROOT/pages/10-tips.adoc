@@ -1,0 +1,43 @@
+== Tips
+
+== Cluster Sleep/Wake
+
+demo.redhat.com will *auto-stop* or essentially sleep your cluster, upon restart/wake enterprise contract is likely to fail as the Rekor public key chances upon cluster awakening. Enterprise contract being part of the promotion pipeline used with a GitLab tag or release event.
+
+image::tip-1.png[]
+
+1. The new Rekor public key needs to be accessed
+2. You need to login to the in-cluster Vault via its token
+3. You update the public key of *janusidp/rekor*
+
+Download the Rekor public key by visit YOUR unique version of the following URL:
+
+https://rekor-server-rekor.apps.cluster-z7zmt.sandbox2366.opentlc.com/api/v1/log/publicKey
+
+"z7zmt.sandbox2366" will be unique to your cluster and this string is visible at demo.redhat.com
+
+image::tip-2.png[]
+
+Then extract the vault token by using the *oc* or *kubectl* command line.
+
+----
+TOKEN=$(kubectl get secret vault-token -n vault -o jsonpath='{.data.token}' | base64 --decode)
+echo $TOKEN
+----
+
+Use that token to login Vault. Again updating the following URL to reflect your specific cluster's identity. 
+
+https://vault-vault.apps.cluster-z7zmt.sandbox2366.opentlc.com/ui/vault/secrets/kv/show/secrets/janusidp/rekor
+
+
+image::tip-3.png[]
+
+Create new version
+
+image::tip-4.png[]
+
+Paste in the contents from downloaded key from 
+
+https://rekor-server-rekor.apps.cluster-z7zmt.sandbox2366.opentlc.com/api/v1/log/publicKey
+
+image::tip-5.png[]

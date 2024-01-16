@@ -16,13 +16,15 @@ It is the *build-sign-image* where things get super interesting.
 
 image::pipeline-exploration-2.png[]
 
-The template is leveraging Tekton Chains, a Kubernetes Custom Resource Definition (CRD) controller, that nicely augments the supply chain security within OpenShift Pipelines. This tool's capacity to automatically sign task runs, and its adoption of advanced attestation formats like in-toto and SLA provenance, bring a higher degree of trust and verification to our processes.   Tekton Chains works like an independent observer within the cluster, it signs, attests and stores additional artifacts as OCI images alongside with your container image. 
+The template is leveraging Tekton Chains, a Kubernetes Custom Resource Definition (CRD) controller, that nicely augments the supply chain security within OpenShift Pipelines. This tool's capacity to automatically sign task runs, and its adoption of advanced attestation formats like in-toto and SLA provenance, bring a higher degree of trust and verification to our processes.   Tekton Chains works like an independent observer within the cluster, it signs, attests and stores additional artifacts as OCI images alongside with your container image.   
 
 If you look on the *Image Registry* tab you will see there is are *.att*, *.sig* and *.sbom* sitting side-by-side with the resulting container image produced by the pipeline.
 
 image::pipeline-exploration-3.png[]
 
 This plug-in using Quay, you might remember we selected Quay in the template wizard. Quay offers yet another aspect of supply chain security, it is constantly scanning your container images at rest. Your developers might not be actively coding and if nobody has pushed a change recently then the pipeline might not have run in a while.  
+
+=== roxctl (ACS)
 
 Back to the pipeline itself and let's look at the 3 Advanced Cluster Security tasks leveraging *roxctl*
 
@@ -39,7 +41,19 @@ These ACS polices can be seen on the following screen, just look for *Build* pol
 
 image::pipeline-exploration-5.png[]
 
-=== Topology
+=== scan-export-sbom
+
+image::pipeline-exploration-11.png[]
+
+Pushes the SBOM to a CycloneDX repository.  Currently, the SBOM is stored in Quay and is not in an easily accessible or readable format.  Pushing the SBOM to an additional repository allows us to access the raw JSON/XML file for further use outside of the CI process.
+
+image::pipeline-exploration-12.png[]
+
+The SBOM is an artifact that deserves special mention.  Think of the Software Bill of Materials as the ingredient list.  I am sure you have gone to the grocery store and picked up an item and reviewed its packaging.  On the back of the product there will be a list of ingredients.  You can find out that something you might wish to eat includes gluten, perhaps too much sugar, or shellfish (my sister is allergic to shellfish) or perhaps nuts.  Well, if you are allergic to nuts you might also be allergic to struts :-) You might remember that infamous Struts 2 vulnerability that allowed 143 million American's private data to end up on the dark web https://www.securityweek.com/apache-struts-flaw-reportedly-exploited-equifax-hack[Struts 2 hack].  
+
+The SBOM is either a JSON or XML file and is stored in the container registry as the ingredient list associated with the container image.  
+
+=== Dev Deployment
 
 Click on *Topology* 
 
