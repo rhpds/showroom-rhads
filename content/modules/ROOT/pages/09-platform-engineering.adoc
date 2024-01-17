@@ -1,0 +1,7 @@
+== Platform Engineering
+
+Narrator: In this section, we are no longer the developer but now let's talk to our platform folks, the folks who really wish to understand how the magic happens.
+
+In this section we are going to pull back the curtains a bit and learn what 'shift-down' means.  There is a person who takes on the burden of designing, operating and always improving this amazing Internal Developer Platform - they are called the Platform Engineer.  
+
+*Under Construction*

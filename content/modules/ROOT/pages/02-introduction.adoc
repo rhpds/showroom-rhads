@@ -6,6 +6,19 @@ This demonstration takes the audience on a journey across the Software Developme
 
 RHTAP *=* RHDH (developer self-service) *+* RHTAS (signature, attestation) *+* RHTPA (SBOM)
 
+Featured products in this demonstration include:
+
+* Red Hat Trusted Application Pipeline
+* Red Hat Developer Hub
+* Red Hat Trusted Artifact Signer
+* Red Hat Trusted Profile Analyzer
+* Red Hat Advanced Cluster Security
+* Red Hat OpenShift Pipelines (Tekton)
+* Red Hat OpenShift GitOps (ArgoCD)
+* Red Hat Quay
+* Red Hat OpenShift Dev Spaces
+* Red Hat OpenShift
+
 Within a large enterprise the time required for a newly hired app developer to become productive is often measured in weeks.  In this demonstration, we are going to show you how to shrink those weeks down to minutes with a developer-optimized self-service Internal Development Platform (IDP) that pre-integrates software supply chain security practices from the moment of project inception.
 
 This is the story of how Red Hat imbues your software supply chain with the content, templates, signatures, attestations, and SBOMs that accelerate your custom application development across the software development lifcycle of code, build, deploy and run.  This is the story of how Red Hat empowers your Platform Engineering teams who then in turn super charge your custom application developers.
@@ -100,11 +113,26 @@ image::login-quay-admin-1.png[]
 
 image::login-quay-admin-2.png[]
 
+Each time you use the golden path template you will see a new entry in Quay.
+
 === Login to ArgoCD
 
 image::login-argocd-admin-1.png[]
 
 image::login-argocd-admin-2.png[]
+
+Each time you use the golden path template you will see a several new entries in ArgoCD.
+
+=== Login to SonarQube
+
+The route for SonarQube is in the *sonarqube* namespace and available via the OpenShift admin console.
+
+image::login-sonarqube-admin-1.png[]
+
+Use *admin* and the same password provided by demo.redhat.com
+
+image::login-sonarqube-admin-2.png[]
+
 
 === More Templates
 

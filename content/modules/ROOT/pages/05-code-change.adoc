@@ -96,11 +96,11 @@ Open the pom.xml and add in the following dependencies
 
 [source,xml]
 ----
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.14.1</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.struts</groupId>
@@ -111,11 +111,14 @@ Open the pom.xml and add in the following dependencies
 
 *Do not hit save*
 
+The Log4J vulunerability is particularly interesting.  You might even remember where you were in December of 2021 when the Log4shell news broke.  I have talked to a number of big companies that had folks running around with their hair on fire - "where is log4j?".  The vulnerable code had been in the codbase for 8 years. It is a very widely deployed Java library as a very popular logging framework.  Apparently someone thought it would be clever to add a JNDI feature eons ago.  Well an Alibaba engineer that discovered that this code could be exploited for remote execution in Nov of 2021.  They properly alerted the Apache Foundation and a patch was crafted.  The problem with a zero day vulnerability is that you have zero days to react.  The moment the patch is revealed means evil doers also become aware of the exploit - it becomes a race to see who can patch versus who will be exploited. 
+
+
 You should see some small red squiggles 
 
 image::code-change-code-13.png[]
 
-This is the Dependency Analytics IDE plug-in providing an early warning signal.  Remember we said that at Red Hat we aim to help you better secure your software supply chain across your SDLC, from code, to build, through deployment and into the runtime environment.    In this case, the IDE plug-in is helping the developer to head off a problem BEFORE it enters your enterprise supply chain.  Red Hat will be doing more in this area to provide recommendations in the future.  As you can see we are partnered with  
+This is the Dependency Analytics IDE plug-in providing an early warning signal.  Remember we said that at Red Hat we aim to help you better secure your software supply chain across your SDLC, from code, to build, through deployment and into the runtime environment.  In this case, the IDE plug-in is helping the developer to head off a problem BEFORE it enters your enterprise supply chain.  Red Hat will be doing more in this area to provide recommendations in the future.  As you can see we are partnered with  
 
 image::code-change-code-14.png[]
 
@@ -123,7 +126,9 @@ You can manually open the report tab by clicking on the "Found N vulnerabilities
 
 image::code-change-code-15.png[]
 
-=== Now Back to your regularly scheduled programming
+Use Cntrl-Z/Command-Z to undo those changes.  That is the other magical key combination. 
+
+=== Back to your regularly scheduled programming
 
 
 Developer: OK, I have made some changes, I really should spend some time properly testing my code but what I really want to understand is the path-to-production and see the pipeline in action.
@@ -146,7 +151,7 @@ The pipeline is running.  As a developer, I onboarded to the corporate standard 
 
 Narrator: While that pipeline is running, let's look behind the scenes to get a feel for how all this magic is happening.  The Platform Engineer needs to better understand the magic.  
 
-If we go look at the git repository that the template generated and click on *Settings* then *Webhooks* we can see the pipeline is triggered.
+If we go look at the git repository that the template generated and click on *Settings* then *Webhooks* we can see the pipeline is triggered by push, tag and release events.
 
 image::explain-pipeline-magic-1.png[]
 

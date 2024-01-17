@@ -13,6 +13,18 @@ image::tip-6.png[]
 2. You need to login to the in-cluster Vault via its token
 3. You update the public key of *janusidp/rekor* with the new Rekor public key
 
+
+Via script
+
+----
+REKOR_SERVER=https://$(oc get route rekor-server -n rekor -o json | jq -r .spec.host)
+curl $REKOR_SERVER/api/v1/log/publicKey > public.key
+oc exec vault-0 -n vault -- vault kv put kv/secrets/janusidp/rekor public_key="$(cat public.key)"
+----
+
+or the manual way
+
+
 Download the Rekor public key by visit YOUR unique version of the following URL:
 
 https://rekor-server-rekor.apps.cluster-z7zmt.sandbox2366.opentlc.com/api/v1/log/publicKey
@@ -27,6 +39,7 @@ Then extract the vault token by using the *oc* or *kubectl* command line.
 TOKEN=$(kubectl get secret vault-token -n vault -o jsonpath='{.data.token}' | base64 --decode)
 echo $TOKEN
 ----
+
 
 Use that token to login Vault. Again updating the following URL to reflect your specific cluster's identity. 
 
@@ -45,4 +58,4 @@ https://rekor-server-rekor.apps.cluster-z7zmt.sandbox2366.opentlc.com/api/v1/log
 
 image::tip-5.png[]
 
-Note: After this change, you need to create a new component/application, run through its build pipeline and then use its promotion pipeline (tag, release)
+Note: After this change wait about 10 seconds to use the promotion pipeline (tag, release).  The *rekor-public-key* in the -dev, -pre-prod and -prod namespaces need to be updated.

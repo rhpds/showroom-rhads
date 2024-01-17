@@ -1,0 +1,99 @@
+== Runtime Security
+
+A key theme of our overall TSSC narrative is the enrichment of the customer's everyday SDLC, their pipelines, with supply chain security capabilities.  
+
+At the very beginning of our journey we said that Red Hat is looking at the end-to-end SDLC across code, build, deploy and run.  
+
+In this section, we dive into `run` 
+
+image::run-acs-1.png[]
+
+This is not meant to be a comprehensive introduction to Advanced Cluster Security but just a quick highlight tour. 
+
+The first stop on the tour is *Policy Management*
+
+image::run-acs-2.png[]
+
+The key item to look for on this screen is *Build* underneath the Lifecycle column.  This means a particualar policy is executed via `roxctl image check`. 
+
+Some of the more interesting ones to point out to an audience include:
+* Alpine Package Manager - perhaps you do not want developers picking up random containers from the Internet and more important ones that contain a package manager as container images are meant to be immutable.
+
+Also, you likely want to have some standards as to what types of base images you allow into your production environment. 
+
+* Struts - Struts and Log4J are some of the most exciting zero day CVEs to have hit the average enterprise.   See the story about log4j in the Code Change chapter.   
+
+Struts2 was a partcularly exciting CVE. It was well known but really hard to track down inside of your traditional IT infrastruture and CMDB.  It remained in production with a company called Equifax for a while and it was reportedly exploited and 143 million Americans private data was leaked. https://www.securityweek.com/apache-struts-flaw-reportedly-exploited-equifax-hack/[Equifax Hack]
+
+
+image::run-acs-3.png[]
+
+A common audience question is "what happens when the next zero day strikes?" and the answer is "make a policy".
+
+If you click on Log4shell you then see the details page for that policy you can see the phrase *Response* and it is listed as *Inform*.
+
+image::run-acs-4.png[]
+
+Click on *Edit policy*
+
+image::run-acs-5.png[]
+
+Under *Policy behavior* there is an option for *Inform and enforce* if you want ACS to shutdown the application with the badness inside it.  Most customers elect to go with the less draconian *Inform*.
+
+Another interesting area is *Compliance* as overall security and supply chain security are often associated with *GRC* - Governance, Compliance and Risk.  Today's enterprises often have whole teams of people dedicated to introducing *controls* and capturing *evidence* as part of the SDLC - often adding tremendous friction to making code changes.
+
+image::run-acs-6.png[]
+
+In this area you want to talk about the out-of-the-box compliance controls like *CIS Kubernetes* and the various controls.
+
+image::run-acs-7.png[]
+
+A quick visit to *Vulnerability Management* might be a way to find that pesky *log4j* running in production!  Big corporations really struggle with finding all the instances of things like log4j or struts2 throughout their decades old codebases.  A zero day vulunerability can show up at any moment - when no active coding and no active building is occuring.  Actively scanning the production environment for CVEs is critical.  And it is a big win when your production scanners can also serve as build-time scanners within your pipeline as ACS achieves with its `roxctl`.
+
+It should be mentioned that ACS can also actively look in the processes themselves, a simple example is when a bad actor has taken over a pod and is running a crypto miner.  That process can be discoverable by ACS.  
+
+Finally, let's head over to Network 
+
+image::run-acs-8.png[]
+
+image::run-acs-9.png[]
+
+Our golden path template creates new namespaces and new applications that become more visible/obvious over here in ACS.   It also means that the code the developer is actively working with can also be monitored by ACS with every `git push` and automatic deployment via GiOps into their -dev environment. 
+
+Simply scanning for CVEs on container images simple - understand the complexities of Kubernetes itself is more advanced.  The networking policies of Kubernetes are a bit complicated to master.  
+
+Red Hat's Advanced Cluster Security is Kubernetes native. 
+
+Kubernetes networking is wonderfully simple and easy to use for developers, basically all Services, running in any Namespace can see and iteract with all other services.  This is great for developer easy of use but it is problematic in production.
+
+While the example application we have here is very simple, does not evolve much complexity, let me inspire you with a more real-world example:
+
+image::run-acs-10.png[]
+
+image::run-acs-11.png[]
+
+Let's say you have a cluster that includes mixed worloads, let's say the ecommerce team has their shopping cart and catalog in the cluster, plus you have the marketing department, in their own namespace, also in the same cluster.  It is pretty common for a marketing department to have a point-in-time need, stand up a new website for particular campaign.  Perhaps they just want to run some ads at the Super Bowl and have a landing page for the offering.  In any case, sometimes those wordpress instance simply get ignored, sometimes we forget to patch them - the business itself forgets about the application.  And what if what https://www.securityweek.com/wordpress-6-4-2-patches-remote-code-execution-vulnerability/[wordpress instance is exploited]? 
+
+Now the attacker has to all the other services/apps inside the cluster, they can curl APIs that you did not expect them to, from your side of the firewall.  They can poke around in your ecommerce backend, they can see if the HR database is accessible.  Well it is better to just lock down this cross namespace network traffic leveraging the feature of ACS to create network policy. 
+
+There are a lot of other capabilities that we could explore in ACS.  We will have to save that for an independent drill-down on this product later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
