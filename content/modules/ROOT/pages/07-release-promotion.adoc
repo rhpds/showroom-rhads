@@ -53,13 +53,13 @@ Give the release a title and click the *Create release* button
 
 image::promotion-9.png[]
 
-Another release pipeline will be triggered and if the enterprise contract passes then the container image will be promoted production.
+Another release pipeline will be triggered and if the Enterprise Contract passes then the container image will be promoted production.
 
 image::promotion-10.png[]
 
 image::promotion-11.png[]
 
-
+If you have a failure with Enterprise Contract see the Tips section
 
 
 

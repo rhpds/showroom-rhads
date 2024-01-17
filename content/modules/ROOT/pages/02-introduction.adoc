@@ -2,8 +2,9 @@
 
 Red Hat Trusted Application Pipeline
 
-RHTAP = RHDH (developer self-service) + RHTAS (signature, attestation) + RHTPA (SBOM)
+This demonstration takes the audience on a journey across the Software Development Lifecycle (SDLC), from code, to build, through continuous deployment and finally to running in production. An end-to-end DevSecOps CI/CD demonstration of Red Hat Trusted Application Pipeline (RHTAP) incorporating Developer Hub, a developer self-service portal based on Backstage, to standardize and expedite developer onboarding with golden path templates imbued with security guardrails.
 
+RHTAP *=* RHDH (developer self-service) *+* RHTAS (signature, attestation) *+* RHTPA (SBOM)
 
 Within a large enterprise the time required for a newly hired app developer to become productive is often measured in weeks.  In this demonstration, we are going to show you how to shrink those weeks down to minutes with a developer-optimized self-service Internal Development Platform (IDP) that pre-integrates software supply chain security practices from the moment of project inception.
 
@@ -21,23 +22,29 @@ In this story, we are are going to hear about 3 major new ideas:
 * Documentation as Code
 * Templates with golden paths that automate securing your software supply chain
 
+No tickets, no wait, let's go
+
+Please contact the RHTAP product team on https://redhat.enterprise.slack.com/archives/C06D1L9N6J3[Slack] for assistance and to provide feedback related to these materials.
+
+
+
 == Pre-stage Setup
 
-Consider the following steps *BEFORE* sharing your screen with the audience.  This allows the presenter to switch between the developer and PE perspectives.  During the presentation you are primarily within the developer perspective, focusing on Developer Hub as the primary user experience.
+Consider the following steps *BEFORE* sharing your screen with the audience.  This allows the presenter to switch between the developer and platform engineer (PE) perspectives.  During the majority of the presentation you are primarily within the developer perspective, focusing on Developer Hub as the primary user experience.
 
 * Browser 1: login as developer 
 * Browser 2: login as platform engineer - using incognito mode or a 2nd browser (e.g. Firefox vs Safari)
 * Run the end-to-end to cache images and validate your flow/narrative
-* Previously started a Dev Space or
+* Previously tested a Dev Space or
 * Double check your local laptop git, mvn and IDE (VS Code, IntelliJ) are ready to go
 
-https://www.youtube.com/watch?v=n1IrNe5MmZg[Why Backstage?]
+A super short video on the https://www.youtube.com/watch?v=n1IrNe5MmZg[core value propositions] of *Backstage*
 
 == Login as developer 
 
 image::login-dev-user1-1.png[]
 
-*Click GitLab*
+Click *GitLab*
 
 image::login-dev-user1-2.png[]
 
@@ -45,11 +52,11 @@ Enter *user1* and the password provided
 
 image::login-dev-user1-3.png[]
 
-*Click Authorize*
+Click *Authorize*
 
 image::login-dev-user1-4.png[]
 
-Enter an email address for Keycloack like `user1@opentlc.com`
+Enter an email address for Keycloak like `user1@opentlc.com`
 
 image::login-dev-user1-5.png[]
 

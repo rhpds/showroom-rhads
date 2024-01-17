@@ -4,14 +4,19 @@
 :sectnums:
 :icons: font
 
-== 1. Introduction
+== 1. Agenda
 
-== 2. New Hire Onboarding
+== 2. Introduction
 
-== 3. Golden Path Template
+== 3. New Hire Onboarding
 
-== 4. Code Change
+== 4. Golden Path Template
 
-== 5. Pipeline Exploration
+== 5. Code Change
+
+== 6. Pipeline Exploration
+
+== 7. Release & Promotion
+
 
 

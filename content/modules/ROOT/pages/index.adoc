@@ -4,6 +4,7 @@ This demonstration takes the audience on a journey across the Software Developme
 We will be using Red Hat SSO for authentication and an in-cluster GitLab for source code management (SCM). This demonstration also includes Advanced Cluster Security (ACS) within the pipeline for CVE (common vulnerabilities and exposures), policy and yaml scanning to complete the DevSecOps story.
 
 Featured Products:
+
 * Red Hat Trusted Application Pipeline
 * Red Hat Developer Hub
 * Red Hat Trusted Artifact Signer

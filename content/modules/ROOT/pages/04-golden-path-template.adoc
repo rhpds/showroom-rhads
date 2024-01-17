@@ -19,9 +19,13 @@ image::golden-path-template-2.png[]
 I see some questions to be answered and I just need to follow the wizard, follow the path laid before me.
 
 Name: *andrew-app*
+
 Group Id: *redhat.janus*
+
 Artifact Id: *andrew-app*
+
 Java Package Name: *org.redhat.janus*
+
 Description: *A cool Andrew app*
 
 image::golden-path-template-3.png[]
@@ -30,11 +34,11 @@ I will click on *NEXT STEP*
 
 Narrator: All of these wizard steps, all of these prompts are customizable by your organization.  As a matter of fact, a template is just another set of files in your git repository.  You want to be open to pull requests or merge requests. You want a culture that encourages collaboration and contribution.  Perhaps you have heard of the phrase "Inner Sourcing" recently.   Inner Sourcing is a whole presentation unto itself but for now, let just keep going with our developer story.  
 
-https://about.gitlab.com/topics/version-control/what-is-innersource/
+https://about.gitlab.com/topics/version-control/what-is-innersource/[What is Innersource]
 
 Developer: I remember during the interviews that we discussed that the company has been modernizing to containers and Kubernetes.  I remember they said they use the Quay container registry so I will select *Quay*
 
-image::golden-path-templates-4.png[]
+image::golden-path-template-4.png[]
 
 And take all the defaults.  I will click on *NEXT STEP*
 
@@ -48,7 +52,9 @@ Everything looks great, let's just click *CREATE*
 
 image::golden-path-template-7.png[]
 
-Narrator: Now a LOT has happened in the background, for our developer, it was a few simple points and clicks, answer a few questions, all self-service, no tickets, no waiting.  The way this template is configured it requires a code change to kick off the pipeline.
+Narrator: Now a LOT has happened in the background, for our developer, it was a few simple points and clicks, answer a few questions, all self-service, no tickets, no waiting.  
+
+The way this template is configured it requires a code change to kick off the pipeline.
 
 Let's go make a code change.
 

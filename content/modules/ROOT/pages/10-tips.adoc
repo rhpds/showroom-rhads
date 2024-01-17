@@ -1,14 +1,17 @@
 == Tips
 
-== Cluster Sleep/Wake
+=== Cluster Sleep/Wake
 
 demo.redhat.com will *auto-stop* or essentially sleep your cluster, upon restart/wake enterprise contract is likely to fail as the Rekor public key chances upon cluster awakening. Enterprise contract being part of the promotion pipeline used with a GitLab tag or release event.
 
 image::tip-1.png[]
 
-1. The new Rekor public key needs to be accessed
+
+image::tip-6.png[]
+
+1. The new Rekor public key needs to be downloaded
 2. You need to login to the in-cluster Vault via its token
-3. You update the public key of *janusidp/rekor*
+3. You update the public key of *janusidp/rekor* with the new Rekor public key
 
 Download the Rekor public key by visit YOUR unique version of the following URL:
 
@@ -41,3 +44,5 @@ Paste in the contents from downloaded key from
 https://rekor-server-rekor.apps.cluster-z7zmt.sandbox2366.opentlc.com/api/v1/log/publicKey
 
 image::tip-5.png[]
+
+Note: After this change, you need to create a new component/application, run through its build pipeline and then use its promotion pipeline (tag, release)

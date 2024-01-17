@@ -3,12 +3,14 @@
 
 image::login-dev-user1-6.png[]
 
-Narrator: As part of the back story, Spotify invented a techology called Backstage, an open source project that was donated to the CNCF, to address a very specific painpoint.  They were hiring new developers pratically every day and they found it took 60 days for a newly hired developer to become a real contributor as measured by the time-to-10th-pull-request.  Furthermore, the new hires were also slowing down the veterans, the experienced developers, the ones who had already gotten through the learning curve, by asking the same questions again and again.
+Narrator: As part of the backstory, Spotify invented a techology called Backstage, an open source project that was donated to the CNCF, to address a very specific painpoint.  They were hiring new developers pratically every day and they found it took 60 days for a newly hired developer to become a real contributor as measured by the time-to-10th-pull-request.  Furthermore, the new hires were also slowing down the veterans, the experienced developers, the ones who had already gone through the learning curve, by asking the same questions again and again.
 
 
-https://engineering.atspotify.com/2021/05/a-product-story-the-lessons-of-backstage-and-spotifys-autonomous-culture[how long did it take for a new engineer to merge their tenth pull request at Spotify?]
+https://engineering.atspotify.com/2021/05/a-product-story-the-lessons-of-backstage-and-spotifys-autonomous-culture[How long did it take for a new engineer to merge their tenth pull request at Spotify?]
 
 https://backstage.spotify.com/blog/measuring-backstage-success-at-spotify/[Time-to-10th PR]
+
+Backstage and Red Hat Developer Hub accordingly solves 3 specific problems:
 
 * Bookmark Hell - like DLL Hell but with URLs
 * Ticket Purgatory - no tickets, no wait
@@ -16,9 +18,9 @@ https://backstage.spotify.com/blog/measuring-backstage-success-at-spotify/[Time-
 
 Developer: Let's say that I am a newly hired developer to your organization and I just started today.
 
-Right after signing my HR paperwork, I received my laptop, an email address, shiny new employee badge (to get in the physical doors) and VPN access.  Now, what do I do next?  Well I received an email from my manager with a welcome message and a link to a URL on the VPN.
+Right after signing my HR paperwork, I received my laptop, an email address, shiny new employee badge (to get in the physical doors) and VPN access.  Now, what do I do next?  Well I received an email from my manager with a welcome message and a link to a URL on the VPN.  
 
-When I was interviewing for the job, my future boss wanted to know about my Java coding skills, my understanding of CI/CD as well as my experience within the organizational domain.  Well now I am at my first hour on the job and I am ready to dive in.  As a developer, I would rather be always exercising my super power - creating code - as that is why I choose this career. 
+When I was interviewing for the job, my future boss wanted to know about my Java coding skills, my understanding of CI/CD as well as my experience within the organizational domain.  Now I am at my first hour on the job and I am eager to dive in.  As a developer, I would rather be always exercising my super power - creating code - as that is why I choose this career. 
 
 The first thing I will see is Red Hat Developer Hub (normally this would be customized with the corporations color scheme and logo) or my new company's Internal Developer Portal (IDP).  And my very first questions are "what are all my new colleagues working on?" and "what are our standards here?".  
 
@@ -28,9 +30,9 @@ image::catalog-dev-1.png[]
 
 image::catalog-dev-2.png[]
 
-Narrator: The Catalog is feature #1
+Narrator: The Catalog is Backstage feature #1
 
-Developer:  As a developer, I remember during my interview that I was expected to join the ecommerce team.  So, with this catalog, I can quickly and easily search for *ecommerce*.
+Developer:  As a developer, I remember during my interview that I was expected to join the ecommerce team.  So with this catalog I can quickly and easily search by typing *ecommerce* into the filter field.
 
 image::catalog-dev-3.png[]
 
@@ -44,9 +46,9 @@ image::catalog-dev-5.png[]
 
 Narrator: Please note this is not a real business and these are not real catalog enteries, just examples as to how to leverage the RHDH/Backstage Catalog feature. The real catalog enteries are formed when executing templates.
 
-Developer: I can now better understand the overall architecture of this component, I can see what APIs it produces, APIs it consumes and dependencies on things like databases and Kafka topics.  This helps me understand how the codebases are organized and that this organization uses Kafka, S3 or particular databases.
+Developer: I can now better understand the overall architecture of this component, I can see what APIs it produces, APIs it consumes, and dependencies on things like databases and Kafka topics.  This helps me understand how the codebases are organized and that this organization uses Kafka, S3, or particular databases.
 
-I can drill-donw into this component *View Graph*
+I can drill-down into this component *View Graph*
 
 image::catalog-dev-6.png[]
 
@@ -64,4 +66,4 @@ No bookmark hell - everything I need in one place.
 
 Narrator: When Spotify invented Backstage they designed it so that a developer only needed to really know 3 things: Their IDE, the git repo manager like GitHub or GitLab and the URL to this portal.  The one stop shop for everything a developer needs. You could add links for Slack channels, whom to contact, etc.
 
-Now, you might be thinking that you have a wiki system to help manage all of this content.  Perhaps something like Confluence, well I have never heard of a wiki that was always up to date.  In the case of the Developer Hub Catalog, the items are aligned with and tied to the git repositories themselves.  The git repos are the source of truth. This does require some yaml in each git repo to hold this metadata.  We will see this yaml a bit later in the demonstration as we learn about templates.
+Now, you might be thinking that you have a wiki system to help manage all of this content.  Perhaps something like Confluence, well I have never heard of a wiki that was always up to date.  In the case of the Developer Hub Catalog, the items are aligned with and tied to the git repositories themselves.  The git repos are the source of truth. This does require some yaml in each git repo to hold this metadata.  We will see this yaml a bit later in the demonstration as we learn about templates and golden paths.
