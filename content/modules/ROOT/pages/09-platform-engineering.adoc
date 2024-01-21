@@ -2,6 +2,110 @@
 
 Narrator: In this section, we are no longer the developer but now let's talk to our platform folks, the folks who really wish to understand how the magic happens.
 
+
+Note: Make sure to have already opened all the admin consoles for OpenShift, ACS, Quay and Argo.  Instructions in the Introduction chapter.
+
+There are a few key probing questions to ask your audience:
+
+1. How many days does your customer, your enterprise application developer, wait for tickets, for a VM, for a resource?
+2. For a newly onboarded developer, how many weeks is it before they become productive and a real contributor to a project? (what is your turnover rate for offsource/outsourced people?)
+3. Who is your product manager responsible for making your IDP awesome for its users, for its customers?
+
+This is where we advocate for *shift-down* instead of *shift-left*.  Shift-left, meaning bring the security controls and tools into the hands of developers can be problematic because developers often face overwhelming cognitive load.
+
+image::cognitive-load.png[]
+
+https://cloud.google.com/blog/products/application-development/richard-seroter-on-shifting-down-vs-shifting-left[Shift Down vs Shift Left]
+
 In this section we are going to pull back the curtains a bit and learn what 'shift-down' means.  There is a person who takes on the burden of designing, operating and always improving this amazing Internal Developer Platform - they are called the Platform Engineer.  
 
-*Under Construction*
+Let's reveal the secret sauce.
+
+While the developer would only see the specific Namespaces and ArgoCD Applications that they have access to, the Platform Engineer would have access to all the things.
+
+Developer View
+
+image::pe-1.png[]
+
+PE View
+
+image::pe-2.png[]
+
+-dev, -pre-prod and -prod are implemented as OpenShift Projects (Namespaces), each managed by an ArgoCD Application.
+
+image::pe-3.png[]
+
+-bootstrap is the ArgoCD Application that gives birth to all the ArgoCD Applications.
+
+-dev-build is the ArgoCD Application that this particular template uses to practice pipelines-as-code.  
+
+=== Git repository exploration
+
+All of these artifacts are in the git repository.  Simply trim off *andrew-app* in the git URL to reveal the gitops repository.
+
+image::pe-4.png[]
+
+image::pe-5.png[]
+
+Then click down into *andrew-app-gitops* and *argocd*
+
+image::pe-6.png[]
+
+Under *andrew-app-gitops* / *helm* / *app* / *templates* you will find the application manifests
+
+image::pe-7.png[]
+
+Under *andrew-app-gitops* / *helm* / *build* / *templates* you will find the pipeline definition yamls
+
+image::pe-8.png[]
+
+Remember, while there is a fair bit of complexity here, below the surface, underneath the covers, the developer experience is relatively much easier - to reduce their cognitive load with the more simplified experiences of Red Hat Developer Hub.
+
+The question in the minds of the audience right now is where do all these files come from, how do I customize them, how do I maintain them over time?
+
+Remove the string "development/andrew-app-gitops/" from the git URL, this reveals the Backstage template directory.
+
+image::pe-9.png[]
+
+Now we really are going "backstage" and behind-the-scenes, pulling back the curtain.
+
+The folder project-dance-templates is the template itself. Specifically *project-dance-templates* / *scaffolder-templates* / *quarkus-stssc-template*
+
+image::pe-10.png[]
+
+The key file is *template.yaml* as that is what identifies this repository to Backstage as a template. 
+
+The *skeleton* is the default Java project.  
+
+image::pe-11.png[]
+
+This project and specifically the *pom.xml* are the ones where the App Dev teams would love to collaborate around, would love to submit pull requests or merge requests against.  App Devs tend to have a lot of interest in changing their default *stack* which is embodied in the pom.xml for a Java project or *requirements.txt for Python* or *package.json for Node.js*
+
+The *manifests* directory includes the files you saw show up inside of the end-user's gitops directory.
+
+image::pe-12.png[]
+
+This is where the PE would customize their ArgoCD Applications and pipeline definition to meet their requirements.
+
+You can see the wildcards that are replaced at template instantiation time.
+
+image::pe-13.png[]
+
+=== OpenShift Admin View
+
+The Tekton-based pipeline executes inside of the -dev Namespace and it is visible via the Pipelines view of the OpenShift Admin Console
+
+image::pe-14.png[]
+
+You can see with the screenshot above that the PE has access to everything, every detail, they are often the OpenShift cluster admins. While the App Developer has the vastly more streamlined view inside of Red Hat Developer Hub.
+
+A common question from audiences is "how is the RHDH instance itself configured?" and the answer lies in the ConfigMaps of the *backstage* namespace.
+
+image::pe-15.png[]
+
+*backstage-app-config* holds the primary overall configuration for Backstage itself.
+
+*dynamic-plugins* determines which plug-ins are visible to end-users.
+
+PE-users of Red Hat Developer Hub will always be customizing their IDP for their end-users, their customers known as App Developers.  The App Developers will also wish to collaborate and contribute back to the core templates, perhaps also contributing back new plug-ins as well.  The synergistic relationship between Devs and PEs is critical an enterprise's overall success when introducing an IDP.
+

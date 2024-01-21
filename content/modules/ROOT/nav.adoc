@@ -14,7 +14,7 @@
 
 * xref:08-runtime.adoc[8. Runtime]
 
-* xref:09-platform-engineering.adoc[8. Platform Engineering]
+* xref:09-platform-engineering.adoc[9. Platform Engineering]
 
 * xref:10-tips.adoc[10. Tips]
 
