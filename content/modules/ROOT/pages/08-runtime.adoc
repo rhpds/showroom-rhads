@@ -72,11 +72,11 @@ image::run-acs-10.png[]
 
 image::run-acs-11.png[]
 
-Let's say you have a cluster that includes mixed worloads, let's say the ecommerce team has their shopping cart and catalog in the cluster, plus you have the marketing department, in their own namespace, also in the same cluster.  It is pretty common for a marketing department to have a point-in-time need, stand up a new website for particular campaign.  Perhaps they just want to run some ads at the Super Bowl and have a landing page for the offering.  In any case, sometimes those wordpress instance simply get ignored, sometimes we forget to patch them - the business itself forgets about the application.  And what if what https://www.securityweek.com/wordpress-6-4-2-patches-remote-code-execution-vulnerability/[wordpress instance is exploited]? 
+Let's say you have a cluster that includes mixed worloads, let's say the ecommerce team has their shopping cart and catalog in the cluster, plus you have the marketing department, in their own namespace, also in the same cluster.  It is pretty common for a marketing department to have a point-in-time need, stand up a new website for particular campaign.  Perhaps they just want to run some ads at the Super Bowl and have a landing page for the offering.  In any case, sometimes those wordpress instance simply get ignored, sometimes we forget to patch them - the business itself forgets about the application.  And what if your https://www.securityweek.com/wordpress-6-4-2-patches-remote-code-execution-vulnerability/[wordpress instance is exploited]? 
 
-Now the attacker has to all the other services/apps inside the cluster, they can curl APIs that you did not expect them to, from your side of the firewall.  They can poke around in your ecommerce backend, they can see if the HR database is accessible.  Well it is better to just lock down this cross namespace network traffic leveraging the feature of ACS to create network policy. 
+Now the attacker might have access to all the other services/apps inside the cluster, they can curl APIs that you did not expect them to, from your side of the firewall.  They can poke around in your ecommerce backend, they can see if the HR database is accessible.  It is better to just lock down this cross-namespace network traffic leveraging the feature of ACS to create network policy. 
 
-There are a lot of other capabilities that we could explore in ACS.  We will have to save that for an independent drill-down on this product later.
+There are a lot of other capabilities that we could explore in ACS but we will have to save that for an independent drill-down on this product. 
 
 
 

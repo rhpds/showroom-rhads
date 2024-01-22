@@ -4,7 +4,7 @@ Red Hat Trusted Application Pipeline
 
 This demonstration takes the audience on a journey across the Software Development Lifecycle (SDLC), from code, to build, through continuous deployment and finally to running in production. An end-to-end DevSecOps CI/CD demonstration of Red Hat Trusted Application Pipeline (RHTAP) incorporating Developer Hub, a developer self-service portal based on Backstage, to standardize and expedite developer onboarding with golden path templates imbued with security guardrails.
 
-RHTAP *=* RHDH (developer self-service) *+* RHTAS (signature, attestation) *+* RHTPA (SBOM)
+RHTAP = RHDH (developer self-service) + RHTAS (signature, attestation) + RHTPA (SBOM)
 
 Featured products in this demonstration include:
 
@@ -19,7 +19,7 @@ Featured products in this demonstration include:
 * Red Hat OpenShift Dev Spaces
 * Red Hat OpenShift
 
-Within a large enterprise the time required for a newly hired app developer to become productive is often measured in weeks.  In this demonstration, we are going to show you how to shrink those weeks down to minutes with a developer-optimized self-service Internal Development Platform (IDP) that pre-integrates software supply chain security practices from the moment of project inception.
+Within a large enterprise the time required for a newly hired app developer to become productive is often measured in weeks.  In this demonstration, we are going to show you how to shrink those weeks down to minutes with a developer-optimized, self-service, Internal Development Platform (IDP) that pre-integrates software supply chain security practices from the moment of project inception.
 
 This is the story of how Red Hat imbues your software supply chain with the content, templates, signatures, attestations, and SBOMs that accelerate your custom application development across the software development lifcycle of code, build, deploy and run.  This is the story of how Red Hat empowers your Platform Engineering teams who then in turn super charge your custom application developers.
 
