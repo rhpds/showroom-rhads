@@ -1,13 +1,11 @@
 == Signing commits
 
-----
-git commit -S -am "a signed commit"
-----
 
-
-On the template wizard look for
+On the template wizard look for **Verify Commits**
 
 image::signed-commits-0.png[]
+
+Connect to the RHEL9 VM via VNC
 
 image::signed-commits-1.png[]
 
@@ -15,25 +13,47 @@ image::signed-commits-2.png[]
 
 image::signed-commits-3.png[]
 
+Find VS Code
+
 image::signed-commits-4.png[]
 
 image::signed-commits-5.png[]
 
+Open a Terminal
+
 image::signed-commits-6.png[]
+
+Use the VNC tool to allow copy & paste between your laptop and the remote Linux VM, in this case, you want the URL to the newly generated repository inside of Gitlab
 
 image::signed-commits-7.png[]
 
 image::signed-commits-8.png[]
 
+Use **File-Open Folder** menu and select the folder of the newly git cloned repository
+
 image::signed-commits-9.png[]
 
 image::signed-commits-10.png[]
 
+Make a code change
+
 image::signed-commits-11.png[]
+
+----
+git status
+----
 
 image::signed-commits-12.png[]
 
+Use the git commit with **-S* option, this will pop-up the browser
+
+----
+git commit -S -am "a signed commit"
+----
+
 image::signed-commits-13.png[]
+
+Login with **User 1**
 
 image::signed-commits-14.png[]
 
@@ -41,11 +61,41 @@ image::signed-commits-15.png[]
 
 image::signed-commits-16.png[]
 
+----
+git push
+----
+
 image::signed-commits-17.png[]
+
+The `git push` will require a login to Gitlab 
 
 image::signed-commits-18.png[]
 
 image::signed-commits-19.png[]
 
+The **verify-commit** will now pass
+
 image::signed-commits-20.png[]
 
+== Setting up local VS Code
+
+Take the config from the RHEL9 VS Code machine
+
+----
+git config --global --edit
+----
+
+
+----
+[gitsign]
+        fulcio = https://fulcio.apps.cluster-w4cfv.sandbox1117.opentlc.com
+        issuer = https://keycloak-keycloak-system.apps.cluster-w4cfv.sandbox1117.opentlc.com/auth/realms/sigstore
+        rekor = https://rekor.apps.cluster-w4cfv.sandbox1117.opentlc.com
+        clientid = sigstore
+----
+
+image::signed-commits-30.png[]
+
+Copy the contents and run the same command on your machine
+
+image::signed-commits-31.png[]
