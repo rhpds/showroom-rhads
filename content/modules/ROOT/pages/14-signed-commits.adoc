@@ -77,14 +77,26 @@ The **verify-commit** will now pass
 
 image::signed-commits-20.png[]
 
-== Setting up local VS Code
+== Setting up local VS Code on Mac
+
+Install gitsign
+
+----
+brew tap sigstore/tap
+brew install gitsign
+----
+
+**git clone** repository to local machine
 
 Take the config from the RHEL9 VS Code machine
+
+image::signed-commits-30.png[]
 
 ----
 git config --global --edit
 ----
 
+It should look something like the following:
 
 ----
 [gitsign]
@@ -94,8 +106,28 @@ git config --global --edit
         clientid = sigstore
 ----
 
-image::signed-commits-30.png[]
+Locally also use `git config --global --edit` to populate the gitsign section
 
-Copy the contents and run the same command on your machine
+----
+git config --local commit.gpgsign true
+git config --local tag.gpgsign true
+git config --local gpg.x509.program gitsign
+git config --local gpg.format x509
+----
+
+Make a code chage
+
+----
+git commit -S -am "signing from Mac"
+----
 
 image::signed-commits-31.png[]
+
+image::signed-commits-32.png[]
+
+image::signed-commits-33.png[]
+
+image::signed-commits-34.png[]
+
+
+
