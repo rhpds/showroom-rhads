@@ -109,8 +109,6 @@ Open the pom.xml and add in the following dependencies
         </dependency>
 ----
 
-*Do not hit save*
-
 The Log4J vulunerability is particularly interesting.  You might even remember where you were in December of 2021 when the Log4shell news broke.  I have talked to a number of big companies that had folks running around with their hair on fire - "where is log4j?".  The vulnerable code had been in the codbase for 8 years. It is a very widely deployed Java library as a very popular logging framework.  Apparently someone thought it would be clever to add a JNDI feature eons ago.  Well an Alibaba engineer that discovered that this code could be exploited for remote execution in Nov of 2021.  They properly alerted the Apache Foundation and a patch was crafted.  The problem with a zero day vulnerability is that you have zero days to react.  The moment the patch is revealed means evil doers also become aware of the exploit - it becomes a race to see who can patch versus who will be exploited. 
 
 

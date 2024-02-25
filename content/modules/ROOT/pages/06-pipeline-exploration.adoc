@@ -31,11 +31,19 @@ Back to the pipeline itself and let's look at the 3 Advanced Cluster Security ta
 image::pipeline-exploration-4.png[]
 
 
-The bottom-most task is performing CVE scanning via `roxctl image scan`.  You can double-click on the node to see the logs. 
+The bottom-most task is performing CVE scanning via `roxctl image scan`.  
 
 The middle task is performing a policy check via `roxctl image check`.  These policies might be things like 'No log4j allowed' or perhaps no curl, wget nor a package manager in a production image.  
 
 The top-most task is perform yaml scanning via `roxctl deployment check` and it might identify that your Deployment.yaml has not properly configured its resource request and limit. 
+
+A series of dashboards visualize the reporting from these 3 *roxctl* tasks, click on the *View Output* icon under *ACTIONS*
+
+image::pipeline-exploration-4-1.png[]
+
+image::pipeline-exploration-4-2.png[]
+
+image::pipeline-exploration-4-3.png[]
 
 These ACS polices can be seen on the following screen, just look for *Build* policies under lifecycle.  
 

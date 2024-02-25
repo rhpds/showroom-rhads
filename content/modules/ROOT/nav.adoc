@@ -18,5 +18,5 @@
 
 * xref:10-tips.adoc[10. Tips]
 
-* xref:14-signed-commits.adoc[14. Sign Commits via git-sign]
+* xref:11-signed-commits.adoc[11. Sign Commits via git-sign]
 
