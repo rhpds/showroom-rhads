@@ -24,7 +24,7 @@ and click *Create tag*
 
 image::promotion-4.png[]
 
-Back to the portal and the *CI* tag to see the promotion pipeline in action
+Back to the portal and the *CI* tab to see the promotion pipeline in action
 
 image::promotion-5.png[]
 

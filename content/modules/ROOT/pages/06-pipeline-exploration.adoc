@@ -81,5 +81,7 @@ image::pipeline-exploration-8.png[]
 
 image::pipeline-exploration-9.png[]
 
+image::pipeline-exploration-10.png[]
+
 Note: This UX is depends on the openapi.yaml being updated correctly.  If you are using `quarkus:dev` while editing the code them it gets updated automatically as ExampleResource.java is updated.
 
