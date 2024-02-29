@@ -37,7 +37,7 @@ In this story, we are are going to hear about 3 major new ideas:
 
 No tickets, no wait, let's go
 
-Please contact the RHTAP product team on https://redhat.enterprise.slack.com/archives/C06D1L9N6J3[Slack] for assistance and to provide feedback related to these materials.
+Please contact the RHTAP product team on https://redhat.enterprise.slack.com/archives/C06D1L9N6J3 [Slack] for assistance and to provide feedback related to these materials. (Note: Please open the link in a new tab) 
 
 
 
