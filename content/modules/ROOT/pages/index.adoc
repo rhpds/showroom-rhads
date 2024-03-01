@@ -17,7 +17,7 @@ Featured Products:
 * Red Hat OpenShift
 
 Please contact the RHTAP product team on Slack for assistance and to provide feedback related to these materials.
-https://redhat.enterprise.slack.com/archives/C06D1L9N6J3
+https://redhat.enterprise.slack.com/archives/C06D1L9N6J3 (Note: Please open this link in a New Tab)
 
 Throughout this demonstration, we aim to equip you with both the strategic understanding and the technical know-how to navigate and mitigate sophisticated cybersecurity threats. 
 
