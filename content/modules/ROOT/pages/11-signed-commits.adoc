@@ -1,77 +1,90 @@
 == Signing commits
 
-
 On the template wizard look for **Verify Commits**
 
 image::signed-commits-0.png[]
 
-Connect to the RHEL9 VM via VNC
+* "To trigger our secure build pipeline, open VSCode and make a small change to the documentation.
 
-image::signed-commits-1.png[]
+* You click on the *Open Component in Catalog* link.
 
-image::signed-commits-2.png[]
+image::11_Executed_GPT.png[]
 
-image::signed-commits-3.png[]
+* You find and click on the *OpenShift Dev Spaces (VSCode)* link.
 
-Find VS Code
+image::95_Click_Openshift_Devspaces.png[]
 
-image::signed-commits-4.png[]
+* *OpenShift Dev Spaces* then begins creating your workspace, just like before.
 
-image::signed-commits-5.png[]
+* After waiting a few minutes for *OpenShift Dev Spaces* to finish setting up your workspace, you're presented with your IDE.
+* You click the button *Yes, I trust the authors*.
 
-Open a Terminal
+image::96_Trust_Authors.png[]
 
-image::signed-commits-6.png[]
+* "For the purpose of this demo, updating the documentation will be enough to trigger the new build pipeline"
+* You expand the docs folder and open the markdown file *index.md*.
+* At the document's end, you add: "Build pipeline integrated with security tools."
 
-Use the VNC tool to allow copy & paste between your laptop and the remote Linux VM, in this case, you want the URL to the newly generated repository inside of Gitlab
+image::97_Index_Markdown_Updated.png[]
 
-image::signed-commits-7.png[]
+* You click on the *Hamburger button* (three horizontal bars) on the top left of your screen and select *Terminal -> New Terminal*
 
-image::signed-commits-8.png[]
+image::98_Terminal_Menu.png[]
 
-Use **File-Open Folder** menu and select the folder of the newly git cloned repository
-
-image::signed-commits-9.png[]
-
-image::signed-commits-10.png[]
-
-Make a code change
-
-image::signed-commits-11.png[]
-
+* Run the below command on the *VS Code* terminal to view the Gitsign global git config:
++
+[source, role="execute"]
 ----
-git status
+git config --global --list
 ----
 
-image::signed-commits-12.png[]
+NOTE: You may need to allow paste functionality when prompted by the browser.
 
-Use the git commit with **-S* option, this will pop-up the browser
+image::94_Gitsign_Git_Global_Config.png[]
 
+* To begin commiting your code to the repository, run the following command to add your changes to staging:
++
+[source, role="execute"]
 ----
-git commit -S -am "a signed commit"
+git add .
+----
+* Run the next command to commit your changes:
++
+[source, role="execute"]
+----
+git commit -m "Doc Update"
+----
+* You will notice that you receive an error message that states *error opening browser: exec: "xdg-open": executable file not found in $PATH*.  This is because our *VS Code* terminal is trying to open a browser window to obtain your credentials for signing but is unable to as it is running as a container.
+* However, Gitsign allows you to provide your signing credentials by copying and pasting the url it outputs into a separate browser window.
+* Copy and paste the url into a new browser tab/window and hit enter.
+
+image::90_Gitsign_Commit_Message.png[]
+
+* The browser will prompt you for your credentials.  Enter devspaces username and password.
+
+image::91_Gitsign_Credentials_Prompt.png[]
+
+* You will then be redirected to another page that will present a verification code.  Copy this code into your clipboard.
+
+image::92_Gitsign_Verification_Code.png[]
+
+* Return to *Dev Spaces* and paste this code into the waiting prompt in the *VS Code* terminal and hit enter:
++
+[source, role="execute"]
+----
+Enter verification code:
 ----
 
-image::signed-commits-13.png[]
+* If successful, you should receive a successful commit message:
++
+image::93_Gitsign_Commit_Signed.png[]
 
-Login with **User 1**
-
-image::signed-commits-14.png[]
-
-image::signed-commits-15.png[]
-
-image::signed-commits-16.png[]
-
+* Push the code to the repository with the below command:
++
+[source, role="execute"]
 ----
 git push
 ----
-
-image::signed-commits-17.png[]
-
-The `git push` will require a login to Gitlab 
-
-image::signed-commits-18.png[]
-
-image::signed-commits-19.png[]
 
 The **verify-commit** will now pass
 
