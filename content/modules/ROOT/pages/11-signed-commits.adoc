@@ -8,28 +8,28 @@ image::signed-commits-0.png[]
 
 * You click on the *Open Component in Catalog* link.
 
-image::11_Executed_GPT.png[]
+image::signed-commits-35.png[]
 
 * You find and click on the *OpenShift Dev Spaces (VSCode)* link.
 
-image::95_Click_Openshift_Devspaces.png[]
+image::signed-commits-36.png[]
 
 * *OpenShift Dev Spaces* then begins creating your workspace, just like before.
 
 * After waiting a few minutes for *OpenShift Dev Spaces* to finish setting up your workspace, you're presented with your IDE.
 * You click the button *Yes, I trust the authors*.
 
-image::96_Trust_Authors.png[]
+image::signed-commits-37.png[]
 
 * "For the purpose of this demo, updating the documentation will be enough to trigger the new build pipeline"
 * You expand the docs folder and open the markdown file *index.md*.
 * At the document's end, you add: "Build pipeline integrated with security tools."
 
-image::97_Index_Markdown_Updated.png[]
+image::signed-commits-38.png[]
 
 * You click on the *Hamburger button* (three horizontal bars) on the top left of your screen and select *Terminal -> New Terminal*
 
-image::98_Terminal_Menu.png[]
+image::signed-commits-39.png[]
 
 * Run the below command on the *VS Code* terminal to view the Gitsign global git config:
 +
@@ -40,7 +40,7 @@ git config --global --list
 
 NOTE: You may need to allow paste functionality when prompted by the browser.
 
-image::94_Gitsign_Git_Global_Config.png[]
+image::signed-commits-40.png[]
 
 * To begin commiting your code to the repository, run the following command to add your changes to staging:
 +
@@ -58,15 +58,15 @@ git commit -m "Doc Update"
 * However, Gitsign allows you to provide your signing credentials by copying and pasting the url it outputs into a separate browser window.
 * Copy and paste the url into a new browser tab/window and hit enter.
 
-image::90_Gitsign_Commit_Message.png[]
+image::signed-commits-41.png[]
 
 * The browser will prompt you for your credentials.  Enter devspaces username and password.
 
-image::91_Gitsign_Credentials_Prompt.png[]
+image::signed-commits-42.png[]
 
 * You will then be redirected to another page that will present a verification code.  Copy this code into your clipboard.
 
-image::92_Gitsign_Verification_Code.png[]
+image::signed-commits-43.png[]
 
 * Return to *Dev Spaces* and paste this code into the waiting prompt in the *VS Code* terminal and hit enter:
 +
@@ -77,7 +77,7 @@ Enter verification code:
 
 * If successful, you should receive a successful commit message:
 +
-image::93_Gitsign_Commit_Signed.png[]
+image::signed-commits-44.png[]
 
 * Push the code to the repository with the below command:
 +
@@ -101,33 +101,20 @@ brew install gitsign
 
 **git clone** repository to local machine
 
-Take the config from the RHEL9 VS Code machine
+Run the following commands to set up gitsign on your local machine.  For this example we've updated the global git config.  You may prefer to apply these changes locally instead of globally.
 
-image::signed-commits-30.png[]
-
-From the VS Code terminal, run the following command
-
+[source,console]
 ----
-git config --global --edit
-----
-
-It should look something like the following:
-
-----
-[gitsign]
-        fulcio = https://fulcio-server-trusted-artifact-signer.apps.cluster-7gq9c.sandbox2366.opentlc.com
-        issuer = https://keycloak-keycloak-system.apps.cluster-7gq9c.sandbox2366.opentlc.com/auth/realms/trusted-artifact-signer
-        rekor = https://rekor-server-trusted-artifact-signer.apps.cluster-7gq9c.sandbox2366.opentlc.com
-        clientid = trusted-artifact-signer
-----
-
-Locally also use `git config --global --edit` to populate the gitsign section
-
-----
-git config --local commit.gpgsign true
-git config --local tag.gpgsign true
-git config --local gpg.x509.program gitsign
-git config --local gpg.format x509
+$ git config --global user.email user1@opentlc.com
+$ git config --global user.name user1
+$ git config --global commit.gpgsign true
+$ git config --global tag.gpgsign true
+$ git config --global gpg.x509.program gitsign
+$ git config --global gpg.format x509
+$ git config --global gitsign.fulcio <fulcio-endpoint-url>
+$ git config --global gitsign.issuer <keycloak-endpoint-url>/auth/realms/trusted-artifact-signer
+$ git config --global gitsign.rekor <rekor-endpoint-url>
+$ git config --global gitsign.clientid trusted-artifact-signer
 ----
 
 Make a code chage
