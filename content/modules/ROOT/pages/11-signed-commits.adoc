@@ -92,6 +92,8 @@ Take the config from the RHEL9 VS Code machine
 
 image::signed-commits-30.png[]
 
+From the VS Code terminal, run the following command
+
 ----
 git config --global --edit
 ----
@@ -100,10 +102,10 @@ It should look something like the following:
 
 ----
 [gitsign]
-        fulcio = https://fulcio.apps.cluster-w4cfv.sandbox1117.opentlc.com
-        issuer = https://keycloak-keycloak-system.apps.cluster-w4cfv.sandbox1117.opentlc.com/auth/realms/sigstore
-        rekor = https://rekor.apps.cluster-w4cfv.sandbox1117.opentlc.com
-        clientid = sigstore
+        fulcio = https://fulcio-server-trusted-artifact-signer.apps.cluster-7gq9c.sandbox2366.opentlc.com
+        issuer = https://keycloak-keycloak-system.apps.cluster-7gq9c.sandbox2366.opentlc.com/auth/realms/trusted-artifact-signer
+        rekor = https://rekor-server-trusted-artifact-signer.apps.cluster-7gq9c.sandbox2366.opentlc.com
+        clientid = trusted-artifact-signer
 ----
 
 Locally also use `git config --global --edit` to populate the gitsign section
