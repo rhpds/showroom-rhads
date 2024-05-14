@@ -14,7 +14,7 @@ image::signed-commits-46.png[]
 
 * The *Golden Path Template (GPT)* kicks into action, and in just a few seconds it sets up everything you need for your *Quarkus* application.
 
-image::73_GPT_Flow.png[]
+image::signed-commits-47.png[]
 
 * You click on the *Open Component in Catalog* link.
 
@@ -26,11 +26,11 @@ image::signed-commits-36.png[]
 
 * You log in using your OpenShift credentials by clicking the *Log in with OpenShift* button.
 
-image::14_Login_With_OpenShift.png[]
+image::signed-commits-48.png[]
 
 * Then, you choose the Single Sign-On option by clicking the *rhsso* button
 
-image::15_Login_RHSSO.png[]
+image::signed-commits-49.png[]
 
 * You then enter your username and password as follows:
 ** *Username*: {developer_cluster_rhdh_user}
@@ -39,11 +39,11 @@ image::15_Login_RHSSO.png[]
 
 * You authorize *OpenShift Dev Spaces* to access your account by clicking the *Allow selected permissions* button.
 
-image::16_Allow_Selected_Permissions.png[]
+image::signed-commits-50.png[]
 
 * Subsequently, you click *Authorize* to grant *OpenShift Dev Spaces* access to your *GitLab* account.
 
-image::17_Authorize_Gitlab.png[]
+image::signed-commits-51.png[]
 
 * *OpenShift Dev Spaces* then begins creating your workspace, processing a *Devfile* containing all the configuration needed to set up your development environment.
 
