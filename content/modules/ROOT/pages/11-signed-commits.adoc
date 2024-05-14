@@ -144,9 +144,9 @@ $ git config --global commit.gpgsign true
 $ git config --global tag.gpgsign true
 $ git config --global gpg.x509.program gitsign
 $ git config --global gpg.format x509
-$ git config --global gitsign.fulcio <fulcio-endpoint-url>
-$ git config --global gitsign.issuer <keycloak-endpoint-url>/auth/realms/trusted-artifact-signer
-$ git config --global gitsign.rekor <rekor-endpoint-url>
+$ git config --global gitsign.fulcio https://fulcio-server-trusted-artifact-signer.<openshift-apps-domain>
+$ git config --global gitsign.issuer https://keycloak-keycloak-system.<openshift-apps-domain>/auth/realms/trusted-artifact-signer
+$ git config --global gitsign.rekor https://rekor-server-trusted-artifact-signer.<openshift-apps-domain>
 $ git config --global gitsign.clientid trusted-artifact-signer
 ----
 
