@@ -4,7 +4,17 @@ On the template wizard look for **Verify Commits**
 
 image::signed-commits-0.png[]
 
-* "To trigger our secure build pipeline, open VSCode and make a small change to the documentation.
+* Now, you hit the *Review* button for a final look at the form inputs.
+
+image::signed-commits-45.png[]
+
+* Everything checks out, click on the *Create* button.
+
+image::signed-commits-46.png[]
+
+* The *Golden Path Template (GPT)* kicks into action, and in just a few seconds it sets up everything you need for your *Quarkus* application.
+
+image::73_GPT_Flow.png[]
 
 * You click on the *Open Component in Catalog* link.
 
@@ -13,6 +23,29 @@ image::signed-commits-35.png[]
 * You find and click on the *OpenShift Dev Spaces (VSCode)* link.
 
 image::signed-commits-36.png[]
+
+* You log in using your OpenShift credentials by clicking the *Log in with OpenShift* button.
+
+image::14_Login_With_OpenShift.png[]
+
+* Then, you choose the Single Sign-On option by clicking the *rhsso* button
+
+image::15_Login_RHSSO.png[]
+
+* You then enter your username and password as follows:
+** *Username*: {developer_cluster_rhdh_user}
+** *Password*: {developer_cluster_rhdh_user_password}
+* After inputting your credentials, you click the *Sign in* button.
+
+* You authorize *OpenShift Dev Spaces* to access your account by clicking the *Allow selected permissions* button.
+
+image::16_Allow_Selected_Permissions.png[]
+
+* Subsequently, you click *Authorize* to grant *OpenShift Dev Spaces* access to your *GitLab* account.
+
+image::17_Authorize_Gitlab.png[]
+
+* *OpenShift Dev Spaces* then begins creating your workspace, processing a *Devfile* containing all the configuration needed to set up your development environment.
 
 * *OpenShift Dev Spaces* then begins creating your workspace, just like before.
 
