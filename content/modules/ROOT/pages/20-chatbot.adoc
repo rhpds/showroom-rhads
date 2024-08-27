@@ -1,9 +1,0 @@
-== Large Language Models (LLMs) Introduction
-
-AI/ML and specifically Large Language Models (LLM) for generative AI (GenAI) has been the hottest topic in the application development world since 2023 and the birth of OpenAI's ChatGPT on November 30 2022.
-
-The https://en.wikipedia.org/wiki/Generative_pre-trained_transformer[GPT] and specifically the https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)[transformer architecture] has produced models that are incrediby capable at natural language processing (NLP) tasks making them ideally suited for conversational interactive user experience.  
-
-
-image::LLM-templates.png[]
-
