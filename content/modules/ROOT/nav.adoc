@@ -16,7 +16,7 @@
 
 * xref:09-platform-engineering.adoc[9. Platform Engineering]
 
-* xref:10-tips.adoc[10. Tips]
+* xref:10-signed-commits.adoc[11. Sign Commits via git-sign]
 
-* xref:11-signed-commits.adoc[11. Sign Commits via git-sign]
+* xref:99-tips.adoc[99. Tips]
 

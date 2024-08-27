@@ -22,9 +22,7 @@
 
 == 9. Platform Engineering
 
-== 10. Tips
-
-== 11. Signed commits via git-sign
+== 10. Signed commits via git-sign
 
 
 
