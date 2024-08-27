@@ -78,15 +78,21 @@ Look for *Healthy* under the *-ai-build* application
 
 Click on *RHOAI Data Science Project*
 
+image::chatbot-11.png[]
+
 *rhsso* and the provided password
 
 Look at the *Deployed Models* section, it is very likely that you do not yet have a green check mark indicating that the model server is in fact up.  It can take several minutes for the model server to be ready.
 
-image::chatbot-11.png[]
+image::chatbot-12.png[]
 
 The green check mark is important.  Again, use the cooking show technique and "pull the baked cake out of the oven".
 
-image::chatbot-12.png[]
+image::chatbot-13.png[]
+
+
+
+
 
 
 
