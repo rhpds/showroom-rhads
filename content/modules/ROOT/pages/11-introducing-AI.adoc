@@ -1,4 +1,4 @@
-== Large Language Models (LLMs) Introduction
+== AI and Large Language Models (LLMs) Introduction
 
 AI/ML and specifically Large Language Models (LLM) for generative AI (GenAI) has been the hottest topic in the application development world since 2023 and the birth of OpenAI's ChatGPT on November 30 2022.
 
@@ -36,6 +36,57 @@ Description: *A LLM infused marketingbot app*
 
 image::chatbot-3.png[]
 
+Click *Next*
+
+Model Name: *parasol-instruct*
+
+image::chatbot-4.png[]
+
+Note: Expanding the list of model names in the screenshot will be covered later, for now, just pick the one you have access to *parasol-instruct*
+
+Click *Next*
+
+For Image Registry, keep all the defaults
+
+image::chatbot-5.png[]
+
+Click *Next*
+
+For Repository Location, keep all the defaults
+
+image::chatbot-6.png[]
+
+Click *Review*
+
+image::chatbot-7.png[]
+
+Click *Create*
+
+The animation takes few seconds however this hides the heavy lifting happening under the covers.
+
+image::chatbot-8.png[]
+
+Click on *Open Component in catalog*
+
+image::chatbot-9.png[]
+
+Click on *CD*
+
+image::chatbot-10.png[]
+
+Look for *Healthy* under the *-ai-build* application
+
+Click on *RHOAI Data Science Project*
+
+*rhsso* and the provided password
+
+Look at the *Deployed Models* section, it is very likely that you do not yet have a green check mark indicating that the model server is in fact up.  It can take several minutes for the model server to be ready.
+
+image::chatbot-11.png[]
+
+The green check mark is important.  Again, use the cooking show technique and "pull the baked cake out of the oven".
+
+image::chatbot-12.png[]
 
 
 
