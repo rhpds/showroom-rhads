@@ -58,5 +58,48 @@ Click *Create*
 
 The animation takes few seconds however this hides the heavy lifting happening under the covers.
 
-image::chatbot-7.png[]
+image::chatbot-19.png[]
+
+Click on *Open Component in catalog*
+
+Narrator: The template wizard makes everything look super simple. Behind the scences is ArgoCD, OpenShift GitOps, that is actually doing the heavy lifting and provisioning everything.  Making this a self-service process for the user.  No tickets, no waiting.
+
+Narrator: Let's go check out the gitops repository 
+
+image::chatbot-20.png[]
+
+Click *View Source*
+
+image::chatbot-21.png[]
+
+Click *development*
+
+Click *employeebot-gitops*
+
+image::chatbot-22.png[]
+
+Click *helm/ai/templates*
+
+image::chatbot-23.png[]
+
+Narrator: We could spend the next hour talking about the power of gitops but for now I wish to get back to the developer experience.  
+
+Back to Overview tab
+
+image::chatbot-24.png[]
+
+Click *RHOAI Data Science Project*
+
+image::chatbot-25.png[]
+
+Narrator: The parasol-instruct model is based on Mistral-7B it was previously downloaded from https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3[Huggingface], placed in cluster hoste storage, specifically an open source S3 solution called Minio.  This model is still very large and takes several minutes for the model server, the pod, to spin up and become ready.  We will look into the model serving and pipeline capabilities later in our demonstration.
+
+For the sake of time, like in a TV cooking show, we will skip over to a project where the model server is already up and running.
+
+
+
+
+
+
+
 
