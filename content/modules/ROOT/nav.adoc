@@ -18,6 +18,9 @@
 
 * xref:10-signed-commits.adoc[10. Sign Commits via git-sign]
 
-* xref:11-introducing-AI.adoc[11. Introducing AI with LLMs]
+* xref:11-AI-demo-setup.adoc[11. AI with LLMs Demo Setup]
 
-* xref:99-tips.adoc[99. Tips]
+* xref:12-AI-chatbot-flow.adoc[12. AI with LLMs Chatbot Flow]
+
+* xref:13-AI-model-exploration.adoc[13. AI Model Exploration]
+
