@@ -18,6 +18,8 @@
 
 * xref:10-signed-commits.adoc[10. Sign Commits via git-sign]
 
-* xref:11-introducing-AI.adoc[11. Introducing AI with LLMs]
+* xref:11-AI-demo-setup.adoc[11. AI with LLMs Demo Setup]
+
+* xref:12-AI-demo-flow.adoc[11. AI with LLMs Demo Flow]
 
 * xref:99-tips.adoc[99. Tips]

@@ -1,0 +1,21 @@
+== AI and Large Language Models (LLMs) Introduction
+
+AI/ML and specifically Large Language Models (LLM) for generative AI (GenAI) has been the hottest topic in the application development world since 2023 and the birth of OpenAI's ChatGPT on November 30 2022.
+
+The https://en.wikipedia.org/wiki/Generative_pre-trained_transformer[GPT] and specifically the https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)[transformer architecture] has produced models that are incrediby capable at natural language processing (NLP) tasks making them ideally suited for conversational interactive user experience and the Hello World for an LLM is a chatbot.
+
+Narrator:  I want to show you a template that provisions both the SDLC (Software Development Lifecycle) and the MDLC (Model Development Lifecycle). Where the SDLC is implemented as a Tekton-based Trusted Application Pipeline as seen in previous modules and the MDLC is implemented as a Red Hat OpenShift AI (RHOAI) pipeline based on Kubeflow.   
+
+With open LLMs such as Llama, Mistral or Granite you can start with a foundation model that does not have to be trained from scratch. These models can be lifecycled, managed, served and monitored by Red Hat OpenShift AI while your application lifecycle remains independent and potentially hosted on OpenShift as will be seen in this demonstration.  And perhaps most importantly these open LLMs can live in your datacenter or VPC where your private data remains yours and does not have to traverse the internet.  
+
+And in this case, we will be leveraging Red Hat Developer Hub, our supported and enterprise ready version of Backstage along with Red Hat Trusted Application Pipeline that leverages Trusted Arifact Signer, Trusted Profile Analyzer, Quay and Advanced Cluster Security. 
+
+Let's see it in action, hopefully things become more clear as we go.
+
+
+
+
+
+
+
+
