@@ -6,6 +6,8 @@ Where RHOAI is responsible for the LLM serving, management, and monitoring.
 
 Where RHTAP + RHDH is responsible for the application code pipeline and lifecycle.  
 
+A 10-minute video that walks through a AI/ML template for building out a LLM-powered Chatbot https://www.youtube.com/watch?v=4YS0wuUpfAo[chatbot]
+
 image::chatbot-1.png[Chatbot1, width=640, height=480]
 
 image::chatbot-2.png[Chatbot2, width=640, height=480]

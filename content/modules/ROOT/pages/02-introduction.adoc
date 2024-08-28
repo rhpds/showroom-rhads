@@ -1,14 +1,15 @@
 == Introduction
 
-Red Hat Trusted Application Pipeline
+Red Hat Trusted Application Pipeline and Red Hat OpenShift AI
 
 This demonstration takes the audience on a journey across the Software Development Lifecycle (SDLC), from code, to build, through continuous deployment and finally to running in production. An end-to-end DevSecOps CI/CD demonstration of Red Hat Trusted Application Pipeline (RHTAP) incorporating Developer Hub, a developer self-service portal based on Backstage, to standardize and expedite developer onboarding with golden path templates imbued with security guardrails.
 
-RHTAP = RHDH (developer self-service) + RHTAS (signature, attestation) + RHTPA (SBOM)
+In addition to the SDLC is also the MDLC (Model Development Lifecycle) where LLMs are served/managed by Red Hat OpenShift AI.  These LLMs are then woven into an application.  Offering self-service capabilities for Coders and Modelers. 
 
 Featured products in this demonstration include:
 
 * Red Hat Trusted Application Pipeline
+* Red Hat OpenShift AI
 * Red Hat Developer Hub
 * Red Hat Trusted Artifact Signer
 * Red Hat Trusted Profile Analyzer
@@ -18,6 +19,8 @@ Featured products in this demonstration include:
 * Red Hat Quay
 * Red Hat OpenShift Dev Spaces
 * Red Hat OpenShift
+
+RHTAP = RHDH (developer self-service) + RHTAS (signature, attestation) + RHTPA (SBOM)
 
 Within a large enterprise the time required for a newly hired app developer to become productive is often measured in weeks.  In this demonstration, we are going to show you how to shrink those weeks down to minutes with a developer-optimized, self-service, Internal Development Platform (IDP) that pre-integrates software supply chain security practices from the moment of project inception.
 
@@ -51,7 +54,7 @@ Consider the following steps *BEFORE* sharing your screen with the audience.  Th
 * Previously tested a Dev Space or
 * Double check your local laptop git, mvn and IDE (VS Code, IntelliJ) are ready to go
 
-A super short video on the https://www.youtube.com/watch?v=n1IrNe5MmZg[core value propositions] of *Backstage*
+A super short video on the https://www.youtube.com/watch?v=n1IrNe5MmZg[core value propositions] of *Backstage*.
 
 == Login as developer 
 

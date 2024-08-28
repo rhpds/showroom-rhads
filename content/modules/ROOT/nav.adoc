@@ -24,4 +24,3 @@
 
 * xref:13-AI-model-exploration.adoc[13. AI Model Exploration]
 
-* xref:99-tips.adoc[99. Tips]

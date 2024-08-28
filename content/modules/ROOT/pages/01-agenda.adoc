@@ -24,7 +24,10 @@
 
 == 10. Signed commits via git-sign
 
-== 11. Introducing AI with LLMs
+== 11. AI with LLMs Demo Setup
 
+== 12. AI with LLMs Chatbot Flow
+
+== 13. AI Model Exploration
 
 
