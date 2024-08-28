@@ -14,6 +14,8 @@ Let's see it in action, hopefully things become more clear as we go.
 
 Click on *Create...*
 
+image::chatbot-13a.png[]
+
 Click *Choose* on the *Secured Chatbot with a Self-Hosted Large Language Model (LLM)* template
 
 image::chatbot-14.png[]
@@ -36,7 +38,7 @@ image::chatbot-15.png[]
 
 Narrator: These models have been curated and approved by Parasol's data science team. Parasol Insurance is a fictional company specializing in providing comprehensive insurance solutions.
 
-Which models are listed in the template require a negotiation and collaboration to be had with the folks who own models within Parasol.  These models are under the governance of Red Hat OpenShift AI (RHOAI).
+Which models are listed in the template require a negotiation and collaboration with the folks who own models within Parasol, within your organization.  These models are under the governance of Red Hat OpenShift AI (RHOAI).
 
 Click *Next*
 
@@ -123,4 +125,161 @@ image::chatbot-32.png[]
 image::chatbot-33.png[]
 
 image::chatbot-34.png[]
+
+*Open a Terminal*
+
+image::chatbot-35.png[]
+
+----
+mvn quarkus:dev
+----
+
+image::chatbot-36.png[]
+
+image::chatbot-37.png[]
+
+----
+Do you agree to contribute anonymous build time data to the Quarkus community? (y/n and enter) 
+----
+
+*y* enter
+
+
+image::chatbot-38.png[]
+
+Click *Open in Preview*
+
+image::chatbot-39.png[]
+
+image::chatbot-40.png[]
+
+----
+why is the sky blue?
+----
+
+image::chatbot-41.png[]
+
+=== Code Change
+
+*src/main/java/com/redhat/Bot.java*
+
+image::chatbot-42.png[]
+
+The SystemMessage is where your provide the LLM with some upfront instructions, you can personify the AI. 
+
+Some other SystemMessages that can be fun to demonstration include:
+
+*Dracula*
+
+----
+   @SystemMessage("""
+        You are an AI answering questions.
+
+        Your response should be in the form of a Bram Stoker's Dracula
+
+        When you don't know, respond with "We learn from failure, not from success!"
+
+        Introduce yourself with: "I'm Dracula"
+        """)
+----
+
+*Chuck Norris*
+
+----
+   @SystemMessage("""
+        You are an AI answering questions.
+
+        Your response should be in the form of a Chuck Norris joke
+
+        When you don't know, respond with "Chuck Norris doesn't read books. He stares them down until he gets the information he wants."
+
+        Introduce yourself with: "I'm Chuck Norris"
+        """)
+----
+
+*Monty Python*
+
+----
+    @SystemMessage("""
+        You are an AI answering questions.
+
+        Your response should be as Monty Python's Black Knight
+
+        When you don't know, respond with "None shall pass. I move for no man."
+
+        Introduce yourself with: "I'm the Black Knight"
+        """)
+----
+
+Replace the current SystemMessage
+
+Click on *Simple Browser* and Refresh
+
+image::chatbot-43.png[]
+
+----
+I have no quarrel with you, good Sir Knight, but I must cross this bridge.
+----
+
+image::chatbot-44.png[]
+
+
+Open *src/resources/META-INF/resources/components/demo-title.js*
+
+Search for *buddy* via Cntrl-F
+
+Replace with the appropriate name like "Dracula", "Chuck" or "Black Knight"
+
+image::chatbot-45.png[]
+
+Click on *Simple Browser* and Refresh
+
+image::chatbot-46.png[]
+
+=== commit, push
+
+
+Click the *Source Control* icon
+
+Enter an appropriate commit message and click *Commit*
+
+image::chatbot-47.png[]
+
+Click *Always*
+
+image::chatbot-48.png[]
+
+Click *Sync Changes*
+
+image::chatbot-49.png[]
+
+Click *OK, Don't Show Again*
+
+image::chatbot-50.png[]
+
+Click *Yes* for periodically run "git fetch"?
+
+image::chatbot-51.png[]
+
+Click back to RHDH and the *CI* tab to see the Trusted Application Pipeline running
+
+image::chatbot-52.png[]
+
+This process takes between two minutes to four minutes.  Details about this pipeline are included in module *Pipeline Exploration*
+
+image::chatbot-53.png[]
+
+Once it is complete, click on the *Topology* tab and the URL for the application running in -dev
+
+image::chatbot-54.png[]
+
+image::chatbot-55.png[]
+
+
+
+
+
+
+
+
 
