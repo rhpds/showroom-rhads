@@ -22,8 +22,11 @@ OpenShift AI is an Operator that is available in a self-managed environment, suc
 
 Sources:
 * https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.11/html/introduction_to_red_hat_openshift_ai/index
+
 * https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.11/html/installing_and_uninstalling_openshift_ai_self-managed_in_a_disconnected_environment/index
+
 * https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.11/html/installing_and_uninstalling_openshift_ai_self-managed/index
+
 * https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.11/html/working_with_connected_applications/index
 
 *Data Science Projects*.  The *marketingbot-ai* project was auto provisioned via gitops (ArgoCD) when the template was used earlier in the demonstration.   
