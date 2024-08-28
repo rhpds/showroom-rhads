@@ -1,14 +1,14 @@
 == AI with LLMs Demo Setup
 
-In this module we will show you the *setup* steps and introduce you to a new template that provisions both the SDLC (Software Development Lifecycle) and the MDLC (Model Development Lifecycle). Where the SDLC is implemented as a Tekton-based Trusted Application Pipeline as seen in previous modules and the MDLC is implemented as a Red Hat OpenShift AI (RHOAI) pipeline based on Kubeflow. 
+In this module we will show you the *setup* steps, the things you do BEFORE going on stage,  and introduce you to a new template that provisions both the SDLC (Software Development Lifecycle) and the MDLC (Model Development Lifecycle). Where the SDLC is implemented as a Tekton-based Trusted Application Pipeline as seen in previous modules and the MDLC is implemented as a Red Hat OpenShift AI (RHOAI) pipeline based on Kubeflow. 
 
 Where RHOAI is responsible for the LLM serving, management, and monitoring.  
 
 Where RHTAP + RHDH is responsible for the application code pipeline and lifecycle.  
 
-image::chatbot-1.png[]
+image::chatbot-1.png[Chatbot1, width=640, height=480]
 
-image::chatbot-2.png[]
+image::chatbot-2.png[Chatbot2, width=640, height=480]
 
 === Setup
 
