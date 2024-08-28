@@ -1,5 +1,7 @@
 == AI Model Exploration
 
+A short video exploring the MLOps features https://www.youtube.com/watch?v=zh2L-yhwGRA[MLOps pipelines]
+
 Narrator: Let's switch into data science mode.  Models are special artifacts that require special handling.  And Modelers, those folks who care about model care and feeding, have their own user experience, their own lifecycle tools, AI specific pipelines and direct access to Jupyter Notebooks. 
 
 Note: If you are not a trained data scientist say that to your audience.  You might simply be a old school enterprise app developer but that is OK because when working with LLMs is much easier than having to train models from scratch. 
