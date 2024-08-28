@@ -12,15 +12,15 @@ image::chatbot-2.png[Chatbot2, width=640, height=480]
 
 === Setup
 
-LLMs take a fair bit of time to "spawn" within their pod, use the cooking show technique by running the template once BEFORE taking the stage, before sharing your screen. 
+LLMs take a fair bit of time to "spawn" within their pod, use the cooking show technique by running the template once *BEFORE* taking the stage, before sharing your screen. 
 
 image::LLM-templates.png[]
 
 The primary template to run is called *Secured Chatbot with a Self-Hosted Large Language Model (LLM)*. The best way to learn about this template is to execute it. 
 
-Start a new project, an application that leverages a LLM for Natural Language Processing.  The creation of a net new LLM-infused microservice is as simple as clicking *Choose* on the *Secured Chatbot with a Self-Hosted Large Language Model (LLM)* template.  
+Start a new project, an application that leverages a LLM for Natural Language Processing (NLP).  The creation of a net new LLM-infused microservice is as simple as clicking *Choose* on the *Secured Chatbot with a Self-Hosted Large Language Model (LLM)* template.  
 
-I simply need to fill-in some fields and follow the wizard:
+Fill-in some fields and follow the wizard:
 
 Name: *marketingbot*
 
@@ -40,7 +40,7 @@ Model Name: *parasol-instruct*
 
 image::chatbot-4.png[]
 
-Note: Expanding the list of model names in the screenshot will be covered later, for now, just pick the one you have access to *parasol-instruct*
+Note: Expanding the list of model names in the screenshot will be covered later, for now, just pick the one you have access to which is *parasol-instruct* out-of-the-box.
 
 Click *Next*
 
@@ -78,7 +78,7 @@ Click on the *Overview tab* and then *RHOAI Data Science Project*
 
 image::chatbot-11.png[]
 
-*rhsso* and the provided password
+Login in via *rhsso* and the provided password
 
 Look at the *Deployed Models* section, it is very likely that you do not yet have a green check mark indicating that the model server is in fact up.  It can take several minutes for the model server to be ready.
 
@@ -88,7 +88,7 @@ The green check mark is important.  Again, use the cooking show technique and "p
 
 image::chatbot-13.png[]
 
-Now, you are ready to begin the basic demo flow
+Now, you are ready to begin the basic demo flow. 
 
 
 
