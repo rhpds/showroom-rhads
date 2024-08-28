@@ -12,7 +12,9 @@ image::chatbot-1.png[Chatbot1, width=640, height=480]
 
 image::chatbot-2.png[Chatbot2, width=640, height=480]
 
-A behind the scenes tour and deeper dive video https://www.youtube.com/watch?v=9R1yRNHFpGU[deeper dive]
+A https://www.youtube.com/watch?v=9R1yRNHFpGU[behind the scenes tour] and deeper dive video.
+
+And a video that describes some of the https://youtu.be/0d2JpeqPg3U[clean up process]
 
 
 === Setup

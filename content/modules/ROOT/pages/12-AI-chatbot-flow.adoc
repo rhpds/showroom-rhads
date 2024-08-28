@@ -326,7 +326,7 @@ image::chatbot-55.png[]
 
 That URL might be shared with your audience so they can interact with your new LLM-infused application.  Note: Make sure load test your application a bit before sharing with a large audience.
 
-Promotion to -pre-prod and -prod namespaces is covered in *7. Release and Promotion*
+Promotion to -pre-prod and -prod namespaces is covered in *7. Release and Promotion* and demonstrated in this https://youtu.be/zu68HM8-qgA[video]
 
 === Model inside of Developer Hub
 
