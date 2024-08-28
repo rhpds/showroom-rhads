@@ -32,7 +32,7 @@ Sources:
 
 *Data Science Projects*.  The *marketingbot-ai* project was auto provisioned via gitops (ArgoCD) when the template was used earlier in the demonstration.   
 
-*Workbench*: A workbench, in the context provided, is an instance of a development and experimentation environment for data science projects. It serves as an isolated area where you can examine and work with Machine Learning (ML) models, work with data, and run programs. A workbench is not always required, but it is needed for most data science workflow tasks such as writing code to process data or training a model. You can create multiple workbenches within a project, each with its own configuration and purpose, to separate tasks or activities. A workbench is created by selecting a notebook image, which is optimized with the tools and libraries needed for model development. Supported IDEs include JupyterLab, code-server (Technology Preview), and RStudio (Technology Preview).
+*Workbench*: A workbench is an instance of a development and experimentation environment for data science projects. It serves as an isolated area where you can examine and work with Machine Learning (ML) models, work with data, and run programs. A workbench is not always required, but it is needed for most data science workflow tasks such as writing code to process data or training a model. You can create multiple workbenches within a project, each with its own configuration and purpose, to separate tasks or activities. A workbench is created by selecting a notebook image, which is optimized with the tools and libraries needed for model development. Supported IDEs include JupyterLab, Visual Studio Code (Technology Preview), and RStudio (Technology Preview).
 
 Sources:
 
@@ -42,7 +42,7 @@ Sources:
 
 * https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/2.11/html/openshift_ai_tutorial_-_fraud_detection_example/index
 
-*Deployed Models*: You can see the model server based on "vLLM custom" that is running, in a pod, the model that was originally downloaded from Huggingface.co.   
+*Deployed Models*: You can see the model server based on "vLLM custom" running, in a pod, the model that was originally downloaded from Huggingface.co.   
 
 Narrator:  As a modeler, I like working in the world of Python and Red Hat OpenShift AI gives me self-service access and the Workbench gives me instant access to a properly configured Notebook.
 
@@ -64,7 +64,7 @@ image::modeler-6.png[]
 
 image::modeler-7.png[]
 
-Narrator: Now I am in a Jupyter Notebook, run as a container, as a pod, on the OpenShift cluster.  Where the underlying container image has been properly configured with the appropriate versions of python and needed libraries. 
+Narrator: Now I am in a Jupyter Notebook, run as a container, as a pod, on the OpenShift cluster.  Where the underlying container image has been properly configured with the appropriate versions of python and the needed libraries. 
 
 Double click on the folder *check-confidence-self-hosted-llm* to expand it out. And double click on *test_response_quality.py* 
 
@@ -74,9 +74,11 @@ One common thing to help manage the curation and lifecycle of a private LLM is t
 
 image::modeler-8.png[]
 
-This code will print out "Response Quality OK" if the similiarity check is *<= 0.8*
+This code will print out "Response Quality OK" if the similiarity check is not *less than or equal to 0.8*
 
-Note: It does sometimes fail this test, you might lower the number to .7 
+Note: It does some times fail this test, you might lower the number to .7 
+
+LLMs rarely return identical strings therefore the similiarity test is a way to deal with the varying responses.
 
 image::modeler-9.png[]
 
@@ -84,11 +86,11 @@ image::modeler-9.png[]
 
 Double click on *confidence-check.pipeline* 
 
-Narrator: A MLOps pipeline, based on Kubeflow, can be used to create a scheduled set of checks/tests against the LLM.   In the case of the confidence-check.pipeline, it tests for quality, response time and also has a simple identity verification step.
-
-image::modeler-10.png[]
+Narrator: A MLOps pipeline, based on Kubeflow, can be used to create a scheduled set of tests against the LLM.   In the case of the confidence-check.pipeline, it tests for quality, response time and also has a simple identity verification step.
 
 Click the "run" button
+
+image::modeler-10.png[]
 
 image::modeler-11.png[]
 
@@ -100,7 +102,7 @@ Click *Run Details*
 
 image::modeler-13.png[]
 
-And if you do get a failure on the quality test, it is very likely to be that .8 bar is too high.  LLMs are non-deterministic their responses are almost always unique per invocation, even if the input prompt is identical. 
+And if you do get a failure on the quality test, it is very likely to be that .8 bar is too high.  LLMs have non-deterministic their responses are almost always unique per invocation, even if the input prompt is identical. 
 
 image::modeler-14.png[]
 
@@ -132,19 +134,19 @@ Narrator: Now, how did this model come to life? If we scroll down toward the bot
 
 image::modeler-17.png[]
 
-Click *Cancel*
+Click *Cancel* as we do not need to make any changes
 
 Click *Data connections* and *Edit data connection* for marketingbot-models.
 
 image::modeler-18.png[]
 
-You can see the endpoint is mapped to minio, an in-cluster, S3 alternative. 
+You can see the endpoint is mapped to Minio, an in-cluster, S3 solution. 
 
 And the bucket is called *models*.
 
 image::modeler-19.png[]
 
-These models are simply sitting in storage and are visible using your S3 browser, in the case of Minio, it is a nice GUI for viewing the artifacts.
+These models are simply sitting in storage and are visible using your S3 browser, in the case of Minio, it has a nice GUI for viewing the artifacts.
 
 image::modeler-20.png[]
 
