@@ -1,8 +1,14 @@
 == AI with LLMs Chatbot Flow
 
+
+=== Background Information
+
 AI/ML and specifically Large Language Models (LLM) for generative AI (GenAI) has been the hottest topic in the application development world since 2023 and the birth of OpenAI's ChatGPT on November 30 2022.
 
 The https://en.wikipedia.org/wiki/Generative_pre-trained_transformer[GPT] and specifically the https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)[transformer architecture] has produced models that are incrediby capable at natural language processing (NLP) tasks making them ideally suited for conversational interactive user experience and the Hello World for an LLM is a chatbot.
+
+
+=== Demo Template Wizard
 
 *Narrator*:  I want to show you a template that provisions both the SDLC (Software Development Lifecycle) and the MDLC (Model Development Lifecycle). Where the SDLC is implemented as a Tekton-based Trusted Application Pipeline as seen in previous modules and the MDLC is implemented as a Red Hat OpenShift AI (RHOAI) pipeline based on Kubeflow.   
 
@@ -38,7 +44,7 @@ image::chatbot-15.png[]
 
 Narrator: These models have been curated and approved by Parasol's data science team. Parasol Insurance is a fictional company specializing in providing comprehensive insurance solutions.
 
-Which models are listed in the template require a negotiation and collaboration with the folks who own models within Parasol, within your organization.  These models are under the governance of Red Hat OpenShift AI (RHOAI).
+Which models are listed in the template require a negotiation and collaboration with the folks who own models within Parasol, within your organization.  These models are under the governance of Red Hat OpenShift AI (RHOAI) which we will see later.
 
 Click *Next*
 
@@ -94,9 +100,9 @@ Click *RHOAI Data Science Project*
 
 image::chatbot-25.png[]
 
-Narrator: The parasol-instruct model is based on Mistral-7B it was previously downloaded from https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3[Huggingface], placed in cluster hoste storage, specifically an open source S3 solution called Minio.  This model is still very large and takes several minutes for the model server, the pod, to spin up and become ready.  We will look into the model serving and pipeline capabilities later in our demonstration.
+Narrator: The parasol-instruct model is based on Mistral-7B it was previously downloaded from https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3[Huggingface], placed in cluster hosted storage, specifically an open source S3 solution called Minio in this case.  This model is large and takes several minutes for the model server, the pod, to spin up and become ready.  We will look into the model serving and model pipeline capabilities later in our demonstration.
 
-For the sake of time, like in a TV cooking show, we will skip over to a project where the model server is already up and running.
+For the sake of time, like in a TV cooking show, we will skip over to a project where the model server is already up and running. 
 
 Click on *Catalog* and *marketingbot* (or whatever name you gave it during the setup phase)
 
@@ -106,17 +112,27 @@ image::chatbot-26.png[]
 
 Narrator: By default, the way this template is set up, a CI pipeline does not execute until AFTER the first *git commit* and *git push*.
 
-Let's go make code change!
+Let's go make code change and trigger the pipeline.
+
+=== Dev Spaces
 
 Click on *Overview* and *OpenShift Dev Spaces (VS Code)*
 
 image::chatbot-27.png[]
 
+*Login*
+
 image::chatbot-28.png[]
+
+*rhsso*
 
 image::chatbot-29.png[]
 
+User and password provided by the demo service
+
 image::chatbot-30.png[]
+
+Wait for the workspace to start
 
 image::chatbot-31.png[]
 
@@ -124,17 +140,25 @@ image::chatbot-32.png[]
 
 image::chatbot-33.png[]
 
+*Yes, I trust the authors*
+
 image::chatbot-34.png[]
+
+Note: You might be tempted also "cooking show" all of this time as well by having the workspace pre-started and open but there is a timeout between Dev Spaces and Gitlab that occurs that will prohibit you from pushing your code changes back in.  The workaround to the timeout issue is to stop, delete and recreate the workspace. https://github.com/eclipse-che/che/issues/21291[Issue link]
 
 *Open a Terminal*
 
 image::chatbot-35.png[]
+
+Run the Quarkus live development mode
 
 ----
 mvn quarkus:dev
 ----
 
 image::chatbot-36.png[]
+
+Wait for Maven's "download of the internet".  This behavior is the same as it would be on desktop. 
 
 image::chatbot-37.png[]
 
@@ -151,7 +175,15 @@ Click *Open in Preview*
 
 image::chatbot-39.png[]
 
+Tip: If you lose the Preview tab or miss the message above, you can find this Preview feature again by visiting the ENDPOINTS section in the lower left corner of the editor. 
+
+image::chatbot-39a.png[]
+
 image::chatbot-40.png[]
+
+You should be greeted by the AI and this tells you that connectivity between the client Java code and the OpenShift AI hosted model server is working.
+
+Ask the AI a question like
 
 ----
 why is the sky blue?
@@ -159,7 +191,8 @@ why is the sky blue?
 
 image::chatbot-41.png[]
 
-=== Code Change
+
+=== Code change
 
 *src/main/java/com/redhat/Bot.java*
 
@@ -167,7 +200,7 @@ image::chatbot-42.png[]
 
 The SystemMessage is where your provide the LLM with some upfront instructions, you can personify the AI. 
 
-Some other SystemMessages that can be fun to demonstration include:
+Some other SystemMessages that can be fun to demonstrate include:
 
 *Dracula*
 
@@ -217,12 +250,15 @@ Click on *Simple Browser* and Refresh
 
 image::chatbot-43.png[]
 
+You just experienced the Quarkus live dev mode, edit-save-refresh is a huge developer productivity enhancer.  This works on Dev Spaces running in a pod, your Mac or your Windows desktop. 
+
 ----
 I have no quarrel with you, good Sir Knight, but I must cross this bridge.
 ----
 
 image::chatbot-44.png[]
 
+Change the title page
 
 Open *src/resources/META-INF/resources/components/demo-title.js*
 
@@ -235,6 +271,7 @@ image::chatbot-45.png[]
 Click on *Simple Browser* and Refresh
 
 image::chatbot-46.png[]
+
 
 === commit, push
 
@@ -269,17 +306,41 @@ This process takes between two minutes to four minutes.  Details about this pipe
 
 image::chatbot-53.png[]
 
+=== Deployed Application
+
+
 Once it is complete, click on the *Topology* tab and the URL for the application running in -dev
 
 image::chatbot-54.png[]
 
 image::chatbot-55.png[]
 
+That URL might be shared with your audience so they can interact with your new LLM-infused application.  Note: Make sure load test your application a bit before sharing with a large audience.
 
+=== Model inside of RHDH
 
+As a developer, you can also interact directly with the model server's API.  
 
+Click on *Dependencies*
 
+image::chatbot-56.png[]
 
+Scroll down to *Consumed APIs*
 
+image::chatbot-57.png[]
+
+And click on the one ending with *-parasol-instruct-api*
+
+image::chatbot-58.png[]
+
+Click on *Definition*
+
+image::chatbot-59.png[]
+
+This is an OpenAPI definition, specifically the vLLM API that is serving the model.  
+
+image::chatbot-60.png[]
+
+Narrator: Now it is time to change hats.  Up to this point we have been acting more like an enterprise application developer. The coder who sees models as API endpoints and who focuses on integrating LLMs with existing enterprise systems. 
 
 
