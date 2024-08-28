@@ -1,0 +1,62 @@
+== AI with LLMs Chatbot Flow
+
+AI/ML and specifically Large Language Models (LLM) for generative AI (GenAI) has been the hottest topic in the application development world since 2023 and the birth of OpenAI's ChatGPT on November 30 2022.
+
+The https://en.wikipedia.org/wiki/Generative_pre-trained_transformer[GPT] and specifically the https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)[transformer architecture] has produced models that are incrediby capable at natural language processing (NLP) tasks making them ideally suited for conversational interactive user experience and the Hello World for an LLM is a chatbot.
+
+*Narrator*:  I want to show you a template that provisions both the SDLC (Software Development Lifecycle) and the MDLC (Model Development Lifecycle). Where the SDLC is implemented as a Tekton-based Trusted Application Pipeline as seen in previous modules and the MDLC is implemented as a Red Hat OpenShift AI (RHOAI) pipeline based on Kubeflow.   
+
+With open LLMs such as Llama, Mistral or Granite you can start with a foundation model that does not have to be trained from scratch. These models can be lifecycled, managed, served and monitored by Red Hat OpenShift AI while your application lifecycle remains independent and potentially hosted on OpenShift as will be seen in this demonstration.  And perhaps most importantly these open LLMs can live in your datacenter or VPC where your private data remains yours and does not have to traverse the internet.  
+
+And in this case, we will be leveraging Red Hat Developer Hub, our supported and enterprise ready version of Backstage along with Red Hat Trusted Application Pipeline that leverages Trusted Arifact Signer, Trusted Profile Analyzer, Quay and Advanced Cluster Security. 
+
+Let's see it in action, hopefully things become more clear as we go.
+
+Click on *Create...*
+
+Click *Choose* on the *Secured Chatbot with a Self-Hosted Large Language Model (LLM)* template
+
+image::chatbot-14.png[]
+
+Name: *employeebot*
+
+Group Id: *redhat.janus*
+
+Artifact Id: *employeebot*
+
+Java Package Name: *org.redhat.janus*
+
+Description: *A LLM infused employeebot app*
+
+Click *Next*
+
+Mode Name: *parasol-instruct*
+
+image::chatbot-15.png[]
+
+Narrator: These models have been curated and approved by Parasol's data science team. Parasol Insurance is a fictional company specializing in providing comprehensive insurance solutions.
+
+Which models are listed in the template require a negotiation and collaboration to be had with the folks who own models within Parasol.  These models are under the governance of Red Hat OpenShift AI (RHOAI).
+
+Click *Next*
+
+For *Image Registry*, take all the defaults. 
+
+image::chatbot-16.png[]
+
+Click *Next*
+
+For *Repository Location*, take all the defaults
+
+image::chatbot-17.png[]
+
+Click *Review*
+
+image::chatbot-18.png[]
+
+Click *Create*
+
+The animation takes few seconds however this hides the heavy lifting happening under the covers.
+
+image::chatbot-7.png[]
+

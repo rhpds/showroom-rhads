@@ -20,6 +20,6 @@
 
 * xref:11-AI-demo-setup.adoc[11. AI with LLMs Demo Setup]
 
-* xref:12-AI-demo-flow.adoc[11. AI with LLMs Demo Flow]
+* xref:12-AI-chatbot-flow.adoc[12. AI with LLMs Chatbot Flow]
 
 * xref:99-tips.adoc[99. Tips]
