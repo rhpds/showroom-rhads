@@ -42,7 +42,9 @@ No tickets, no wait, let's go
 
 Please contact the RHTAP product team on https://redhat.enterprise.slack.com/archives/C06D1L9N6J3 [Slack] for assistance and to provide feedback related to these materials. (Note: Please open the link in a new tab) 
 
+== Demo Startup
 
+Please give this demo a further 10 to 15 minutes to start up completely once the 'Running' status is displayed. Some of the OpenShift resources may not be immediately available.
 
 == Pre-stage Setup
 
