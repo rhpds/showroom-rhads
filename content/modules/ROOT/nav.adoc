@@ -24,3 +24,5 @@
 
 * xref:13-AI-model-exploration.adoc[13. AI Model Exploration]
 
+* xref:14-troubleshooting.adoc[14. Troubleshooting]
+

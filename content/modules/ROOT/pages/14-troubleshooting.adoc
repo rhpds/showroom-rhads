@@ -1,0 +1,14 @@
+== Troubleshooting
+
+=== Cluster Sleep/Wake
+
+When ordering this demo from demo.redhat.com, you cluster will be woken up from a *stopped* state. Once startup is complete, you should wait around a further 15 minutes for the cluster to fully initialize.  There are occasions when certain components in the cluster are not initialized in a healthy state and the following issues occur:
+
+==== Webhook not triggering pipeline run
+
+You will notice that any source code changes, tagging and releasing will not trigger a pipeline.  To confirm this issue, navigate to your software components *xxx-dev* project and go to *Workloads -> Pods* then locate the *event listener* pod with the name *el-<component>-el**.  If you select the *Logs* tab, you should notice a certificate error while communicating *tekcon-trigger-core-interceptors* service.  To fix this issue, switch the project to *openshift-pipelines* and go to *Workloads - Pods*.  Find the pod *tekton-triggers-core-interceptors-** and delete it.  This action should recreat the pod and should resolve this issue.  Attempt to trigger the pipeline again.
+
+[Important]
+====
+If there are no logs in the event listener indicating a certificate issue, this may be caused by a timing issue i.e. you may have triggered your pipeline before the webhook was successfully created.  To ensure that the webhook was created, open your software component on Developer Hub and ensure you are on the *Overview* tab.  On the bottom right, under *Deployment Summary* confirm that the ArgoCD App *<component-name>-dev-build* has a *Sync status* of *Synced* and *Health status* of *Healthy* before triggering your pipeline.
+====
