@@ -24,7 +24,7 @@
 
 * xref:13-AI-model-exploration.adoc[13. AI Model Exploration]
 
-* xref:14-AI-model-exploration.adoc[14. Bring your own model]
+* xref:14-AI-bring-your-own-model.adoc[14. Bring your own model]
 
 * xref:15-troubleshooting.adoc[15. Troubleshooting]
 
