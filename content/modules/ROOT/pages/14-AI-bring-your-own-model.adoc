@@ -93,8 +93,16 @@ mc alias set minio $MINIO_API $MINIO_USER $MINIO_PASSWORD
 mc ls minio/models
 ```
 
+Change the name "a InferenceService name must consist of lower case alphanumeric characters or ‘-’, and must start with alphabetical character."
+
+
 ```
-mc cp --recursive Qwen2.5-7B-Instruct minio/models
+mv Qwen2.5-7B-Instruct qwen257binstruct
+```
+
+
+```
+mc cp --recursive qwen257binstruct minio/models/
 ```
 
 Wait a while
@@ -114,7 +122,7 @@ scaffolder-templates
 chatbot-self-hosted-llm-template
 template.yaml`
 
-Use the same string of `Qwen2.5-7B-Instruct` as that is its name in Minio and the demo's templates assume that the model name matches the name in Minio.
+Use the same string of `qwen257binstruct` as that is its name in Minio and the demo's templates assume that the model name matches the name in Minio.
 
 image::bring-your-own-model-1.png[]
 
