@@ -1,0 +1,136 @@
+== AI Bring your own model
+
+These steps cover the download from Huggingface and upload into Minio where the model can be served via RHOAI's vLLM.
+
+Find your desired model at Huggingface.  8B parameter models have a better chance at "fitting".
+
+Also, some models require approvals at Huggingface.co, make sure to apply and get approved if that is required.
+
+```
+open https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
+```
+
+Install the huggingface CLI
+
+```
+brew install huggingface-cli
+```
+
+and install the Minio CLI
+
+```
+brew install minio/stable/mc
+```
+
+You will also need `oc` and be logged in as admin
+
+Know where you plan to download these files
+
+```
+cd /Users/burr/my-projects/models
+```
+
+```
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --local-dir Qwen2.5-7B-Instruct
+```
+
+Wait for the download
+
+```
+ls -la Qwen2.5-7B-Instruct
+```
+
+```
+total 29792296
+drwxr-xr-x  17 burr  staff         544 Sep 23 17:59 .
+drwxr-xr-x   7 burr  staff         224 Sep 23 17:59 ..
+drwxr-xr-x   3 burr  staff          96 Sep 23 17:54 .cache
+-rw-r--r--   1 burr  staff        1519 Sep 23 17:54 .gitattributes
+-rw-r--r--   1 burr  staff       11343 Sep 23 17:54 LICENSE
+-rw-r--r--   1 burr  staff        5978 Sep 23 17:54 README.md
+-rw-r--r--   1 burr  staff         663 Sep 23 17:54 config.json
+-rw-r--r--   1 burr  staff         243 Sep 23 17:54 generation_config.json
+-rw-r--r--   1 burr  staff     1671839 Sep 23 17:54 merges.txt
+-rw-r--r--   1 burr  staff  3945441440 Sep 23 17:58 model-00001-of-00004.safetensors
+-rw-r--r--   1 burr  staff  3864726352 Sep 23 17:57 model-00002-of-00004.safetensors
+-rw-r--r--   1 burr  staff  3864726424 Sep 23 17:57 model-00003-of-00004.safetensors
+-rw-r--r--   1 burr  staff  3556377672 Sep 23 17:59 model-00004-of-00004.safetensors
+-rw-r--r--   1 burr  staff       27752 Sep 23 17:54 model.safetensors.index.json
+-rw-r--r--   1 burr  staff     7031645 Sep 23 17:54 tokenizer.json
+-rw-r--r--   1 burr  staff        7305 Sep 23 17:54 tokenizer_config.json
+-rw-r--r--   1 burr  staff     2776833 Sep 23 17:54 vocab.json
+```
+
+Now upload to your cluster's Minio
+
+
+```
+oc project ic-shared-minio
+```
+
+```
+MINIO_API="https://$(oc get route minio -o jsonpath='{.spec.host}')"
+```
+
+```
+B64_USER=$(kubectl get secret minio-keys -o jsonpath='{.data.minio_root_user}')
+MINIO_USER=$(echo $B64_USER | base64 --decode)
+echo "user:$B64_USER is decoded as $MINIO_USER"
+
+```
+
+```
+B64_PASSWORD=$(kubectl get secret minio-keys -o jsonpath='{.data.minio_root_password}' -n ic-shared-minio)
+MINIO_PASSWORD=$(echo $B64_PASSWORD | base64 --decode)
+echo "password:$B64_PASSWORD is decoded as $MINIO_PASSWORD"
+```
+
+```
+mc alias set minio $MINIO_API $MINIO_USER $MINIO_PASSWORD
+```
+
+```
+mc ls minio/models
+```
+
+Change the name "a InferenceService name must consist of lower case alphanumeric characters or ‘-’, and must start with alphabetical character."
+
+
+```
+mv Qwen2.5-7B-Instruct qwen257binstruct
+```
+
+
+```
+mc cp --recursive qwen257binstruct minio/models/
+```
+
+Wait a while
+
+```
+mc ls minio/models
+```
+
+And you can use the Minio GUI 
+
+image::bring-your-own-model-0.png[]
+
+Add the new model to your favorite template.
+
+You can edit `rhoai-on-rhdh-templates
+scaffolder-templates
+chatbot-self-hosted-llm-template
+template.yaml`
+
+Use the same string of `qwen257binstruct` as that is its name in Minio and the demo's templates assume that the model name matches the name in Minio.
+
+image::bring-your-own-model-1.png[]
+
+Now go run the wizard
+
+image::bring-your-own-model-2.png[]
+
+
+
+
+
