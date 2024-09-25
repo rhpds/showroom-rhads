@@ -6,7 +6,7 @@ When ordering this demo from demo.redhat.com, you cluster will be woken up from 
 
 ==== Webhook not triggering pipeline run
 
-You will notice that any source code changes, tagging and releasing will not trigger a pipeline.  To confirm this issue, navigate to your software components *xxx-dev* project and go to *Workloads -> Pods* then locate the *event listener* pod with the name *el-<component>-el\**.  If you select the *Logs* tab, you should notice a certificate error while communicating *tekton-trigger-core-interceptors* service.  To fix this issue, switch the project to *openshift-pipelines* and go to *Workloads - Pods*.  Find the pod *tekton-triggers-core-interceptors-** and delete it.  This action should recreat the pod and should resolve this issue.  Attempt to trigger the pipeline again.
+You will notice that any source code changes, tagging and releasing will not trigger a pipeline.  To confirm this issue, navigate to your software components *xxx-dev* project and go to *Workloads -> Pods* then locate the *event listener* pod with the name *el-<component>-el\**.  If you select the *Logs* tab, you should notice a certificate error while communicating *tekton-trigger-core-interceptors* service.  To fix this issue, switch the project to *openshift-pipelines* and go to *Workloads -> Pods*.  Find the pod *tekton-triggers-core-interceptors-** and delete it.  This action should recreate the pod and should resolve this issue.  Attempt to trigger the pipeline again.
 
 [Important]
 ====
