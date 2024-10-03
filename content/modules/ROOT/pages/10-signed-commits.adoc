@@ -138,7 +138,7 @@ Run the following commands to set up gitsign on your local machine.  For this ex
 
 [source,console]
 ----
-$ git config --global user.email user1@opentlc.com
+$ git config --global user.email user1@demo.redhat.com
 $ git config --global user.name user1
 $ git config --global commit.gpgsign true
 $ git config --global tag.gpgsign true
