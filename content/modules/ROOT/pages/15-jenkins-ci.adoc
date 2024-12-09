@@ -17,7 +17,7 @@ This section demonstrates how *Developer Hub* allows you to instantiate a Quarku
 . Click on the *CI* tab.  There should be 3 projects visible, one for build, one for preparing a pre-prod deployment and one for preparing a prod deployment.  A build should automatically trigger.  If this does not show up, click on a different tab and then click back to the *CI* tab to refresh the page.
 . You may click on the *View build* icon to view the output of the build on jenkins.  Enter the credentials provided on the demo landing page.
 . Once the build is complete, click on the *Topology* tab.  The application for *dev* is now healthy, indicated by a blue ring.  Click on the arrow on the application icon to view the Quarkus application.
-* To make changes to the Quarkus application, click on the *Overview* tab and select the *OpenShift Dev Spaces (VS Code)* link.  This should provision a *DevSpaces* project where you can update the source code as you wish.  Pushing the changes back to GitLab triggers a new build and deploy to dev.
+. To make changes to the Quarkus application, click on the *Overview* tab and select the *OpenShift Dev Spaces (VS Code)* link.  This should provision a *DevSpaces* project where you can update the source code as you wish.  Pushing the changes back to GitLab triggers a new build and deploy to dev.
 
 === Promote to preprod
 . To deploy your Quarkus application to preprod, switch to the *Overview* tab and click on the *Source Code* link.  This should open the repository root on GitLab.
