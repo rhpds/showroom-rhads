@@ -26,13 +26,16 @@ This section demonstrates how *Developer Hub* allows you to instantiate a Quarku
 . Give the tag a name such as `v1.0`
 . Click on *Create tag*
 . Switch back to *Developer Hub* and click on the *CI* tab.  A new preprod build will be triggered.
+. Click on the *View Build* icon to view the output of the preprod build.
 . Wait for the build to complete and then click on the *Topology* tab.  The application for *preprod* is now healthy, indicated by a blue ring.  Click on the arrow on the application icon to view the Quarkus application.
 
-=== Promote to preprod
-. To deploy your Quarkus application to preprod, switch to the *Overview* tab and click on the *Source Code* link.  This should open the repository root on GitLab.
+=== Promote to prod
+. To deploy your Quarkus application to prod, switch to the *Overview* switch back the GitLab screen.
 . On the left menu, select *Code* and then *Tags*.
-. Click on *New Tag*
-. Give the tag a name such as `v1.0`
+. In the list of tags displayed, find the tag you created on the previous step.
+. Click the *Create release* button found to the right of the tag.
 . Click on *Create tag*
-. Switch back to *Developer Hub* and click on the *CI* tab.  A new preprod build will be triggered.
-. Wait for the build to complete and then click on the *Topology* tab.  The application for *preprod* is now healthy, indicated by a blue ring.  Click on the arrow on the application icon to view the Quarkus application.
+. Enter a *Release title* for e.g. Prod-v1.0
+. Switch back to *Developer Hub* and click on the *CI* tab.  A new prod build will be triggered.
+* Click on the *View Build* icon to view the output of the prod build.
+. Wait for the build to complete and then click on the *Topology* tab.  The application for *prod* is now healthy, indicated by a blue ring.  Click on the arrow on the application icon to view the Quarkus application.
