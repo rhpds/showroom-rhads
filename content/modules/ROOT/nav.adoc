@@ -24,9 +24,9 @@
 
 * xref:13-AI-chatbot-flow.adoc[13. AI with LLMs Chatbot Flow]
 
-* xref:14-AI-model-exploration.adoc[14. AI Model Exploration]
+* xref:14-AI-bring-your-own-model.adoc[15. Bring your own model]
 
-* xref:15-AI-bring-your-own-model.adoc[15. Bring your own model]
+* xref:15-AI-model-exploration.adoc[14. AI Model Exploration]
 
 * xref:16-troubleshooting.adoc[16. Troubleshooting]
 
