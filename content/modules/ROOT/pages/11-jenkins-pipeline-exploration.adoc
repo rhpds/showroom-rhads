@@ -1,4 +1,4 @@
-== Jenkins CI
+== Jenkins Pipeline Exploration
 
 Jenkins is used to build and test your product continuously, so developers can continuously integrate changes into the build. Jenkins is the most popular open source CI/CD tool on the market today and is used in support of DevOps, alongside other cloud native tools.
 

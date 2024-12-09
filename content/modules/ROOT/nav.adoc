@@ -8,7 +8,7 @@
 
 * xref:05-code-change.adoc[5. Code Change]
 
-* xref:06-pipeline-exploration.adoc[6. Pipeline Exploration]
+* xref:06-tekton-pipeline-exploration.adoc[6. Tekton Pipeline Exploration]
 
 * xref:07-release-promotion.adoc[7. Release & Promotion]
 
@@ -18,15 +18,15 @@
 
 * xref:10-signed-commits.adoc[10. Sign Commits via git-sign]
 
-* xref:11-AI-demo-setup.adoc[11. AI with LLMs Demo Setup]
+* xref:11-jenkins-pipeline-exploration.adoc[11. Jenkins Pipeline Exploration]
 
-* xref:12-AI-chatbot-flow.adoc[12. AI with LLMs Chatbot Flow]
+* xref:12-AI-demo-setup.adoc[12. AI with LLMs Demo Setup]
 
-* xref:13-AI-model-exploration.adoc[13. AI Model Exploration]
+* xref:13-AI-chatbot-flow.adoc[13. AI with LLMs Chatbot Flow]
 
-* xref:14-AI-bring-your-own-model.adoc[14. Bring your own model]
+* xref:14-AI-model-exploration.adoc[14. AI Model Exploration]
 
-* xref:15-jenkins-ci.adoc[15. Jenkins CI]
+* xref:15-AI-bring-your-own-model.adoc[15. Bring your own model]
 
 * xref:16-troubleshooting.adoc[16. Troubleshooting]
 
