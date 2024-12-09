@@ -26,5 +26,7 @@
 
 * xref:14-AI-bring-your-own-model.adoc[14. Bring your own model]
 
-* xref:15-troubleshooting.adoc[15. Troubleshooting]
+* xref:15-jenkins-ci.adoc[15. Jenkins CI]
+
+* xref:16-troubleshooting.adoc[16. Troubleshooting]
 
