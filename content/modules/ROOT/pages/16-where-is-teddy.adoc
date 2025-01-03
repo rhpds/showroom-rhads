@@ -152,7 +152,7 @@ image::image-2025-01-03 163313.png[]
 +
 ​	**Name** My Storage
 +
-​	**Path** ``models/notebook-output/redhat-dog/`
+​	**Path** `models/notebook-output/redhat-dog/`
 
 9. Click the **Deploy** button.
 
