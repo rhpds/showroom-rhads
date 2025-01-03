@@ -28,5 +28,7 @@
 
 * xref:15-AI-model-exploration.adoc[14. AI Model Exploration]
 
-* xref:16-troubleshooting.adoc[16. Troubleshooting]
+* xref:16-where-is-teddy.adoc[16. Where is Teddy?]
+
+* xref:17-troubleshooting.adoc[17. Troubleshooting]
 

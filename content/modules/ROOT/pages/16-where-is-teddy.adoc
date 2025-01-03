@@ -1,0 +1,174 @@
+= Where is Teddy?
+
+Here is a video exploring the Demo features at https://www.youtube.com/watch?v=p-zV62Ty-2Y&t=246s[IBM TechXchange]
+
+== Exploring Generative AI with OpenShift AI: From Text to Image 
+
+*Narrator:* Generative AI is one of the hottest topics in the market today. As highlighted in recent keynotes, it has the potential to dramatically enhance performance for businesses. In this demo, I’ll show how OpenShift AI embraces generative AI and expands its capabilities with tools, automation, MLOps, and user experience.
+
+=== Starting a Data Science Project on OpenShift AI
+
+*Narrator:* We'll begin by creating a "Text-to-Image" project using OpenShift AI. To power this project, we’ll use the open-source model **Stable Diffusion 1.5** from http:///home/hguerrero/git/rh/showroom-rhtap/content/modules/ROOT/pages/16-where-is-teddy.adoc[Hugging Face]. While the pre-trained model can generate impressive images, our goal is to fine-tune it with custom data, automate the process, and deploy the model as a scalable API.
+
+OpenShift AI provides a rich set of components to support this workflow:
+
+- **Workbench:** A Jupyter Notebook environment with pre-installed packages.
+- **Storage and Data Connections:** For efficient data management.
+- **Pipelines:** To automate model building and deployment.
+- **API Serving:** To expose the model for inference.
+
+==== Create a new OpenShift AI Workbench:
+
+1. Go to OpenShift AI (from the OpenShift console view, click on the applications menu in the top right, then select Red Hat OpenShift AI). 
++
+image::image-20241212140818096.png[]
+
+2. Then Go to Data Science Projects. Select the "Image Generation" project.
++
+image::image-20241212141123091.png[]
+
+3. In the overview tab, click on *Create workbench*.
++
+image::image-20250103151846193.png[]
+
+4. From there, fill in the form with the following information: 
++
+**Name** `workbench`
++
+**Image selection** PyTorch
++
+**Version selection** 2024.1
++
+**Container size** Medium
++
+**Accelerator** NVIDIA GPU
++
+**Use existing persistent storage** `workbench`
++
+**Use existing data connection** `My Storage`
+
+5. Click on *Create workbench*.
+
+6. Wait a few minutes until the status in the page is **Running**.
++
+> It is a **big** image to pull. It might take up to **10 minutes** to get started.
+
+7. Open the newly created workbench by clicking *Open*.
++
+image::image-20241212142359786.png[]
+
+8. If required, log in again using your Red Hat Single Sign On credentials and authorize access for your user.
+
+9. In the new Jupyter notebook click on the *Git* tab and then the **Clone a Repository** button. Type in the following URI `https://github.com/cfchase/text-to-image-demo.git`. Finally click **Clone**.
++
+image::image-20241212142753206.png[]
+
+=== Initial Model Testing
+
+Using the Jupyter Notebook, we begin by experimenting with the Stable Diffusion model. For example, asking the model to generate a picture of a dog produces a random result. However, to achieve specific outputs—like generating images of a particular dog, "Teddy", we need fine-tuning. Teddy, our demo mascot and a Red Hat fan, is a great example.
+
+Run through the first notebook of the demo:
+
+- `1_experimentation.ipynb`
+
+=== Fine-Tuning the Model
+
+As you can see, the model generated an image, but it didn’t match our expectation of "Teddy," the specific dog we had in mind.
+
+The term "rhteddy" is meaningless to the model—and likely to you as well. To make the model understand what "Teddy" represents, we need to fine-tune it. Here's how we approach fine-tuning:
+
+1. Collect and upload training images of Teddy to S3 storage.
+2. Train the model using these images.
+3. Export the fine-tuned model back to S3 for sharing and deploying.
+
+After training, the model can generate more accurate and personalized images of Teddy. For example, generating an image of "Teddy on the beach" now results in a realistic, context-aware output.
+
+Run through the second notebook of the demo:
+
+- `2_fine_tuning.ipynb`
+
+////
+=== Automating the Workflow with Pipelines
+
+Everything done manually in the Jupyter Notebook can be automated using OpenShift AI Pipelines. These pipelines handle:
+
+- Data downloading and preparation.
+- Fine-tuning the model.
+- Exporting the model.
+- Generating samples.
+
+This automation ensures consistency and reduces the time required to deploy updates.
+////
+
+=== Deploying the Model as an API
+
+The fine-tuned model can be deployed as an API for remote inference. Using OpenShift's capabilities, we:
+
+1. Save the model to S3 storage.
+2. Deploy it as an internal service supporting REST or gRPC APIs.
+3. Expose the API externally with OpenShift, complete with token-based authentication for secure access.
+
+The remote inference capability allows seamless integration with applications, enabling real-time generative AI use cases.
+
+==== Deploy the newly trained model 
+
+1. Go back to the OpenShift AI console.
+
+2. Register the serving runtime in Openshift AI by clicking on **Settings** then **Serving Runtimes** menu and finally the **Add serving runtime** button.
++
+image::image-2025-01-03 170223.png[]
+
+3. Select `Single Model Serving Platform`.
+
+4. Select the API Protocol `REST`.
+
+5. In the **Add Serving Runtime** click **from scratch** and past the contents `/templates/serving-runtime.yaml` file. 
+
+6. Click the **Create** button. 
++
+image::image-2025-01-03 170856.png[]
+
+7. Select your working project. Click on the **Models** tab. Then click the **Deploy Model** button.
++
+image::image-2025-01-03 163313.png[]
+
+8. From there, fill in the form with the following information: 
++
+**Model name** `redhat-dog`
++
+**Serving runtime** Diffusers Runtime
++
+**Model framework** pytorch - 1
++
+**Model server size** Custom (1CPU / 1 Gi)
++
+**Accelerator** NVIDIA GPU
++
+**Model route** Check *Make deployment models available through an external route* 
++
+**Token authentication** Leave it unchecked
++
+**Model location** Existing data connection
++
+​	**Name** My Storage
++
+​	**Path** `models/notebook-output/redhat-dog/`
+
+9. Click the **Deploy** button.
+
+10. Wait a few minutes for the *inference server* to deploy. The status should turn green and the inference point should show in.
+
+=== A Quick Demonstration
+
+Let’s put it all together. Using the deployed API, we request an image of "Teddy on the beach." The result is a high-quality, contextually accurate image, showcasing the power of OpenShift AI’s end-to-end workflow for generative AI.
+
+==== Deploy the consuming application 
+
+1. Go to Red Hat Developer Hub. In the Catalog view,
+      click "Create", "Register Existing Component" and add template from the following url:
+      `https://github.com/redhat-developer-demos/where-is-teddy/blob/main/scaffolder-templates/wheres-teddy/template.yaml`
+
+2. Register the API entity from the following url:
+      `https://github.com/redhat-developer-demos/where-is-teddy/blob/main/genai-photo-generator-api/catalog-info.yaml`
+
+3. Create a new component using the software template from Developer Hub
