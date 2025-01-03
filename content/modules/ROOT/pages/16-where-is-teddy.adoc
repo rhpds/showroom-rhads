@@ -87,6 +87,7 @@ Run through the second notebook of the demo:
 
 - `2_fine_tuning.ipynb`
 
+////
 === Automating the Workflow with Pipelines
 
 Everything done manually in the Jupyter Notebook can be automated using OpenShift AI Pipelines. These pipelines handle:
@@ -97,6 +98,7 @@ Everything done manually in the Jupyter Notebook can be automated using OpenShif
 - Generating samples.
 
 This automation ensures consistency and reduces the time required to deploy updates.
+////
 
 === Deploying the Model as an API
 
@@ -108,6 +110,65 @@ The fine-tuned model can be deployed as an API for remote inference. Using OpenS
 
 The remote inference capability allows seamless integration with applications, enabling real-time generative AI use cases.
 
+==== Deploy the newly trained model 
+
+1. Go back to the OpenShift AI console.
+
+2. Register the serving runtime in Openshift AI by clicking on **Settings** then **Serving Runtimes** menu and finally the **Add serving runtime** button.
++
+image::image-2025-01-03 170223.png[]
+
+3. Select `Single Model Serving Platform`.
+
+4. Select the API Protocol `REST`.
+
+5. In the **Add Serving Runtime** click **from scratch** and past the contents `/templates/serving-runtime.yaml` file. 
+
+6. Click the **Create** button. 
++
+image::image-2025-01-03 170856.png[]
+
+7. Select your working project. Click on the **Models** tab. Then click the **Deploy Model** button.
++
+image::image-2025-01-03 163313.png[]
+
+8. From there, fill in the form with the following information: 
++
+**Model name** `redhat-dog`
++
+**Serving runtime** Diffusers Runtime
++
+**Model framework** pytorch - 1
++
+**Model server size** Custom (1CPU / 1 Gi)
++
+**Accelerator** NVIDIA GPU
++
+**Model route** Check *Make deployment models available through an external route* 
++
+**Token authentication** Leave it unchecked
++
+**Model location** Existing data connection
++
+​	**Name** My Storage
++
+​	**Path** ``models/notebook-output/redhat-dog/`
+
+9. Click the **Deploy** button.
+
+10. Wait a few minutes for the *inference server* to deploy. The status should turn green and the inference point should show in.
+
 === A Quick Demonstration
 
 Let’s put it all together. Using the deployed API, we request an image of "Teddy on the beach." The result is a high-quality, contextually accurate image, showcasing the power of OpenShift AI’s end-to-end workflow for generative AI.
+
+==== Deploy the consuming application 
+
+1. Go to Red Hat Developer Hub. In the Catalog view,
+      click "Create", "Register Existing Component" and add template from the following url:
+      `https://github.com/redhat-developer-demos/where-is-teddy/blob/main/scaffolder-templates/wheres-teddy/template.yaml`
+
+2. Register the API entity from the following url:
+      `https://github.com/redhat-developer-demos/where-is-teddy/blob/main/genai-photo-generator-api/catalog-info.yaml`
+
+3. Create a new component using the software template from Developer Hub
