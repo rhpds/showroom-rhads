@@ -1,0 +1,179 @@
+= Red Hat Developer Hub + Red Hat Advanced Developer Suite Demo Guide
+:author: Sales Engineer / Developer Advocate
+:revdate: 2025-07-02
+:icons: font
+:toc:
+:toclevels: 2
+
+== 🎯 Scenario
+
+In this demo, you'll walk your audience through what it looks like for a developer to:
+
+* Create a new quarkus application using a software template in Red Hat Developer Hub (RHDH)
+* Automatically integrate the build of the application with secure CI/CD pipelines using Tekton and Red Hat Advanced Developer Suite
+* Store source code and container images securely with GitLab and Quay
+* Leverage automation, security policies, and developer self-service in one flow
+
+The goal is to demonstrate how platform teams can empower developers without compromising security or governance.
+
+== 🧩 Part 1 — Introduce the Context
+
+Start by explaining the challenge:
+
+* Developers want to ship fast
+* Setting up CI/CD, repo structures, and security gates takes time and expertise
+* Red Hat Developer Hub provides a self-service portal for bootstrapping applications with pipelines, Git integration, and policy baked in
+
+_Talk about how this reduces DevOps bottlenecks and enforces consistency._
+
+== 🛠 Part 2 — Scaffold a new application in Red Hat Developer Hub
+
+. Navigate to {rhdh_url}[Red Hat Developer Hub] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
+. On the top right hand corner, click the *Self-service* button i.e. the *+* button, to create a new software component in Red Hat Developer Hub
+. Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_
+. Fill out the form:
+
+Provide Information for Application
+|===
+
+| Field | `Example value`
+
+|Name | `my-quarkus-app`
+|Group Id | `redhat.dh`
+|Artifact Id | `my-quarkus-app`
+|Java Pakage Name | `org.redhat.dh`
+|Description | `A cool quarkus app`
+|===
+
+The above fields are used by the template populate the Quarkus maven artifact.
+
+. Click *Next*
+
+Provide Image Registry Information
+|===
+
+| Field | `Example value`
+
+|Image Registry  | `Quay`
+|Organization | `tssc`
+|===
+
+
+This template uses a Quay instance already deployed on your cluster and will install all images under the `tssc` namespace.
+
+. Click *Next*
+
+Application repository Information
+|===
+
+| Field | `Example value`
+
+|Source Repo  | `Gitlab`
+|Repo Owner | `development`
+|Verify Commits | `enabled`
+|===
+
+This template uses a Gitlab instance already deployed on your cluster and will create all source and gitops repositories under the development group.  The `Verify Commits` option tells the template whether or not to enable commit signing and verification for this software component.
+
+. Click *Review* to review your inputs and then click *Create*
+
+_Talk through how this template sets up not just the app, but also GitLab repo, CI/CD pipelines, deployment manifests, and component registration inside Developer Hub._
+
+== ⚙️ Part 3 — What Happens Behind the Scenes
+
+Explain what Red Hat Developer Hub automates:
+
+* Creates a source code and gitops repository for your application with information derived from the template
+* Creates the Gitlab webhooks responsible for triggering the appropriate pipelines
+* Commits pipeline dependencies and Kubernetes manifests
+* Registers the software compononent in the Developer Hub catalog
+* Automatically triggers the initial CI/CD build pipeline if the "Verify Commits" option was set to disabled.
+
+Point out the developer doesn’t need to manually wire any of this.
+
+== 🔧 Part 4 — Show the Build Pipeline (Tekton)
+
+Open the Tekton dashboard or pipeline UI.
+
+Walk through the key stages of the build pipeline:
+
+=== Task 1: init
+ * Since the pipeline references reusable pipeline artifacts, it is necessary to initialize these components with pipeline data for the current running pipeline execution.
+
+=== Task 2: clone-repository
+ * Clones the source code repository which includes the latest commit made
+
+=== Task 3: verify-commit
+* This step facilitates the verification of Git commits using the gitsign tool, which integrates with the RHTAS service. The signed commits are verified in this step to ensure that the code has not been tampered with and originates from a trusted source.  Clicking on this step will highlight the details around the commit and the committer.
+
+=== Task 4: package
+* Builds the java source codes and creates an maven artifact i.e. a quarkus jar.
+
+=== Task 5: build-container
+* Builds a container image for the quarkus application, signs the image with Cosign, generates the SBOM for both the source code and image as well as in-toto attests the image for provenance.
+
+=== Task 6.1: upload-sboms-to-trustification
+* Uploades the generated sbom to Red Hat Trusted Profile Analyzer to enable teams to analyze Software Bills of Materials (SBOMs), Common Vulnerabilities and Exposures (CVEs), and vendor advisories to identify and mitigate vulnerabilities early in the development process.  You can access the results of the SBOM scan in TPA by clicking on {tpa_url}[Red Hat Trusted Profile Analyzer] with username: `{tpa_user}` and password `{tpa_user_password}` and then clicking *SBOMs* on the left menu.
+
+=== Task 6.2: update-deployment
+* Updates the Gitops repository with the new image so that the Openshift Gitops can redeploy the application using this new image.
+
+=== Task 7.1: acs-image-check
+*This step checks for vulnerabilities, misconfigurations, and adherence to best practices as defined by your organization's security standards.  Clicking on this step will show the results of the image check.
+
+=== Task 7.2: acs-image-scan
+*This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
+
+=== Task 7.3: acs-deploy-check
+*This step evaluates whether our deployment adheres to the security policies configured in your ACS instance. This includes checking for compliance with policies related to image security, network configurations, role-based access control (RBAC), and other security best practices.
+
+_You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_user} and password {acs_user_password}._
+
+=== Task 8.1: show-sbom
+*Clicking on this step will dispay the gnerated SBOM.
+
+=== Task 8.2: show-summary
+*Clicking on this step display a summary of your build.
+
+Highlight that these are enforced steps, not optional.
+
+=== 🔎 Brief Note on Pipelines as Code
+
+Mention briefly:
+
+> These pipelines are defined and version-controlled alongside the service code. This makes the CI/CD process transparent and adaptable, without needing centralized pipeline configuration.
+
+Avoid going deep — keep it lightweight.
+
+== 📘 Part 7 — Wrap-Up
+
+Summarize:
+
+* Developer created a service in minutes
+* Secure CI/CD pipeline was pre-wired
+* Commits and images were signed, scanned, and attested
+
+Benefits:
+
+* Secure-by-default delivery
+* Developer self-service via Red Hat Developer Hub
+* Governance through automation
+* Reusable templates and pipelines across teams
+
+== 🧩 Optional Additions
+
+* Show the Developer Hub Catalog entry for the new software component
+* Point out metadata: links to GitLab, Tekton runs, Quay images, RHACS scan results
+* Mention other templates (e.g. Java, Python) can follow the same pattern
+
+== 🙋‍♂️ Wrap-Up and Invite Questions
+
+Invite reflection:
+
+* Would this help your teams move faster?
+* What security gates matter most to you in Prod?
+* Could this be adapted to your current toolchain (e.g. GitHub or Jenkins)?
+
+== ✅ You're Ready
+
+You're now equipped to walk through this demo with technical stakeholders, showcasing the value of Red Hat Developer Hub and Red Hat Advanced Developer Suite for modern, secure platform delivery.
