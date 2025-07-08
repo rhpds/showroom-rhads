@@ -145,7 +145,7 @@ Mention briefly:
 
 Avoid going deep — keep it lightweight.
 
-== 📘 Part 7 — Wrap-Up
+== 📘 Part 5 — Summary
 
 Summarize:
 
@@ -153,27 +153,32 @@ Summarize:
 * Secure CI/CD pipeline was pre-wired
 * Commits and images were signed, scanned, and attested
 
-Benefits:
+== 📘 Part 6 — Wrap-Up
 
-* Secure-by-default delivery
-* Developer self-service via Red Hat Developer Hub
-* Governance through automation
-* Reusable templates and pipelines across teams
+Summarize:
 
-== 🧩 Optional Additions
+* Developer created a service in minutes
+* Secure CI/CD pipeline was pre-wired
+* Commits and images were signed, scanned, and attested
 
-* Show the Developer Hub Catalog entry for the new software component
-* Point out metadata: links to GitLab, Tekton runs, Quay images, RHACS scan results
-* Mention other templates (e.g. Java, Python) can follow the same pattern
+=== 💡 Key Takeaways
 
-== 🙋‍♂️ Wrap-Up and Invite Questions
+* *Secure-by-default delivery* — Every code change is validated, scanned, and signed automatically
+* *Streamlined developer onboarding* — Developers can get started with new services in minutes
+* *Governance through automation* — Security and compliance are enforced without manual intervention
+* *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
+* *Transparency and traceability* — All steps in the SDLC are auditable, from commit to deploy
+* *Toolchain integration* — GitLab, Quay, Tekton, and ACS work together seamlessly
 
-Invite reflection:
+=== 🧩 Optional Enhancements
 
-* Would this help your teams move faster?
-* What security gates matter most to you in Prod?
-* Could this be adapted to your current toolchain (e.g. GitHub or Jenkins)?
+* *Explore the Developer Hub Catalog entry* for the new software component
+  → Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results
+* *Show integration depth*
+  → Follow the commit link from Developer Hub to GitLab
+  → View the running Tekton pipeline and associated artifacts
+* *Demonstrate template flexibility*
+  → Mention how teams can build similar templates for different stacks (e.g., Python, Node.js, Spring Boot)
+* *Mention collaboration opportunities*
+  → Platform and security teams can co-develop templates and policies for shared governance
 
-== ✅ You're Ready
-
-You're now equipped to walk through this demo with technical stakeholders, showcasing the value of Red Hat Developer Hub and Red Hat Advanced Developer Suite for modern, secure platform delivery.

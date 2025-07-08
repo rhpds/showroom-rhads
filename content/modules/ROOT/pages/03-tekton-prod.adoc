@@ -175,3 +175,29 @@ This file is committed to the GitOps repository, and Argo CD automatically deplo
 - Only GitLab UI–created releases trigger production deployment.
 - Promotion to prod requires a release and ensures only staged images are promoted
 - Enterprise Contract ensures only secure and compliant artifacts reach production.
+
+== 🧩 Optional Enhancements
+
+* *Integrate Red Hat Advanced Cluster Security (ACS)*
+  → Scan the image and deployment for vulnerabilities and policy violations before promotion
+  → Include ACS steps in the pipeline to enforce security gates beyond EC validation
+
+* *Add Slack or email notifications*
+  → Notify stakeholders when a release is promoted or validation fails
+  → Improve visibility into release activity and policy enforcement
+
+* *Include signature verification for Git tags*
+  → Ensure that only cryptographically signed tags can trigger production promotion
+  → Strengthen trust in Git operations and release integrity
+
+* *Promote via GitHub or CLI*
+  → Demonstrate how the same flow can be adapted for GitHub Releases or CLI-driven tag pushes
+  → Highlight flexibility of the pipeline’s trigger model
+
+* *Track pipeline runs in Developer Hub or Tekton Dashboard*
+  → Show how platform engineers or auditors can trace promotion history
+  → Surface links to logs, artifacts, and Git metadata
+
+* *Enforce RBAC for release creation*
+  → Limit who can trigger production deployments by restricting GitLab release permissions
+  → Introduce tighter governance for critical environments

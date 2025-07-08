@@ -146,7 +146,9 @@ This change is committed and pushed to the GitOps repository. Argo CD continuous
 By using Kustomize patches, we ensure that environment-specific overrides (such as image versions) are managed cleanly without modifying base manifests.
 
 
-== Summary
+== 📘 Part 6 — Wrap-Up
+
+=== Summary
 
 |===
 |Phase | Purpose
@@ -164,7 +166,7 @@ By using Kustomize patches, we ensure that environment-specific overrides (such 
 | Deploy image via Argo CD after Git commit
 |===
 
-== Key Messages
+=== 💡 Key Takeaways
 
 - Policies are enforced automatically with no developer intervention.
 - Only validated, signed, and compliant images are promoted.
@@ -172,7 +174,7 @@ By using Kustomize patches, we ensure that environment-specific overrides (such 
 - Git remains the source of truth for both promotion and deployment (GitOps).
 - The process is fully automated, auditable, and scalable across teams.
 
-== Optional Enhancements
+=== 🧩 Optional Enhancements
 
 Consider demonstrating:
 
