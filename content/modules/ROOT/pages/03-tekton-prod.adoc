@@ -1,0 +1,177 @@
+= Trusted Application Pipeline Demo Narrative
+Red Hat Trusted Application Pipeline with Enterprise Contract and GitOps Promotion
+:icons: font
+:sectnums:
+:source-highlighter: rouge
+
+== Overview
+
+This guide describes how to demonstrate a pipeline using Red Hat Trusted Application Pipeline (TAP), Enterprise Contract (EC), and Argo CD to securely promote container images from staging to production. The pipeline supports both Git tag and GitLab release triggers using a shared flow.
+
+== Trigger Model
+
+[cols="1,1,1,1",options="header"]
+|===
+|Trigger Type | Triggered By | Target Environment | GitOps Overlay
+
+| Tag push
+| `git push tag v1.2.3`
+| Staging
+| `overlays/stage/`
+
+| GitLab Release (via UI)
+| GitLab UI “Create Release from Tag”
+| Production
+| `overlays/prod/`
+|===
+
+== 2. GitLab Release – Promote to Production
+
+Once the image is verified in staging, a developer promotes it to production by creating a GitLab Release from the tag.
+
+To do this:
+
+. Navigate to the repository in GitLab.
+. Go to *Deploy > Releases*.
+. Click *New Release*.
+. Select the existing tag (e.g. `v1.2.3`).
+. Optionally add release notes and click *Create release*.
+
+This triggers a webhook, which launches the same pipeline. The pipeline detects the trigger source (a release webhook), and enters **production promotion mode**.
+
+=== Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
+
+To get the tag value attached in the
+
+== Task 1.2  `gather-images-to-verify` – Generate `images.yaml`
+
+This step creates the input for Enterprise Contract validation by generating a file called `images.yaml`. It points to the container image that was tagged during the deployment to stage i.e. the tag value created in Gitlab.
+
+.Example `images.yaml`
+[source,yaml]
+----
+components:
+  - name: web-app
+    containerImage: quay.io/acme/web-app:v1.2.3
+----
+
+== Task 2 `verify-enterprise-contract` – Validate Image and Metadata
+
+Before promoting, the image is validated using the Enterprise Contract CLI. This enforces key policies such as:
+
+- Signed with Cosign
+- SBOM present
+- SLSA provenance
+- No high/critical CVEs
+- Compliance with organization rules
+
+First, the Cosign trust root must be initialized:
+
+[source,bash]
+----
+cosign initialize \
+  --mirror https://tuf.enterprisecontract.dev \
+  --root https://tuf.enterprisecontract.dev/root.json
+----
+
+Then the image is validated:
+
+[source,bash]
+----
+ec validate image \
+  --image quay.io/acme/web-app:v1.2.3 \
+  --policy default \
+  --public-key k8s://openshift/trusted-keys \
+  --output json
+----
+
+.Sample output
+[source,json]
+----
+{
+  "successes": [
+    "Image is signed and verified with cosign",
+    "SBOM (CycloneDX) is present",
+    "Provenance matches repository",
+    "No critical vulnerabilities found"
+  ],
+  "failures": []
+}
+----
+
+If validation fails, the pipeline aborts and the image is not promoted.
+
+== Task 3 - `update-deployment` - Create a new image tag based on the *stage* image
+
+If the image passes validation, it is re-tagged using `skopeo`:
+
+[source,bash]
+----
+skopeo copy \
+  docker://quay.io/acme/web-app@sha256:v1.2.3. \
+  docker://quay.io/acme/web-app:prod-v1.2.3
+----
+
+This makes the validated image accessible via the human-readable release tag.  The new tag value is the old tag prepended with the workd *prod-*
+
+== 6. Update GitOps Repository (Staging or Production)
+
+This step is triggered by a **GitLab release**, so the `overlays/production/` is updated.
+
+The pipeline modifies a Kustomize patch file to point to the new image tag.
+
+.`deployment-patch.yaml`
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: web-app
+          image: quay.io/acme/web-app:prod-v1.2.3
+----
+
+.Example Git diff:
+[source,diff]
+----
+-          image: quay.io/acme/web-app:v1.2.2
++          image: quay.io/acme/web-app:prod-v1.2.3
+----
+
+This file is committed to the GitOps repository, and Argo CD automatically deploys it to the production environment.
+
+== Summary
+
+[cols="1,1",options="header"]
+|===
+| Step | Description
+
+| Tag Push
+| Triggers staging pipeline and GitOps update for `overlays/staging/`
+
+| GitLab Release
+| Triggers production promotion pipeline via webhook
+
+| gather-images-to-verify
+| Selects the image that is tagged with the value of the Gitlab tag (during the deployment to stage) which is attached to the release
+
+| verify-enterprise-contract
+| Validates the image’s integrity, provenance, and compliance
+
+| Tagging
+| Tags the verified image using the Git release tag prepended with the word *prod-*
+
+| GitOps Update
+| Updates `overlays/production/` for Argo CD
+|===
+
+== Key Takeaways
+
+- The same pipeline is reused for both staging and production, depending on the Git event.
+- Only GitLab UI–created releases trigger production deployment.
+- Promotion to prod requires a release and ensures only staged images are promoted
+- Enterprise Contract ensures only secure and compliant artifacts reach production.
