@@ -108,7 +108,7 @@ If the image passes validation, it is re-tagged using `skopeo`:
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.io/acme/web-app@sha256:v1.2.3. \
+  docker://quay.io/acme/web-app:v1.2.3. \
   docker://quay.io/acme/web-app:prod-v1.2.3
 ----
 
@@ -138,7 +138,7 @@ spec:
 .Example Git diff:
 [source,diff]
 ----
--          image: quay.io/acme/web-app:v1.2.2
+-          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
 +          image: quay.io/acme/web-app:prod-v1.2.3
 ----
 
