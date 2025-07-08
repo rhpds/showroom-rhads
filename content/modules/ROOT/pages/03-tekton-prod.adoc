@@ -51,8 +51,8 @@ This step creates the input for Enterprise Contract validation by generating a f
 [source,yaml]
 ----
 components:
-  - name: web-app
-    containerImage: quay.io/acme/web-app:v1.2.3
+  - name: my-quarkus-app
+    containerImage: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
 ----
 
 == Task 2 `verify-enterprise-contract` – Validate Image and Metadata
@@ -70,8 +70,8 @@ First, the Cosign trust root must be initialized:
 [source,bash]
 ----
 cosign initialize \
-  --mirror https://tuf.enterprisecontract.dev \
-  --root https://tuf.enterprisecontract.dev/root.json
+  --mirror https://tuf.tssc-tas.dev \
+  --root https://tuf.tssc-tas.dev/root.json
 ----
 
 Then the image is validated:
@@ -79,7 +79,7 @@ Then the image is validated:
 [source,bash]
 ----
 ec validate image \
-  --image quay.io/acme/web-app:v1.2.3 \
+  --image quay.tssc-quay/tssc/my-quarkus-app:v1.2.3 \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -108,8 +108,8 @@ If the image passes validation, it is re-tagged using `skopeo`:
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.io/acme/web-app:v1.2.3. \
-  docker://quay.io/acme/web-app:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3. \
+  docker://quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
 ----
 
 This makes the validated image accessible via the human-readable release tag.  The new tag value is the old tag prepended with the workd *prod-*
@@ -126,20 +126,20 @@ The pipeline modifies a Kustomize patch file to point to the new image tag.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app
+  name: my-quarkus-app
 spec:
   template:
     spec:
       containers:
-        - name: web-app
-          image: quay.io/acme/web-app:prod-v1.2.3
+        - name: my-quarkus-app
+          image: quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
 ----
 
 .Example Git diff:
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.io/acme/web-app:prod-v1.2.3
++          image: quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
 ----
 
 This file is committed to the GitOps repository, and Argo CD automatically deploys it to the production environment.
