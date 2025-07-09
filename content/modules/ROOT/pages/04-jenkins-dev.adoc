@@ -10,7 +10,7 @@
 In this demo, you'll walk your audience through what it looks like for a developer to:
 
 * Create a new quarkus application using a software template in Red Hat Developer Hub (RHDH)
-* Automatically integrate the build of the application with secure CI/CD pipelines using Tekton and Red Hat Advanced Developer Suite
+* Automatically integrate the build of the application with secure CI/CD pipelines using Jenkins and Red Hat Advanced Developer Suite
 * Store source code and container images securely with GitLab and Quay
 * Leverage automation, security policies, and developer self-service in one flow
 
@@ -86,56 +86,56 @@ Explain what Red Hat Developer Hub automates:
 * Creates a source code and gitops repository for your application with information derived from the template
 * Creates the Gitlab webhooks responsible for triggering the appropriate pipelines
 * Commits pipeline dependencies and Kubernetes manifests
-* Registers the software compononent in the Developer Hub catalog
+* Registers the software component in the Developer Hub catalog
 * Automatically triggers the initial CI/CD build pipeline if the "Verify Commits" option was set to disabled.
 
 Point out the developer doesn’t need to manually wire any of this.
 
-== 🔧 Part 4 — Show the Build Pipeline (Tekton)
+== 🔧 Part 4 — Show the Build Pipeline (Jenkins)
 
-Open the Tekton dashboard or pipeline UI.
+In Developer Hub, open the my-quarkus-app component and navigate to the `CI` tab.  You should see 3 pipeline builds:
 
-Walk through the key stages of the build pipeline:
+. maven-ci-build
+. promote-to-stage
+. promote-to-prod
 
-=== Task 1: init
- * Since the pipeline references reusable pipeline artifacts, it is necessary to initialize these components with pipeline data for the current running pipeline execution.
+The pipeline maven-ci-build should be running.  Click on `View build` to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
 
-=== Task 2: clone-repository
- * Clones the source code repository which includes the latest commit made
-
-=== Task 3: verify-commit
+=== Stage: verify-commit (conditional)
 * This step facilitates the verification of Git commits using the gitsign tool, which integrates with the RHTAS service. The signed commits are verified in this step to ensure that the code has not been tampered with and originates from a trusted source.  Clicking on this step will highlight the details around the commit and the committer.
+* Only executed if the "Verify Commits" option is enabled in the template.
 
-=== Task 4: package
-* Builds the java source codes and creates an maven artifact i.e. a quarkus jar.
+=== Stage: mvn package
+* Runs a Maven build to compile the Java source code and package it into a Quarkus JAR.
 
-=== Task 5: build-container
-* Builds a container image for the quarkus application, signs the image with Cosign, generates the SBOM for both the source code and image as well as in-toto attests the image for provenance.  The image tag used is based on the commit id for the commit that triggered the pipeline.
+=== Stage: init
+* Initializes environment variables including image URLs and timestamps.
+* Prepares the build environment and triggers initial setup using the `rhtap` shared library.
 
-=== Task 6.1: upload-sboms-to-trustification
-* Uploades the generated sbom to Red Hat Trusted Profile Analyzer to enable teams to analyze Software Bills of Materials (SBOMs), Common Vulnerabilities and Exposures (CVEs), and vendor advisories to identify and mitigate vulnerabilities early in the development process.  You can access the results of the SBOM scan in TPA by clicking on {tpa_url}[Red Hat Trusted Profile Analyzer] with username: `{tpa_user}` and password `{tpa_user_password}` and then clicking *SBOMs* on the left menu.
+=== Stage: build
+* Uses buildah to build the container image for the application.
+* Signs and attests the image with Cosign for provenance and security.
 
-=== Task 6.2: update-deployment
-* Updates the Gitops repository with the new image so that the Openshift Gitops can redeploy the application using this new image.
+=== Stage: deploy-and-upload-to-tpa (parallel)
+* deploy
+  * Updates the GitOps repository with the new image tag to trigger redeployment via OpenShift GitOps to dev.
+* upload_sbom_to_trustification
+  * Uploads the generated Software Bill of Materials (SBOM) to Red Hat Trusted Profile Analyzer for vulnerability and compliance scanning.
 
-=== Task 7.1: acs-image-check
-*This step runs security checks on the container image against the policies configured in ACS.
+=== Stage: acs (parallel)
+* acs_deploy_check
+  * Validates deployment security compliance, including RBAC and network policies.
+* acs_image_check
+  * This step runs security checks on the container image against the policies configured in ACS.
+* acs_image_scan
+  * This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
-=== Task 7.2: acs-image-scan
-*This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
+_You may want to open Red Hat Advanced Cluster Security at {acs_url} with username: {acs_user} and password {acs_user_password} to show these results._
 
-=== Task 7.3: acs-deploy-check
-*This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
+=== Stage: summary
+* Displays the generated SBOM and summarizes the build results using `rhtap` library calls.
 
-_You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_user} and password {acs_user_password}._
-
-=== Task 8.1: show-sbom
-*Clicking on this step will dispay the gnerated SBOM.
-
-=== Task 8.2: show-summary
-*Clicking on this step display a summary of your build.
-
-Highlight that these are enforced steps, not optional.
+Highlight that these stages enforce security and compliance as part of an automated and auditable CI/CD flow.
 
 === 🔎 Brief Note on Pipelines as Code
 
@@ -150,7 +150,7 @@ Avoid going deep — keep it lightweight.
 Summarize:
 
 * Developer created a service in minutes
-* Secure CI/CD pipeline was pre-wired
+* Secure CI/CD pipeline was pre-wired using Jenkins
 * Commits and images were signed, scanned, and attested
 
 == 📘 Part 6 — Wrap-Up
@@ -158,7 +158,7 @@ Summarize:
 Summarize:
 
 * Developer created a service in minutes
-* Secure CI/CD pipeline was pre-wired
+* Secure CI/CD pipeline was pre-wired using Jenkins
 * Commits and images were signed, scanned, and attested
 
 === 💡 Key Takeaways
@@ -168,7 +168,7 @@ Summarize:
 * *Governance through automation* — Security and compliance are enforced without manual intervention
 * *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
 * *Transparency and traceability* — All steps in the SDLC are auditable, from commit to deploy
-* *Toolchain integration* — GitLab, Quay, Tekton, and ACS work together seamlessly
+* *Toolchain integration* — GitLab, Quay, Jenkins, and ACS work together seamlessly
 
 === 🧩 Optional Enhancements
 
@@ -176,9 +176,8 @@ Summarize:
   → Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results
 * *Show integration depth*
   → Follow the commit link from Developer Hub to GitLab
-  → View the running Tekton pipeline and associated artifacts
+  → View the running Jenkins pipeline and associated artifacts
 * *Demonstrate template flexibility*
   → Mention how teams can build similar templates for different stacks (e.g., Python, Node.js, Spring Boot)
 * *Mention collaboration opportunities*
   → Platform and security teams can co-develop templates and policies for shared governance
-
