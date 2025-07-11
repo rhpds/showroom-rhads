@@ -1,0 +1,184 @@
+= Advanced Developer Suite Demo Narrative
+Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
+:icons: font
+:sectnums:
+:source-highlighter: rouge
+
+== Overview
+
+This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote a container image triggered by a GitLab tag. It includes setup details, key pipeline steps, examples, and policy enforcement points.
+
+== Pipeline Flow
+
+=== Git Tag Triggers the Pipeline
+
+A Git tag (e.g. `v1.2.3`) is pushed to the repository, signaling the release of a specific version.
+
+[source,bash]
+----
+git tag v1.2.3
+git push origin v1.2.3
+----
+
+=== Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
+
+As the actual tag value is being passed into the pipeline run as metadata, this tep will need to extract it and ensure it is available to the rest of the pipeline for processing.
+
+=== Task 1.2 `gather-images-to-verify` – Generate `images.yaml`
+
+This step identifies the container image (built previously) to be promoted and writes it to `images.yaml`.  The image listed in this file is expected to have been built by the CI pipeline during the original commit, and it is **tagged using the commit id** of the Git branch (master) that was just tagged.
+
+.Sample `images.yaml`
+[source,yaml]
+----
+components:
+  - name: my-quarkus-app
+    containerImage: quay.tssc-quay/tssc/my-quarkus-app:abc123def456...
+----
+
+By resolving the Git tag to its commit id and matching it with the image tag, you maintain a trusted trace from source to artifact.
+
+=== Task 2. `verify-enterprise-contract` – Validate the Image
+
+This step validates the image using EC CLI and the Red Hat Trusted Artifact Signer policy framework.
+
+Before running the validation, `cosign` must be initialized to establish trust with the Artifact Signer TUF server.
+
+[source,bash]
+----
+cosign initialize \
+  --mirror https://tuf.enterprisecontract.dev \
+  --root https://tuf.enterprisecontract.dev/root.json
+----
+
+This bootstraps trust for verifying signatures on container images. It ensures that only artifacts signed by trusted Red Hat keys are accepted.
+
+After trust is established, the image is validated using EC CLI:
+
+[source,bash]
+----
+ec validate image \
+  --image quay.tssc-quay/tssc/my-quarkus-app:abc123... \
+  --policy default \
+  --public-key k8s://openshift/trusted-keys \
+  --output json
+----
+
+.Policy checks performed include:
+- Cosign signature validation
+- SBOM presence (e.g., SPDX or CycloneDX)
+- SLSA provenance metadata
+- CVE scan compliance
+- Organization-specific policies
+
+.Sample output
+[source,json]
+----
+{
+  "successes": [
+    "Image is signed and verified with cosign",
+    "SBOM (CycloneDX) is present",
+    "Provenance attestation matches source repo",
+    "No critical vulnerabilities found"
+  ],
+  "failures": []
+}
+----
+
+If validation fails, the pipeline halts, preventing unverified artifacts from being promoted.
+
+=== Task 3. copy-image - Tag the image
+
+If the image passes all validation checks, it is promoted using Skopeo by assigning it a human-readable tag.
+
+[source,bash]
+----
+skopeo copy \
+  docker://quay.tssc-quay/tssc/my-quarkus-app:abc123... \
+  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+----
+
+This step reuses the verified digest and applies the Git tag for traceability.
+
+=== 4. update-deployment - Update the gitops repository
+
+In this step, the pipeline commits a change to the GitOps repository to update the image used in the Kubernetes deployment. This is done using a Kustomize `patchesStrategicMerge` overlay to modify the `image` field of a container within a `Deployment` resource.
+
+The patch file typically looks like this:
+
+.`kustomization.yaml`
+[source,yaml]
+----
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patchesStrategicMerge:
+  - deployment-patch.yaml
+resources:
+  - ../../base
+----
+
+.`deployment-patch.yaml`
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-quarkus-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: my-quarkus-app
+          image: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+----
+
+The pipeline modifies `deployment-patch.yaml`, replacing the previous tag with the new tag (e.g., `v1.2.2 → v1.2.3`).
+
+.Example Git diff:
+[source,diff]
+----
+-          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
++          image: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+----
+
+This change is committed and pushed to the GitOps repository. Argo CD continuously monitors the repo and automatically syncs the new configuration to the cluster, deploying the validated image to the target environment (e.g., staging).
+
+By using Kustomize patches, we ensure that environment-specific overrides (such as image versions) are managed cleanly without modifying base manifests.
+
+
+== 📘 Part 6 — Wrap-Up
+
+=== Summary
+
+|===
+|Phase | Purpose
+
+| gather-images-to-verify
+| Identify image to promote and generate `images.yaml`
+
+| verify-enterprise-contract
+| Enforce policy validation using EC CLI, with Cosign trust initialized via TUF
+
+| Tagging with Skopeo
+| Promote the validated image using a Git tag
+
+| GitOps Repo Update
+| Deploy image via Argo CD after Git commit
+|===
+
+=== 💡 Key Takeaways
+
+- Policies are enforced automatically with no developer intervention.
+- Only validated, signed, and compliant images are promoted.
+- Cosign and EC CLI work together to provide cryptographic and policy-based trust.
+- Git remains the source of truth for both promotion and deployment (GitOps).
+- The process is fully automated, auditable, and scalable across teams.
+
+=== 🧩 Optional Enhancements
+
+Consider demonstrating:
+
+- A failed EC validation scenario (e.g., missing SBOM),
+- The policy bundle YAML from the EC repo,
+- A Quay registry view showing the new image tag,
+- Argo CD UI showing the sync to staging.

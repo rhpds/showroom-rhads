@@ -1,12 +1,12 @@
 = Advanced Developer Suite Demo Narrative
-Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion
+Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion using Jenkins
 :icons: font
 :sectnums:
 :source-highlighter: rouge
 
 == Overview
 
-This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote container images from staging to production. The pipeline supports both Git tag and GitLab release triggers using a shared flow.
+This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote container images from staging to production. The pipeline supports both Git tag and GitLab release triggers using a shared flow. This implementation uses *Jenkins*, executed in a Kubernetes environment with custom agents and secure credential management.
 
 == Trigger Model
 
@@ -37,15 +37,19 @@ To do this:
 . Select the existing tag (e.g. `v1.2.3`).
 . Optionally add release notes and click *Create release*.
 
-This triggers a webhook, which launches the same pipeline. The pipeline detects the trigger source (a release webhook), and enters **production promotion mode**.
+This triggers a webhook, which launches the same Jenkins pipeline. The pipeline detects the trigger source (a release webhook), and enters **production promotion mode**.
 
 === Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
 
-To get the tag value attached in the
+The Jenkins pipeline uses a shell script to extract the GitLab release tag via the GitLab API and uses it to build the image URL.
+
+This is part of the `gather-images` stage.
 
 == Task 1.2  `gather-images-to-verify` – Generate `images.yaml`
 
-This step creates the input for Enterprise Contract validation by generating a file called `images.yaml`. It points to the container image that was tagged during the deployment to stage i.e. the tag value created in Gitlab.
+This step creates the input for Enterprise Contract validation by generating a file called `images.yaml`. It points to the container image that was tagged during the deployment to stage, i.e., the tag value created in GitLab.
+
+This is performed in the `gather-images` stage of the Jenkins pipeline.
 
 .Example `images.yaml`
 [source,yaml]
@@ -64,6 +68,8 @@ Before promoting, the image is validated using the Enterprise Contract CLI. This
 - SLSA provenance
 - No high/critical CVEs
 - Compliance with organization rules
+
+In Jenkins, this is handled in the `verify-ec` stage using the `rhtap.verify_enterprise_contract()` step.
 
 First, the Cosign trust root must be initialized:
 
@@ -99,26 +105,28 @@ ec validate image \
 }
 ----
 
-If validation fails, the pipeline aborts and the image is not promoted.
+If validation fails, the Jenkins pipeline aborts and the image is not promoted.
 
 == Task 3 - `update-deployment` - Create a new image tag based on the *stage* image
 
-If the image passes validation, it is re-tagged using `skopeo`:
+If the image passes validation, it is re-tagged using `skopeo`.
+
+This is implemented in the Jenkins stage `update-image-tag-for-stage`, using a dedicated container running the Skopeo CLI:
 
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3. \
+  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3 \
   docker://quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
 ----
 
-This makes the validated image accessible via the human-readable release tag.  The new tag value is the old tag prepended with the workd *prod-*
+This makes the validated image accessible via the human-readable release tag. The new tag value is the old tag prepended with the word *prod-*
 
 == 6. Update GitOps Repository (Staging or Production)
 
 This step is triggered by a **GitLab release**, so the `overlays/production/` is updated.
 
-The pipeline modifies a Kustomize patch file to point to the new image tag.
+The Jenkins pipeline commits a change to the GitOps repository by updating the appropriate Kustomize overlay using the `rhtap.update_deployment()` step in the `deploy-to-prod` stage.
 
 .`deployment-patch.yaml`
 [source,yaml]
@@ -157,7 +165,7 @@ This file is committed to the GitOps repository, and Argo CD automatically deplo
 | Triggers production promotion pipeline via webhook
 
 | gather-images-to-verify
-| Selects the image that is tagged with the value of the Gitlab tag (during the deployment to stage) which is attached to the release
+| Selects the image that is tagged with the value of the GitLab tag (during the deployment to stage) which is attached to the release
 
 | verify-enterprise-contract
 | Validates the image’s integrity, provenance, and compliance
@@ -171,7 +179,7 @@ This file is committed to the GitOps repository, and Argo CD automatically deplo
 
 == Key Takeaways
 
-- The same pipeline is reused for both staging and production, depending on the Git event.
+- The same Jenkins pipeline is reused for both staging and production, depending on the Git event.
 - Only GitLab UI–created releases trigger production deployment.
 - Promotion to prod requires a release and ensures only staged images are promoted
 - Enterprise Contract ensures only secure and compliant artifacts reach production.
@@ -194,7 +202,7 @@ This file is committed to the GitOps repository, and Argo CD automatically deplo
   → Demonstrate how the same flow can be adapted for GitHub Releases or CLI-driven tag pushes
   → Highlight flexibility of the pipeline’s trigger model
 
-* *Track pipeline runs in Developer Hub or Tekton Dashboard*
+* *Track pipeline runs in Developer Hub or Jenkins UI*
   → Show how platform engineers or auditors can trace promotion history
   → Surface links to logs, artifacts, and Git metadata
 

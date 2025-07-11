@@ -10,7 +10,7 @@ asciidoc:
     page-pagination: true
     experimental:
     numbered:
-    lab_name: "Red Hat Trusted Application Pipeline Demonstration"
+    lab_name: "Red Hat Advanced Developer Suite Demonstration"
     guid: my-guid
     ssh_user: lab-user
     ssh_password: lab-user

@@ -1,4 +1,4 @@
-= Red Hat Trusted Application Pipeline Demonstration
+= Red Hat Advanced Developer Suite Demonstration
 :toc:
 :toc-placement: preamble
 :sectnums:
