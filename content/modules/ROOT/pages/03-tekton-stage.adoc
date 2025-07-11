@@ -8,6 +8,11 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote a container image triggered by a GitLab tag. It includes setup details, key pipeline steps, examples, and policy enforcement points.
 
+[NOTE]
+====
+The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+====
+
 == Pipeline Flow
 
 === Git Tag Triggers the Pipeline

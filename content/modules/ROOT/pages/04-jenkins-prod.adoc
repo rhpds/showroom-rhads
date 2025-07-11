@@ -8,6 +8,11 @@ Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion u
 
 This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote container images from staging to production. The pipeline supports both Git tag and GitLab release triggers using a shared flow. This implementation uses *Jenkins*, executed in a Kubernetes environment with custom agents and secure credential management.
 
+[NOTE]
+====
+The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+====
+
 == Trigger Model
 
 [cols="1,1,1,1",options="header"]
@@ -51,12 +56,22 @@ This step creates the input for Enterprise Contract validation by generating a f
 
 This is performed in the `gather-images` stage of the Jenkins pipeline.
 
-.Example `images.yaml`
-[source,yaml]
+.Example `images.json`
+[source,json]
 ----
-components:
-  - name: my-quarkus-jnk
-    containerImage: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
+{
+  "components": [
+    {
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
+      "source": {
+        "git": {
+          "url": "{gitlab_url}/org/my-quarkus-jnk",
+          "revision": "v1.2.3"
+        }
+      }
+    }
+  ]
+}
 ----
 
 == Task 2 `verify-enterprise-contract` – Validate Image and Metadata

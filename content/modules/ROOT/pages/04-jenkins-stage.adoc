@@ -17,6 +17,11 @@ The demo showcases how tagging a release in Git triggers an automated pipeline t
 You’ll be demonstrating a Jenkins pipeline using the shared library:
 `library identifier: 'RHTAP_Jenkins@main'`
 
+[NOTE]
+====
+The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+====
+
 == Starting the Demo: Tag the Release
 
 Explain to your audience that the pipeline is triggered by tagging a release in Git. To demonstrate this:
