@@ -1,203 +1,195 @@
-= Advanced Developer Suite Demo Narrative
-Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion
+= Advanced Developer Suite Demo Instructions
+Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 :icons: font
 :sectnums:
 :source-highlighter: rouge
 
 == Overview
 
-This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote container images from staging to production. The pipeline supports both Git tag and GitLab release triggers using a shared flow.
+This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (TAP), Enterprise Contract (EC), and GitOps with Argo CD.
 
-== Trigger Model
+The demo showcases how creating a release from a Git tag triggers an automated Jenkins pipeline that:
+- Validates the image with Enterprise Contract
+- Tags the verified image with the release version
+- Promotes the image to the `prod` environment via GitOps
+- Deploys the application using Argo CD
 
-[cols="1,1,1,1",options="header"]
-|===
-|Trigger Type | Triggered By | Target Environment | GitOps Overlay
+You’ll be demonstrating a Jenkins pipeline using the shared library:
+`library identifier: 'RHTAP_Jenkins@main'`
 
-| Tag push
-| `git push tag v1.2.3`
-| Staging
-| `overlays/stage/`
+== Starting the Demo: Create a Release from Tag
 
-| GitLab Release (via UI)
-| GitLab UI “Create Release from Tag”
-| Production
-| `overlays/prod/`
-|===
+Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
 
-== 2. GitLab Release – Promote to Production
+1. Open your GitLab repository.
+2. Navigate to *Deploy > Releases > New release*.
+3. Select an existing tag (e.g. `v1.2.3`) or create a new one.
+4. Enter release notes (optional).
+5. Click *Create release*.
 
-Once the image is verified in staging, a developer promotes it to production by creating a GitLab Release from the tag.
+Tell your audience: “This release event kicks off the Jenkins pipeline via a webhook. It promotes the tagged image to prod after validation.”
 
-To do this:
+== Pipeline Tasks
 
-. Navigate to the repository in GitLab.
-. Go to *Deploy > Releases*.
-. Click *New Release*.
-. Select the existing tag (e.g. `v1.2.3`).
-. Optionally add release notes and click *Create release*.
+As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-This triggers a webhook, which launches the same pipeline. The pipeline detects the trigger source (a release webhook), and enters **production promotion mode**.
+=== Task 1.1: gather-images
 
-=== Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
+Explain that this task maps the Git tag to a commit and collects metadata used for verification.
 
-To get the tag value attached in the
+Mention that the pipeline uses commands like:
 
-== Task 1.2  `gather-images-to-verify` – Generate `images.yaml`
-
-This step creates the input for Enterprise Contract validation by generating a file called `images.yaml`. It points to the container image that was tagged during the deployment to stage i.e. the tag value created in Gitlab.
-
-.Example `images.yaml`
-[source,yaml]
+[source,bash]
 ----
-components:
-  - name: my-quarkus-tkn
-    containerImage: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
+git describe --tags --abbrev=0
+git rev-parse v1.2.3
 ----
 
-== Task 2 `verify-enterprise-contract` – Validate Image and Metadata
+Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s being passed between tasks:
 
-Before promoting, the image is validated using the Enterprise Contract CLI. This enforces key policies such as:
+[source,json]
+----
+{
+  "components": [
+    {
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
+      "source": {
+        "git": {
+          "url": "{gitlab_url}/org/my-quarkus-jnk",
+          "revision": "v1.2.3"
+        }
+      }
+    }
+  ]
+}
+----
 
-- Signed with Cosign
-- SBOM present
-- SLSA provenance
-- No high/critical CVEs
-- Compliance with organization rules
+Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
 
-First, the Cosign trust root must be initialized:
+=== Task 1.2: verify-ec
+
+Let your audience know this is where supply chain security checks occur.
+
+Step 1: The pipeline initializes trust via Cosign:
 
 [source,bash]
 ----
 cosign initialize \
-  --mirror https://tuf.tssc-tas.dev \
-  --root https://tuf.tssc-tas.dev/root.json
+  --mirror http://tuf.tssc-tas.svc \
+  --root http://tuf.tssc-tas.svc/root.json
 ----
 
-Then the image is validated:
+Step 2: Enterprise Contract validates the image:
 
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3 \
-  --policy default \
+  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  --policy git::github.com/org/ec-policies//default \
   --public-key k8s://openshift/trusted-keys \
   --output json
 ----
 
-.Sample output
-[source,json]
-----
-{
-  "successes": [
-    "Image is signed and verified with cosign",
-    "SBOM (CycloneDX) is present",
-    "Provenance matches repository",
-    "No critical vulnerabilities found"
-  ],
-  "failures": []
-}
-----
+Describe the validations performed:
+- Digital signature with Cosign
+- SBOM presence (e.g., SPDX, CycloneDX)
+- Provenance metadata (how the image was built)
+- CVE scanning
+- Organizational policy compliance
 
-If validation fails, the pipeline aborts and the image is not promoted.
+💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
 
-== Task 3 - `update-deployment` - Create a new image tag based on the *stage* image
+=== Task 2: update-image-tag-for-prod
 
-If the image passes validation, it is re-tagged using `skopeo`:
+Tell your audience that if the image passes validation, this step tags it with the release version.
 
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3. \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
 ----
 
-This makes the validated image accessible via the human-readable release tag.  The new tag value is the old tag prepended with the workd *prod-*
+Explain:
+- It creates a human-readable, immutable tag.
+- Only validated images are promoted.
+- This tag is what’s deployed to the `prod` environment.
 
-== 6. Update GitOps Repository (Staging or Production)
+=== Task 3: deploy-to-prod
 
-This step is triggered by a **GitLab release**, so the `overlays/production/` is updated.
+Explain that this step updates the GitOps repository to reflect the new image tag.
 
-The pipeline modifies a Kustomize patch file to point to the new image tag.
+The pipeline updates:
 
-.`deployment-patch.yaml`
+`overlays/prod/deployment-patch.yaml`
+
 [source,yaml]
 ----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-quarkus-tkn
+  name: my-quarkus-jnk
 spec:
   template:
     spec:
       containers:
-        - name: my-quarkus-tkn
-          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
+        - name: my-quarkus-jnk
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
 ----
 
-.Example Git diff:
-[source,diff]
+And this patch is referenced by `kustomization.yaml`:
+
+[source,yaml]
 ----
--          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+patchesStrategicMerge:
+  - deployment-patch.yaml
 ----
 
-This file is committed to the GitOps repository, and Argo CD automatically deploys it to the production environment.
+Mention:
+- Jenkins commits and pushes this update to the GitOps repo.
+- Argo CD automatically detects the change and syncs it to the `prod` cluster.
 
-== Summary
+== 📘 Wrap-Up
 
-[cols="1,1",options="header"]
+=== Summary of Tasks
+
 |===
-| Step | Description
+|Task | Description
 
-| Tag Push
-| Triggers staging pipeline and GitOps update for `overlays/staging/`
+| Git Release
+| Triggered via GitLab Release from Tag
 
-| GitLab Release
-| Triggers production promotion pipeline via webhook
+| 1.1 gather-images
+| Resolves tag to commit, generates `IMAGES_TO_VERIFY`
 
-| gather-images-to-verify
-| Selects the image that is tagged with the value of the Gitlab tag (during the deployment to stage) which is attached to the release
+| 1.2 verify-ec
+| Validates signature, SBOM, provenance, CVEs, policy
 
-| verify-enterprise-contract
-| Validates the image’s integrity, provenance, and compliance
+| 2 update-image-tag-for-prod
+| Tags validated image with Git version
 
-| Tagging
-| Tags the verified image using the Git release tag prepended with the word *prod-*
-
-| GitOps Update
-| Updates `overlays/production/` for Argo CD
+| 3 Update GitOps Repo and Promote to `prod` via Overlay
+| Updates `overlays/prod` to trigger Argo CD deployment
 |===
 
-== Key Takeaways
+== 💡 Key Takeaways
 
-- The same pipeline is reused for both staging and production, depending on the Git event.
-- Only GitLab UI–created releases trigger production deployment.
-- Promotion to prod requires a release and ensures only staged images are promoted
-- Enterprise Contract ensures only secure and compliant artifacts reach production.
+- Creating a release from a Git tag triggers the secure promotion pipeline.
+- Enterprise Contract ensures only compliant images move forward.
+- Jenkins shared library `RHTAP_Jenkins@main` encapsulates best practices.
+- GitOps overlays manage environment-specific configuration.
+- Argo CD continuously ensures the cluster matches Git.
 
 == 🧩 Optional Enhancements
 
-* *Integrate Red Hat Advanced Cluster Security (ACS)*
-  → Scan the image and deployment for vulnerabilities and policy violations before promotion
-  → Include ACS steps in the pipeline to enforce security gates beyond EC validation
+Use these if you want to go deeper during the demo:
 
-* *Add Slack or email notifications*
-  → Notify stakeholders when a release is promoted or validation fails
-  → Improve visibility into release activity and policy enforcement
-
-* *Include signature verification for Git tags*
-  → Ensure that only cryptographically signed tags can trigger production promotion
-  → Strengthen trust in Git operations and release integrity
-
-* *Promote via GitHub or CLI*
-  → Demonstrate how the same flow can be adapted for GitHub Releases or CLI-driven tag pushes
-  → Highlight flexibility of the pipeline’s trigger model
-
-* *Track pipeline runs in Developer Hub or Tekton Dashboard*
-  → Show how platform engineers or auditors can trace promotion history
-  → Surface links to logs, artifacts, and Git metadata
-
-* *Enforce RBAC for release creation*
-  → Limit who can trigger production deployments by restricting GitLab release permissions
-  → Introduce tighter governance for critical environments
+- Simulate a failed validation (e.g., use an unsigned image)
+- Show image tags in Quay: `:v1.2.3` and `:prod-v1.2.3`
+- Demo Argo CD UI syncing to `prod`
+- Display the Enterprise Contract policy bundle
+- Explain that `stage` promotion follows a similar process but uses a different overlay and trigger
