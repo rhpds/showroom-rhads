@@ -8,26 +8,18 @@
 
 == 2. Introduction
 
-== 3. New Hire Onboarding
+== 3. Red Hat Advanced Developer Suite with Tekton
 
-== 4. Golden Path Template
+=== 3.1. Building your application
 
-== 5. Code Change
+=== 3.2. Promoting your application to stage
 
-== 6. Pipeline Exploration
+=== 3.3 Releasing your application to prod
 
-== 7. Release & Promotion
+== 4. Red Hat Advanced Developer Suite with Jenkins
 
-== 8. Runtime
+=== 4.1. Building your application
 
-== 9. Platform Engineering
+=== 4.2. Promoting your application to stage
 
-== 10. Signed commits via git-sign
-
-== 11. AI with LLMs Demo Setup
-
-== 12. AI with LLMs Chatbot Flow
-
-== 13. AI Model Exploration
-
-
+=== 4.3 Releasing your application to prod
