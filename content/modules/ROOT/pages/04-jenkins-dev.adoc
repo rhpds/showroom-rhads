@@ -38,9 +38,9 @@ Provide Information for Application
 
 | Field | `Example value`
 
-|Name | `my-quarkus-app`
+|Name | `my-quarkus-jnk`
 |Group Id | `redhat.dh`
-|Artifact Id | `my-quarkus-app`
+|Artifact Id | `my-quarkus-jnk`
 |Java Pakage Name | `org.redhat.dh`
 |Description | `A cool quarkus app`
 |===
@@ -93,7 +93,7 @@ Point out the developer doesn’t need to manually wire any of this.
 
 == 🔧 Part 4 — Show the Build Pipeline (Jenkins)
 
-In Developer Hub, open the my-quarkus-app component and navigate to the `CI` tab.  You should see 3 pipeline builds:
+In Developer Hub, open the my-quarkus-jnk component and navigate to the `CI` tab.  You should see 3 pipeline builds:
 
 . maven-ci-build
 . promote-to-stage

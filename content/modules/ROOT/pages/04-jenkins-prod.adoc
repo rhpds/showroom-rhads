@@ -55,8 +55,8 @@ This is performed in the `gather-images` stage of the Jenkins pipeline.
 [source,yaml]
 ----
 components:
-  - name: my-quarkus-app
-    containerImage: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+  - name: my-quarkus-jnk
+    containerImage: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
 ----
 
 == Task 2 `verify-enterprise-contract` – Validate Image and Metadata
@@ -85,7 +85,7 @@ Then the image is validated:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-app:v1.2.3 \
+  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -116,8 +116,8 @@ This is implemented in the Jenkins stage `update-image-tag-for-stage`, using a d
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3 \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
 ----
 
 This makes the validated image accessible via the human-readable release tag. The new tag value is the old tag prepended with the word *prod-*
@@ -134,20 +134,20 @@ The Jenkins pipeline commits a change to the GitOps repository by updating the a
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-quarkus-app
+  name: my-quarkus-jnk
 spec:
   template:
     spec:
       containers:
-        - name: my-quarkus-app
-          image: quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
+        - name: my-quarkus-jnk
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
 ----
 
 .Example Git diff:
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-app:prod-v1.2.3
++          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
 ----
 
 This file is committed to the GitOps repository, and Argo CD automatically deploys it to the production environment.

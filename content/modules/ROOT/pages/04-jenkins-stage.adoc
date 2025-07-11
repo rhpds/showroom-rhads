@@ -32,8 +32,8 @@ This step identifies the container image (built previously) to be promoted and w
 [source,yaml]
 ----
 components:
-  - name: my-quarkus-app
-    containerImage: quay.tssc-quay/tssc/my-quarkus-app:abc123def456...
+  - name: my-quarkus-jnk
+    containerImage: quay.tssc-quay/tssc/my-quarkus-jnk:abc123def456...
 ----
 
 By resolving the Git tag to its commit id and matching it with the image tag, you maintain a trusted trace from source to artifact.
@@ -58,7 +58,7 @@ After trust is established, the image is validated using EC CLI:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-app:abc123... \
+  --image quay.tssc-quay/tssc/my-quarkus-jnk:abc123... \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -94,8 +94,8 @@ If the image passes all validation checks, it is promoted using Skopeo by assign
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:abc123... \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:abc123... \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
 ----
 
 This step reuses the verified digest and applies the Git tag for traceability.
@@ -123,13 +123,13 @@ resources:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-quarkus-app
+  name: my-quarkus-jnk
 spec:
   template:
     spec:
       containers:
-        - name: my-quarkus-app
-          image: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+        - name: my-quarkus-jnk
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
 ----
 
 The pipeline modifies `deployment-patch.yaml`, replacing the previous tag with the new tag (e.g., `v1.2.2 → v1.2.3`).
@@ -138,7 +138,7 @@ The pipeline modifies `deployment-patch.yaml`, replacing the previous tag with t
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
++          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
 ----
 
 This change is committed and pushed to the GitOps repository. Argo CD continuously monitors the repo and automatically syncs the new configuration to the cluster, deploying the validated image to the target environment (e.g., staging).

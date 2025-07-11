@@ -74,7 +74,7 @@ Mention:
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-app:abc123...",
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:abc123...",
       "source": {
         "git": {
           "url": "https://gitlab.example.com/my-org/my-repo",
@@ -138,8 +138,8 @@ Mention:
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:abc123... \
-  docker://quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:abc123... \
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
 ----
 
 Highlight:
@@ -168,8 +168,8 @@ spec:
   template:
     spec:
       containers:
-        - name: my-quarkus-app
-          image: quay.tssc-quay/tssc/my-quarkus-app:v1.2.3
+        - name: my-quarkus-tkn
+          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
 ----
 
 Optional:
