@@ -151,7 +151,7 @@ This `prod-` prefix makes it clear that this image is approved for production us
 
 == 6. Update GitOps Repository (Staging or Production)
 
-Since this promotion was triggered by a GitLab release, the pipeline updates the GitOps repo under `overlays/production/`.
+Since this promotion was triggered by a GitLab release, the pipeline updates the GitOps repo under `overlays/prod/`.
 
 Using `rhtap.update_deployment()` in the `deploy-to-prod` stage, it patches the Kubernetes deployment YAML:
 
@@ -189,7 +189,7 @@ To quickly summarize:
 | Step | Description
 
 | Tag Push
-| Triggers staging pipeline and updates `overlays/staging/`
+| Triggers staging pipeline and updates `overlays/prod/`
 
 | GitLab Release
 | Triggers production promotion pipeline via webhook
