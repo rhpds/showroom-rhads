@@ -52,7 +52,7 @@ This triggers a webhook which starts the same Jenkins pipeline—but this time, 
 
 . Select the `my-quarkus-jnk` component
 . Switch to the **CI** tab to view pipeline runs
-. Identfiy the current build labeled **promote-to-prod** and click on **View build** to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
+. Identfiy the current build labeled **promote-to-prod** and click on **View build**`** to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
 
 == Pipeline Tasks
 
@@ -115,4 +115,112 @@ Then we run the actual validation:
 ----
 ec validate image \
   --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
-  --policy default
+  --policy default \
+  --public-key k8s://openshift/trusted-keys \
+  --output json
+----
+
+.Sample output
+[source,json]
+----
+{
+  "successes": [
+    "Image is signed and verified with cosign",
+    "SBOM (CycloneDX) is present",
+    "Provenance matches repository",
+    "No critical vulnerabilities found"
+  ],
+  "failures": []
+}
+----
+
+If validation fails, the pipeline aborts, and no promotion occurs.
+
+== Task 3 - `update-deployment` - Create a new image tag based on the *stage* image
+
+Once validated, the image is re-tagged for production using `skopeo`. This is done in the Jenkins stage `update-image-tag-for-stage` with a container running the Skopeo CLI.
+
+[source,bash]
+----
+skopeo copy \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+----
+
+This `prod-` prefix makes it clear that this image is approved for production use.
+
+== 6. Update GitOps Repository (Staging or Production)
+
+Since this promotion was triggered by a GitLab release, the pipeline updates the GitOps repo under `overlays/production/`.
+
+Using `rhtap.update_deployment()` in the `deploy-to-prod` stage, it patches the Kubernetes deployment YAML:
+
+.`deployment-patch.yaml`
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-quarkus-jnk
+spec:
+  template:
+    spec:
+      containers:
+        - name: my-quarkus-jnk
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+----
+
+Here’s a sample Git diff showing the update:
+
+[source,diff]
+----
+-          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
++          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+----
+
+Argo CD watches this repo and automatically deploys the updated image to the production environment.
+
+== Summary
+
+To quickly summarize:
+
+[cols="1,1",options="header"]
+|===
+| Step | Description
+
+| Tag Push
+| Triggers staging pipeline and updates `overlays/staging/`
+
+| GitLab Release
+| Triggers production promotion pipeline via webhook
+
+| gather-images-to-verify
+| Selects the image tagged by GitLab release for validation
+
+| verify-enterprise-contract
+| Validates image security, provenance, and compliance
+
+| Tagging
+| Tags the validated image as `prod-<tag>`
+
+| GitOps Update
+| Updates production overlay → Argo CD deploys new version
+|===
+
+== Key Takeaways
+
+- The same Jenkins pipeline supports staging and production, based on Git events
+- Only GitLab UI releases promote to production, preventing accidental releases
+- Enterprise Contract ensures only trusted artifacts move forward
+- Full GitOps automation and audit trail via Argo CD and Git commits
+
+== 🧩 Optional Enhancements
+
+Here are some next steps you might consider:
+
+* Integrate Red Hat Advanced Cluster Security (ACS) for extra vulnerability scanning
+* Add Slack or email notifications for release events
+* Enforce cryptographically signed Git tags for release authenticity
+* Extend triggers to support GitHub or CLI-driven releases
+* Surface pipeline run details in Jenkins UI or Developer Hub for traceability
+* Enforce RBAC on who can create GitLab releases to protect production
