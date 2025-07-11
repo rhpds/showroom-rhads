@@ -48,6 +48,12 @@ git tag v1.2.3
 git push origin v1.2.3
 ----
 
+Navigate to the *my-quarkus-jnk* component in **Developer Hub**. Then:
+
+. Select the `my-quarkus-jnk` component
+. Switch to the **CI** tab to view pipeline runs
+. Identfiy the current build labeled **promote-to-prod** and click on **View build** to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
+
 == Pipeline Tasks
 
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.

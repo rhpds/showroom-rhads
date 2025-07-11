@@ -22,7 +22,7 @@ You’ll be demonstrating a Jenkins pipeline using the shared library:
 The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
 ====
 
-== Starting the Demo: Create a Release from Tag
+== Pipeline Flow
 
 Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
 
@@ -33,6 +33,14 @@ Explain to your audience that the pipeline is triggered by creating a release in
 5. Click *Create release*.
 
 Tell your audience: “This release event kicks off the Jenkins pipeline via a webhook. It promotes the tagged image to prod after validation.”
+
+Once the tag is pushed, navigate to the *my-quarkus-tkn* component in **Developer Hub**. Then:
+
+. Select the `my-quarkus-tkn` component
+. Switch to the **CI** tab to view pipeline runs
+. Expand the current build labeled **promote-to-prod** to see details of the running pipeline
+
+This allows you to monitor the ongoing promotion process and verify each pipeline step as it executes.
 
 == Pipeline Tasks
 

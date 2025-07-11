@@ -101,6 +101,10 @@ In Developer Hub, open the my-quarkus-jnk component and navigate to the `CI` tab
 
 The pipeline maven-ci-build should be running.  Click on `View build` to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
 
+== Pipeline Tasks
+
+As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+
 === Stage: verify-commit (conditional)
 * This step facilitates the verification of Git commits using the gitsign tool, which integrates with the RHTAS service. The signed commits are verified in this step to ensure that the code has not been tampered with and originates from a trusted source.  Clicking on this step will highlight the details around the commit and the committer.
 * Only executed if the "Verify Commits" option is enabled in the template.

@@ -17,13 +17,25 @@ The code snippets shown throughout this guide are illustrative and intended for 
 
 === Git Tag Triggers the Pipeline
 
-A Git tag (e.g. `v1.2.3`) is pushed to the repository, signaling the release of a specific version.
+Let’s start with the trigger. A developer pushes a Git tag, for example:
 
 [source,bash]
 ----
 git tag v1.2.3
 git push origin v1.2.3
 ----
+
+Once the tag is pushed, navigate to the *my-quarkus-tkn* component in **Developer Hub**. Then:
+
+. Select the `my-quarkus-tkn` component
+. Switch to the **CI** tab to view pipeline runs
+. Expand the current build labeled **promote-to-stage** to see details of the running pipeline
+
+This allows you to monitor the ongoing promotion process and verify each pipeline step as it executes.
+
+== Pipeline Tasks
+
+As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
 === Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
 
