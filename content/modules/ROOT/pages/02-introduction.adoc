@@ -25,9 +25,9 @@ RHDH connects seamlessly with OpenShift DevSpaces to provide cloud-native develo
 TAP provides critical components for securing the software supply chain:
 
 * *Trusted Profile Analyzer (TPA)*: Validates application content against enterprise security and compliance profiles.
-  link:https://www.redhat.com/en/technologies/cloud-computing/openshift/devsecops#trusted-profile-analyzer[Trusted Profile Analyzer – Red Hat^]
+  link:https://docs.redhat.com/en/documentation/red_hat_trusted_profile_analyzer/2/html-single/managing_compliance_with_enterprise_contract/index.html[Trusted Profile Analyzer – Red Hat^]
 * *Trusted Artifact Signer (TAS)*: Signs build artifacts using Sigstore to guarantee provenance and authenticity.
-  link:https://www.redhat.com/en/technologies/cloud-computing/openshift/devsecops#trusted-artifact-signer[Trusted Artifact Signer – Red Hat^]
+  link:https://docs.redhat.com/en/documentation/red_hat_trusted_artifact_signer/2/html-single/managing_signing_policies_and_artifacts/index.html[Trusted Artifact Signer – Red Hat^]
 * *SBOM Generation*: Automatically creates and attaches Software Bill of Materials to images for traceability and compliance.
 
 These tools are embedded directly into the pipelines, ensuring every artifact produced is verifiable, auditable, and compliant. In addition, customers can optionally integrate *Red Hat Advanced Cluster Security (RHACS)* to enhance image signature verification, apply runtime policies, and scan container images throughout the pipeline. RHACS extends security beyond the build process, helping enforce Kubernetes-native security controls at deployment time.
@@ -72,8 +72,8 @@ Use this demo in conversations around:
 == Helpful References
 
 * link:https://www.redhat.com/en/solutions/trusted-software-supply-chain[Trusted Software Supply Chain – Red Hat^]
-* link:https://www.redhat.com/en/technologies/cloud-computing/openshift/devsecops#trusted-profile-analyzer[Trusted Profile Analyzer – Red Hat^]
-* link:https://www.redhat.com/en/technologies/cloud-computing/openshift/devsecops#trusted-artifact-signer[Trusted Artifact Signer – Red Hat^]
+* link:https://docs.redhat.com/en/documentation/red_hat_trusted_profile_analyzer/2/html-single/managing_compliance_with_enterprise_contract/index.html[Trusted Profile Analyzer – Red Hat^]
+* link:https://docs.redhat.com/en/documentation/red_hat_trusted_artifact_signer/2/html-single/managing_signing_policies_and_artifacts/index.html[Trusted Artifact Signer – Red Hat^]
 * link:https://www.redhat.com/en/technologies/cloud-computing/openshift/devsecops#enterprise-contract[Enterprise Contract – Red Hat^]
 * link:https://www.sigstore.dev/[Sigstore Project^]
 * link:https://developers.redhat.com/products/advanced-developer-suite[Red Hat Developer Site – RHADS Overview^]
