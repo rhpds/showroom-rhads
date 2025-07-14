@@ -91,9 +91,64 @@ Explain what Red Hat Developer Hub automates:
 
 Point out the developer doesn’t need to manually wire any of this.
 
+== 🧪 Part 4 — Make a Code Change in DevSpaces
+
+Once the application has been created and registered in the Developer Hub:
+
+. Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`)
+. Click on the component name to open the "Overview* page
+. Locate the *OpenShift Dev Spaces* link and click on it — this create a Red Hat OpenShift DevSpaces environment preloaded with your project
+. Click the *Log In with Openshift* if you are directed to the *Red Hat OpenShift* page.  Use username `{rhdh_user}` and password `{rhdh_user_password}` if authentication is required.
+. Click on *Allow selcted permissions* on the *Authorize Access* page if required.
+. Click on *Continue* on the *Do you trusted the authors of this repository?* popup.
+. Enter username `{gitlab_user}` and password '{gitlab_user_password}' on the *Gitlab* authentication page and click *Sign in*.
+. Click *Authorize devspaces* on the next window.
+. Wait for the workspace to start
+. In the Dev Spaces IDE, trust all workspaces and authors if prompted.
+
+
+In the DevSpaces IDE:
+
+. Open the file `my-quarkus-jnk/docs/index.md`
+. Make a minor change — for example, adding a line of text at the end of the file
+
+Then, from the terminal:
+
+. Stage your changes:
+
+[source,shell]
+----
+git add .
+----
+
+. Commit your changes:
+
+[source,shell]
+----
+git commit -m "Update"
+----
+
+During this step, `gitsign` will intercept the commit and initiate the signing process. The terminal will display a URL and prompt you to open it in your browser.
+
+. Click the URL to open a browser window and authorize the signing request
+. Once the popup appears, a verification code will be shown in the browser
+. Copy the verification code and return to the terminal
+. Paste the code into the terminal to complete the commit signing process.  Ensure you *Allow* paste functionality if prompted.
+
+. Finally, push your changes to the GitLab repository:
+
+[source,shell]
+----
+git push
+----
+
+This push will trigger the CI/CD pipeline via the GitLab webhook.
+
+_Note: If "Verify Commits" was enabled during template creation, this signed commit is required to trigger the pipeline._
+
 == 🔧 Part 4 — Show the Build Pipeline (Jenkins)
 
-In Developer Hub, open the my-quarkus-jnk component and navigate to the `CI` tab.  You should see 3 pipeline builds:
+In *Developer Hub*, navigate to the `CI` tab of the 'my-quarkus-jnk' component.  You should see 3 pipeline builds:
 
 . maven-ci-build
 . promote-to-stage

@@ -30,7 +30,7 @@ _Talk about how this reduces DevOps bottlenecks and enforces consistency._
 
 . Navigate to {rhdh_url}[Red Hat Developer Hub] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
 . On the top right hand corner, click the *Self-service* button i.e. the *+* button, to create a new software component in Red Hat Developer Hub
-. Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_
+. Choose the template: _Securing a Quarkus Service Software Supply Chain (Tekton)_
 . Fill out the form:
 
 Provide Information for Application
@@ -58,7 +58,6 @@ Provide Image Registry Information
 |Organization | `tssc`
 |===
 
-
 This template uses a Quay instance already deployed on your cluster and will install all images under the `tssc` namespace.
 
 . Click *Next*
@@ -79,7 +78,62 @@ This template uses a Gitlab instance already deployed on your cluster and will c
 
 _Talk through how this template sets up not just the app, but also GitLab repo, CI/CD pipelines, deployment manifests, and component registration inside Developer Hub._
 
-== ⚙️ Part 3 — What Happens Behind the Scenes
+== 🧪 Part 3 — Make a Code Change in DevSpaces
+
+Once the application has been created and registered in the Developer Hub:
+
+. Navigate to the *Catalog* and find your new component (`my-quarkus-tkn`)
+. Click on the component name to open the "Overview* page
+. Locate the *OpenShift Dev Spaces* link and click on it — this create a Red Hat OpenShift DevSpaces environment preloaded with your project
+. Click the *Log In with Openshift* if you are directed to the *Red Hat OpenShift* page.  Use username `{rhdh_user}` and password `{rhdh_user_password}` if authentication is required.
+. Click on *Allow selcted permissions* on the *Authorize Access* page if required.
+. Click on *Continue* on the *Do you trusted the authors of this repository?* popup.
+. Enter username `{gitlab_user}` and password '{gitlab_user_password}' on the *Gitlab* authentication page and click *Sign in*.
+. Click *Authorize devspaces* on the next window.
+. Wait for the workspace to start
+. In the Dev Spaces IDE, trust all workspaces and authors if prompted.
+
+
+In the DevSpaces IDE:
+
+. Open the file `my-quarkus-tkn/docs/index.md`
+. Make a minor change — for example, adding a line of text at the end of the file
+
+Then, from the terminal:
+
+. Stage your changes:
+
+[source,shell]
+----
+git add .
+----
+
+. Commit your changes:
+
+[source,shell]
+----
+git commit -m "Update"
+----
+
+During this step, `gitsign` will intercept the commit and initiate the signing process. The terminal will display a URL and prompt you to open it in your browser.
+
+. Click the URL to open a browser window and authorize the signing request
+. Once the popup appears, a verification code will be shown in the browser
+. Copy the verification code and return to the terminal
+. Paste the code into the terminal to complete the commit signing process.  Ensure you *Allow* paste functionality if prompted.
+
+. Finally, push your changes to the GitLab repository:
+
+[source,shell]
+----
+git push
+----
+
+This push will trigger the CI/CD pipeline via the GitLab webhook.
+
+_Note: If "Verify Commits" was enabled during template creation, this signed commit is required to trigger the pipeline._
+
+== ⚙️ Part 4 — What Happens Behind the Scenes
 
 Explain what Red Hat Developer Hub automates:
 
@@ -91,9 +145,9 @@ Explain what Red Hat Developer Hub automates:
 
 Point out the developer doesn’t need to manually wire any of this.
 
-== 🔧 Part 4 — Show the Build Pipeline (Tekton)
+== 🔧 Part 5 — Show the Build Pipeline (Tekton)
 
-Open the Tekton dashboard or pipeline UI.
+In *Developer Hub*, navigate to the `CI` tab and click on the running *maven-build-ci* pipeline.
 
 Walk through the key stages of the build pipeline:
 
@@ -119,21 +173,21 @@ Walk through the key stages of the build pipeline:
 * Updates the Gitops repository with the new image so that the Openshift Gitops can redeploy the application using this new image.
 
 === Task 7.1: acs-image-check
-*This step runs security checks on the container image against the policies configured in ACS.
+* This step runs security checks on the container image against the policies configured in ACS.
 
 === Task 7.2: acs-image-scan
-*This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
+* This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
 
 === Task 7.3: acs-deploy-check
-*This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
+* This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
 _You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_user} and password {acs_user_password}._
 
 === Task 8.1: show-sbom
-*Clicking on this step will dispay the gnerated SBOM.
+* Clicking on this step will display the generated SBOM.
 
 === Task 8.2: show-summary
-*Clicking on this step display a summary of your build.
+* Clicking on this step will display a summary of your build.
 
 Highlight that these are enforced steps, not optional.
 
@@ -145,7 +199,7 @@ Mention briefly:
 
 Avoid going deep — keep it lightweight.
 
-== 📘 Part 5 — Summary
+== 📘 Part 6 — Summary
 
 Summarize:
 
@@ -153,7 +207,7 @@ Summarize:
 * Secure CI/CD pipeline was pre-wired
 * Commits and images were signed, scanned, and attested
 
-== 📘 Part 6 — Wrap-Up
+== 📘 Part 7 — Wrap-Up
 
 Summarize:
 
@@ -181,4 +235,3 @@ Summarize:
   → Mention how teams can build similar templates for different stacks (e.g., Python, Node.js, Spring Boot)
 * *Mention collaboration opportunities*
   → Platform and security teams can co-develop templates and policies for shared governance
-
