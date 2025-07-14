@@ -27,7 +27,7 @@ The code snippets shown throughout this guide are illustrative and intended for 
 Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
 
 1. Open your GitLab repository.
-2. Navigate to *Deploy > Releases > New release*.
+2. Navigate to *Deploy > Releases > Create a new release*.
 3. Select an existing tag (e.g. `v1.2.3`) or create a new one.
 4. Enter release notes (optional).
 5. Click *Create release*.
@@ -65,10 +65,10 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3",
       "source": {
         "git": {
-          "url": "{gitlab_url}/org/my-quarkus-jnk",
+          "url": "{gitlab_url}/org/my-quarkus-tkn",
           "revision": "v1.2.3"
         }
       }
@@ -97,7 +97,7 @@ Step 2: Enterprise Contract validates the image:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  --image quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3 \
   --policy git::github.com/org/ec-policies//default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -119,8 +119,8 @@ Tell your audience that if the image passes validation, this step tags it with t
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3 \
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
 ----
 
 Explain:
@@ -141,13 +141,13 @@ The pipeline updates:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-quarkus-jnk
+  name: my-quarkus-tkn
 spec:
   template:
     spec:
       containers:
-        - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+        - name: my-quarkus-tkn
+          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
 ----
 
 And this patch is referenced by `kustomization.yaml`:

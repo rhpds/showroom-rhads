@@ -6,44 +6,68 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Overview
 
-This guide describes how to demonstrate a pipeline using Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD to securely promote a container image triggered by a GitLab tag. It includes setup details, key pipeline steps, examples, and policy enforcement points.
+This demo showcases how Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD can be used together to enforce supply chain security policies during container promotion — all triggered by a GitLab tag.
+
+As we walk through the steps, you’ll see how the pipeline ties everything together: validation, signing, tagging, and deployment. The goal is to show how policy-driven automation helps teams promote only trusted, compliant artifacts.
 
 [NOTE]
 ====
-The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+The code and snippets shown are representative and simplified for demo purposes. Be sure to consult the actual Jenkins pipelines and source repositories for precise implementations.
 ====
 
 == Pipeline Flow
 
 === Git Tag Triggers the Pipeline
 
-Let’s start with the trigger. A developer pushes a Git tag, for example:
+Let’s start with the trigger point: a Git tag. This simulates a release event and kicks off our secure promotion pipeline.
+
+=== Option 1: Tag via GitLab UI
+
+Here’s how you do it using GitLab:
+
+1. Go to your GitLab project.
+2. In the left men, click on *Code > Tags > New Tag*.
+3. Enter a version tag like `v1.2.3`.
+4. Choose the target branch — typically `main`.
+5. Hit *Create Tag*.
+
+👉 _Tell your audience:_
+*"This simulates a release event. As soon as the tag is created, a webhook fires and Jenkins starts the pipeline to promote the corresponding image."*
+
+=== Option 2: Tag via Git CLI
+
+You can also tag via the CLI if that’s more your style:
 
 [source,bash]
 ----
 git tag v1.2.3
-git push origin v1.2.3
+git push
 ----
 
-Once the tag is pushed, navigate to the *my-quarkus-tkn* component in **Developer Hub**. Then:
+Now switch over to **Developer Hub**:
 
-. Select the `my-quarkus-tkn` component
-. Switch to the **CI** tab to view pipeline runs
-. Expand the current build labeled **promote-to-stage** to see details of the running pipeline
+. Select the `my-quarkus-tkn` component.
+. Go to the **CI** tab to see pipeline runs.
+. Expand the build labeled **promote-to-stage** — this is the one triggered by our tag.
 
-This allows you to monitor the ongoing promotion process and verify each pipeline step as it executes.
+💡 _This view lets you walk through each pipeline step as it runs._
 
 == Pipeline Tasks
 
-As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+As the Jenkins pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
 
-=== Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
+=== Task 1.1 `extract-destination-image-tag` - Extract GitLab tag
 
-As the actual tag value is being passed into the pipeline run as metadata, this tep will need to extract it and ensure it is available to the rest of the pipeline for processing.
+This task grabs the Git tag we just created and makes it available as a variable in the pipeline.
+It’s a simple but important step — the rest of the pipeline depends on knowing which version to work with.
 
 === Task 1.2 `gather-images-to-verify` – Generate `images.yaml`
 
-This step identifies the container image (built previously) to be promoted and writes it to `images.yaml`.  The image listed in this file is expected to have been built by the CI pipeline during the original commit, and it is **tagged using the commit id** of the Git branch (master) that was just tagged.
+This is where we identify the image to promote.
+
+The image was previously built and tagged with the commit SHA. Here we resolve the Git tag back to its commit and match that to the image.
+
+This gets written into an `images.yaml` file — which becomes the authoritative source for what we’ll verify and promote.
 
 .Sample `images.yaml`
 [source,json]
@@ -61,29 +85,24 @@ This step identifies the container image (built previously) to be promoted and w
     }
   ]
 }
-components:
-  - name: my-quarkus-tkn
-    containerImage: quay.tssc-quay/tssc/my-quarkus-tkn:abc123def456...
 ----
 
-By resolving the Git tag to its commit id and matching it with the image tag, you maintain a trusted trace from source to artifact.
+👉 _Point out how this mapping from Git to image ensures traceability across the pipeline._
 
 === Task 2. `verify-enterprise-contract` – Validate the Image
 
-This step validates the image using EC CLI and the Red Hat Trusted Artifact Signer policy framework.
+Here’s where we enforce policy.
 
-Before running the validation, `cosign` must be initialized to establish trust with the Artifact Signer TUF server.
+First, we initialize `cosign` to establish trust using a TUF server — this ensures we only verify signatures from trusted sources:
 
 [source,bash]
 ----
 cosign initialize \
-  --mirror https://tuf.enterprisecontract.dev \
-  --root https://tuf.enterprisecontract.dev/root.json
+  --mirror https://tuf.tssc-tas.svc \
+  --root https://tuf.tssc-tas.svc/root.json
 ----
 
-This bootstraps trust for verifying signatures on container images. It ensures that only artifacts signed by trusted Red Hat keys are accepted.
-
-After trust is established, the image is validated using EC CLI:
+With trust bootstrapped, we now use the EC CLI to validate the image:
 
 [source,bash]
 ----
@@ -94,12 +113,13 @@ ec validate image \
   --output json
 ----
 
-.Policy checks performed include:
-- Cosign signature validation
-- SBOM presence (e.g., SPDX or CycloneDX)
-- SLSA provenance metadata
-- CVE scan compliance
-- Organization-specific policies
+📋 _This enforces multiple checks at once:_
+
+- Signature verification with Cosign
+- SBOM presence (e.g., CycloneDX)
+- SLSA provenance
+- CVE scans
+- Custom organization rules
 
 .Sample output
 [source,json]
@@ -115,11 +135,12 @@ ec validate image \
 }
 ----
 
-If validation fails, the pipeline halts, preventing unverified artifacts from being promoted.
+🛑 If any check fails, the pipeline stops here.
+✅ If it passes — we move forward with promotion.
 
 === Task 3. copy-image - Tag the image
 
-If the image passes all validation checks, it is promoted using Skopeo by assigning it a human-readable tag.
+Once validated, we promote the image using `skopeo`, tagging it with the Git version tag:
 
 [source,bash]
 ----
@@ -128,13 +149,13 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
 ----
 
-This step reuses the verified digest and applies the Git tag for traceability.
+👉 _Emphasize this: we don’t rebuild. We promote an already verified image by applying a traceable, human-readable tag._
 
-=== 4. update-deployment - Update the gitops repository
+=== 4. update-deployment - Update the GitOps repository
 
-In this step, the pipeline commits a change to the GitOps repository to update the image used in the Kubernetes deployment. This is done using a Kustomize `patchesStrategicMerge` overlay to modify the `image` field of a container within a `Deployment` resource.
+Now we update the GitOps repo with the new image tag.
 
-The patch file typically looks like this:
+This is done using a `kustomization.yaml` overlay with a strategic merge patch to update the deployment’s image.
 
 .`kustomization.yaml`
 [source,yaml]
@@ -162,19 +183,16 @@ spec:
           image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
 ----
 
-The pipeline modifies `deployment-patch.yaml`, replacing the previous tag with the new tag (e.g., `v1.2.2 → v1.2.3`).
-
-.Example Git diff:
+.Example Git diff
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
 +          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
 ----
 
-This change is committed and pushed to the GitOps repository. Argo CD continuously monitors the repo and automatically syncs the new configuration to the cluster, deploying the validated image to the target environment (e.g., staging).
+This change is committed and pushed.
 
-By using Kustomize patches, we ensure that environment-specific overrides (such as image versions) are managed cleanly without modifying base manifests.
-
+🎯 _Point out how Argo CD automatically detects this change, pulls the new manifest, and syncs the deployment — no manual steps needed._
 
 == 📘 Part 6 — Wrap-Up
 
@@ -184,31 +202,31 @@ By using Kustomize patches, we ensure that environment-specific overrides (such 
 |Phase | Purpose
 
 | gather-images-to-verify
-| Identify image to promote and generate `images.yaml`
+| Select image based on Git tag and generate `images.yaml`
 
 | verify-enterprise-contract
-| Enforce policy validation using EC CLI, with Cosign trust initialized via TUF
+| Validate signature, SBOM, provenance, CVEs — all enforced via EC CLI
 
 | Tagging with Skopeo
-| Promote the validated image using a Git tag
+| Promote validated image with a human-readable tag
 
 | GitOps Repo Update
-| Deploy image via Argo CD after Git commit
+| Deploy validated image by updating Git and syncing via Argo CD
 |===
 
 === 💡 Key Takeaways
 
-- Policies are enforced automatically with no developer intervention.
-- Only validated, signed, and compliant images are promoted.
-- Cosign and EC CLI work together to provide cryptographic and policy-based trust.
-- Git remains the source of truth for both promotion and deployment (GitOps).
-- The process is fully automated, auditable, and scalable across teams.
+- No manual validation or promotion — it’s all automated
+- Only signed, validated, policy-compliant images move forward
+- Cosign + EC CLI give us both cryptographic and policy trust
+- Git remains the source of truth for promotion and deployment
+- Fully automated and auditable — ideal for platform teams and auditors alike
 
 === 🧩 Optional Enhancements
 
-Consider demonstrating:
+You can optionally demo:
 
-- A failed EC validation scenario (e.g., missing SBOM),
-- The policy bundle YAML from the EC repo,
-- A Quay registry view showing the new image tag,
-- Argo CD UI showing the sync to staging.
+- A failed validation (e.g., image missing SBOM)
+- The actual EC policy bundle YAML
+- The new tag in the Quay UI
+- Argo CD interface syncing the new deployment
