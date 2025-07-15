@@ -204,17 +204,20 @@ This change is committed and pushed.
 |===
 |Phase | Purpose
 
-| gather-images-to-verify
-| Select image based on Git tag and generate `images.json`
+| 1.1 extract-destination-image-tag
+| Extracts the commit id of the Git tag.  The commit id is the image tag of the image we are promoting to stage.
 
-| verify-enterprise-contract
+| 1.2 gather-images-to-verify
+| Select image based on commit id and generate `images.json`
+
+| 2. verify-enterprise-contract
 | Validate signature, SBOM, provenance, CVEs — all enforced via EC CLI
 
-| Tagging with Skopeo
-| Promote validated image with a human-readable tag
+| 3. copy-image
+| Promote validated image with a human-readable tag i.e the Git tag value v1.2.3
 
-| GitOps Repo Update
-| Deploy validated image by updating Git and syncing via Argo CD
+| 4. update-deployment
+| Updates `overlays/stage` to trigger Argo CD deployment
 |===
 
 === 💡 Key Takeaways

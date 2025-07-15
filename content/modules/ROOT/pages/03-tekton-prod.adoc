@@ -127,6 +127,7 @@ skopeo copy \
 Explain:
 - It creates a human-readable, immutable tag.
 - Only validated images are promoted.
+- The new image tag is the original tag prepended with `prod-`
 - This tag is what’s deployed to the `prod` environment.
 
 === Task 4: `update-deployment`
@@ -177,16 +178,19 @@ Mention:
 | Git Release
 | Triggered via GitLab Release from Tag
 
+| 1.1 extract-destination-image-tag
+| Extracts the Git tag attached to the release to be used as part of the destination image tag
+
 | 1.1 gather-images
 | Resolves tag to commit, generates `IMAGES_TO_VERIFY`
 
-| 1.2 verify-ec
+| 2 verify-enterprise-contract
 | Validates signature, SBOM, provenance, CVEs, policy
 
-| 2 update-image-tag-for-prod
-| Tags validated image with Git version
+| 3 copy-image
+| Copies the previously staged image with a new tag i.e. prod-v1.2.3
 
-| 3 Update GitOps Repo and Promote to `prod` via Overlay
+| 4 update-deployment
 | Updates `overlays/prod` to trigger Argo CD deployment
 |===
 

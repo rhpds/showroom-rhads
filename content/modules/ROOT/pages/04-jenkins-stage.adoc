@@ -177,26 +177,27 @@ Mention:
 - Jenkins commits and pushes this update to the GitOps repo.
 - Argo CD automatically detects the change and syncs it to the `stage` cluster.
 
-== 📘 Wrap-Up
+== Summary
 
-=== Summary of Tasks
+To quickly summarize:
 
+[cols="1,1",options="header"]
 |===
-|Task | Description
+| Step | Description
 
-| Git Tag
-| Triggered via GitLab UI or CLI
+| Tag Push
+| Triggers staging pipeline and updates `overlays/prod/`
 
-| 1.1 gather-images
-| Resolves tag to commit, generates `IMAGES_TO_VERIFY`
+| Task - gather-images
+| Resolves tag to commit, generates images.json for verification
 
-| 1.2 verify-ec
+| Task - verify-ec
 | Validates signature, SBOM, provenance, CVEs, policy
 
-| 2 update-image-tag-for-stage
+| Task - update-image-tag-for-stage
 | Tags validated image with Git version
 
-| 3 deploy-to-stage
+| Task - deploy-to-stage
 | Updates `overlays/stage` to trigger Argo CD deployment
 |===
 

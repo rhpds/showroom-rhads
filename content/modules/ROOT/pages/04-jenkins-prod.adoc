@@ -190,9 +190,6 @@ To quickly summarize:
 |===
 | Step | Description
 
-| Tag Push
-| Triggers staging pipeline and updates `overlays/prod/`
-
 | GitLab Release
 | Triggers production promotion pipeline via webhook
 
