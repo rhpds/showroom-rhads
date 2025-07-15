@@ -39,9 +39,9 @@ Provide Information for Application
 | Field | `Example value`
 
 |Name | `my-quarkus-jnk`
-|Group Id | `redhat.dh`
+|Group Id | `redhat.rhdh`
 |Artifact Id | `my-quarkus-jnk`
-|Java Pakage Name | `org.redhat.dh`
+|Java Pakage Name | `org.redhat.rhdh`
 |Description | `A cool quarkus app`
 |===
 
