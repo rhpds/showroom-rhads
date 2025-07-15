@@ -70,7 +70,7 @@ The image was previously built and tagged with the commit SHA. Here we resolve t
 This gets written into an `images.yaml` file — which becomes the authoritative source for what we’ll verify and promote.
 
 .Sample `images.yaml`
-[source,json]
+[source,json,subs="attributes"]
 ----
 {
   "components": [

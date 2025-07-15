@@ -72,7 +72,7 @@ git rev-parse v1.2.3
 
 Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s being passed between tasks:
 
-[source,json]
+[source,json,subs="attributes"]
 ----
 {
   "components": [
@@ -80,7 +80,7 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
       "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:123456",
       "source": {
         "git": {
-          "url": "{gitlab_url}/org/my-quarkus-jnk",
+          "url": "{gitlab_url}/development/my-quarkus-jnk",
           "revision": "123456"
         }
       }

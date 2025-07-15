@@ -69,7 +69,7 @@ Next, in the same `gather-images` stage, the pipeline generates an `images.yaml`
 Here’s an example of what that looks like:
 
 .Example `images.json`
-[source,json]
+[source,json,subs="attributes"]
 ----
 {
   "components": [
@@ -77,7 +77,7 @@ Here’s an example of what that looks like:
       "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
       "source": {
         "git": {
-          "url": "{gitlab_url}/org/my-quarkus-jnk",
+          "url": "{gitlab_url}/development/my-quarkus-jnk",
           "revision": "v1.2.3"
         }
       }
