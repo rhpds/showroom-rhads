@@ -26,7 +26,7 @@ The code snippets shown throughout this guide are illustrative and intended for 
 
 Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
 
-1. Open your GitLab repository.
+1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn with username: {gitlab_user} and password: {gitlab_user_password}
 2. Navigate to *Deploy > Releases > Create a new release*.
 3. Select an existing tag (e.g. `v1.2.3`) or create a new one.
 4. Enter release notes (optional).
@@ -44,7 +44,7 @@ This allows you to monitor the ongoing promotion process and verify each pipelin
 
 == Pipeline Tasks
 
-As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+As the Tekton pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
 === Task 1.1: gather-images
 
@@ -68,7 +68,7 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
       "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3",
       "source": {
         "git": {
-          "url": "{gitlab_url}/org/my-quarkus-tkn",
+          "url": "{gitlab_url}/development/my-quarkus-tkn",
           "revision": "v1.2.3"
         }
       }

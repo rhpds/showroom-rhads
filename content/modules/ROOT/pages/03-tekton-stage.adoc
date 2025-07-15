@@ -25,7 +25,7 @@ Let’s start with the trigger point: a Git tag. This simulates a release event 
 
 Here’s how you do it using GitLab:
 
-1. Go to your GitLab project.
+1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn with username: {gitlab_user} and password: {gitlab_user_password}
 2. In the left men, click on *Code > Tags > New Tag*.
 3. Enter a version tag like `v1.2.3`.
 4. Choose the target branch — typically `main`.
@@ -54,7 +54,7 @@ Now switch over to **Developer Hub**:
 
 == Pipeline Tasks
 
-As the Jenkins pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
+As the Tekton pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
 
 === Task 1.1 `extract-destination-image-tag` - Extract GitLab tag
 

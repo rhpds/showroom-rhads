@@ -42,7 +42,7 @@ When a developer is ready to promote an image to production, they create a GitLa
 
 Here’s the quick process:
 
-. Navigate to the repository in GitLab
+. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk with username: {gitlab_user} and password: {gitlab_user_password}
 . Go to *Deploy > Releases*
 . Click *New Release*
 . Select the existing tag (e.g., `v1.2.3`)
