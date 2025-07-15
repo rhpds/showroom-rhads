@@ -25,7 +25,7 @@ Let’s start with the trigger point: a Git tag. This simulates a release event 
 
 Here’s how you do it using GitLab:
 
-1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn with username: {gitlab_user} and password: {gitlab_user_password}
+1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] with username: {gitlab_user} and password: {gitlab_user_password}
 2. In the left men, click on *Code > Tags > New Tag*.
 3. Enter a version tag like `v1.2.3`.
 4. Choose the target branch — typically `main`.

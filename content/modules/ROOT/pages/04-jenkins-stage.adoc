@@ -30,7 +30,7 @@ Choose one of the following methods:
 
 === Option 1: Tag via GitLab UI
 
-1. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk with username: {gitlab_user} and password: {gitlab_user_password}
+1. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] with username: {gitlab_user} and password: {gitlab_user_password}
 2. In the left menu, navigate to *Code > Tags > New Tag*.
 3. Enter a tag name (e.g. `v1.2.3`).
 4. Select the target branch (typically `main`).

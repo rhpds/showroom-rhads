@@ -23,7 +23,7 @@ The code snippets shown throughout this guide are illustrative and intended for 
 
 Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
 
-1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn with username: {gitlab_user} and password: {gitlab_user_password}
+1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] with username: {gitlab_user} and password: {gitlab_user_password}
 2. Navigate to *Deploy > Releases > Create a new release*.
 3. Select an existing tag (e.g. `v1.2.3`) or create a new one.
 4. Enter release notes (optional).
