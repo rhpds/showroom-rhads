@@ -40,7 +40,7 @@ Let’s start with how the pipeline is triggered.
 
 For this demo, I’ll first simulate pushing a Git tag to trigger staging. Later, I’ll show you how creating a GitLab Release promotes the image to production.
 
-== 2. GitLab Release – Promote to Production
+== GitLab Release – Promote to Production
 
 When a developer is ready to promote an image to production, they create a GitLab Release from the existing tag.
 
