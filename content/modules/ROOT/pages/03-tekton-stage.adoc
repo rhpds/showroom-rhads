@@ -60,20 +60,19 @@ Now switch over to **Developer Hub**:
 
 As the Openshift Pipelines pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
 
-=== Task 1.1 `extract-destination-image-tag` - Extract GitLab tag
+=== Task 1.1: `extract-destination-image-tag`
 
 This task grabs the Git tag we just created and makes it available as a variable in the pipeline.
 It’s a simple but important step — the rest of the pipeline depends on knowing which version to work with.
 
-=== Task 1.2 `gather-images-to-verify` – Generate `images.yaml`
+=== Task 1.2: `gather-images-to-verify`
 
-This is where we identify the image to promote.
+This is where we identify the image to promote.  During the build phase the image built was tagged with the commit id of the change made in the repository.
+Here we resolve the Git tag back to its commit and match that to the image.
 
-The image was previously built and tagged with the commit SHA. Here we resolve the Git tag back to its commit and match that to the image.
+This gets written into an `images.json` file — which becomes the authoritative source for what we’ll verify and promote.
 
-This gets written into an `images.yaml` file — which becomes the authoritative source for what we’ll verify and promote.
-
-.Sample `images.yaml`
+.Sample `images.json`
 [source,json,subs="attributes"]
 ----
 {
@@ -93,7 +92,7 @@ This gets written into an `images.yaml` file — which becomes the authoritative
 
 👉 _Point out how this mapping from Git to image ensures traceability across the pipeline._
 
-=== Task 2. `verify-enterprise-contract` – Validate the Image
+=== Task 2 `verify-enterprise-contract`
 
 Here’s where we enforce policy.
 
@@ -142,7 +141,7 @@ ec validate image \
 🛑 If any check fails, the pipeline stops here.
 ✅ If it passes — we move forward with promotion.
 
-=== Task 3. copy-image - Tag the image
+=== Task 3: `copy-image`
 
 Once validated, we promote the image using `skopeo`, tagging it with the Git version tag:
 
@@ -155,7 +154,7 @@ skopeo copy \
 
 👉 _Emphasize this: we don’t rebuild. We promote an already verified image by applying a traceable, human-readable tag._
 
-=== 4. update-deployment - Update the GitOps repository
+=== Task 4. `update-deployment`
 
 Now we update the GitOps repo with the new image tag.
 
@@ -206,7 +205,7 @@ This change is committed and pushed.
 |Phase | Purpose
 
 | gather-images-to-verify
-| Select image based on Git tag and generate `images.yaml`
+| Select image based on Git tag and generate `images.json`
 
 | verify-enterprise-contract
 | Validate signature, SBOM, provenance, CVEs — all enforced via EC CLI

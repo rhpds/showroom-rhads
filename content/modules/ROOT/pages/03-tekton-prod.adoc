@@ -47,29 +47,29 @@ This allows you to monitor the ongoing promotion process and verify each pipelin
 
 As the Openshift Pipelines pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-=== Task 1.1: gather-images
+=== Task 1.1: `extract-destination-image-tag`
 
-Explain that this task maps the Git tag to a commit and collects metadata used for verification.
+This task grabs the Git tag linked to the release that was created and makes it available as a variable in the pipeline.
+It’s a simple but important step — the rest of the pipeline depends on knowing which version to work with.
 
-Mention that the pipeline uses commands like:
+=== Task 1.2: `gather-images-to-verify`
 
-[source,bash]
-----
-git describe --tags --abbrev=0
-git rev-parse v1.2.3
-----
+Explain that this task maps the release to a Git tag and collects metadata used for verification.  Remember we are trying to promote the previously staged image, referenced by the Git tag, to prod.
 
-Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s being passed between tasks:
+Next, the pipeline generates an `images.json` file. This file points to the container image tagged during the staging deployment, using the GitLab tag value.
 
+Here’s an example of what that looks like:
+
+.Example `images.json`
 [source,json,subs="attributes"]
 ----
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3",
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
       "source": {
         "git": {
-          "url": "{gitlab_url}/development/my-quarkus-tkn",
+          "url": "{gitlab_url}/development/my-quarkus-jnk",
           "revision": "v1.2.3"
         }
       }
@@ -80,7 +80,7 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
 
 Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
 
-=== Task 1.2: verify-ec
+=== Task 2: `verify-enterprise-contract`
 
 Let your audience know this is where supply chain security checks occur.
 
@@ -113,7 +113,7 @@ Describe the validations performed:
 
 💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
 
-=== Task 2: update-image-tag-for-prod
+=== Task 3: `copy-image`
 
 Tell your audience that if the image passes validation, this step tags it with the release version.
 
@@ -129,7 +129,7 @@ Explain:
 - Only validated images are promoted.
 - This tag is what’s deployed to the `prod` environment.
 
-=== Task 3: deploy-to-prod
+=== Task 4: `update-deployment`
 
 Explain that this step updates the GitOps repository to reflect the new image tag.
 

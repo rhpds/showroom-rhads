@@ -62,19 +62,14 @@ Navigate to the *my-quarkus-jnk* component in **Developer Hub**. Then:
 
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-=== Task 1: gather-images
+=== Task 1: `gather-images`
 
-Explain that this task maps the Git tag to a commit and collects metadata used for verification.
+Explain to the audience that this step is where we identify the image to promote.  During the build phase the image built was tagged with the commit id of the change made in the repository.
+Here we resolve the Git tag back to its commit and match that to the image.
 
-Mention that the pipeline uses commands like:
+This gets written into an `images.json` file — which becomes the authoritative source for what we’ll verify and promote.
 
-[source,bash]
-----
-git describe --tags --abbrev=0
-git rev-parse v1.2.3
-----
-
-Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s being passed between tasks:
+Here’s an example of what that looks like:
 
 [source,json,subs="attributes"]
 ----
@@ -95,7 +90,7 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
 
 Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
 
-=== Task 2: verify-ec
+=== Task 2: `verify-ec`
 
 Let your audience know this is where supply chain security checks occur.
 
@@ -128,7 +123,7 @@ Describe the validations performed:
 
 💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
 
-=== Task 3: update-image-tag-for-stage
+=== Task 3: `update-image-tag-for-stage`
 
 Tell your audience that if the image passes validation, this step tags it with the release version.
 
@@ -144,7 +139,7 @@ Explain:
 - Only validated images are promoted.
 - This tag is what’s deployed to the `stage` environment.
 
-=== Task 4: deploy-to-stage
+=== Task 4: `deploy-to-stage`
 
 Explain that this step updates the GitOps repository to reflect the new image tag.
 
