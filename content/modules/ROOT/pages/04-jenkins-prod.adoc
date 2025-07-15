@@ -90,7 +90,7 @@ Here’s an example of what that looks like:
 
 This `images.json` is used as input to the Enterprise Contract validation step.
 
-===Task 2: `verify-enterprise-contract`
+=== Task 2: `verify-enterprise-contract`
 
 This is a critical gate. Before promotion, we validate the image with Enterprise Contract, checking:
 
@@ -151,7 +151,7 @@ skopeo copy \
 
 This `prod-` prefix makes it clear that this image is approved for production use.
 
-===Task 4: `deploy-to-prod`
+=== Task 4: `deploy-to-prod`
 
 Since this promotion was triggered by a GitLab release, the pipeline updates the GitOps repo under `overlays/prod/`.
 
