@@ -58,13 +58,11 @@ This triggers a webhook which starts the same Jenkins pipeline—but this time, 
 
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-=== Task 1.1 `extract-destination-image-tag` - Extract Gitlab tag value
+== Task 1 - `gather-images`
 
 Inside the Jenkins pipeline, in the `gather-images` stage, we run a script that extracts the release tag from GitLab using its API. This tag lets us build the correct image URL for promotion.
 
-== Task 1.2  `gather-images-to-verify` – Generate `images.yaml`
-
-Next, in the same `gather-images` stage, the pipeline generates an `images.yaml` file. This file points to the container image tagged during the staging deployment, using the GitLab tag value.
+Next, the pipeline generates an `images.yaml` file. This file points to the container image tagged during the staging deployment, using the GitLab tag value.
 
 Here’s an example of what that looks like:
 
@@ -88,7 +86,7 @@ Here’s an example of what that looks like:
 
 This `images.yaml` is used as input to the Enterprise Contract validation step.
 
-== Task 2 `verify-enterprise-contract` – Validate Image and Metadata
+== Task 2 `verify-enterprise-contract`
 
 This is a critical gate. Before promotion, we validate the image with Enterprise Contract, checking:
 
@@ -136,7 +134,7 @@ ec validate image \
 
 If validation fails, the pipeline aborts, and no promotion occurs.
 
-== Task 3 - `update-deployment` - Create a new image tag based on the *stage* image
+== Task 3 - `update-image-tag-for-prod`
 
 Once validated, the image is re-tagged for production using `skopeo`. This is done in the Jenkins stage `update-image-tag-for-stage` with a container running the Skopeo CLI.
 
@@ -149,7 +147,7 @@ skopeo copy \
 
 This `prod-` prefix makes it clear that this image is approved for production use.
 
-== 6. Update GitOps Repository (Staging or Production)
+== Task 4 - `deploy-to-prod`
 
 Since this promotion was triggered by a GitLab release, the pipeline updates the GitOps repo under `overlays/prod/`.
 

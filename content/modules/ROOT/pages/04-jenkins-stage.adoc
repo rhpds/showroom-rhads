@@ -58,7 +58,7 @@ Navigate to the *my-quarkus-jnk* component in **Developer Hub**. Then:
 
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-=== Task 1.1: gather-images
+=== Task 1: gather-images
 
 Explain that this task maps the Git tag to a commit and collects metadata used for verification.
 
@@ -91,7 +91,7 @@ Show an example of the `IMAGES_TO_VERIFY` file if you want to highlight what’s
 
 Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
 
-=== Task 1.2: verify-ec
+=== Task 2: verify-ec
 
 Let your audience know this is where supply chain security checks occur.
 
@@ -124,7 +124,7 @@ Describe the validations performed:
 
 💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
 
-=== Task 2: update-image-tag-for-stage
+=== Task 3: update-image-tag-for-stage
 
 Tell your audience that if the image passes validation, this step tags it with the release version.
 
@@ -140,7 +140,7 @@ Explain:
 - Only validated images are promoted.
 - This tag is what’s deployed to the `stage` environment.
 
-=== Task 3: deploy-to-stage
+=== Task 4: deploy-to-stage
 
 Explain that this step updates the GitOps repository to reflect the new image tag.
 
@@ -197,7 +197,7 @@ Mention:
 | 2 update-image-tag-for-stage
 | Tags validated image with Git version
 
-| 3 Update GitOps Repo and Promote to `stage` via Overlay
+| 3 deploy-to-stage
 | Updates `overlays/stage` to trigger Argo CD deployment
 |===
 
