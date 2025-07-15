@@ -99,7 +99,7 @@ In the DevSpaces IDE:
 . Open the file `my-quarkus-tkn/docs/index.md`
 . Make a minor change — for example, adding a line of text at the end of the file
 
-Then, from the terminal:
+Then, from the Dev Spaces terminal:
 
 . Stage your changes:
 
@@ -117,10 +117,12 @@ git commit -m "Update"
 
 During this step, `gitsign` will intercept the commit and initiate the signing process. The terminal will display a URL and prompt you to open it in your browser.
 
-. Click the URL to open a browser window and authorize the signing request
-. Once the popup appears, a verification code will be shown in the browser
-. Copy the verification code and return to the terminal
-. Paste the code into the terminal to complete the commit signing process.  Ensure you *Allow* paste functionality if prompted.
+. Click the URL to open a browser window and authorize the signing request +
+  If clicking the URL doesn’t work, copy the URL and paste it into a new tab in your browser.
+. Once the popup appears, a verification code will be shown in the browser.
+. Copy the verification code and return to the terminal.
+. Paste the code into the terminal to complete the commit signing process. +
+  Ensure you *Allow* paste functionality if prompted.
 
 . Finally, push your changes to the GitLab repository:
 

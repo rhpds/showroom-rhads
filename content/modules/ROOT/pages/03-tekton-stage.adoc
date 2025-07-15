@@ -41,7 +41,7 @@ You can also tag via the CLI if that’s more your style:
 [source,bash]
 ----
 git tag v1.2.3
-git push
+git push --tags
 ----
 
 Now switch over to **Developer Hub**:
