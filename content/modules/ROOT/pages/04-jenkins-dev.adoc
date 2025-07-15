@@ -189,7 +189,7 @@ As the Jenkins pipeline runs, guide the audience through each of the following t
 * acs_image_scan
   * This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
-_You may want to open Red Hat Advanced Cluster Security at {acs_url} with username: {acs_user} and password {acs_user_password} to show these results._
+_You may want to open Red Hat Advanced Cluster Security at {acs_url} with username: {acs_admin_user} and password {acs_admin_password}._
 
 === Stage: summary
 * Displays the generated SBOM and summarizes the build results using `rhtap` library calls.

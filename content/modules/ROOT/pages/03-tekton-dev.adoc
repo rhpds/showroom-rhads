@@ -181,7 +181,7 @@ Walk through the key stages of the build pipeline:
 === Task 7.3: acs-deploy-check
 * This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
-_You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_user} and password {acs_user_password}._
+_You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_admin_user} and password {acs_admin_password}._
 
 === Task 8.1: show-sbom
 * Clicking on this step will display the generated SBOM.
