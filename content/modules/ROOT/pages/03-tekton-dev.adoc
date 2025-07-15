@@ -153,39 +153,39 @@ In *Developer Hub*, navigate to the `CI` tab and click on the running *maven-bui
 
 Walk through the key stages of the build pipeline:
 
-=== Task 1: init
+=== Task 1: `init`
  * Since the pipeline references reusable pipeline artifacts, it is necessary to initialize these components with pipeline data for the current running pipeline execution.
 
-=== Task 2: clone-repository
+=== Task 2: `clone-repository`
  * Clones the source code repository which includes the latest commit made
 
-=== Task 3: verify-commit
+=== Task 3: `verify-commit`
 * This step facilitates the verification of Git commits using the gitsign tool, which integrates with the RHTAS service. The signed commits are verified in this step to ensure that the code has not been tampered with and originates from a trusted source.  Clicking on this step will highlight the details around the commit and the committer.
 
-=== Task 4: package
+=== Task 4: `package`
 * Builds the java source codes and creates an maven artifact i.e. a quarkus jar.
 
-=== Task 5: build-container
+=== Task 5: `build-container`
 * Builds a container image for the quarkus application, signs the image with Cosign, generates the SBOM for both the source code and image as well as in-toto attests the image for provenance.  The image tag used is based on the commit id for the commit that triggered the pipeline.
 
-=== Task 6.1: upload-sboms-to-trustification
+=== Task 6.1: `upload-sboms-to-trustification`
 * Uploades the generated sbom to Red Hat Trusted Profile Analyzer to enable teams to analyze Software Bills of Materials (SBOMs), Common Vulnerabilities and Exposures (CVEs), and vendor advisories to identify and mitigate vulnerabilities early in the development process.  You can access the results of the SBOM scan in TPA by clicking on {tpa_url}[Red Hat Trusted Profile Analyzer^] with username: `{tpa_user}` and password `{tpa_user_password}` and then clicking *SBOMs* on the left menu.
 
-=== Task 6.2: update-deployment
+=== Task 6.2: `update-deployment`
 * Updates the Gitops repository with the new image so that the Openshift Gitops can redeploy the application using this new image.
 
-=== Task 7.1: acs-image-check
+=== Task 7.1: `acs-image-check`
 * This step runs security checks on the container image against the policies configured in ACS.
 
-=== Task 7.2: acs-image-scan
+=== Task 7.2: `acs-image-scan`
 * This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
 
-=== Task 7.3: acs-deploy-check
+=== Task 7.3: `acs-deploy-check`
 * This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
 _You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_admin_user} and password {acs_admin_password}._
 
-=== Task 8.1: show-sbom
+=== Task 8.1: `show-sbom`
 * Clicking on this step will display the generated SBOM.
 
 === Task 8.2: show-summary
