@@ -3,6 +3,10 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 :icons: font
 :sectnums:
 :source-highlighter: rouge
+:toc: macro
+:toclevels: 2
+
+toc::[]
 
 == Overview
 
