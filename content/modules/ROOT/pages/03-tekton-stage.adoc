@@ -12,7 +12,7 @@ As we walk through the steps, you’ll see how the pipeline ties everything toge
 
 [NOTE]
 ====
-The code and snippets shown are representative and simplified for demo purposes. Be sure to consult the actual Jenkins pipelines and source repositories for precise implementations.
+The code and snippets shown are representative and simplified for demo purposes. Be sure to consult the actual Openshift Pipelines pipelines and source repositories for precise implementations.
 ====
 
 == Pipeline Flow
@@ -32,7 +32,7 @@ Here’s how you do it using GitLab:
 5. Hit *Create Tag*.
 
 👉 _Tell your audience:_
-*"This simulates a release event. As soon as the tag is created, a webhook fires and Jenkins starts the pipeline to promote the corresponding image."*
+*"This simulates a release event. As soon as the tag is created, a webhook fires and Openshift Pipelines starts the pipeline to promote the corresponding image."*
 
 === Option 2: Tag via Git CLI
 
@@ -54,7 +54,7 @@ Now switch over to **Developer Hub**:
 
 == Pipeline Tasks
 
-As the Tekton pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
+As the Openshift Pipelines pipeline runs, guide your audience through the following key tasks — each of which enforces a different layer of software supply chain security.
 
 === Task 1.1 `extract-destination-image-tag` - Extract GitLab tag
 

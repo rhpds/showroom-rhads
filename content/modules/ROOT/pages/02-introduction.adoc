@@ -12,9 +12,9 @@ This demo helps customers modernize application delivery with a secure software 
 
 RHDH is the central entry point for developers. Based on the Backstage open source project and extended by Red Hat, RHDH provides a fully featured Internal Developer Platform (IDP) with:
 
-* A software catalog and self-service onboarding  
-* "Golden path" templates with best-practice security and CI/CD baked in  
-* Visibility into build pipelines and deployment status  
+* A software catalog and self-service onboarding
+* "Golden path" templates with best-practice security and CI/CD baked in
+* Visibility into build pipelines and deployment status
 
 It integrates with OpenShift DevSpaces and Git-based CI/CD triggers.
 
@@ -22,61 +22,61 @@ It integrates with OpenShift DevSpaces and Git-based CI/CD triggers.
 
 TAP provides critical components to secure the software supply chain:
 
-* *Trusted Profile Analyzer (TPA)*: Validates application content against enterprise security/compliance profiles.  
-  link:https://developers.redhat.com/products/trusted-profile-analyzer/overview[Trusted Profile Analyzer – Red Hat^]  
-* *Trusted Artifact Signer (TAS)*: Signs and verifies build artifacts using Sigstore for ensured provenance.  
-  link:https://developers.redhat.com/products/trusted-artifact-signer/overview[Trusted Artifact Signer – Red Hat^]  
-* *SBOM Generation*: Automatically creates and embeds Software Bill of Materials for traceability and compliance.  
+* *Trusted Profile Analyzer (TPA)*: Validates application content against enterprise security/compliance profiles.
+  link:https://developers.redhat.com/products/trusted-profile-analyzer/overview[Trusted Profile Analyzer – Red Hat^]
+* *Trusted Artifact Signer (TAS)*: Signs and verifies build artifacts using Sigstore for ensured provenance.
+  link:https://developers.redhat.com/products/trusted-artifact-signer/overview[Trusted Artifact Signer – Red Hat^]
+* *SBOM Generation*: Automatically creates and embeds Software Bill of Materials for traceability and compliance.
 
 These tools help produce **SLSA Level 3–compliant build artifacts**, ensuring an attested, auditable, and secure artifact supply chain. Optional integration with *Red Hat Advanced Cluster Security (RHACS)* enables further image scanning, signature verification, and runtime policy enforcement.
 
 === Policy Enforcement with Enterprise Contract
 
-*Enterprise Contract* validates signed build attestations against OPA-based policies (SBOM presence, signing, test results, CVEs) to ensure compliance and enforce SLSA-level standards before artifact promotion. Works alongside TAP during the pipeline.  
+*Enterprise Contract* validates signed build attestations against OPA-based policies (SBOM presence, signing, test results, CVEs) to ensure compliance and enforce SLSA-level standards before artifact promotion. Works alongside TAP during the pipeline.
 link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/1.0/html-single/managing_compliance_with_enterprise_contract/index.html[Enterprise Contract – Red Hat^]
 
-=== CI/CD Flexibility with Jenkins and Tekton – Powered by Pipeline as Code
+=== CI/CD Flexibility with Jenkins and Openshift Pipelines – Powered by Pipeline as Code
 
 Supports both pipeline engines to meet customer environments:
 
-* *Jenkins*: Ideal for enterprises with existing Jenkins workflows. Uses Jenkinsfile (pipeline-as-code) and integrates TAP and Enterprise Contract steps.  
-* *Tekton*: Kubernetes-native CI/CD engine (OpenShift Pipelines) using declarative YAML. Enables SLSA Level 3–compliant builds with built-in attestations.
+* *Jenkins*: Ideal for enterprises with existing Jenkins workflows. Uses Jenkinsfile (pipeline-as-code) and integrates TAP and Enterprise Contract steps.
+* *Openshift Pipelines*: Kubernetes-native CI/CD engine (OpenShift Pipelines) using declarative YAML. Enables SLSA Level 3–compliant builds with built-in attestations.
 
 All pipelines are version-controlled and triggered via Git, with RHDH displaying pipeline status and results.
 
 === Optional Integrations: Red Hat ACS and Quay
 
-* *Red Hat Advanced Cluster Security (RHACS)*: Enables automated container scanning, runtime policy enforcement, and artifact verification across Jenkins, Tekton, and TAP pipelines.  
+* *Red Hat Advanced Cluster Security (RHACS)*: Enables automated container scanning, runtime policy enforcement, and artifact verification across Jenkins, Openshift Pipelines, and TAP pipelines.
 * *Red Hat Quay*: Acts as a secure container registry supporting signed and scanned images for CI/CD workflows.
 
 == Why It Matters for Customers
 
 This demo helps organizations:
 
-* *Accelerate delivery* via secure templates, pipeline-as-code, and self-service onboarding  
-* *Automate compliance and security* with SBOM, signing, attestations, and policy gates  
-* *Achieve SLSA Level 3* with traceable, attested, and cryptographically verified pipelines  
-* *Build scalable platforms* using RHDH and modular tool integrations  
+* *Accelerate delivery* via secure templates, pipeline-as-code, and self-service onboarding
+* *Automate compliance and security* with SBOM, signing, attestations, and policy gates
+* *Achieve SLSA Level 3* with traceable, attested, and cryptographically verified pipelines
+* *Build scalable platforms* using RHDH and modular tool integrations
 * *Leverage existing investments* in Git, registries, CI/CD, and security tooling
 
 == When to Use This Demo
 
 Ideal for conversations around:
 
-* Secure software supply chains and DevSecOps maturity  
-* Internal Developer Platforms (IDPs) and platform engineering  
-* CI/CD modernization via pipeline-as-code  
+* Secure software supply chains and DevSecOps maturity
+* Internal Developer Platforms (IDPs) and platform engineering
+* CI/CD modernization via pipeline-as-code
 * Policy-driven compliance automation
 
 == Helpful References
 
-* link:https://www.redhat.com/en/solutions/trusted-software-supply-chain[Trusted Software Supply Chain – Red Hat^]  
-* link:https://developers.redhat.com/products/trusted-profile-analyzer/overview[Trusted Profile Analyzer – Red Hat^]  
-* link:https://developers.redhat.com/products/trusted-artifact-signer/overview[Trusted Artifact Signer – Red Hat^]  
-* link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/1.0/html-single/managing_compliance_with_enterprise_contract/index.html[Enterprise Contract – Red Hat^]  
-* link:https://www.sigstore.dev/[Sigstore Project^]  
+* link:https://www.redhat.com/en/solutions/trusted-software-supply-chain[Trusted Software Supply Chain – Red Hat^]
+* link:https://developers.redhat.com/products/trusted-profile-analyzer/overview[Trusted Profile Analyzer – Red Hat^]
+* link:https://developers.redhat.com/products/trusted-artifact-signer/overview[Trusted Artifact Signer – Red Hat^]
+* link:https://docs.redhat.com/en/documentation/red_hat_trusted_application_pipeline/1.0/html-single/managing_compliance_with_enterprise_contract/index.html[Enterprise Contract – Red Hat^]
+* link:https://www.sigstore.dev/[Sigstore Project^]
 * link:https://developers.redhat.com/products/advanced-developer-suite[Red Hat Developer Site – RHADS Overview^]
 
 == Summary
 
-The RHADS demo is a field-ready, modular, and security-first developer platform. It combines Red Hat Developer Hub, TAP, Enterprise Contract, Jenkins/Tekton pipeline-as-code, SLSA Level 3 compliance, and optional integrations like RHACS and Quay—enabling teams to build and deliver trusted applications faster and safer.
+The RHADS demo is a field-ready, modular, and security-first developer platform. It combines Red Hat Developer Hub, TAP, Enterprise Contract, Jenkins/Openshift Pipelines pipeline-as-code, SLSA Level 3 compliance, and optional integrations like RHACS and Quay—enabling teams to build and deliver trusted applications faster and safer.

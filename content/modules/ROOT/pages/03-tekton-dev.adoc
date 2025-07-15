@@ -10,7 +10,7 @@
 In this demo, you'll walk your audience through what it looks like for a developer to:
 
 * Create a new quarkus application using a software template in Red Hat Developer Hub (RHDH)
-* Automatically integrate the build of the application with secure CI/CD pipelines using Tekton and Red Hat Advanced Developer Suite
+* Automatically integrate the build of the application with secure CI/CD pipelines using Openshift Pipelines and Red Hat Advanced Developer Suite
 * Store source code and container images securely with GitLab and Quay
 * Leverage automation, security policies, and developer self-service in one flow
 
@@ -30,7 +30,7 @@ _Talk about how this reduces DevOps bottlenecks and enforces consistency._
 
 . Navigate to {rhdh_url}[Red Hat Developer Hub^] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
 . On the top right hand corner, click the *Self-service* button i.e. the *+* button, to create a new software component in Red Hat Developer Hub
-. Choose the template: _Securing a Quarkus Service Software Supply Chain (Tekton)_
+. Choose the template: _Securing a Quarkus Service Software Supply Chain (Openshift Pipelines)_
 . Fill out the form:
 
 Provide Information for Application
@@ -147,7 +147,7 @@ Explain what Red Hat Developer Hub automates:
 
 Point out the developer doesn’t need to manually wire any of this.
 
-== 🔧 Part 5 — Show the Build Pipeline (Tekton)
+== 🔧 Part 5 — Show the Build Pipeline (Openshift Pipelines)
 
 In *Developer Hub*, navigate to the `CI` tab and click on the running *maven-build-ci* pipeline.
 
@@ -224,7 +224,7 @@ Summarize:
 * *Governance through automation* — Security and compliance are enforced without manual intervention
 * *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
 * *Transparency and traceability* — All steps in the SDLC are auditable, from commit to deploy
-* *Toolchain integration* — GitLab, Quay, Tekton, and ACS work together seamlessly
+* *Toolchain integration* — GitLab, Quay, Openshift Pipelines, and ACS work together seamlessly
 
 === 🧩 Optional Enhancements
 
@@ -232,7 +232,7 @@ Summarize:
   → Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results
 * *Show integration depth*
   → Follow the commit link from Developer Hub to GitLab
-  → View the running Tekton pipeline and associated artifacts
+  → View the running Openshift Pipelines pipeline and associated artifacts
 * *Demonstrate template flexibility*
   → Mention how teams can build similar templates for different stacks (e.g., Python, Node.js, Spring Boot)
 * *Mention collaboration opportunities*

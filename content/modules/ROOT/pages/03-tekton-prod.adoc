@@ -8,18 +8,15 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract (EC), and GitOps with Argo CD.
 
-The demo showcases how creating a release from a Git tag triggers an automated Jenkins pipeline that:
+The demo showcases how creating a release from a Git tag triggers an automated Openshift Pipelines pipeline that:
 - Validates the image with Enterprise Contract
 - Tags the verified image with the release version
 - Promotes the image to the `prod` environment via GitOps
 - Deploys the application using Argo CD
 
-You’ll be demonstrating a Jenkins pipeline using the shared library:
-`library identifier: 'RHTAP_Jenkins@main'`
-
 [NOTE]
 ====
-The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Openshift Pipelines pipeline and repository configurations for authoritative details.
 ====
 
 == Pipeline Flow
@@ -32,7 +29,7 @@ Explain to your audience that the pipeline is triggered by creating a release in
 4. Enter release notes (optional).
 5. Click *Create release*.
 
-Tell your audience: “This release event kicks off the Jenkins pipeline via a webhook. It promotes the tagged image to prod after validation.”
+Tell your audience: “This release event kicks off the Openshift Pipelines pipeline via a webhook. It promotes the tagged image to prod after validation.”
 
 Once the tag is pushed, navigate to the *my-quarkus-tkn* component in **Developer Hub**. Then:
 
@@ -44,7 +41,7 @@ This allows you to monitor the ongoing promotion process and verify each pipelin
 
 == Pipeline Tasks
 
-As the Tekton pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+As the Openshift Pipelines pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
 === Task 1.1: gather-images
 
@@ -163,7 +160,7 @@ patchesStrategicMerge:
 ----
 
 Mention:
-- Jenkins commits and pushes this update to the GitOps repo.
+- Openshift Pipelines commits and pushes this update to the GitOps repo.
 - Argo CD automatically detects the change and syncs it to the `prod` cluster.
 
 == 📘 Wrap-Up
@@ -193,7 +190,7 @@ Mention:
 
 - Creating a release from a Git tag triggers the secure promotion pipeline.
 - Enterprise Contract ensures only compliant images move forward.
-- Jenkins shared library `RHTAP_Jenkins@main` encapsulates best practices.
+- Tasks and pipelines are reusable, scalable, and consistent across teams
 - GitOps overlays manage environment-specific configuration.
 - Argo CD continuously ensures the cluster matches Git.
 
