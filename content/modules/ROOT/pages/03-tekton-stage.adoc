@@ -6,7 +6,7 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Overview
 
-This demo showcases how Red Hat Advanced Developer Suite (TAP), Enterprise Contract (EC), and Argo CD can be used together to enforce supply chain security policies during container promotion — all triggered by a GitLab tag.
+This demo showcases how Red Hat Advanced Developer Suite (ADS), Enterprise Contract (EC), and Argo CD can be used together to enforce supply chain security policies during container promotion — all triggered by a GitLab tag.
 
 As we walk through the steps, you’ll see how the pipeline ties everything together: validation, signing, tagging, and deployment. The goal is to show how policy-driven automation helps teams promote only trusted, compliant artifacts.
 

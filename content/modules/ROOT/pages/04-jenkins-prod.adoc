@@ -6,7 +6,7 @@ Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion u
 
 == Overview
 
-Welcome! I’m excited to walk you through a demo showing how Red Hat’s Advanced Developer Suite (TAP), Enterprise Contract, and Argo CD work together to securely promote container images from staging to production using Jenkins.
+Welcome! I’m excited to walk you through a demo showing how Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract, and Argo CD work together to securely promote container images from staging to production using Jenkins.
 
 We’ll explore a single Jenkins pipeline triggered by both Git tag pushes and GitLab releases, with policy enforcement and GitOps automation to ensure only compliant images reach production.
 

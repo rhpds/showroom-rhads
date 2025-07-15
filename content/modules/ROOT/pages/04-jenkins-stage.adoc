@@ -6,7 +6,7 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Overview
 
-This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (TAP), Enterprise Contract (EC), and GitOps with Argo CD.
+This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract (EC), and GitOps with Argo CD.
 
 The demo showcases how tagging a release in Git triggers an automated pipeline that:
 - Validates the image with Enterprise Contract

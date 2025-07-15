@@ -28,7 +28,7 @@ _Talk about how this reduces DevOps bottlenecks and enforces consistency._
 
 == 🛠 Part 2 — Scaffold a new application in Red Hat Developer Hub
 
-. Navigate to {rhdh_url}[Red Hat Developer Hub] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
+. Navigate to {rhdh_url}[Red Hat Developer Hub^] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
 . On the top right hand corner, click the *Self-service* button i.e. the *+* button, to create a new software component in Red Hat Developer Hub
 . Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_
 . Fill out the form:
@@ -179,7 +179,7 @@ As the Jenkins pipeline runs, guide the audience through each of the following t
 * deploy
   * Updates the GitOps repository with the new image tag to trigger redeployment via OpenShift GitOps to dev.
 * upload_sbom_to_trustification
-  * Uploads the generated Software Bill of Materials (SBOM) to Red Hat Trusted Profile Analyzer for vulnerability and compliance scanning.
+  * Uploads the generated Software Bill of Materials (SBOM) to Red Hat Trusted Profile Analyzer for vulnerability and compliance scanning. You can access the results of the SBOM scan in TPA by clicking on {tpa_url}[Red Hat Trusted Profile Analyzer^] with username: `{tpa_user}` and password `{tpa_user_password}` and then clicking *SBOMs* on the left menu.
 
 === Stage: acs (parallel)
 * acs_deploy_check
