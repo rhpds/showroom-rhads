@@ -6,36 +6,36 @@
 
 == Agenda
 
-This demonstration is divided into two main workflows — one powered by OpenShift Pipelines and another using Jenkins. Each path showcases how Red Hat’s Advanced Developer Suite enables secure, automated, GitOps-driven software delivery from code to production.
+This demonstration walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one using OpenShift Pipelines (Tekton) and the other using Jenkins for the entire lifecycle.
 
-[cols="1,3",options="header"]
+[cols="1,2",options="header"]
 |===
 | Section | Description
 
 | Introduction
-| Overview of the Red Hat Advanced Developer Suite and what this demo covers
+| Overview of the Advanced Developer Suite, software supply chain security, and GitOps automation
 
 | ADS with OpenShift Pipelines
-| A developer-centric CI/CD experience using Tekton and Developer Hub
+| A developer-centric CI/CD experience using Tekton, Developer Hub, and Argo CD
 
-| Build Phase
-| Creating and building the application using Developer Hub and Maven
+| └ Build Phase
+| Creating and building the application using Developer Hub and Tekton tasks
 
-| Promote to Stage
-| Deploying the validated image to the `stage` environment using GitOps
+| └ Promote to Stage
+| Validating the image and promoting it to the `stage` environment using GitOps
 
-| Release to Production
-| Promoting images to `prod` via GitLab Release and Argo CD
+| └ Release to Production
+| Promoting images to `prod` via GitLab Release and Argo CD with policy enforcement
 
 | ADS with Jenkins
-| An alternative workflow using Jenkins shared library for CI/CD
+| End-to-end CI/CD using Jenkins shared libraries, Enterprise Contract, and GitOps promotion
 
-| Build Phase
-| Building and verifying the app with Jenkins and Secure Supply Chain tools
+| └ Build Phase
+| Building the application, signing container images, and generating SBOMs using Jenkins
 
-| Promote to Stage
-| Validating and tagging the image, updating GitOps overlays for `stage`
+| └ Promote to Stage
+| Validating the image with Enterprise Contract, tagging it, and updating the GitOps repo
 
-| Release to Production
-| Enforcing Enterprise Contract, tagging, and promoting to `prod`
+| └ Release to Production
+| GitLab Release triggers a Jenkins pipeline that promotes the image to `prod`, enforced by policy and synced via Argo CD
 |===
