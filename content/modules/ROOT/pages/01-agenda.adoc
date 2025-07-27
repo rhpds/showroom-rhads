@@ -6,36 +6,36 @@
 
 == Agenda
 
-This demonstration walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one using OpenShift Pipelines (Tekton) and the other using Jenkins for the entire lifecycle.
+This demo walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one powered by OpenShift Pipelines (Tekton), the other by Jenkins. Both enforce the same security standards: Enterprise Contract validation, image signing, SBOMs, and GitOps-based promotion with Argo CD.
 
 [cols="1,2",options="header"]
 |===
 | Section | Description
 
 | Introduction
-| Overview of the Advanced Developer Suite, software supply chain security, and GitOps automation
+| Overview of Red Hat Advanced Developer Suite, software supply chain security, and GitOps automation
 
-| ADS with OpenShift Pipelines
-| A developer-centric CI/CD experience using Tekton, Developer Hub, and Argo CD
+| ADS with OpenShift Pipelines (Tekton)
+| CI/CD using Developer Hub, Tekton tasks, Enterprise Contract, and Argo CD
 
 | └ Build Phase
-| Creating and building the application using Developer Hub and Tekton tasks
+| App scaffolded in Developer Hub, built via Tekton, pushed to Quay with SBOMs and signatures
 
 | └ Promote to Stage
-| Validating the image and promoting it to the `stage` environment using GitOps
+| Validated by Enterprise Contract, deployed to `stage` via GitOps
 
 | └ Release to Production
-| Promoting images to `prod` via GitLab Release and Argo CD with policy enforcement
+| GitLab Release triggers promotion to `prod` with the same secure pipeline
 
 | ADS with Jenkins
-| End-to-end CI/CD using Jenkins shared libraries, Enterprise Contract, and GitOps promotion
+| CI/CD using Developer Hub, Jenkins shared libraries, Enterprise Contract, and GitOps promotion
 
 | └ Build Phase
-| Building the application, signing container images, and generating SBOMs using Jenkins
+| App scaffolded in Developer Hub, built via Jenkins, pushed to Quay with SBOMs and signatures
 
 | └ Promote to Stage
-| Validating the image with Enterprise Contract, tagging it, and updating the GitOps repo
+| Validated by Enterprise Contract, deployed to `stage` via GitOps
 
 | └ Release to Production
-| GitLab Release triggers a Jenkins pipeline that promotes the image to `prod`, enforced by policy and synced via Argo CD
+| GitLab Release triggers promotion to `prod` with the same secure pipeline
 |===
