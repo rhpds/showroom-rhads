@@ -8,7 +8,7 @@ You'll walk through how Red Hat Advanced Developer Suite (RHADS) enables:
 - Self-service onboarding with secure templates
 - Git-driven CI/CD pipelines using Jenkins or OpenShift Pipelines
 - End-to-end supply chain security with attestation, signing, and policy enforcement
-- A seamless developer experience via Red Hat Developer Hub and Dev Spaces (VS Code)
+- A seamless developer experience via Red Hat Developer Hub and Dev Spaces
 
 A rendered preview of this guide is available here: https://your.rendered.link
 
