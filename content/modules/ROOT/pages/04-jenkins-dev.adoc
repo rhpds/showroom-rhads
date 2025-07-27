@@ -3,28 +3,38 @@
 :revdate: 2025-07-02
 :icons: font
 :toc:
-:toclevels: 2
+:toclevels: 1
 
-== 🎯 Scenario
+== Scenario
 
-In this demo, you'll walk your audience through what it looks like for a developer to:
+In this demo, you will walk your audience through what it looks like for a developer at ACME Corp to:
 
-* Create a new quarkus application using a software template in Red Hat Developer Hub (RHDH)
-* Automatically integrate the build of the application with secure CI/CD pipelines using Jenkins and Red Hat Advanced Developer Suite
-* Store source code and container images securely with GitLab and Quay
-* Leverage automation, security policies, and developer self-service in one flow
+* Create a new Quarkus application using a software template in Red Hat Developer Hub (RHDH)
+* Automatically integrate the application build with secure CI/CD pipelines powered by Jenkins and Red Hat Advanced Developer Suite (ADS)
+* Store source code in GitLab and container images in Quay
+* Leverage automation, security policies, and developer self-service in one streamlined flow
 
-The goal is to demonstrate how platform teams can empower developers without compromising security or governance.
+The goal is to demonstrate how platform engineering teams can enable developer velocity without compromising on security or governance.
 
-== 🧩 Part 1 — Introduce the Context
+== Part 1 — Introduce the Context
 
-Start by explaining the challenge:
+Start by explaining the typical challenges:
 
-* Developers want to ship fast
-* Setting up CI/CD, repo structures, and security gates takes time and expertise
-* Red Hat Developer Hub provides a self-service portal for bootstrapping applications with pipelines, Git integration, and policy baked in
+* Developers want to move fast and focus on writing code.
+* Setting up CI/CD, webhooks, GitOps, and security validations takes time and often falls on DevOps teams.
+* ACME's platform team uses Red Hat Developer Hub to make this easier — enabling self-service scaffolding of applications with pre-integrated pipelines, Git repositories, and policy enforcement.
 
-_Talk about how this reduces DevOps bottlenecks and enforces consistency._
+This demo complements the previous one which used OpenShift Pipelines (Tekton) for CI/CD. While Tekton is cloud-native and fully integrated into OpenShift, many of our enterprise customers — including ACME — still rely on Jenkins due to existing investments and plugins.
+
+By showcasing the Jenkins path, you’re addressing a common real-world scenario: modernizing CI/CD workflows without needing to abandon proven Jenkins-based processes.
+
+Explain how this approach:
+
+* Reduces DevOps bottlenecks
+* Enforces consistent patterns across services
+* Provides governance and automation by default
+* Supports teams where Jenkins remains the standard CI/CD tool
+
 
 == 🛠 Part 2 — Scaffold a new application in Red Hat Developer Hub
 
