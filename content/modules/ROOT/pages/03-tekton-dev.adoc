@@ -1,239 +1,342 @@
 = Red Hat Developer Hub + Red Hat Advanced Developer Suite Demo Guide
 :author: Sales Engineer / Developer Advocate
 :revdate: 2025-07-02
-:icons: font
+:icons!:
 :toc:
 :toclevels: 2
 
-== 🎯 Scenario
+== Part 1 — Set the Stage
 
-In this demo, you'll walk your audience through what it looks like for a developer to:
+Say::
+Before we jump into building anything, let’s take a step back and understand the context for this demo.
 
-* Create a new quarkus application using a software template in Red Hat Developer Hub (RHDH)
-* Automatically integrate the build of the application with secure CI/CD pipelines using Openshift Pipelines and Red Hat Advanced Developer Suite
-* Store source code and container images securely with GitLab and Quay
-* Leverage automation, security policies, and developer self-service in one flow
+Do::
+You're a platform engineer at *Acme Retail*. Your development teams are building a new Quarkus-based checkout microservice. They want to move fast — but the current process introduces friction:
 
-The goal is to demonstrate how platform teams can empower developers without compromising security or governance.
+* Developers rely on the platform team to set up Git repos, CI/CD pipelines, and Kubernetes manifests.
+* Security practices like commit signing, SBOM generation, and image scanning are often manual or skipped.
+* Pipeline setups vary across teams, which leads to governance gaps and duplicated effort.
 
-== 🧩 Part 1 — Introduce the Context
+Explain::
+This demo shows how *Red Hat Developer Hub (RHDH)* and *Red Hat Advanced Developer Suite (RHADS)* help solve these problems through a secure, self-service developer experience.
 
-Start by explaining the challenge:
+We’ll walk through how a developer at Acme can:
 
-* Developers want to ship fast
-* Setting up CI/CD, repo structures, and security gates takes time and expertise
-* Red Hat Developer Hub provides a self-service portal for bootstrapping applications with pipelines, Git integration, and policy baked in
+* Scaffold a new service from a secure template
+* Automatically create GitLab repos and OpenShift Pipelines
+* Push images to Quay with SBOMs, signing, and attestations
+* Enforce policy gates through tools like Trusted Application Pipeline and ACS
 
-_Talk about how this reduces DevOps bottlenecks and enforces consistency._
+The goal: help Acme deliver software faster — with governance and security built in.
 
-== 🛠 Part 2 — Scaffold a new application in Red Hat Developer Hub
 
-. Navigate to {rhdh_url}[Red Hat Developer Hub^] and click on *Sign In* on the OIDC prompt.  On the popup box type in *Username or email*: {rhdh_user} and *Password*: {rhdh_user_password}
-. On the top right hand corner, click the *Self-service* button i.e. the *+* button, to create a new software component in Red Hat Developer Hub
-. Choose the template: _Securing a Quarkus Service Software Supply Chain (Openshift Pipelines)_
-. Fill out the form:
+== Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Provide Information for Application
+Say::
+Now that we understand the problem, let’s show how a developer at Acme Retail would use Red Hat Developer Hub to scaffold a secure, production-ready application — without any manual setup.
+
+Do::
+. Navigate to `{rhdh_url}` and click *Sign In* on the OIDC login prompt.
+. Enter your credentials:
+  - Username: `{rhdh_user}`
+  - Password: `{rhdh_user_password}`
+. In the top-right corner, click the **+ Self-service** button to create a new software component.
+. Select the template:
+  _Securing a Quarkus Service Software Supply Chain (OpenShift Pipelines)_
+. Accept the default values provided in the form unless customization is needed.
+
+Application Information:
+[cols="1,2", options="header"]
 |===
-
-| Field | `Example value`
-
-|Name | `my-quarkus-tkn`
-|Group Id | `redhat.rhdh`
-|Artifact Id | `my-quarkus-tkn`
-|Java Pakage Name | `org.redhat.rhdh`
-|Description | `A cool quarkus app`
+| Field | Default Value
+| Name | `my-quarkus-tkn`
+| Group ID | `redhat.rhdh`
+| Artifact ID | `my-quarkus-tkn`
+| Java Package Name | `org.redhat.rhdh`
+| Description | `A cool Quarkus app`
 |===
-
-The above fields are used by the template populate the Quarkus maven artifact.
 
 . Click *Next*
 
-Provide Image Registry Information
+Image Registry Information:
+[cols="1,2", options="header"]
 |===
-
-| Field | `Example value`
-
-|Image Registry  | `Quay`
-|Organization | `tssc`
+| Field | Default Value
+| Image Registry | `Quay`
+| Organization | `tssc`
 |===
-
-This template uses a Quay instance already deployed on your cluster and will install all images under the `tssc` namespace.
 
 . Click *Next*
 
-Application repository Information
+Repository Information:
+[cols="1,2", options="header"]
+|===
+| Field | Default Value
+| Source Repo | `GitLab`
+| Repo Owner | `development`
+| Verify Commits | `enabled`
 |===
 
-| Field | `Example value`
+. Click *Review*, then click *Create*
 
-|Source Repo  | `Gitlab`
-|Repo Owner | `development`
-|Verify Commits | `enabled`
-|===
+Explain::
+This single action bootstraps the entire delivery stack for the developer:
 
-This template uses a Gitlab instance already deployed on your cluster and will create all source and gitops repositories under the development group.  The `Verify Commits` option tells the template whether or not to enable commit signing and verification for this software component.
+* A new GitLab repo (source + GitOps) is created under the `development` group
+* Secure CI/CD pipelines are generated using OpenShift Pipelines
+* Image builds are configured to push to the `tssc` organization in Quay
+* Commit signing and SBOM generation are included automatically
+* The component is registered in the Developer Hub catalog for visibility
 
-. Click *Review* to review your inputs and then click *Create*
-
-_Talk through how this template sets up not just the app, but also GitLab repo, CI/CD pipelines, deployment manifests, and component registration inside Developer Hub._
-
-== 🧪 Part 3 — Make a Code Change in DevSpaces
-
-Once the application has been created and registered in the Developer Hub:
-
-. Navigate to the *Catalog* and find your new component (`my-quarkus-tkn`)
-. Click on the component name to open the "Overview* page
-. Locate the *OpenShift Dev Spaces* link and click on it — this create a Red Hat OpenShift DevSpaces environment preloaded with your project
-. Click the *Log In with Openshift* if you are directed to the *Red Hat OpenShift* page.  Use username `{rhdh_user}` and password `{rhdh_user_password}` if authentication is required.
-. Click on *Allow selcted permissions* on the *Authorize Access* page if required.
-. Click on *Continue* on the *Do you trusted the authors of this repository?* popup.
-. Enter username `{gitlab_user}` and password '{gitlab_user_password}' on the *Gitlab* authentication page and click *Sign in*.
-. Click *Authorize devspaces* on the next window.
-. Wait for the workspace to start
-. In the Dev Spaces IDE, trust all workspaces and authors if prompted.
+The developer doesn't have to write YAML or coordinate with platform or security teams — it’s all baked into the golden path template.
 
 
-In the DevSpaces IDE:
+== Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-. Open the file `my-quarkus-tkn/docs/index.md`
-. Make a minor change — for example, adding a line of text at the end of the file
+Say::
+Now that the application has been scaffolded and registered, let’s make a code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code.
 
-Then, from the Dev Spaces terminal:
+Do::
+. In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
+. Click the component name to open its *Overview* page
+. Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
+. If redirected, click *Log In with OpenShift*, then sign in with:
+  - Username: `{rhdh_user}`
+  - Password: `{rhdh_user_password}`
+. On the *Authorize Access* screen, click *Allow selected permissions*
+. On the repository trust prompt, click *Continue*
+. When prompted to authenticate with GitLab:
+  - Username: `{gitlab_user}`
+  - Password: `{gitlab_user_password}`
+. Click *Authorize devspaces*
+. Wait for the workspace to start and fully load VS Code
+. If prompted, trust all workspaces and authors
+
+In the Dev Spaces IDE:
+
+. Open the file: `my-quarkus-tkn/docs/index.md`
+. Add a new line of text at the bottom (e.g., “This is a test edit.”)
+. Open the integrated terminal:
+  * From the top menu bar, click on `Terminal → New Terminal`
+  * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
+
+Then, in the terminal:
 
 . Stage your changes:
 
-[source,shell]
+[source,bash]
 ----
 git add .
 ----
 
 . Commit your changes:
 
-[source,shell]
+[source,bash]
 ----
 git commit -m "Update"
 ----
 
-During this step, `gitsign` will intercept the commit and initiate the signing process. The terminal will display a URL and prompt you to open it in your browser.
+. The terminal will prompt you with a URL for commit signing via `gitsign`
+. Open the URL in your browser and approve the request
+. Copy the verification code shown in the browser
+. Paste the code into the terminal to complete the signing process  
+  (Allow paste functionality if prompted)
 
-. Click the URL to open a browser window and authorize the signing request +
-  If clicking the URL doesn’t work, copy the URL and paste it into a new tab in your browser.
-. Once the popup appears, a verification code will be shown in the browser.
-. Copy the verification code and return to the terminal.
-. Paste the code into the terminal to complete the commit signing process. +
-  Ensure you *Allow* paste functionality if prompted.
+. Push your changes:
 
-. Finally, push your changes to the GitLab repository:
-
-[source,shell]
+[source,bash]
 ----
 git push
 ----
 
-This push will trigger the CI/CD pipeline via the GitLab webhook.
+Explain::
+This push triggers the CI/CD pipeline via the GitLab webhook.
 
-_Note: If "Verify Commits" was enabled during template creation, this signed commit is required to trigger the pipeline._
+Because *Verify Commits* was enabled when you created the project, this change must be signed using `gitsign`.
 
-== ⚙️ Part 4 — What Happens Behind the Scenes
+`gitsign` is a tool that signs your Git commits using a short-lived key tied to your identity (usually via OpenID Connect). This ensures the commit came from a trusted user — not just anyone with push access.
 
-Explain what Red Hat Developer Hub automates:
+Signed commits help verify:
+* Who made the change
+* That the change hasn’t been tampered with
 
-* Creates a source code and gitops repository for your application with information derived from the template
-* Creates the Gitlab webhooks responsible for triggering the appropriate pipelines
-* Commits pipeline dependencies and Kubernetes manifests
-* Registers the software compononent in the Developer Hub catalog
-* Automatically triggers the initial CI/CD build pipeline if the "Verify Commits" option was set to disabled.
+This strengthens the security and auditability of your software supply chain — a key capability of Red Hat Trusted Application Pipeline.
 
-Point out the developer doesn’t need to manually wire any of this.
+== Part 4 — What Happens Behind the Scenes
 
-== 🔧 Part 5 — Show the Build Pipeline (Openshift Pipelines)
+Once the user clicks *Create* in Developer Hub, a lot of powerful automation kicks in — without the developer needing to manually configure anything.
 
-In *Developer Hub*, navigate to the `CI` tab and click on the running *maven-build-ci* pipeline.
+Say this:
 
-Walk through the key stages of the build pipeline:
+> “Let’s pause and see what just happened behind the scenes when the developer created the app using the template.”
+
+Then explain:
+
+Red Hat Developer Hub, working together with the template and platform tools, automates the following steps:
+
+* Creates a **source code repository** (application code) and a **GitOps repository** (deployment manifests) using GitLab
+* Sets up **GitLab webhooks** to trigger the correct CI/CD pipeline for this app
+* Commits pre-built **pipeline definitions** and Kubernetes manifests into the appropriate repos
+* Registers the app as a **catalog component** inside Developer Hub so developers can monitor it
+* Automatically **triggers the CI/CD build pipeline** if "Verify Commits" was set to `false` (i.e., unsigned commits allowed)
+
+Say this:
+
+> “That’s a full-stack DevSecOps setup from day one — source, pipelines, GitOps, CI/CD, and visibility — ready to go without any manual effort.”
+
+This approach ensures consistency, reduces setup time, and gives platform teams confidence that every service adheres to policy from the outset.
+
+== Part 5 — Show the Build Pipeline (OpenShift Pipelines)
+
+Say this:
+
+> “Now that we’ve pushed code, let’s switch over to see what the CI/CD pipeline is doing behind the scenes.”
+
+In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
+
+Walk your audience through each stage of the pipeline to show how it enforces security and automation at every step.
 
 === Task 1: `init`
- * Since the pipeline references reusable pipeline artifacts, it is necessary to initialize these components with pipeline data for the current running pipeline execution.
+
+Initializes pipeline resources and artifacts required for this pipeline run.  
+This sets up any reusable components needed downstream.
 
 === Task 2: `clone-repository`
- * Clones the source code repository which includes the latest commit made
+
+Clones the source code repository that triggered the pipeline.  
+This ensures the latest code is fetched for verification and build.
 
 === Task 3: `verify-commit`
-* This step facilitates the verification of Git commits using the gitsign tool, which integrates with the RHTAS service. The signed commits are verified in this step to ensure that the code has not been tampered with and originates from a trusted source.  Clicking on this step will highlight the details around the commit and the committer.
+
+Verifies the Git commit signature using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).  
+This step ensures the commit comes from a trusted source and hasn’t been tampered with.
+
+> Clicking on this task in the pipeline UI will show details like who signed the commit and whether it passed verification.
 
 === Task 4: `package`
-* Builds the java source codes and creates an maven artifact i.e. a quarkus jar.
+
+Builds the Java source code and creates a Maven artifact — in this case, a Quarkus JAR file.
 
 === Task 5: `build-container`
-* Builds a container image for the quarkus application, signs the image with Cosign, generates the SBOM for both the source code and image as well as in-toto attests the image for provenance.  The image tag used is based on the commit id for the commit that triggered the pipeline.
+
+Builds a container image for the Quarkus application.
+
+It then:
+* Signs the image using **Cosign**
+* Generates an **SBOM** (Software Bill of Materials)
+* Attests the image using **in-toto** for provenance
+
+> The image tag corresponds to the Git commit ID that triggered the pipeline.
 
 === Task 6.1: `upload-sboms-to-trustification`
-* Uploades the generated sbom to Red Hat Trusted Profile Analyzer to enable teams to analyze Software Bills of Materials (SBOMs), Common Vulnerabilities and Exposures (CVEs), and vendor advisories to identify and mitigate vulnerabilities early in the development process.  You can access the results of the SBOM scan in TPA by clicking on {tpa_url}[Red Hat Trusted Profile Analyzer^] with username: `{tpa_user}` and password `{tpa_user_password}` and then clicking *SBOMs* on the left menu.
+
+Uploads the SBOM to **Red Hat Trusted Profile Analyzer (TPA)** so teams can analyze it for CVEs, vendor advisories, and vulnerabilities.
+
+> You can access TPA at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.  
+> Click *SBOMs* on the left menu to view results.
 
 === Task 6.2: `update-deployment`
-* Updates the Gitops repository with the new image so that the Openshift Gitops can redeploy the application using this new image.
+
+Commits the new image reference into the GitOps repository.  
+This allows **OpenShift GitOps** (Argo CD) to automatically deploy the new version.
 
 === Task 7.1: `acs-image-check`
-* This step runs security checks on the container image against the policies configured in ACS.
+
+Performs policy checks on the container image using **Red Hat Advanced Cluster Security (ACS)**.
+
+> Ensures the image doesn’t violate any organization-defined security policies.
 
 === Task 7.2: `acs-image-scan`
-* This step evaluates whether the new container image complies with the security policies established in your ACS configuration.  Clicking on this step will show the results of the image scan.
+
+Scans the image for known vulnerabilities and generates a report.
+
+> Clicking on this step shows CVEs and risk scores identified in the image.
 
 === Task 7.3: `acs-deploy-check`
-* This step triggers and stores a vulnerability scan of a container image in Red Hat Advanced Cluster Security, making the results available for later analysis and policy evaluation.
 
-_You may also want to access and touch on *Red Hat Advanced Cluster Security* by clicking {acs_url} with username: {acs_admin_user} and password {acs_admin_password}._
+Evaluates the deployment configuration and image from a security and compliance perspective.
+
+> Stores the results in ACS for auditability and enforcement.
+
+> You can also visit ACS at {acs_url} using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
 
 === Task 8.1: `show-sbom`
-* Clicking on this step will display the generated SBOM.
 
-=== Task 8.2: show-summary
-* Clicking on this step will display a summary of your build.
+Displays the SBOM generated in earlier stages.
 
-Highlight that these are enforced steps, not optional.
+=== Task 8.2: `show-summary`
 
-=== 🔎 Brief Note on Pipelines as Code
+Shows a high-level summary of the build, verification, signing, and scan results.
 
-Mention briefly:
+---
 
-> These pipelines are defined and version-controlled alongside the service code. This makes the CI/CD process transparent and adaptable, without needing centralized pipeline configuration.
+Say this:
 
-Avoid going deep — keep it lightweight.
+> “As you can see, these aren’t just traditional CI steps. Every stage adds a layer of trust, traceability, and security — without slowing down the developer.”
 
-== 📘 Part 6 — Summary
+Explain:
 
-Summarize:
+These steps are not optional or best-effort — they are **enforced** through policy and integrated tooling, giving teams security by default.
 
-* Developer created a service in minutes
-* Secure CI/CD pipeline was pre-wired
-* Commits and images were signed, scanned, and attested
+=== Brief Note on Pipelines as Code
 
-== 📘 Part 7 — Wrap-Up
+These pipelines are defined and version-controlled alongside the application code.
 
-Summarize:
+This design makes the CI/CD process:
 
-* Developer created a service in minutes
-* Secure CI/CD pipeline was pre-wired
-* Commits and images were signed, scanned, and attested
+* Transparent — developers can see exactly how their builds work
+* Consistent — pipelines follow a shared structure across projects
+* Adaptable — changes to pipelines are tracked like any other code
 
-=== 💡 Key Takeaways
+For developers at ACME:
+
+* No need to file tickets or wait on DevOps — pipelines are part of the repo.
+* They can propose updates to pipeline steps via pull requests, just like application code.
+* It’s easier to understand how a change moves from code to container to deployment.
+
+For the ACME platform team:
+
+* Pipeline templates enforce security, compliance, and best practices automatically.
+* Updates to shared logic (like SBOM scanning or image signing) can be reused across all projects.
+* With pipelines stored alongside code, it’s easier to troubleshoot and audit each change.
+
+Say this:
+
+> “This approach gives developers more autonomy while ensuring the platform team still enforces security and governance by default.”
+
+Keep it brief — the goal is to reinforce how this approach scales and empowers both sides.
+
+== Part 6 — Summary
+
+* Developer created a service in minutes using Red Hat Developer Hub
+* Secure CI/CD pipeline was pre-wired through the selected software template
+* Commits and container images were signed, scanned, and attested as part of the automated workflow
+
+== Part 7 — Wrap-Up
+
+This demo showcases how Red Hat Developer Hub and the Advanced Developer Suite enable secure, scalable developer workflows:
+
+=== Key Takeaways
 
 * *Secure-by-default delivery* — Every code change is validated, scanned, and signed automatically
-* *Streamlined developer onboarding* — Developers can get started with new services in minutes
-* *Governance through automation* — Security and compliance are enforced without manual intervention
+* *Streamlined developer onboarding* — Developers can get started with new services in minutes using self-service templates
+* *Governance through automation* — Security and compliance policies are enforced through the pipeline, not manual reviews
 * *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
-* *Transparency and traceability* — All steps in the SDLC are auditable, from commit to deploy
-* *Toolchain integration* — GitLab, Quay, Openshift Pipelines, and ACS work together seamlessly
+* *Transparency and traceability* — Every step from commit to deployment is auditable and visible
+* *Toolchain integration* — GitLab, Quay, OpenShift Pipelines, and ACS work together to provide a seamless secure supply chain experience
 
-=== 🧩 Optional Enhancements
 
-* *Explore the Developer Hub Catalog entry* for the new software component
-  → Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results
-* *Show integration depth*
-  → Follow the commit link from Developer Hub to GitLab
-  → View the running Openshift Pipelines pipeline and associated artifacts
-* *Demonstrate template flexibility*
-  → Mention how teams can build similar templates for different stacks (e.g., Python, Node.js, Spring Boot)
-* *Mention collaboration opportunities*
-  → Platform and security teams can co-develop templates and policies for shared governance
+=== Optional Enhancements
+
+* *Explore the Developer Hub Catalog entry* for the new software component  
+  - Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results.
+
+* *Show integration depth*  
+  - Follow the commit link from Developer Hub to GitLab.  
+  - View the running OpenShift Pipelines execution and associated artifacts.
+
+* *Demonstrate template flexibility*  
+  - Mention how teams can build similar templates for other tech stacks like Python, Node.js, or Spring Boot.
+
+* *Highlight collaboration opportunities*  
+  - Emphasize how platform and security teams can co-develop templates and pipelines to bake in policy and compliance.
