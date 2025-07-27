@@ -119,7 +119,7 @@ For customers already using Jenkins, this template shows how ADS can plug into t
 ====
 
 
-== Part 3 — Make a Code Change in DevSpaces
+== Part 4 — Make a Code Change in DevSpaces
 
 Once the application has been created and registered in the Developer Hub:
 
