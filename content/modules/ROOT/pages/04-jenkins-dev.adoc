@@ -213,7 +213,7 @@ The pipeline `maven-ci-build` should be running. Click on *View build* to open J
 
 Then click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
-== Part 6 - Jenkins Pipeline Tasks
+== Part 6 — Jenkins Pipeline Tasks
 
 As the Jenkins pipeline runs, guide your audience through each stage.  
 Each step supports secure software supply chain automation.
