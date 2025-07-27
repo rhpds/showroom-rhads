@@ -1,42 +1,43 @@
-= Red Hat Developer Hub + Red Hat Advanced Developer Suite Demo Guide
-:author: Sales Engineer / Developer Advocate
-:revdate: 2025-07-02
-:icons: font
-:toc:
-:toclevels: 1
-
-== Scenario
-
-In this demo, you will walk your audience through what it looks like for a developer at ACME Corp to:
-
-* Create a new Quarkus application using a software template in Red Hat Developer Hub (RHDH)
-* Automatically integrate the application build with secure CI/CD pipelines powered by Jenkins and Red Hat Advanced Developer Suite (ADS)
-* Store source code in GitLab and container images in Quay
-* Leverage automation, security policies, and developer self-service in one streamlined flow
-
-The goal is to demonstrate how platform engineering teams can enable developer velocity without compromising on security or governance.
-
-image::jenkins_car.jpg[align="center",width=500]
-
-
 == Part 1 — Introduce the Context
 
-Start by explaining the typical challenges:
+=== Say
 
-* Developers want to move fast and focus on writing code.
-* Setting up CI/CD, webhooks, GitOps, and security validations takes time and often falls on DevOps teams.
-* ACME's platform team uses Red Hat Developer Hub to make this easier — enabling self-service scaffolding of applications with pre-integrated pipelines, Git repositories, and policy enforcement.
+Let’s take a step back and look at what this demo is really about. Imagine you’re a developer at ACME Corp. You just want to write code and ship features. But what usually slows you down? Setting up CI/CD, figuring out how to wire up webhooks, managing GitOps deployment, and making sure all of it meets your company’s security and compliance standards.
 
-This demo complements the previous one which used OpenShift Pipelines (Tekton) for CI/CD. While Tekton is cloud-native and fully integrated into OpenShift, many of our enterprise customers — including ACME — still rely on Jenkins due to existing investments and plugins.
+=== Do
 
-By showcasing the Jenkins path, you’re addressing a common real-world scenario: modernizing CI/CD workflows without needing to abandon proven Jenkins-based processes.
+Introduce the characters and setup:
 
-Explain how this approach:
+* Show the ACME context and explain the developer’s challenge.
+* Display the following image to illustrate the Jenkins-based flow:
++
+image::jenkins_car.jpg[align="center",width=500]
 
-* Reduces DevOps bottlenecks
-* Enforces consistent patterns across services
-* Provides governance and automation by default
-* Supports teams where Jenkins remains the standard CI/CD tool
+* Mention ACME Corp as the fictional company used throughout this guide.
+* Say: "ACME's platform engineering team has built a system using Red Hat Developer Hub and Advanced Developer Suite to solve this."
+
+=== Explain
+
+Here’s the big picture:
+
+* *Developers* want to move fast and focus on writing code.
+* But *DevOps bottlenecks* like setting up CI/CD, webhooks, and policy enforcement slow them down.
+* *ACME's platform team* uses *Red Hat Developer Hub* to offer *self-service software templates* that generate a new Quarkus application with *Jenkins pipelines already integrated*.
+* The application’s source code is stored in *GitLab*, images go to *Quay*, and Jenkins drives the CI/CD process.
+
+This setup allows teams to:
+
+* Use automation and governance by default
+* Avoid manual pipeline setup or policy wiring
+* Enable a *Jenkins-based flow* for customers who still rely on it due to existing investments
+
+[NOTE]
+====
+This demo complements a previous one which used OpenShift Pipelines (Tekton). While Tekton is cloud-native and fully integrated with OpenShift, this version focuses on Jenkins — which remains widely adopted across many enterprise customers.
+====
+
+By presenting this Jenkins path, you're addressing a realistic need: helping customers *modernize workflows* without abandoning trusted tooling.
+
 
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
@@ -205,127 +206,131 @@ The pipeline `maven-ci-build` should be running. Click on *View build* to open J
 
 Then click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
-== Part 6 - Pipeline Tasks
+== Part 6 - Pipeline Tasks (Jenkins)
 
-As the Jenkins pipeline runs, guide your audience through the following key stages.  
-Each task showcases part of the secure software supply chain process.
+As the Jenkins pipeline runs, guide your audience through each of the following stages.  
+Each stage demonstrates a step in the secure software supply chain process.
 
 === Stage: `verify-commit` (conditional)
 
 Say:
-> "This step verifies the developer’s Git commit signature."
+This step verifies that the Git commit was signed and trusted.
 
 Do:
-Click the `verify-commit` stage.
+Click the `verify-commit` stage in Jenkins.
 
 Explain:
-- This uses `gitsign`, which integrates with the RHTAS service to verify that the commit was signed and came from a trusted user.
-- This stage only runs if the *Verify Commits* option was enabled in the template.
+- Uses `gitsign` to validate the commit signature against Red Hat Trusted Application Signer (RHTAS).
+- Ensures that only commits from trusted developers are used.
+- This stage only appears if the *Verify Commits* option was enabled in the template.
 
 === Stage: `mvn package`
 
 Say:
-> "Now we compile and package the application."
+Now we package the application using Maven.
 
 Do:
 Click the `mvn package` stage.
 
 Explain:
-- Runs a Maven build to compile the Quarkus Java application.
-- Produces the runnable JAR.
+- Compiles the Quarkus Java application.
+- Produces a runnable JAR, which becomes the input for the container image.
 
 === Stage: `init`
 
 Say:
-> "Next, we set up the build environment."
+Next, we initialize the environment for the build.
 
 Do:
 Click the `init` stage.
 
 Explain:
-- This stage initializes environment variables (like timestamps, image URLs).
-- It prepares Jenkins using the shared `rhtap` library to standardize the process.
+- Sets up environment variables such as timestamps and image tags.
+- Uses the shared `rhtap` Jenkins library to standardize configuration across pipelines.
 
 === Stage: `build`
 
 Say:
-> "Let’s now build and sign the container image."
+Now we build and sign the container image.
 
 Do:
 Click the `build` stage.
 
 Explain:
 - Uses `buildah` to create the container image.
-- Uses `cosign` to sign the image and add attestations — ensuring provenance and integrity.
+- Uses `cosign` to sign the image and generate attestations.
+- Guarantees that the image’s source and integrity can be verified later.
 
 === Stage: `deploy-and-upload-to-tpa` (parallel)
 
 Say:
-> "This part handles GitOps updates and SBOM uploads."
+This stage updates the GitOps repo and uploads the SBOM.
 
 Do:
 Expand the `deploy-and-upload-to-tpa` stage.
 
 Explain:
-- **deploy**: Updates the GitOps repo with the new image tag — triggering redeployment to dev via Argo CD.
-- **upload_sbom_to_trustification**: Uploads the generated SBOM to Red Hat Trusted Profile Analyzer (TPA) for scanning.
+- **deploy**: Updates the GitOps repo with the new image tag, which Argo CD uses to trigger a deployment to the `dev` environment.
+- **upload_sbom_to_trustification**: Uploads the Software Bill of Materials (SBOM) to Red Hat Trusted Profile Analyzer (TPA) for scanning and recordkeeping.
 
-You can open TPA at `{tpa_url}`  
-Login: `{tpa_user}` / `{tpa_user_password}`  
-Click on *SBOMs* in the left menu to view results.
+To explore the SBOM:
+- Visit `{tpa_url}`
+- Login using `{tpa_user}` / `{tpa_user_password}`
+- Navigate to *SBOMs* in the sidebar
 
 === Stage: `acs` (parallel)
 
 Say:
-> "Next is policy enforcement and vulnerability scanning."
+Now we run security and compliance checks.
 
 Do:
 Expand the `acs` stage.
 
 Explain:
-- **acs_deploy_check**: Checks for security compliance in your Kubernetes deployment (e.g., RBAC, network).
-- **acs_image_check**: Runs policy checks on the container image.
-- **acs_image_scan**: Triggers a vulnerability scan using Red Hat Advanced Cluster Security.
+- **acs_deploy_check**: Validates Kubernetes deployment configurations against organizational policy.
+- **acs_image_check**: Applies security policies to the built container image.
+- **acs_image_scan**: Performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).
 
-To explore results:
-Visit `{acs_url}`  
-Login with `{acs_admin_user}` / `{acs_admin_password}`
+To review results:
+- Visit `{acs_url}`
+- Login using `{acs_admin_user}` / `{acs_admin_password}`
 
 === Stage: `summary`
 
 Say:
-> "Finally, we summarize the results."
+The final stage generates a build summary and links all artifacts.
 
 Do:
-Click on the `summary` stage.
+Click the `summary` stage.
 
 Explain:
-- This displays the generated SBOM and an overall summary of the build.
-- This is generated using the shared `rhtap` library functions.
+- Displays a consolidated view of results, including the SBOM and build status.
+- Uses shared functions from the `rhtap` Jenkins library.
+- Provides an auditable trail of what was built, scanned, and signed.
 
 === Pipelines as Code
 
 Say:
-> "Let’s take a quick look at why we define our Jenkins pipeline right inside the same Git repo as our application code. This is what we call *Pipelines as Code*."
+Let’s take a quick look at how we define our Jenkins pipeline as code.
 
 Do:
-Open the `my-quarkus-jnk` repository in GitLab and point to the `Jenkinsfile` at the root of the repo.
+Open the `Jenkinsfile` from the root of the `my-quarkus-jnk` GitLab repository.
 
 Explain:
+- The pipeline is defined as code (`Jenkinsfile`) in the same repo as the application.
+- This keeps pipeline logic versioned and traceable with the application code.
 
-This `Jenkinsfile` defines how our app gets built, tested, signed, and deployed. Because it's versioned with the service code, the pipeline always matches the app — no outdated logic or missing steps.
+Benefits for developers:
+- No central ticket needed — they can edit their own pipeline.
+- Updates follow the same pull request process as app code.
+- Fully transparent and self-service.
 
-==== Benefits for Developers:
-- You don’t need to request a new pipeline or wait for a central team to configure it.
-- You can update the pipeline the same way you update code — using a pull request.
-- Everything is visible, traceable, and easy to collaborate on.
+Benefits for platform/security teams:
+- Share reusable logic via the `rhtap` library.
+- Apply consistent policy enforcement across all services.
+- All pipeline logic is auditable and version-controlled.
 
-==== Benefits for ACME (platform and security teams):
-- Define pipeline logic once using shared libraries like `rhtap`, then reuse it across teams.
-- Apply security policies consistently at every stage of CI/CD — without manual steps.
-- Every pipeline change is auditable and version-controlled, just like application code.
-
-In short: *Pipelines as Code* brings security, agility, and transparency — helping teams move faster without losing control.
+In short: *Pipelines as Code* brings automation, compliance, and developer velocity together.
 
 
 == Part 7 — Summary
