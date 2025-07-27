@@ -192,7 +192,7 @@ If *Verify Commits* was enabled when creating the template, a signed commit is r
 ====
 
 
-== Part 4 — Show the Build Pipeline (Jenkins)
+== Part 5 — Show the Build Pipeline (Jenkins)
 
 In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.  
 You should see three pipeline runs:
