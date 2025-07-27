@@ -206,131 +206,121 @@ The pipeline `maven-ci-build` should be running. Click on *View build* to open J
 
 Then click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
-== Part 6 - Pipeline Tasks (Jenkins)
+== Part 6 : Jenkins Pipeline Tasks
 
-As the Jenkins pipeline runs, guide your audience through each of the following stages.  
-Each stage demonstrates a step in the secure software supply chain process.
+As the Jenkins pipeline runs, guide your audience through each stage.  
+Each step supports secure software supply chain automation.
 
-=== Stage: `verify-commit` (conditional)
+=== Stage: verify-commit (optional)
 
 Say:
-This step verifies that the Git commit was signed and trusted.
+This verifies that the Git commit was signed and trusted.
 
 Do:
-Click the `verify-commit` stage in Jenkins.
+Click the `verify-commit` stage in the Jenkins UI.
 
 Explain:
-- Uses `gitsign` to validate the commit signature against Red Hat Trusted Application Signer (RHTAS).
-- Ensures that only commits from trusted developers are used.
-- This stage only appears if the *Verify Commits* option was enabled in the template.
+* Uses `gitsign` and Red Hat Trusted Application Signer (RHTAS) to verify commit authenticity.  
+* Ensures the commit came from a known developer.  
+* This stage appears only if *Verify Commits* was enabled in the software template.
 
-=== Stage: `mvn package`
+=== Stage: mvn package
 
 Say:
-Now we package the application using Maven.
+Now we compile and package the Quarkus application.
 
 Do:
 Click the `mvn package` stage.
 
 Explain:
-- Compiles the Quarkus Java application.
-- Produces a runnable JAR, which becomes the input for the container image.
+* Runs `mvn package` to build the Java app.  
+* Produces the runnable JAR used for container image creation.
 
-=== Stage: `init`
+=== Stage: init
 
-Say:
-Next, we initialize the environment for the build.
+Say: 
+Next, we prepare the environment for the build.
 
 Do:
 Click the `init` stage.
 
-Explain:
-- Sets up environment variables such as timestamps and image tags.
-- Uses the shared `rhtap` Jenkins library to standardize configuration across pipelines.
+Explain: 
+* Sets environment variables (e.g., Git tag, timestamp, registry).  
+* Uses the shared `rhtap` Jenkins library to standardize CI behavior.
 
-=== Stage: `build`
+=== Stage: build
 
 Say:
-Now we build and sign the container image.
+Let’s build and sign the container image.
 
 Do:
 Click the `build` stage.
 
 Explain:
-- Uses `buildah` to create the container image.
-- Uses `cosign` to sign the image and generate attestations.
-- Guarantees that the image’s source and integrity can be verified later.
+* Uses `buildah` to containerize the app.  
+* Uses `cosign` to sign the image and generate provenance metadata.
 
-=== Stage: `deploy-and-upload-to-tpa` (parallel)
+=== Stage: deploy-and-upload-to-tpa (parallel)
 
 Say:
-This stage updates the GitOps repo and uploads the SBOM.
+This stage handles GitOps deployment and SBOM upload.
 
 Do:
 Expand the `deploy-and-upload-to-tpa` stage.
 
-Explain:
-- **deploy**: Updates the GitOps repo with the new image tag, which Argo CD uses to trigger a deployment to the `dev` environment.
-- **upload_sbom_to_trustification**: Uploads the Software Bill of Materials (SBOM) to Red Hat Trusted Profile Analyzer (TPA) for scanning and recordkeeping.
+Explain: 
+* *deploy*: updates the GitOps repo with the new image tag — this triggers Argo CD to redeploy the app to dev.  
+* *upload_sbom_to_trustification*: pushes the SBOM to Red Hat Trusted Profile Analyzer (TPA) for compliance tracking.  
 
-To explore the SBOM:
-- Visit `{tpa_url}`
-- Login using `{tpa_user}` / `{tpa_user_password}`
-- Navigate to *SBOMs* in the sidebar
+Visit `{tpa_url}` and log in with `{tpa_user}` / `{tpa_user_password}` to explore SBOM results.
 
-=== Stage: `acs` (parallel)
+=== Stage: acs (parallel)
 
 Say:
-Now we run security and compliance checks.
+Now we perform security and policy checks.
 
-Do:
+Do:  
 Expand the `acs` stage.
 
-Explain:
-- **acs_deploy_check**: Validates Kubernetes deployment configurations against organizational policy.
-- **acs_image_check**: Applies security policies to the built container image.
-- **acs_image_scan**: Performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).
+Explain: 
+* *acs_deploy_check*: verifies Kubernetes manifests (e.g., RBAC, host access).  
+* *acs_image_check*: enforces policy on image config.  
+* *acs_image_scan*: performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).  
 
-To review results:
-- Visit `{acs_url}`
-- Login using `{acs_admin_user}` / `{acs_admin_password}`
+Visit `{acs_url}` using `{acs_admin_user}` / `{acs_admin_password}` to see the results.
 
-=== Stage: `summary`
+=== Stage: summary
 
-Say:
-The final stage generates a build summary and links all artifacts.
+Say: 
+This final stage summarizes the build and validations.
 
-Do:
+Do: 
 Click the `summary` stage.
 
 Explain:
-- Displays a consolidated view of results, including the SBOM and build status.
-- Uses shared functions from the `rhtap` Jenkins library.
-- Provides an auditable trail of what was built, scanned, and signed.
+* Shows build status and key artifacts (e.g., SBOM, scan summary).  
+* Uses reusable functions from the `rhtap` library.
 
 === Pipelines as Code
 
-Say:
-Let’s take a quick look at how we define our Jenkins pipeline as code.
+Say: 
+Let’s quickly look at the pipeline definition inside the codebase.
 
 Do:
-Open the `Jenkinsfile` from the root of the `my-quarkus-jnk` GitLab repository.
+Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
 
 Explain:
-- The pipeline is defined as code (`Jenkinsfile`) in the same repo as the application.
-- This keeps pipeline logic versioned and traceable with the application code.
+* This is a *Pipelines as Code* setup — the CI logic lives alongside app code.  
+* Easy to update via PRs. Version-controlled. No central team required.
 
-Benefits for developers:
-- No central ticket needed — they can edit their own pipeline.
-- Updates follow the same pull request process as app code.
-- Fully transparent and self-service.
+*Benefits for developers:*  
+* Fast iteration, no ticketing for pipeline changes.  
+* Clear visibility and ownership over CI/CD.
 
-Benefits for platform/security teams:
-- Share reusable logic via the `rhtap` library.
-- Apply consistent policy enforcement across all services.
-- All pipeline logic is auditable and version-controlled.
+*Benefits for ACME (platform/security teams):*  
+* Shared libraries enforce security policies and reusability.  
+* Full audit trail across all stages of the pipeline.
 
-In short: *Pipelines as Code* brings automation, compliance, and developer velocity together.
 
 
 == Part 7 — Summary
