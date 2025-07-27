@@ -16,6 +16,9 @@ In this demo, you will walk your audience through what it looks like for a devel
 
 The goal is to demonstrate how platform engineering teams can enable developer velocity without compromising on security or governance.
 
+image::../assets/images/jenkins_car.jpg[align="center",width=500]
+
+
 == Part 1 — Introduce the Context
 
 Start by explaining the typical challenges:
