@@ -4,63 +4,73 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 :sectnums:
 :source-highlighter: rouge
 :toc: macro
-:toclevels: 2
+:toclevels: 1
 
 toc::[]
 
 == Overview
 
-This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract (EC), and GitOps with Argo CD.
+This module extends the RHADS demo by showing how the Advanced Developer Suite enables secure promotion of container images using GitOps, Enterprise Contract, and Argo CD — all built on top of OpenShift Pipelines.
 
-The demo showcases how creating a release from a Git tag triggers an automated Openshift Pipelines pipeline that:
-- Validates the image with Enterprise Contract
-- Tags the verified image with the release version
-- Promotes the image to the `prod` environment via GitOps
-- Deploys the application using Argo CD
+In this scenario, we simulate a platform team at *acme* tagging a new release in Git. That simple action triggers a series of automated steps:
+
+* Validates the container image using Enterprise Contract policies
+* Tags the verified image with the release version (e.g., `v1.0.0`)
+* Promotes the image to the `prod` environment via GitOps
+* Argo CD detects and applies the change, deploying the updated version to production
+
+This module demonstrates how *acme* achieves secure, traceable, and automated release workflows using open standards like SLSA and GitOps principles.
 
 [NOTE]
 ====
-The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Openshift Pipelines pipeline and repository configurations for authoritative details.
+The examples and commands in this guide are representative of the *acme* demo environment. Replace with actual repository URLs, credentials, or config as needed in your setup.
 ====
+
 
 == Pipeline Flow
 
-Explain to your audience that the pipeline is triggered by creating a release in GitLab from an existing tag. To demonstrate this:
+To demonstrate how *acme* securely promotes builds to production, explain to your audience that the pipeline is triggered by creating a release from an existing Git tag in GitLab.
 
-1. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] with username: {gitlab_user} and password: {gitlab_user_password}
-2. Navigate to *Deploy > Releases > Create a new release*.
-3. Select an existing tag (e.g. `v1.2.3`) or create a new one.
-4. Enter release notes (optional).
-5. Click *Create release*.
+To show this:
 
-Tell your audience: “This release event kicks off the Openshift Pipelines pipeline via a webhook. It promotes the tagged image to prod after validation.”
+. Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]  
+  Use username `{gitlab_user}` and password `{gitlab_user_password}`
 
-Once the tag is pushed, navigate to the *my-quarkus-tkn* component in **Developer Hub**. Then:
+. Navigate to *Deploy > Releases > Create a new release*
+. Select an existing tag (e.g., `v1.2.3`) or create a new one
+. Optionally, enter release notes
+. Click *Create release*
 
-. Select the `my-quarkus-tkn` component
-. Switch to the **CI** tab to view pipeline runs
-. Expand the current build labeled **promote-to-prod** to see details of the running pipeline
+Tell your audience:  
+“This release event kicks off the OpenShift Pipelines pipeline via a GitLab webhook. After validating the image, it automatically promotes it to the `prod` environment.”
 
-This allows you to monitor the ongoing promotion process and verify each pipeline step as it executes.
+After creating the release, switch to the Developer Hub:
+
+. Go to the `my-quarkus-tkn` component in *Developer Hub*
+. Click the **CI** tab
+. Look for a pipeline run labeled **promote-to-prod** and expand it to view details
+
+Use this view to walk through each step of the promotion pipeline — from validation to tagging to GitOps update — showing how *acme* automates trusted delivery to production.
 
 == Pipeline Tasks
 
-As the Openshift Pipelines pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+As the OpenShift Pipelines pipeline runs, guide your audience through each task. These steps demonstrate how *acme* enforces trust and security before promoting anything to production.
 
 === Task 1.1: `extract-destination-image-tag`
 
-This task grabs the Git tag linked to the release that was created and makes it available as a variable in the pipeline.
-It’s a simple but important step — the rest of the pipeline depends on knowing which version to work with.
+This task captures the Git tag from the release event and makes it available to subsequent tasks.
+
+Explain:  
+“This step ensures the pipeline knows which image version is associated with the release. The tag (e.g., `v1.2.3`) becomes the reference point for all future validations and promotions.”
 
 === Task 1.2: `gather-images-to-verify`
 
-Explain that this task maps the release to a Git tag and collects metadata used for verification.  Remember we are trying to promote the previously staged image, referenced by the Git tag, to prod.
+This task maps the Git release to the image produced during staging. It uses the tag to locate the previously built container image and creates a metadata file named `images.json`.
 
-Next, the pipeline generates an `images.json` file. This file points to the container image tagged during the staging deployment, using the GitLab tag value.
+Tell the audience:  
+“We’re not building a new image here — we’re promoting an already built and verified one. The `images.json` tells us exactly what image we’re promoting and where it came from.”
 
-Here’s an example of what that looks like:
-
-.Example `images.json`
+.Show sample `images.json`
 [source,json,subs="attributes"]
 ----
 {
@@ -78,7 +88,9 @@ Here’s an example of what that looks like:
 }
 ----
 
-Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
+Emphasize:  
+“This metadata ensures traceability — it links the image back to its source code and verifies it hasn't been tampered with.”
+
 
 === Task 2: `verify-enterprise-contract`
 
@@ -105,17 +117,30 @@ ec validate image \
 ----
 
 Describe the validations performed:
-- Digital signature with Cosign
-- SBOM presence (e.g., SPDX, CycloneDX)
-- Provenance metadata (how the image was built)
-- CVE scanning
-- Organizational policy compliance
 
-💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
+* Digital signature with Cosign
+* SBOM presence (e.g., SPDX, CycloneDX)
+* Provenance metadata (how the image was built)
+* CVE scanning
+* Organizational policy compliance
+
+[NOTE]
+====
+*Enterprise Contract (EC)* validates that container images meet your organization's security and compliance policies before promotion.
+
+*TUF (The Update Framework)* protects signing metadata and ensures it hasn’t been tampered with.
+
+*SBOM (Software Bill of Materials)* is a dependency list used to scan for known vulnerabilities.
+
+*Provenance* proves how and where the image was built — establishing a trusted build process.
+====
+
+Tip: You can simulate a failed validation (e.g., by modifying the EC policy or image) to demonstrate that the pipeline halts if verification fails.
+
 
 === Task 3: `copy-image`
 
-Tell your audience that if the image passes validation, this step tags it with the release version.
+“Now that our image has passed all security checks, let’s promote it to production by tagging it with a release label.”
 
 [source,bash]
 ----
@@ -124,19 +149,21 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
 ----
 
-Explain:
-- It creates a human-readable, immutable tag.
-- Only validated images are promoted.
-- The new image tag is the original tag prepended with `prod-`
-- This tag is what’s deployed to the `prod` environment.
+==== Explain
+
+This command promotes the previously validated image by creating a new tag prefixed with `prod-`.
+
+* This tag (`prod-v1.2.3`) clearly identifies the image as production-ready.
+* It ensures traceability — we know which exact source and validation steps led to this image.
+* Only images that pass EC validation make it this far, preventing unsafe code from being deployed.
+* Argo CD will watch for this tag and deploy it to the production environment.
+
 
 === Task 4: `update-deployment`
 
-Explain that this step updates the GitOps repository to reflect the new image tag.
+“Next, let’s update the GitOps repo so Argo CD knows to deploy the newly promoted image.”
 
-The pipeline updates:
-
-`overlays/prod/deployment-patch.yaml`
+The pipeline updates the following file:
 
 [source,yaml]
 ----
@@ -152,7 +179,11 @@ spec:
           image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
 ----
 
-And this patch is referenced by `kustomization.yaml`:
+This file lives at:
+
+`overlays/prod/deployment-patch.yaml`
+
+The patch is picked up by this `kustomization.yaml`:
 
 [source,yaml]
 ----
@@ -164,16 +195,20 @@ patchesStrategicMerge:
   - deployment-patch.yaml
 ----
 
-Mention:
-- Openshift Pipelines commits and pushes this update to the GitOps repo.
-- Argo CD automatically detects the change and syncs it to the `prod` cluster.
+==== Explain
 
-== 📘 Wrap-Up
+* This patch updates the container image reference in the production overlay.
+* Openshift Pipelines commits and pushes this patch to the GitOps repository.
+* Argo CD is watching this repo — as soon as it detects the change, it syncs the deployment to the `prod` cluster.
+* This ensures that only verified, tagged images are deployed, and the entire process is fully auditable.
+
+
+== Wrap-Up
 
 === Summary of Tasks
 
 |===
-|Task | Description
+| Task | Description
 
 | Git Release
 | Triggered via GitLab Release from Tag
@@ -181,33 +216,44 @@ Mention:
 | 1.1 extract-destination-image-tag
 | Extracts the Git tag attached to the release to be used as part of the destination image tag
 
-| 1.1 gather-images
-| Resolves tag to commit, generates `IMAGES_TO_VERIFY`
+| 1.2 gather-images-to-verify
+| Resolves tag to commit and generates `images.json` pointing to the image to be validated
 
 | 2 verify-enterprise-contract
-| Validates signature, SBOM, provenance, CVEs, policy
+| Validates signature, SBOM, provenance, CVEs, and organizational policy using Enterprise Contract
 
 | 3 copy-image
-| Copies the previously staged image with a new tag i.e. prod-v1.2.3
+| Copies the previously staged image and tags it as `prod-v1.2.3`
 
 | 4 update-deployment
-| Updates `overlays/prod` to trigger Argo CD deployment
+| Updates `overlays/prod` in the GitOps repo, which triggers an Argo CD deployment
 |===
 
-== 💡 Key Takeaways
+=== Key Takeaways
 
-- Creating a release from a Git tag triggers the secure promotion pipeline.
-- Enterprise Contract ensures only compliant images move forward.
-- Tasks and pipelines are reusable, scalable, and consistent across teams
-- GitOps overlays manage environment-specific configuration.
-- Argo CD continuously ensures the cluster matches Git.
+* Creating a release from a Git tag triggers the secure promotion pipeline.
+* Enterprise Contract ensures only compliant, trusted images are promoted.
+* Tasks and pipelines are reusable, scalable, and consistent across teams.
+* GitOps overlays manage environment-specific configuration cleanly.
+* Argo CD continuously ensures that the production cluster reflects the Git source of truth.
 
-== 🧩 Optional Enhancements
+
+== Optional Enhancements
 
 Use these if you want to go deeper during the demo:
 
-- Simulate a failed validation (e.g., use an unsigned image)
-- Show image tags in Quay: `:v1.2.3` and `:prod-v1.2.3`
-- Demo Argo CD UI syncing to `prod`
-- Display the Enterprise Contract policy bundle
-- Explain that `stage` promotion follows a similar process but uses a different overlay and trigger
+* Simulate a failed validation  
+  - For example, promote an unsigned image to show Enterprise Contract blocking the release.
+
+* Show image tags in Quay  
+  - Display both the `:v1.2.3` (staged) and `:prod-v1.2.3` (promoted) tags.
+
+* Demo Argo CD UI  
+  - Show how Argo CD detects the Git change and syncs to the `prod` environment automatically.
+
+* Display the Enterprise Contract policy bundle  
+  - Help the audience understand what rules are being enforced during validation.
+
+* Mention stage promotion  
+  - Explain that promoting to `stage` works similarly using a different overlay and trigger mechanism.
+
