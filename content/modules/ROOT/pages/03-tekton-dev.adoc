@@ -27,9 +27,9 @@ We’ll walk through how a developer at Acme can:
 * Push images to Quay with SBOMs, signing, and attestations
 * Enforce policy gates through tools like Trusted Application Pipeline and ACS
 
-The goal: help Acme deliver software faster — with governance and security built in.
+The goal is to help Acme deliver software faster, with governance and security built in.
 
-image::../assets/images/tekton_car.jpg[align="center",width=500]
+image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
