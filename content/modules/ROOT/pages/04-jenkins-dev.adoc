@@ -1,3 +1,10 @@
+= Red Hat Developer Hub + Red Hat Advanced Developer Suite Demo Guide
+:author: Sales Engineer / Developer Advocate
+:revdate: 2025-07-02
+:icons!:
+:toc:
+:toclevels: 1
+
 == Part 1 — Introduce the Context
 
 === Say
