@@ -205,7 +205,7 @@ The pipeline `maven-ci-build` should be running. Click on *View build* to open J
 
 Then click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
-== Pipeline Tasks
+== Part 6 - Pipeline Tasks
 
 As the Jenkins pipeline runs, guide your audience through the following key stages.  
 Each task showcases part of the secure software supply chain process.
@@ -328,7 +328,7 @@ This `Jenkinsfile` defines how our app gets built, tested, signed, and deployed.
 In short: *Pipelines as Code* brings security, agility, and transparency — helping teams move faster without losing control.
 
 
-== Part 6 — Summary
+== Part 7 — Summary
 
 Summarize what happened during the demo:
 
@@ -338,7 +338,7 @@ Summarize what happened during the demo:
 * Container images were built, signed, scanned, and attested with Cosign, TPA, and ACS
 * The service was deployed to development via GitOps — with no manual intervention
 
-== Part 7 — Wrap-Up
+== Part 8 — Wrap-Up
 
 Summarize again to reinforce the end-to-end flow:
 
