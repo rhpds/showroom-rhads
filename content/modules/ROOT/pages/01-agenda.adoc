@@ -1,7 +1,6 @@
 = Red Hat Advanced Developer Suite Demonstration
 :toc:
 :toc-placement: preamble
-:sectnums:
 :icons: font
 
 == 1. Agenda
