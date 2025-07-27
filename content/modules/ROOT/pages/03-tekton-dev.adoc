@@ -29,6 +29,7 @@ We’ll walk through how a developer at Acme can:
 
 The goal: help Acme deliver software faster — with governance and security built in.
 
+image::assets/images/tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
