@@ -2,8 +2,9 @@
 :toc:
 :toc-placement: preamble
 :icons: font
+:sectnums!:
 
-== 1. Agenda
+== Agenda
 
 This demonstration is divided into two main workflows — one powered by OpenShift Pipelines and another using Jenkins. Each path showcases how Red Hat’s Advanced Developer Suite enables secure, automated, GitOps-driven software delivery from code to production.
 
@@ -11,31 +12,30 @@ This demonstration is divided into two main workflows — one powered by OpenShi
 |===
 | Section | Description
 
-| 2. Introduction
+| Introduction
 | Overview of the Red Hat Advanced Developer Suite and what this demo covers
 
-| 3. ADS with OpenShift Pipelines
+| ADS with OpenShift Pipelines
 | A developer-centric CI/CD experience using Tekton and Developer Hub
 
-| 3.1 Build Phase
+| Build Phase
 | Creating and building the application using Developer Hub and Maven
 
-| 3.2 Promote to Stage
+| Promote to Stage
 | Deploying the validated image to the `stage` environment using GitOps
 
-| 3.3 Release to Production
+| Release to Production
 | Promoting images to `prod` via GitLab Release and Argo CD
 
-| 4. ADS with Jenkins
+| ADS with Jenkins
 | An alternative workflow using Jenkins shared library for CI/CD
 
-| 4.1 Build Phase
+| Build Phase
 | Building and verifying the app with Jenkins and Secure Supply Chain tools
 
-| 4.2 Promote to Stage
+| Promote to Stage
 | Validating and tagging the image, updating GitOps overlays for `stage`
 
-| 4.3 Release to Production
+| Release to Production
 | Enforcing Enterprise Contract, tagging, and promoting to `prod`
 |===
-
