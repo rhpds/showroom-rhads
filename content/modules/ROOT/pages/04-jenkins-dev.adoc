@@ -220,10 +220,10 @@ Each step supports secure software supply chain automation.
 
 === Stage: verify-commit (optional)
 
-Say:
+=== Say
 This verifies that the Git commit was signed and trusted.
 
-Do:
+=== Do
 Click the `verify-commit` stage in the Jenkins UI.
 
 Explain:
@@ -233,49 +233,49 @@ Explain:
 
 === Stage: mvn package
 
-Say:
+=== Say
 Now we compile and package the Quarkus application.
 
-Do:
+=== Do
 Click the `mvn package` stage.
 
-Explain:
+=== Explain
 * Runs `mvn package` to build the Java app.  
 * Produces the runnable JAR used for container image creation.
 
 === Stage: init
 
-Say: 
-Next, we prepare the environment for the build.
+=== Say 
+* Next, we prepare the environment for the build.
 
-Do:
-Click the `init` stage.
+=== Do
+* Click the `init` stage.
 
-Explain: 
+=== Explain
 * Sets environment variables (e.g., Git tag, timestamp, registry).  
 * Uses the shared `rhtap` Jenkins library to standardize CI behavior.
 
 === Stage: build
 
-Say:
-Let’s build and sign the container image.
+=== Say
+* Let’s build and sign the container image.
 
-Do:
-Click the `build` stage.
+=== Do
+* Click the `build` stage.
 
-Explain:
+=== Explain
 * Uses `buildah` to containerize the app.  
 * Uses `cosign` to sign the image and generate provenance metadata.
 
 === Stage: deploy-and-upload-to-tpa (parallel)
 
-Say:
-This stage handles GitOps deployment and SBOM upload.
+=== Say
+* This stage handles GitOps deployment and SBOM upload.
 
-Do:
-Expand the `deploy-and-upload-to-tpa` stage.
+=== Do
+* Expand the `deploy-and-upload-to-tpa` stage.
 
-Explain: 
+=== Explain
 * *deploy*: updates the GitOps repo with the new image tag — this triggers Argo CD to redeploy the app to dev.  
 * *upload_sbom_to_trustification*: pushes the SBOM to Red Hat Trusted Profile Analyzer (TPA) for compliance tracking.  
 
@@ -283,13 +283,13 @@ Visit `{tpa_url}` and log in with `{tpa_user}` / `{tpa_user_password}` to explor
 
 === Stage: acs (parallel)
 
-Say:
-Now we perform security and policy checks.
+=== Say
+* Now we perform security and policy checks.
 
-Do:  
-Expand the `acs` stage.
+=== Do
+* Expand the `acs` stage.
 
-Explain: 
+=== Explain
 * *acs_deploy_check*: verifies Kubernetes manifests (e.g., RBAC, host access).  
 * *acs_image_check*: enforces policy on image config.  
 * *acs_image_scan*: performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).  
@@ -298,25 +298,25 @@ Visit `{acs_url}` using `{acs_admin_user}` / `{acs_admin_password}` to see the r
 
 === Stage: summary
 
-Say: 
-This final stage summarizes the build and validations.
+=== Say
+* This final stage summarizes the build and validations.
 
-Do: 
-Click the `summary` stage.
+=== Do
+* Click the `summary` stage.
 
-Explain:
+=== Explain
 * Shows build status and key artifacts (e.g., SBOM, scan summary).  
 * Uses reusable functions from the `rhtap` library.
 
 === Pipelines as Code
 
-Say: 
-Let’s quickly look at the pipeline definition inside the codebase.
+=== Say
+* Let’s quickly look at the pipeline definition inside the codebase.
 
-Do:
-Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
+=== Do
+* Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
 
-Explain:
+=== Explain
 * This is a *Pipelines as Code* setup — the CI logic lives alongside app code.  
 * Easy to update via PRs. Version-controlled. No central team required.
 
