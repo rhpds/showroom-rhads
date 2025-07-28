@@ -59,10 +59,10 @@ image::jenkins-prod-1.png[]
 . In the left navigation menu, go to *Deploy > Releases*
 +
 image::jenkins-prod-2.png[]
-. Click *New Release*
+. Click *Create a new release*
 . Select the existing tag, such as `v1.0`
 . Optionally add release notes
-. Click *Create a new release*
+. Click *Create release*
 +
 image::jenkins-prod-3.png[]
 
