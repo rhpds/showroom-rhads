@@ -164,10 +164,9 @@ image::jenkins-dev-11.png[]
   Password: `{gitlab_user_password}`
   and click *Sign in*.
 . Click *Authorize devspaces* on the next window.
-. Wait for the workspace to fully start.
-. If prompted, trust all workspaces and authors.
 +
 image::jenkins-dev-12.png[]
+. Wait for the workspace to fully start.
 . Wait for the workspace to start and fully load VS Code
 . If prompted, trust all workspaces and authors
 +
