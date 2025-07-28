@@ -31,7 +31,6 @@ The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
 The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
 ====
 
-
 == Starting the Demo: Tag the Release
 
 Let your audience know that this demo is initiated by tagging a release in Git. This Git event triggers a Jenkins pipeline which performs validation and promotes the image to staging.

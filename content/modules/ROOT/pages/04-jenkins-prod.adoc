@@ -10,19 +10,30 @@ toc::[]
 
 == Overview
 
-Welcome! In this demo, you'll see how Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract (EC), and Argo CD work together to securely promote container images from staging to production using Jenkins.
+This guide is designed for technical sales engineers to demonstrate a secure software supply chain using:
 
-We’ll walk through a Jenkins pipeline that can be triggered by either Git tag pushes or GitLab releases. The pipeline integrates policy enforcement and GitOps automation to ensure only compliant images are promoted to production.
+- Red Hat Advanced Developer Suite (ADS)
+- Enterprise Contract (EC)
+- GitOps with Argo CD
+- Artifact Signer
+
+The goal of the demo is to show how tagging a release in Git can trigger a Jenkins pipeline that:
+
+- Validates the container image using Enterprise Contract
+- Tags the verified image using the Git tag value
+- Promotes the image from the staging environment to production via GitOps
+- Automatically deploys the application using Argo CD
+
+The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
+`RHTAP_Jenkins@main`
 
 [NOTE]
 ====
-The code snippets shown here are simplified for demo purposes. The actual pipeline may include additional details specific to your environment.
+The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
 ====
 
-== Pipeline Flow
-
 === Say
-* We have two types of triggers configured in this setup: one for staging and one for production.
+. We have two types of triggers configured in this setup: one for staging and one for production.
 
 === Do
 . Push a Git tag to simulate a staging promotion
@@ -39,7 +50,7 @@ This separation allows teams to enforce distinct policies and approval flows for
 == GitLab Release – Promote to Production
 
 === Say
-* Now let’s see how a developer promotes a validated image from staging to production using a GitLab Release.
+. Now let’s see how a developer promotes a validated image from staging to production using a GitLab Release.
 
 === Do
 . Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
