@@ -85,6 +85,8 @@ Repository Information:
 |===
 
 . Click *Review*, then click *Create*
++
+image::tekton-dev-4.png[]
 
 Explain::
 This single action bootstraps the entire delivery stack for the developer:
@@ -96,7 +98,8 @@ This single action bootstraps the entire delivery stack for the developer:
 * The component is registered in the Developer Hub catalog for visibility
 
 The developer doesn't have to write YAML or coordinate with platform or security teams — it’s all baked into the golden path template.
-
++
+image::tekton-dev-4.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
