@@ -39,17 +39,17 @@ Now that we understand the problem, let’s show how a developer at Acme Retail 
 Do::
 . Navigate to `{rhdh_url}` and click *Sign In* on the OIDC login prompt.
 +
-image::tekton-dev-1.jpg[]
+image::tekton-dev-1.png[]
 . Enter your credentials:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
 . In the top-right corner, click the **+ Self-service** button to create a new software component.
 +
-image::tekton-dev-2.jpg[]
+image::tekton-dev-2.png[]
 . Select the template:
   _Securing a Quarkus Service Software Supply Chain (Tekton)_
 +
-image::tekton-dev-3.jpg[]
+image::tekton-dev-3.png[]
 . Accept the default values provided in the form unless customization is needed.
 
 Application Information:
