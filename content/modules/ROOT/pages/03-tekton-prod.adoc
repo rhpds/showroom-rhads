@@ -36,15 +36,15 @@ To show this:
 . Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
   Use username `{gitlab_user}` and password `{gitlab_user_password}`
 +
-image::tekton-stage-1.png[]
+image::tekton-prod-1.png[]
 . Navigate to *Deploy > Releases > Create a new release*
 +
-image::tekton-stage-2.png[]
+image::tekton-prod-2.png[]
 . Select an existing tag (e.g., `v1.0`) or create a new one
 . Optionally, enter release notes
 . Click *Create release*
 +
-image::tekton-stage-3.png[]
+image::tekton-prod-3.png[]
 
 Tell your audience:
 “This release event kicks off the OpenShift Pipelines pipeline via a GitLab webhook. After validating the image, it automatically promotes it to the `prod` environment.”
@@ -55,7 +55,7 @@ After creating the release, switch to the Developer Hub:
 . Click the **CI** tab
 . Look for a pipeline run labeled **promote-to-prod** and expand it to view details
 +
-image::tekton-stage-3.png[]
+image::tekton-prod-4.png[]
 
 Use this view to walk through each step of the promotion pipeline — from validation to tagging to GitOps update — showing how *acme* automates trusted delivery to production.
 

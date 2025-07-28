@@ -10,15 +10,15 @@ Walk the audience through the GitLab web interface:
 
 . Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
-image::jenkins-stage-1.png[]
+image::tekton-stage-1.png[]
 . In the left menu, click on *Code > Tags > New Tag*.
 +
-image::jenkins-stage-2.png[]
+image::tekton-stage-2.png[]
 . Enter a version tag like `v1.0`.
 . Choose the target branch (typically `main`).
 . Click *Create Tag*.
 +
-image::jenkins-stage-3.png[]
+image::tekton-stage-3.png[]
 
 [NOTE]
 ====
@@ -48,7 +48,7 @@ Now guide your audience to *Developer Hub*:
 . Click the *CI* tab to see pipeline runs.
 . Expand the job labeled *promote-to-stage* to follow its progress.
 +
-image::jenkins-stage-4.png[]
+image::tekton-stage-4.png[]
 
 [NOTE]
 ====
