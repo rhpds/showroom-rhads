@@ -33,15 +33,20 @@ To demonstrate how *acme* securely promotes builds to production, explain to you
 
 To show this:
 
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]  
+. Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
   Use username `{gitlab_user}` and password `{gitlab_user_password}`
-
++
+image::tekton-stage-1.png[]
 . Navigate to *Deploy > Releases > Create a new release*
++
+image::tekton-stage-2.png[]
 . Select an existing tag (e.g., `v1.2.3`) or create a new one
 . Optionally, enter release notes
 . Click *Create release*
++
+image::tekton-stage-3.png[]
 
-Tell your audience:  
+Tell your audience:
 “This release event kicks off the OpenShift Pipelines pipeline via a GitLab webhook. After validating the image, it automatically promotes it to the `prod` environment.”
 
 After creating the release, switch to the Developer Hub:
@@ -49,6 +54,8 @@ After creating the release, switch to the Developer Hub:
 . Go to the `my-quarkus-tkn` component in *Developer Hub*
 . Click the **CI** tab
 . Look for a pipeline run labeled **promote-to-prod** and expand it to view details
++
+image::tekton-stage-3.png[]
 
 Use this view to walk through each step of the promotion pipeline — from validation to tagging to GitOps update — showing how *acme* automates trusted delivery to production.
 
@@ -60,14 +67,14 @@ As the OpenShift Pipelines pipeline runs, guide your audience through each task.
 
 This task captures the Git tag from the release event and makes it available to subsequent tasks.
 
-Explain:  
+Explain:
 “This step ensures the pipeline knows which image version is associated with the release. The tag (e.g., `v1.2.3`) becomes the reference point for all future validations and promotions.”
 
 === Task 1.2: `gather-images-to-verify`
 
 This task maps the Git release to the image produced during staging. It uses the tag to locate the previously built container image and creates a metadata file named `images.json`.
 
-Tell the audience:  
+Tell the audience:
 “We’re not building a new image here — we’re promoting an already built and verified one. The `images.json` tells us exactly what image we’re promoting and where it came from.”
 
 .Show sample `images.json`
@@ -88,7 +95,7 @@ Tell the audience:
 }
 ----
 
-Emphasize:  
+Emphasize:
 “This metadata ensures traceability — it links the image back to its source code and verifies it hasn't been tampered with.”
 
 
@@ -242,18 +249,18 @@ patchesStrategicMerge:
 
 Use these if you want to go deeper during the demo:
 
-* Simulate a failed validation  
+* Simulate a failed validation
   - For example, promote an unsigned image to show Enterprise Contract blocking the release.
 
-* Show image tags in Quay  
+* Show image tags in Quay
   - Display both the `:v1.2.3` (staged) and `:prod-v1.2.3` (promoted) tags.
 
-* Demo Argo CD UI  
+* Demo Argo CD UI
   - Show how Argo CD detects the Git change and syncs to the `prod` environment automatically.
 
-* Display the Enterprise Contract policy bundle  
+* Display the Enterprise Contract policy bundle
   - Help the audience understand what rules are being enforced during validation.
 
-* Mention stage promotion  
+* Mention stage promotion
   - Explain that promoting to `stage` works similarly using a different overlay and trigger mechanism.
 
