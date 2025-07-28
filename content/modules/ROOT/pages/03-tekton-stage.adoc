@@ -48,7 +48,7 @@ Now guide your audience to *Developer Hub*:
 . Click the *CI* tab to see pipeline runs.
 . Expand the job labeled *promote-to-stage* to follow its progress.
 +
-image::tekton-stage-4.jpg[]
+image::tekton-stage-4.jpeg[]
 
 [NOTE]
 ====
