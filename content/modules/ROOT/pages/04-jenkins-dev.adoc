@@ -322,7 +322,7 @@ Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}
 * *acs_image_check*: enforces policy on image config.
 * *acs_image_scan*: performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).
 
-Visit `{acs_url}` using `{acs_admin_user}` / `{acs_admin_password}` to see the results.
+Visit `{acs_url}[Red Hat Advanced Cluster Security^]` using `{acs_admin_user}` / `{acs_admin_password}` to see the results.
 
 === Stage: summary
 
