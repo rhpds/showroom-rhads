@@ -7,20 +7,17 @@
 
 == Part 1 — Set the Stage
 
-Say::
-Before we jump into building anything, let’s take a step back and understand the context for this demo.
+Know:: Before building anything is demonstrated, the context for this demo should be understood.
 
-Do::
-You're a platform engineer at *Acme Retail*. Your development teams are building a new Quarkus-based checkout microservice. They want to move fast — but the current process introduces friction:
+A platform engineer at *Acme Retail* is working with development teams building a new Quarkus-based checkout microservice. The teams want to move fast — but friction is introduced by the current process:
 
-* Developers rely on the platform team to set up Git repos, CI/CD pipelines, and Kubernetes manifests.
+* The platform team is relied upon by developers to set up Git repos, CI/CD pipelines, and Kubernetes manifests.
 * Security practices like commit signing, SBOM generation, and image scanning are often manual or skipped.
 * Pipeline setups vary across teams, which leads to governance gaps and duplicated effort.
 
-Explain::
-This demo shows how *Red Hat Developer Hub (RHDH)* and *Red Hat Advanced Developer Suite (RHADS)* help solve these problems through a secure, self-service developer experience.
+How *Red Hat Developer Hub (RHDH)* and *Red Hat Advanced Developer Suite (RHADS)* help solve these problems through a secure, self-service developer experience is shown in this demo.
 
-We’ll walk through how a developer at Acme can:
+How a developer at Acme can accomplish the following will be demonstrated:
 
 * Scaffold a new service from a secure template
 * Automatically create GitLab repos and OpenShift Pipelines
@@ -33,26 +30,40 @@ image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Say::
-Now that we understand the problem, let’s show how a developer at Acme Retail would use Red Hat Developer Hub to scaffold a secure, production-ready application — without any manual setup.
+Know:: How a developer at Acme Retail would use Red Hat Developer Hub to scaffold a secure, production-ready application — without any manual setup — is demonstrated in this section.
+
+The entire delivery stack for the developer is bootstrapped by this single action:
+
+* A new GitLab repo (source + GitOps) is created under the `development` group
+* Secure CI/CD pipelines are generated using OpenShift Pipelines
+* Image builds are configured to push to the `tssc` organization in Quay
+* Commit signing and SBOM generation are included automatically
+* The component is registered in the Developer Hub catalog for visibility
+
+YAML doesn't have to be written by the developer, nor do they need to coordinate with platform or security teams — it's all baked into the golden path template.
 
 Do::
 . Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
-+
+
 image::tekton-dev-1.png[]
+
 . Enter your credentials:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
+
 . In the top-right corner, click the **+ Self-service** button to create a new software component.
-+
+
 image::tekton-dev-2.png[]
+
 . Select the template:
   _Securing a Quarkus Service Software Supply Chain (Tekton)_
-+
+
 image::tekton-dev-3.png[]
+
 . Accept the default values provided in the form unless customization is needed.
 
 Application Information:
+
 [cols="1,2", options="header"]
 |===
 | Field | Default Value
@@ -66,6 +77,7 @@ Application Information:
 . Click *Next*
 
 Image Registry Information:
+
 [cols="1,2", options="header"]
 |===
 | Field | Default Value
@@ -76,6 +88,7 @@ Image Registry Information:
 . Click *Next*
 
 Repository Information:
+
 [cols="1,2", options="header"]
 |===
 | Field | Default Value
@@ -85,70 +98,71 @@ Repository Information:
 |===
 
 . Click *Review*, then click *Create*
-+
+
 image::tekton-dev-4.png[]
-
-Explain::
-This single action bootstraps the entire delivery stack for the developer:
-
-* A new GitLab repo (source + GitOps) is created under the `development` group
-* Secure CI/CD pipelines are generated using OpenShift Pipelines
-* Image builds are configured to push to the `tssc` organization in Quay
-* Commit signing and SBOM generation are included automatically
-* The component is registered in the Developer Hub catalog for visibility
-
-The developer doesn't have to write YAML or coordinate with platform or security teams — it’s all baked into the golden path template.
 
 image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Say::
-Now that the application has been scaffolded and registered, let’s make a code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code.
+Know:: A code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code — is demonstrated after the application has been scaffolded and registered.
 
 Do::
 . In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
-+
+
 image::tekton-dev-6.png[]
+
 . Click the component name to open its *Overview* page
+
 . Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
-+
+
 image::tekton-dev-7.png[]
+
 . If redirected, click *Log in with OpenShift*
-+
+
 image::tekton-dev-8.png[]
+
 . Sign in with:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
+
 . On the *Authorize Access* screen, click *Allow selected permissions*
-+
+
 image::tekton-dev-9.png[]
+
 . On the repository trust prompt, click the checkbox and then click *Continue*
-+
+
 image::tekton-dev-10.png[]
+
 . When prompted to authenticate with GitLab:
-+
+
 image::tekton-dev-11.png[]
   - Username: `{gitlab_user}`
   - Password: `{gitlab_user_password}`
   and click *Sign in*.
+
 . Click *Authorize devspaces* on the next window.
-+
+
 image::tekton-dev-12.png[]
+
 . Wait for the workspace to fully start.
+
 . Wait for the workspace to start and fully load VS Code
+
 . If prompted, trust all workspaces and authors
-+
+
 image::tekton-dev-13.png[]
 
 In the Dev Spaces IDE:
 
 . Open the file: `my-quarkus-tkn/docs/index.md`
-. Add a new line of text at the bottom (e.g., “This is a test edit.”)
+
+. Add a new line of text at the bottom (e.g., "This is a test edit.")
+
 . Open the integrated terminal:
   * From the top menu bar, click on `Terminal → New Terminal`
   * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
-+
+
 image::tekton-dev-14.png[]
 
 Then, in the terminal:
@@ -168,16 +182,20 @@ git commit -m "Update"
 ----
 
 . The terminal will prompt you with a URL for commit signing via `gitsign`
-+
+
 image::tekton-dev-15.png[]
+
 . Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+
 . Copy the verification code shown in the browser
-+
+
 image::tekton-dev-16.png[]
+
 . Paste the code into the terminal to complete the signing process
   (Allow paste functionality if prompted)
-+
+
 image::tekton-dev-17.png[]
+
 . Push your changes:
 
 [source,bash]
@@ -187,134 +205,123 @@ git push
 
 image::tekton-dev-18.png[]
 
-Explain::
-This push triggers the CI/CD pipeline via the GitLab webhook.
+Know:: The CI/CD pipeline is triggered via the GitLab webhook by this push.
 
-Because *Verify Commits* was enabled when you created the project, this change must be signed using `gitsign`.
+Because *Verify Commits* was enabled when the project was created, this change must be signed using `gitsign`.
 
-`gitsign` is a tool that signs your Git commits using a short-lived key tied to your identity (usually via OpenID Connect). This ensures the commit came from a trusted user — not just anyone with push access.
+`gitsign` is a tool that signs Git commits using a short-lived key tied to identity (usually via OpenID Connect). It ensures the commit came from a trusted user — not just anyone with push access.
 
-Signed commits help verify:
+The following can be verified by signed commits:
+
 * Who made the change
-* That the change hasn’t been tampered with
+* That the change hasn't been tampered with
 
-This strengthens the security and auditability of your software supply chain — a key capability of Red Hat Trusted Application Pipeline.
+The security and auditability of the software supply chain is strengthened by this — a key capability of Red Hat Trusted Application Pipeline.
 
 == Part 4 — What Happens Behind the Scenes
 
-Once the user clicks *Create* in Developer Hub, a lot of powerful automation kicks in — without the developer needing to manually configure anything.
+Know:: A lot of powerful automation is kicked off once the user clicks *Create* in Developer Hub — without any manual configuration being needed by the developer.
 
-Say this:
+What just happened behind the scenes when the developer created the app using the template can be observed.
 
-> “Let’s pause and see what just happened behind the scenes when the developer created the app using the template.”
+The following steps are automated by Red Hat Developer Hub, working together with the template and platform tools:
 
-Then explain:
+* A **source code repository** (application code) and a **GitOps repository** (deployment manifests) are created using GitLab
+* **GitLab webhooks** are set up to trigger the correct CI/CD pipeline for this app
+* Pre-built **pipeline definitions** and Kubernetes manifests are committed into the appropriate repos
+* The app is registered as a **catalog component** inside Developer Hub so developers can monitor it
+* The **CI/CD build pipeline** is automatically triggered if "Verify Commits" was set to `false` (i.e., unsigned commits allowed)
 
-Red Hat Developer Hub, working together with the template and platform tools, automates the following steps:
+A full-stack DevSecOps setup is provided from day one — source, pipelines, GitOps, CI/CD, and visibility — ready to go without any manual effort.
 
-* Creates a **source code repository** (application code) and a **GitOps repository** (deployment manifests) using GitLab
-* Sets up **GitLab webhooks** to trigger the correct CI/CD pipeline for this app
-* Commits pre-built **pipeline definitions** and Kubernetes manifests into the appropriate repos
-* Registers the app as a **catalog component** inside Developer Hub so developers can monitor it
-* Automatically **triggers the CI/CD build pipeline** if "Verify Commits" was set to `false` (i.e., unsigned commits allowed)
-
-Say this:
-
-> “That’s a full-stack DevSecOps setup from day one — source, pipelines, GitOps, CI/CD, and visibility — ready to go without any manual effort.”
-
-This approach ensures consistency, reduces setup time, and gives platform teams confidence that every service adheres to policy from the outset.
+Consistency is ensured by this approach, setup time is reduced, and platform teams gain confidence that every service adheres to policy from the outset.
 
 == Part 5 — Show the Build Pipeline (OpenShift Pipelines)
 
-Say this:
+Know:: What the CI/CD pipeline is doing behind the scenes can be observed now that code has been pushed.
 
-> “Now that we’ve pushed code, let’s switch over to see what the CI/CD pipeline is doing behind the scenes.”
+Do:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
 
-In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
-+
 image::tekton-dev-18.png[]
 
-Walk your audience through each stage of the pipeline to show how it enforces security and automation at every step.
+Know:: Each stage of the pipeline should be walked through with the audience to show how security and automation are enforced at every step.
 
 === Task 1: `init`
 
-Initializes pipeline resources and artifacts required for this pipeline run.
-This sets up any reusable components needed downstream.
+Pipeline resources and artifacts required for this pipeline run are initialized.
+Any reusable components needed downstream are set up.
 
 === Task 2: `clone-repository`
 
-Clones the source code repository that triggered the pipeline.
-This ensures the latest code is fetched for verification and build.
+The source code repository that triggered the pipeline is cloned.
+The latest code is ensured to be fetched for verification and build.
 
 === Task 3: `verify-commit`
 
-Verifies the Git commit signature using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).
-This step ensures the commit comes from a trusted source and hasn’t been tampered with.
+The Git commit signature is verified using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).
+It is ensured by this step that the commit comes from a trusted source and hasn't been tampered with.
 
-> Clicking on this task in the pipeline UI will show details like who signed the commit and whether it passed verification.
+Details like who signed the commit and whether it passed verification will be shown by clicking on this task in the pipeline UI.
 
 === Task 4: `package`
 
-Builds the Java source code and creates a Maven artifact — in this case, a Quarkus JAR file.
+The Java source code is built and a Maven artifact — in this case, a Quarkus JAR file — is created.
 
 === Task 5: `build-container`
 
-Builds a container image for the Quarkus application.
+A container image for the Quarkus application is built.
 
-It then:
-* Signs the image using **Cosign**
-* Generates an **SBOM** (Software Bill of Materials)
-* Attests the image using **in-toto** for provenance
+The following is then performed:
 
-> The image tag corresponds to the Git commit ID that triggered the pipeline.
+* The image is signed using **Cosign**
+* An **SBOM** (Software Bill of Materials) is generated
+* The image is attested using **in-toto** for provenance
+
+The image tag corresponds to the Git commit ID that triggered the pipeline.
 
 === Task 6.1: `upload-sboms-to-trustification`
 
-Uploads the SBOM to **Red Hat Trusted Profile Analyzer (TPA)** so teams can analyze it for CVEs, vendor advisories, and vulnerabilities.
+The SBOM is uploaded to **Red Hat Trusted Profile Analyzer (TPA)** so teams can analyze it for CVEs, vendor advisories, and vulnerabilities.
 
-> You can access TPA at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.
-> Click *SBOMs* on the left menu to view results.
+TPA can be accessed at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.
+*SBOMs* on the left menu can be clicked to view results.
 
 === Task 6.2: `update-deployment`
 
-Commits the new image reference into the GitOps repository.
-This allows **OpenShift GitOps** (Argo CD) to automatically deploy the new version.
+The new image reference is committed into the GitOps repository.
+**OpenShift GitOps** (Argo CD) is allowed by this to automatically deploy the new version.
 
 === Task 7.1: `acs-image-check`
 
-Performs policy checks on the container image using **Red Hat Advanced Cluster Security (ACS)**.
+Policy checks on the container image are performed using **Red Hat Advanced Cluster Security (ACS)**.
 
-> Ensures the image doesn’t violate any organization-defined security policies.
+It is ensured that the image doesn't violate any organization-defined security policies.
 
 === Task 7.2: `acs-image-scan`
 
-Scans the image for known vulnerabilities and generates a report.
+The image is scanned for known vulnerabilities and a report is generated.
 
-> Clicking on this step shows CVEs and risk scores identified in the image.
+CVEs and risk scores identified in the image will be shown by clicking on this step.
 
 === Task 7.3: `acs-deploy-check`
 
-Evaluates the deployment configuration and image from a security and compliance perspective.
+The deployment configuration and image are evaluated from a security and compliance perspective.
 
-> Stores the results in ACS for auditability and enforcement.
+The results are stored in ACS for auditability and enforcement.
 
-> You can also visit ACS at {acs_url}[Red Hat Advanced Cluster Security^] using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
+ACS can also be visited at {acs_url}[Red Hat Advanced Cluster Security^] using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
 
 === Task 8.1: `show-sbom`
 
-Displays the SBOM generated in earlier stages.
+The SBOM generated in earlier stages is displayed.
 
 === Task 8.2: `show-summary`
 
-Shows a high-level summary of the build, verification, signing, and scan results.
+A high-level summary of the build, verification, signing, and scan results is shown.
 
 ---
 
-Say this:
-
-> “As you can see, these aren’t just traditional CI steps. Every stage adds a layer of trust, traceability, and security — without slowing down the developer.”
-
-Explain:
+These aren't just traditional CI steps, as can be seen. Every stage adds a layer of trust, traceability, and security — without slowing down the developer.
 
 These steps are not optional or best-effort — they are **enforced** through policy and integrated tooling, giving teams security by default.
 
@@ -322,7 +329,7 @@ These steps are not optional or best-effort — they are **enforced** through po
 
 These pipelines are defined and version-controlled alongside the application code.
 
-This design makes the CI/CD process:
+The CI/CD process is made by this design to be:
 
 * Transparent — developers can see exactly how their builds work
 * Consistent — pipelines follow a shared structure across projects
@@ -331,52 +338,50 @@ This design makes the CI/CD process:
 For developers at ACME:
 
 * No need to file tickets or wait on DevOps — pipelines are part of the repo.
-* They can propose updates to pipeline steps via pull requests, just like application code.
-* It’s easier to understand how a change moves from code to container to deployment.
+* Updates to pipeline steps can be proposed via pull requests, just like application code.
+* How a change moves from code to container to deployment is easier to understand.
 
 For the ACME platform team:
 
-* Pipeline templates enforce security, compliance, and best practices automatically.
-* Updates to shared logic (like SBOM scanning or image signing) can be reused across all projects.
-* With pipelines stored alongside code, it’s easier to troubleshoot and audit each change.
+* Security, compliance, and best practices are automatically enforced by pipeline templates.
+* Shared logic updates (like SBOM scanning or image signing) can be reused across all projects.
+* Troubleshooting and auditing each change is easier with pipelines stored alongside code.
 
-Say this:
+More autonomy is given to developers by this approach while ensuring the platform team still enforces security and governance by default.
 
-> “This approach gives developers more autonomy while ensuring the platform team still enforces security and governance by default.”
-
-Keep it brief — the goal is to reinforce how this approach scales and empowers both sides.
+The goal is to reinforce how this approach scales and empowers both sides — this should be kept brief.
 
 == Part 6 — Summary
 
-* Developer created a service in minutes using Red Hat Developer Hub
-* Secure CI/CD pipeline was pre-wired through the selected software template
+Know:: 
+* A service was created in minutes by the developer using Red Hat Developer Hub
+* A secure CI/CD pipeline was pre-wired through the selected software template
 * Commits and container images were signed, scanned, and attested as part of the automated workflow
 
 == Part 7 — Wrap-Up
 
-This demo showcases how Red Hat Developer Hub and the Advanced Developer Suite enable secure, scalable developer workflows:
+Know:: How Red Hat Developer Hub and the Advanced Developer Suite enable secure, scalable developer workflows is showcased in this demo:
 
 === Key Takeaways
 
 * *Secure-by-default delivery* — Every code change is validated, scanned, and signed automatically
-* *Streamlined developer onboarding* — Developers can get started with new services in minutes using self-service templates
+* *Streamlined developer onboarding* — New services can be started by developers in minutes using self-service templates
 * *Governance through automation* — Security and compliance policies are enforced through the pipeline, not manual reviews
 * *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
 * *Transparency and traceability* — Every step from commit to deployment is auditable and visible
 * *Toolchain integration* — GitLab, Quay, OpenShift Pipelines, and ACS work together to provide a seamless secure supply chain experience
 
-
 === Optional Enhancements
 
-* *Explore the Developer Hub Catalog entry* for the new software component
-  - Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results.
+* The Developer Hub Catalog entry for the new software component can be explored
+  - Metadata like links to GitLab, pipeline history, Quay images, and RHACS results can be highlighted.
 
-* *Show integration depth*
-  - Follow the commit link from Developer Hub to GitLab.
-  - View the running OpenShift Pipelines execution and associated artifacts.
+* Integration depth can be shown
+  - The commit link from Developer Hub to GitLab can be followed.
+  - The running OpenShift Pipelines execution and associated artifacts can be viewed.
 
-* *Demonstrate template flexibility*
-  - Mention how teams can build similar templates for other tech stacks like Python, Node.js, or Spring Boot.
+* Template flexibility can be demonstrated
+  - How teams can build similar templates for other tech stacks like Python, Node.js, or Spring Boot can be mentioned.
 
-* *Highlight collaboration opportunities*
-  - Emphasize how platform and security teams can co-develop templates and pipelines to bake in policy and compliance.
+* Collaboration opportunities can be highlighted
+  - How platform and security teams can co-develop templates and pipelines to bake in policy and compliance can be emphasized.
