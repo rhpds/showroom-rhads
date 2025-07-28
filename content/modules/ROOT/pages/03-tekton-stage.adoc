@@ -10,15 +10,15 @@ Walk the audience through the GitLab web interface:
 
 . Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
-image::tekton-stage-1.png[]
+image::jenkins-stage-1.png[]
 . In the left menu, click on *Code > Tags > New Tag*.
 +
-image::tekton-stage-2.png[]
-. Enter a version tag like `v1.2.3`.
+image::jenkins-stage-2.png[]
+. Enter a version tag like `v1.0`.
 . Choose the target branch (typically `main`).
 . Click *Create Tag*.
 +
-image::tekton-stage-3.png[]
+image::jenkins-stage-3.png[]
 
 [NOTE]
 ====
@@ -32,7 +32,7 @@ If you prefer the CLI, demonstrate with:
 
 [source,bash]
 ----
-git tag v1.2.3
+git tag v1.0
 git push --tags
 ----
 
@@ -48,7 +48,7 @@ Now guide your audience to *Developer Hub*:
 . Click the *CI* tab to see pipeline runs.
 . Expand the job labeled *promote-to-stage* to follow its progress.
 +
-image::tekton-stage-4.png[]
+image::jenkins-stage-4.png[]
 
 [NOTE]
 ====
@@ -64,7 +64,7 @@ As the OpenShift Pipelines pipeline runs, guide your audience through the follow
 === Task 1.1: `extract-destination-image-tag`
 
 Say:
-"This task grabs the Git tag we just created — like `v1.2.3` — and makes it available as a variable in the pipeline."
+"This task grabs the Git tag we just created — like `v1.0` — and makes it available as a variable in the pipeline."
 
 Explain:
 It’s a simple but essential step. Every subsequent task needs to know which version it’s working with, and this tag becomes the anchor point for traceability.
@@ -75,7 +75,7 @@ Say:
 "This task figures out which image we're actually trying to promote."
 
 Explain:
-During the original CI build, the image was tagged with the Git commit ID — something like `abc123def456`. Now we’re mapping the Git tag (e.g., `v1.2.3`) back to that commit ID, and linking that to the corresponding container image.
+During the original CI build, the image was tagged with the Git commit ID — something like `abc123def456`. Now we’re mapping the Git tag (e.g., `v1.0`) back to that commit ID, and linking that to the corresponding container image.
 
 The result is saved into an `images.json` file, which becomes the single source of truth for what’s about to be verified and promoted.
 
@@ -180,13 +180,13 @@ Use `skopeo` to copy and retag the image:
 ----
 skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:abc123... \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
 ==== Explain:
 
 - The image was already built and validated — no need to rebuild.
-- We simply promote it using a clean, human-readable tag (`v1.2.3`).
+- We simply promote it using a clean, human-readable tag (`v1.0`).
 - This ensures traceability from commit → image → deployment.
 
 [IMPORTANT]
@@ -226,14 +226,14 @@ spec:
     spec:
       containers:
         - name: my-quarkus-tkn
-          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
+          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
 .Example Git diff
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3
++          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
 ==== Explain:
@@ -264,7 +264,7 @@ No manual `kubectl`, no YAML editing in the console — the system reacts to Git
 | Validates signature, SBOM, provenance, CVEs — all enforced via the EC CLI.
 
 | 3 copy-image
-| Promotes the validated image with a human-readable tag (e.g., `v1.2.3`).
+| Promotes the validated image with a human-readable tag (e.g., `v1.0`).
 
 | 4 update-deployment
 | Updates `overlays/stage` to trigger Argo CD deployment.
@@ -284,6 +284,6 @@ You can optionally demo:
 
 - A failed validation scenario (e.g., using an image missing an SBOM).
 - The actual Enterprise Contract policy bundle in YAML format.
-- The new image tag (e.g., `v1.2.3`) in the Quay UI.
+- The new image tag (e.g., `v1.0`) in the Quay UI.
 - The Argo CD interface syncing the deployment after the GitOps change.
 

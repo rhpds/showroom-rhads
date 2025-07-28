@@ -40,7 +40,7 @@ image::tekton-stage-1.png[]
 . Navigate to *Deploy > Releases > Create a new release*
 +
 image::tekton-stage-2.png[]
-. Select an existing tag (e.g., `v1.2.3`) or create a new one
+. Select an existing tag (e.g., `v1.0`) or create a new one
 . Optionally, enter release notes
 . Click *Create release*
 +
@@ -68,7 +68,7 @@ As the OpenShift Pipelines pipeline runs, guide your audience through each task.
 This task captures the Git tag from the release event and makes it available to subsequent tasks.
 
 Explain:
-“This step ensures the pipeline knows which image version is associated with the release. The tag (e.g., `v1.2.3`) becomes the reference point for all future validations and promotions.”
+“This step ensures the pipeline knows which image version is associated with the release. The tag (e.g., `v1.0`) becomes the reference point for all future validations and promotions.”
 
 === Task 1.2: `gather-images-to-verify`
 
@@ -83,11 +83,11 @@ Tell the audience:
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-jnk",
-          "revision": "v1.2.3"
+          "revision": "v1.0"
         }
       }
     }
@@ -117,7 +117,7 @@ Step 2: Enterprise Contract validates the image:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3 \
+  --image quay.tssc-quay/tssc/my-quarkus-tkn:v1.0 \
   --policy git::github.com/org/ec-policies//default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -152,15 +152,15 @@ Tip: You can simulate a failed validation (e.g., by modifying the EC policy or i
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.2.3 \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0 \
+  docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.0
 ----
 
 ==== Explain
 
 This command promotes the previously validated image by creating a new tag prefixed with `prod-`.
 
-* This tag (`prod-v1.2.3`) clearly identifies the image as production-ready.
+* This tag (`prod-v1.0`) clearly identifies the image as production-ready.
 * It ensures traceability — we know which exact source and validation steps led to this image.
 * Only images that pass EC validation make it this far, preventing unsafe code from being deployed.
 * Argo CD will watch for this tag and deploy it to the production environment.
@@ -183,7 +183,7 @@ spec:
     spec:
       containers:
         - name: my-quarkus-tkn
-          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.2.3
+          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.0
 ----
 
 This file lives at:
@@ -230,7 +230,7 @@ patchesStrategicMerge:
 | Validates signature, SBOM, provenance, CVEs, and organizational policy using Enterprise Contract
 
 | 3 copy-image
-| Copies the previously staged image and tags it as `prod-v1.2.3`
+| Copies the previously staged image and tags it as `prod-v1.0`
 
 | 4 update-deployment
 | Updates `overlays/prod` in the GitOps repo, which triggers an Argo CD deployment
@@ -253,7 +253,7 @@ Use these if you want to go deeper during the demo:
   - For example, promote an unsigned image to show Enterprise Contract blocking the release.
 
 * Show image tags in Quay
-  - Display both the `:v1.2.3` (staged) and `:prod-v1.2.3` (promoted) tags.
+  - Display both the `:v1.0` (staged) and `:prod-v1.0` (promoted) tags.
 
 * Demo Argo CD UI
   - Show how Argo CD detects the Git change and syncs to the `prod` environment automatically.

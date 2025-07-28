@@ -40,18 +40,18 @@ Choose one of the following methods to create the tag:
 
 === Option 1: Tag via GitLab UI
 
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^]  
-  Use the credentials:
-  - Username: `{gitlab_user}`
-  - Password: `{gitlab_user_password}`
-
+. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
++
+image::jenkins-stage-1.png[]
 . In the left navigation menu, go to *Code > Tags > New Tag*
-
++
+image::tekton-stage-2.png[]
 . Fill in the tag details:
-  - **Tag name**: `v1.2.3`
+  - **Tag name**: `v1.0`
   - **Target branch**: `main`
-
 . Click *Create Tag*
++
+image::tekton-stage-3.png[]
 
 === Option 2: Tag via Git CLI
 
@@ -59,24 +59,27 @@ Alternatively, you can trigger the pipeline by pushing a Git tag from your local
 
 [source,bash]
 ----
-git tag v1.2.3
+git tag v1.0
 git push --tags
 ----
 
-Once the tag is pushed, navigate to the component in Red Hat Developer Hub to observe the pipeline execution:
+Now guide your audience to *Developer Hub*:
 
-. Open Red Hat Developer Hub and locate the `my-quarkus-jnk` component in the Catalog
-. Select the component to open the overview page
-. Click the *CI* tab to view the pipeline runs
-. Identify the build labeled `promote-to-prod`
-. Click *View build* to open Jenkins and then click *Open Blue Ocean* to view the pipeline stages
+. Go to the *my-quarkus-jnk* component.
+. Click the *CI* tab to see pipeline runs.
+. Click on the *View build* icon on the *promote-to-stage* build to follow progress
++
+image::jenkins-stage-4.png[]
+. Click *Open Blue Ocean* to view the pipeline stages
++
+image::jenkins-stage-5.png[]
 
-Tell your audience:  
+Tell your audience:
 “This run is triggered by the Git tag and promotes the image to staging, while validating it with Enterprise Contract.”
-
 
 == Pipeline Tasks
 
+image::jenkins-stage-6.png[]
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
 === Task 2: verify-ec
@@ -164,19 +167,19 @@ Explain:
 
 .Validation checks performed:
 
-- *Digital signature (Cosign)*  
+- *Digital signature (Cosign)*
   → Confirms the image wasn’t tampered with and came from a trusted build system.
 
-- *SBOM (Software Bill of Materials)*  
+- *SBOM (Software Bill of Materials)*
   → A list of everything that went into the image — like an ingredients label for software.
 
-- *Provenance metadata*  
+- *Provenance metadata*
   → Details of how and where the image was built (e.g., which pipeline, commit, environment).
 
-- *CVE scanning*  
+- *CVE scanning*
   → Checks for known security vulnerabilities (Critical or High ones cause failure).
 
-- *Organizational policy compliance*  
+- *Organizational policy compliance*
   → Enforces any rules set by your security or platform team.
 
 Tell your audience:
@@ -193,7 +196,7 @@ Let the audience know that once the image passes validation, this step applies a
 ----
 skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:123456 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0
 ----
 
 Explain:
@@ -221,7 +224,7 @@ spec:
     spec:
       containers:
         - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.0
 ----
 
 This patch is referenced by `kustomization.yaml`:
@@ -258,7 +261,7 @@ To quickly summarize:
 | Validates the image signature, SBOM, provenance, CVEs, and policy compliance
 
 | update-image-tag-for-stage
-| Tags the verified image with the release version (e.g., `v1.2.3`)
+| Tags the verified image with the release version (e.g., `v1.0`)
 
 | deploy-to-stage
 | Updates the `overlays/stage` directory to trigger deployment via Argo CD
@@ -277,7 +280,7 @@ To quickly summarize:
 Use these to explore additional details during the demo:
 
 - Simulate a failed Enterprise Contract validation by using an unsigned image
-- Show the image in Quay with both tags: `:abc123` (commit) and `:v1.2.3` (release)
+- Show the image in Quay with both tags: `:abc123` (commit) and `:v1.0` (release)
 - Open the Argo CD UI and demonstrate syncing the `stage` environment
 - Display the Enterprise Contract policy bundle used for validation
 - Explain that production promotion uses a similar process, triggered by a GitLab release and applied to the `prod` overlay

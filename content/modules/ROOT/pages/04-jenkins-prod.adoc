@@ -42,11 +42,11 @@ This separation allows teams to enforce distinct policies and approval flows for
 * Now let’s see how a developer promotes a validated image from staging to production using a GitLab Release.
 
 === Do
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^]  
+. Open your GitLab repository: {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^]
   Use username: `{gitlab_user}` and password: `{gitlab_user_password}`.
 . In the left menu, go to *Deploy > Releases*
 . Click *New Release*
-. Select the existing tag, such as `v1.2.3`
+. Select the existing tag, such as `v1.0`
 . Optionally add release notes
 . Click *Create release*
 
@@ -72,7 +72,7 @@ The same Jenkins pipeline is reused, but its behavior changes based on the trigg
 * The first thing Jenkins needs to know is: what exactly are we promoting?
 
 === Do
-. In the `gather-images` stage, Jenkins calls the GitLab API to fetch the release tag (e.g. `v1.2.3`).
+. In the `gather-images` stage, Jenkins calls the GitLab API to fetch the release tag (e.g. `v1.0`).
 . Based on this tag, it constructs the container image URL that was built and signed in the staging phase.
 . It creates an `images.json` file to describe the image metadata and where it came from.
 
@@ -82,11 +82,11 @@ The same Jenkins pipeline is reused, but its behavior changes based on the trigg
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3",
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-jnk",
-          "revision": "v1.2.3"
+          "revision": "v1.0"
         }
       }
     }
@@ -118,7 +118,7 @@ cosign initialize \
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
+  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -161,14 +161,14 @@ If any of these fail, the pipeline stops immediately — the image is not promot
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
 === Explain
 This step doesn’t rebuild the image. It simply re-tags a verified, immutable image — ensuring traceability.
 
-By tagging it `prod-v1.2.3`, we make it clear to downstream systems, release teams, and auditors that:
+By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams, and auditors that:
 - The image has passed all validations
 - It’s safe and approved for production
 - Its origin and promotion path are transparent
@@ -194,14 +194,14 @@ spec:
     spec:
       containers:
         - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
 .Sample Git diff
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.2.3
++          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
 === Explain
