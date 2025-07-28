@@ -182,7 +182,7 @@ image::tekton-dev-17.png[]
 ----
 git push
 ----
-+
+
 image::tekton-dev-17.png[]
 
 Explain::
