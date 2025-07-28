@@ -183,7 +183,7 @@ image::tekton-dev-17.png[]
 git push
 ----
 
-image::tekton-dev-17.png[]
+image::tekton-dev-18.png[]
 
 Explain::
 This push triggers the CI/CD pipeline via the GitLab webhook.
