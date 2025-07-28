@@ -64,7 +64,9 @@ git push --tags
 
 Now guide your audience to *Developer Hub*:
 
-. Go to the *my-quarkus-jnk* component.
+. On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
++
+image::jenkins-stage-7.png[]
 . Click the *CI* tab to see pipeline runs.
 . Click on the *View build* icon on the *promote-to-stage* build to follow progress
 +
