@@ -132,8 +132,12 @@ image::tekton-dev-11.png[]
   - Username: `{gitlab_user}`
   - Password: `{gitlab_user_password}`
 . Click *Authorize devspaces*
++
+image::tekton-dev-12.png[]
 . Wait for the workspace to start and fully load VS Code
 . If prompted, trust all workspaces and authors
++
+image::tekton-dev-13.png[]
 
 In the Dev Spaces IDE:
 
@@ -142,6 +146,8 @@ In the Dev Spaces IDE:
 . Open the integrated terminal:
   * From the top menu bar, click on `Terminal → New Terminal`
   * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
++
+image::tekton-dev-14.png[]
 
 Then, in the terminal:
 
@@ -160,17 +166,24 @@ git commit -m "Update"
 ----
 
 . The terminal will prompt you with a URL for commit signing via `gitsign`
-. Open the URL in your browser and approve the request
++
+image::tekton-dev-15.png[]
+. Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
 . Copy the verification code shown in the browser
++
+image::tekton-dev-16.png[]
 . Paste the code into the terminal to complete the signing process
   (Allow paste functionality if prompted)
-
++
+image::tekton-dev-17.png[]
 . Push your changes:
 
 [source,bash]
 ----
 git push
 ----
++
+image::tekton-dev-17.png[]
 
 Explain::
 This push triggers the CI/CD pipeline via the GitLab webhook.
