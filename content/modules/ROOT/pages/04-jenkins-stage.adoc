@@ -82,46 +82,35 @@ Tell your audience:
 image::jenkins-stage-6.png[]
 As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
 
-=== Task 2: verify-ec
+=== Task 1: gather-images
 
-Explain to the audience that this is the security checkpoint in the pipeline.
+=== Say
+The first thing Jenkins needs to know is: what exactly are we promoting?  Explain to the audience that this step is where we identify the image to promote.  During the build phase the image built was tagged with the commit id of the change made in the repository.  Here we resolve the Git tag back to its commit and match that to the image.
 
-The pipeline runs Enterprise Contract validations to ensure the image is trustworthy, compliant, and safe for promotion. This happens in two main steps:
+This gets written into an `images.json` file — which becomes the authoritative source for what we’ll verify and promote.
 
-.Step 1: Initialize Cosign trust root
-This step sets up the local trust policy for verifying digital signatures using Cosign.
+=== Do
+Click on the 'gather-images' stage in the pipeline and click on the last step.  This should show the below json:
 
-[source,bash]
+[source,json,subs="attributes"]
 ----
-cosign initialize \
-  --mirror http://tuf.tssc-tas.svc \
-  --root http://tuf.tssc-tas.svc/root.json
+{
+  "components": [
+    {
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:123456",
+      "source": {
+        "git": {
+          "url": "{gitlab_url}/development/my-quarkus-jnk",
+          "revision": "123456"
+        }
+      }
+    }
+  ]
+}
 ----
 
-.Step 2: Validate the image using Enterprise Contract
-
-[source,bash]
-----
-ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-jnk:123456 \
-  --policy git::github.com/org/ec-policies//default \
-  --public-key k8s://openshift/trusted-keys \
-  --output json
-----
-
-This validation checks:
-
-- That the image is digitally signed with Cosign
-- That an SBOM is present (in SPDX or CycloneDX format)
-- That provenance metadata is available (how and where the image was built)
-- That no critical or high CVEs are present
-- That it passes all organizational policy rules
-
-Tell your audience:
-
-> “This step ensures only secure, verified, and compliant artifacts move forward. If the image fails any of these checks, the pipeline stops here.”
-
-Optional: Consider running a demo with a failed image to showcase how enforcement works.
+=== Explain
+This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
 
 
 === Task 2: verify-ec
