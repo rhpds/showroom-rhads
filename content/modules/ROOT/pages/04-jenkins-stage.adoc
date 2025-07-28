@@ -45,13 +45,13 @@ Choose one of the following methods to create the tag:
 image::jenkins-stage-1.png[]
 . In the left navigation menu, go to *Code > Tags > New Tag*
 +
-image::tekton-stage-2.png[]
+image::jenkins-stage-2.png[]
 . Fill in the tag details:
   - **Tag name**: `v1.0`
   - **Target branch**: `main`
 . Click *Create Tag*
 +
-image::tekton-stage-3.png[]
+image::jenkins-stage-3.png[]
 
 === Option 2: Tag via Git CLI
 

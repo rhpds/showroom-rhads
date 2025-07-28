@@ -42,18 +42,28 @@ This separation allows teams to enforce distinct policies and approval flows for
 * Now let’s see how a developer promotes a validated image from staging to production using a GitLab Release.
 
 === Do
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^]
-  Use username: `{gitlab_user}` and password: `{gitlab_user_password}`.
-. In the left menu, go to *Deploy > Releases*
+. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
++
+image::jenkins-prod-1.png[]
+. In the left navigation menu, go to *Deploy > Releases*
++
+image::jenkins-prod-2.png[]
 . Click *New Release*
 . Select the existing tag, such as `v1.0`
 . Optionally add release notes
 . Click *Create release*
++
+image::jenkins-prod-3.png[]
 
 . Go to Developer Hub and select the `my-quarkus-jnk` component
 . Switch to the **CI** tab
 . Locate the build labeled **promote-to-prod**
-. Click **View build** and then **Open Blue Ocean** to walk through the Jenkins pipeline stages
+. Click on the *View build* icon on the *promote-to-prod* build to follow progress
++
+image::jenkins-prod-4.png[]
+. Click *Open Blue Ocean* to view the pipeline stages
++
+image::jenkins-prod-5.png[]
 
 === Explain
 Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. The pipeline automatically detects that this is a *release event* and switches into production promotion mode. This ensures the same validated image is now promoted to the production environment.
@@ -62,6 +72,7 @@ The same Jenkins pipeline is reused, but its behavior changes based on the trigg
 
 == Pipeline Tasks
 
+image::jenkins-prod-6.png[]
 === Say
 * Let’s walk through what happens in each step of the Jenkins pipeline as we promote the image to production.
 * Each task here is essential for ensuring a secure and trusted software delivery pipeline.
