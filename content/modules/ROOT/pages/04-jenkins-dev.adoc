@@ -114,8 +114,6 @@ The `Verify Commits` option enables signing and verification of Git commits usin
 ====
 ---
 
-== Part 3 — What Happens Behind the Scenes
-
 Behind the scenes, Red Hat Developer Hub and the ADS template do the heavy lifting:
 
 * Creates both the **source code** and **GitOps** repositories using information from the template.
@@ -136,8 +134,7 @@ _"The developer doesn’t have to manually wire any of this. Developer Hub handl
 For customers already using Jenkins, this template shows how ADS can plug into their existing tools while still enforcing secure supply chain policies.
 ====
 
-
-== Part 4 — Make a Code Change in DevSpaces
+== Part 3 — Make a Code Change in OpenShift Dev Spaces
 
 Once the application has been created and registered in the Developer Hub:
 
@@ -159,7 +156,6 @@ image::jenkins-dev-8.png[]
 image::jenkins-dev-9.png[]
 . On the repository trust prompt, click the checkbox and then click *Continue*
 +
-+
 image::jenkins-dev-10.png[]
 . When prompted to authenticate with GitLab:
 +
@@ -177,47 +173,46 @@ image::jenkins-dev-12.png[]
 +
 image::jenkins-dev-13.png[]
 
-=== Make a Code Change
+In the Dev Spaces IDE:
 
-. In the DevSpaces IDE, open the file:
-  `my-quarkus-jnk/docs/index.md`
-. Add a small change to the file — for example, append a new line of text.
+. Open the file: `my-quarkus-jnk/docs/index.md`
+. Add a new line of text at the bottom (e.g., “This is a test edit.”)
+. Open the integrated terminal:
+  * From the top menu bar, click on `Terminal → New Terminal`
+  * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
++
+image::jenkins-dev-14.png[]
 
-=== Open the Terminal
-
-Open the integrated terminal:
-
-From the top menu bar, click on *Terminal → New Terminal*
-
-This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected.
-
-=== Commit and Push the Change
+Then, in the terminal:
 
 . Stage your changes:
 
-[source,shell]
+[source,bash]
 ----
 git add .
 ----
 
 . Commit your changes:
 
-[source,shell]
+[source,bash]
 ----
 git commit -m "Update"
 ----
 
-During this step, `gitsign` will intercept the commit and initiate the signing process. The terminal will display a URL and prompt you to open it in your browser.
+. The terminal will prompt you with a URL for commit signing via `gitsign`
++
+image::jenkins-dev-15.png[]
+. Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+. Copy the verification code shown in the browser
++
+image::jenkins-dev-16.png[]
+. Paste the code into the terminal to complete the signing process
+  (Allow paste functionality if prompted)
++
+image::jenkins-dev-17.png[]
+. Push your changes:
 
-. Click the URL to open a browser window and authorize the signing request.
-. A verification code will appear in the browser.
-. Copy the verification code and return to the terminal.
-. Paste the code into the terminal to complete the commit signing process.
-  If prompted, ensure you allow paste functionality.
-
-. Finally, push your changes to GitLab:
-
-[source,shell]
+[source,bash]
 ----
 git push
 ----
@@ -238,6 +233,8 @@ You should see three pipeline runs:
 - `maven-ci-build`
 - `promote-to-stage`
 - `promote-to-prod`
+
+image::jenkins-dev-17.png[]
 
 The pipeline `maven-ci-build` should be running. Click on *View build* to open Jenkins.
 
