@@ -45,11 +45,9 @@ This demo complements a previous one which used OpenShift Pipelines (Tekton). Wh
 
 By presenting this Jenkins path, you're addressing a realistic need: helping customers *modernize workflows* without abandoning trusted tooling.
 
-
-
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-. Navigate to `{rhdh_url}` and click *Sign In* on the OIDC login prompt.
+. Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 +
 image::jenkins-dev-1.png[]
 . Enter your credentials:
@@ -309,7 +307,7 @@ Click the `mvn package` stage.
 * *deploy*: updates the GitOps repo with the new image tag — this triggers Argo CD to redeploy the app to dev.
 * *upload_sbom_to_trustification*: pushes the SBOM to Red Hat Trusted Profile Analyzer (TPA) for compliance tracking.
 
-Visit `{tpa_url}` and log in with `{tpa_user}` / `{tpa_user_password}` to explore SBOM results.
+Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}` / `{tpa_user_password}` to explore SBOM results.
 
 === Stage: acs (parallel)
 

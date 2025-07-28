@@ -37,7 +37,7 @@ Say::
 Now that we understand the problem, let’s show how a developer at Acme Retail would use Red Hat Developer Hub to scaffold a secure, production-ready application — without any manual setup.
 
 Do::
-. Navigate to `{rhdh_url}` and click *Sign In* on the OIDC login prompt.
+. Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 +
 image::tekton-dev-1.png[]
 . Enter your credentials:
@@ -298,7 +298,7 @@ Evaluates the deployment configuration and image from a security and compliance 
 
 > Stores the results in ACS for auditability and enforcement.
 
-> You can also visit ACS at {acs_url} using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
+> You can also visit ACS at {acs_url}[Red Hat Advanced Cluster Security^] using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
 
 === Task 8.1: `show-sbom`
 
