@@ -1,25 +1,41 @@
 = Red Hat Advanced Developer Suite Demonstration
 :toc:
 :toc-placement: preamble
-:sectnums:
 :icons: font
+:sectnums!:
 
-== 1. Agenda
+== Agenda
 
-== 2. Introduction
+This demo walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one powered by OpenShift Pipelines (Tekton), the other by Jenkins. Both enforce the same security standards: Enterprise Contract validation, image signing, SBOMs, and GitOps-based promotion with Argo CD.
 
-== 3. Red Hat Advanced Developer Suite with Openshift Pipelines
+[cols="1,2",options="header"]
+|===
+| Section | Description
 
-=== 3.1. Building your application
+| Introduction
+| Overview of Red Hat Advanced Developer Suite, software supply chain security, and GitOps automation
 
-=== 3.2. Promoting your application to stage
+| ADS with OpenShift Pipelines (Tekton)
+| CI/CD using Developer Hub, Tekton tasks, Enterprise Contract, and Argo CD
 
-=== 3.3 Releasing your application to prod
+| └ Build Phase
+| App scaffolded in Developer Hub, built via Tekton, pushed to Quay with SBOMs and signatures
 
-== 4. Red Hat Advanced Developer Suite with Jenkins
+| └ Promote to Stage
+| Validated by Enterprise Contract, deployed to `stage` via GitOps
 
-=== 4.1. Building your application
+| └ Release to Production
+| GitLab Release triggers promotion to `prod` with the same secure pipeline
 
-=== 4.2. Promoting your application to stage
+| ADS with Jenkins
+| CI/CD using Developer Hub, Jenkins shared libraries, Enterprise Contract, and GitOps promotion
 
-=== 4.3 Releasing your application to prod
+| └ Build Phase
+| App scaffolded in Developer Hub, built via Jenkins, pushed to Quay with SBOMs and signatures
+
+| └ Promote to Stage
+| Validated by Enterprise Contract, deployed to `stage` via GitOps
+
+| └ Release to Production
+| GitLab Release triggers promotion to `prod` with the same secure pipeline
+|===

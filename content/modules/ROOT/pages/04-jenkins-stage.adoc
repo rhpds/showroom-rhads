@@ -1,75 +1,99 @@
 = Advanced Developer Suite Demo Instructions
 Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
-:icons: font
 :sectnums:
 :source-highlighter: rouge
 :toc: macro
-:toclevels: 2
+:toclevels: 1
 
 toc::[]
 
 == Overview
 
-This guide provides instructions for technical sales engineers to deliver a demo of a secure software supply chain using Red Hat’s Advanced Developer Suite (ADS), Enterprise Contract (EC), and GitOps with Argo CD.
+This guide is designed for technical sales engineers to demonstrate a secure software supply chain using:
 
-The demo showcases how tagging a release in Git triggers an automated pipeline that:
-- Validates the image with Enterprise Contract
-- Tags the verified image with the release version
-- Promotes the image to the `stage` environment via GitOps
-- Deploys the application using Argo CD
+- Red Hat Advanced Developer Suite (ADS)
+- Enterprise Contract (EC)
+- GitOps with Argo CD
+- Artifact Signer
 
-You’ll be demonstrating a Jenkins pipeline using the shared library:
-`library identifier: 'RHTAP_Jenkins@main'`
+The goal of the demo is to show how tagging a release in Git can trigger a Jenkins pipeline that:
+
+- Validates the container image using Enterprise Contract
+- Tags the verified image using the Git tag value
+- Promotes the image to the staging environment via GitOps
+- Automatically deploys the application using Argo CD
+
+The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
+`RHTAP_Jenkins@main`
 
 [NOTE]
 ====
-The code snippets shown throughout this guide are illustrative and intended for demo purposes only. They do not represent the exact implementation used in this demo. Always refer to the actual Jenkins pipeline and repository configurations for authoritative details.
+The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
 ====
 
 == Starting the Demo: Tag the Release
 
-Explain to your audience that the pipeline is triggered by tagging a release in Git. To demonstrate this:
+Let your audience know that this demo is initiated by tagging a release in Git. This Git event triggers a Jenkins pipeline which performs validation and promotes the image to staging.
 
-Choose one of the following methods:
+Choose one of the following methods to create the tag:
 
 === Option 1: Tag via GitLab UI
 
-1. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] with username: {gitlab_user} and password: {gitlab_user_password}
-2. In the left menu, navigate to *Code > Tags > New Tag*.
-3. Enter a tag name (e.g. `v1.2.3`).
-4. Select the target branch (typically `main`).
-5. Click *Create Tag*.
-
-Tell your audience: “This action simulates a release and kicks off the Jenkins pipeline via a webhook.”
+. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
++
+image::jenkins-stage-1.png[]
+. In the left navigation menu, go to *Code > Tags > New Tag*
++
+image::jenkins-stage-2.png[]
+. Fill in the tag details:
+  - **Tag name**: `v1.0`
+  - **Target branch**: `main`
+. Click *Create Tag*
++
+image::jenkins-stage-3.png[]
 
 === Option 2: Tag via Git CLI
 
-Alternatively, use the command line:
+Alternatively, you can trigger the pipeline by pushing a Git tag from your local machine:
 
 [source,bash]
 ----
-git tag v1.2.3
+git tag v1.0
 git push --tags
 ----
 
-Navigate to the *my-quarkus-jnk* component in **Developer Hub**. Then:
+Now guide your audience to *Developer Hub*:
 
-. Select the `my-quarkus-jnk` component
-. Switch to the **CI** tab to view pipeline runs
-. Identfiy the current build labeled **promote-to-prod** and click on **View build** to open Jenkins and click `Open Blue Ocean` to walk through the key stages of the Jenkins pipeline:
+. On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
++
+image::jenkins-stage-7.png[]
+. Click the *CI* tab to see pipeline runs.
+. Click on the *View build* icon on the *promote-to-stage* build to follow progress
++
+image::jenkins-stage-4.png[]
+. Click *Open Blue Ocean* to view the pipeline stages
++
+image::jenkins-stage-5.png[]
+
+Tell your audience:
+“This run is triggered by the Git tag and promotes the image to staging, while validating it with Enterprise Contract.”
 
 == Pipeline Tasks
 
-As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+image::jenkins-stage-6.png[]
+=== Say
+* Let’s walk through what happens in each step of the Jenkins pipeline as we promote the image to stage.
+* Each task here is essential for ensuring a secure and trusted software delivery pipeline.
 
-=== Task 1: `gather-images`
+=== Task 1: gather-images
 
-Explain to the audience that this step is where we identify the image to promote.  During the build phase the image built was tagged with the commit id of the change made in the repository.
-Here we resolve the Git tag back to its commit and match that to the image.
+=== Say
+The first thing Jenkins needs to know is: what exactly are we promoting?  Explain to the audience that this step is where we identify the image to promote.  During the build phase the image built was tagged with the commit id of the change made in the repository.  Here we resolve the Git tag back to its commit and match that to the image.
 
 This gets written into an `images.json` file — which becomes the authoritative source for what we’ll verify and promote.
 
-Here’s an example of what that looks like:
+=== Do
+Click on the 'gather-images' stage in the pipeline and click on the last step.  This should show the below json:
 
 [source,json,subs="attributes"]
 ----
@@ -88,22 +112,27 @@ Here’s an example of what that looks like:
 }
 ----
 
-Point out: “This metadata defines exactly what image we’re verifying and where it came from.”
+=== Explain
+This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
 
-=== Task 2: `verify-ec`
 
-Let your audience know this is where supply chain security checks occur.
+=== Task 2: verify-ec
 
-Step 1: The pipeline initializes trust via Cosign:
+=== Say
+* Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes to production.
+
+=== Do
+. Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
+. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
 
 [source,bash]
 ----
 cosign initialize \
-  --mirror http://tuf.tssc-tas.svc \
-  --root http://tuf.tssc-tas.svc/root.json
+  --mirror https://tuf.tssc-tas.dev \
+  --root https://tuf.tssc-tas.dev/root.json
 ----
 
-Step 2: Enterprise Contract validates the image:
+. It validates the image using Enterprise Contract:
 
 [source,bash]
 ----
@@ -114,36 +143,80 @@ ec validate image \
   --output json
 ----
 
-Describe the validations performed:
-- Digital signature with Cosign
-- SBOM presence (e.g., SPDX, CycloneDX)
-- Provenance metadata (how the image was built)
-- CVE scanning
-- Organizational policy compliance
+.Sample output
+[source,json]
+----
+{
+  "successes": [
+    "Image is signed and verified with cosign",
+    "SBOM (CycloneDX) is present",
+    "Provenance matches repository",
+    "No critical vulnerabilities found"
+  ],
+  "failures": []
+}
+----
 
-💡 Tip: Consider simulating a failed validation to show the pipeline stopping.
+=== Explain
+- `ec validate` means "Enterprise Contract is now checking your image"
+- `--image` is the container image you want to validate
+- `--policy` is the set of rules it must follow (stored in Git)
+- `--public-key` is used to confirm the image was signed by someone trusted
+- `--output json` gives a clear pass/fail report in JSON format
 
-=== Task 3: `update-image-tag-for-stage`
+.Validation checks performed:
 
-Tell your audience that if the image passes validation, this step tags it with the release version.
+- *Digital signature (Cosign)*
+  → Confirms the image wasn’t tampered with and came from a trusted build system.
+
+- *SBOM (Software Bill of Materials)*
+  → A list of everything that went into the image — like an ingredients label for software.
+
+- *Provenance metadata*
+  → Details of how and where the image was built (e.g., which pipeline, commit, environment).
+
+- *CVE scanning*
+  → Checks for known security vulnerabilities (Critical or High ones cause failure).
+
+- *Organizational policy compliance*
+  → Enforces any rules set by your security or platform team.
+
+Tell your audience:
+
+> “If any of these checks fail, the pipeline stops — which means no risky code makes it to the next stage.”
+
+Optional: Simulate a failed validation by pushing an unsigned image or one missing SBOM to show enforcement in action.
+
+=== Task 3: update-image-tag-for-stage
+
+=== Say
+* Now that the image has passed all security gates, we give it a special tag to mark it as ready for stage i.e qa.
+
+=== Do
+In the `update-image-tag-for-stage` stage, Jenkins uses `skopeo` to copy the image and apply a new tag.  Let the audience know that once the image passes validation, this step applies a release version tag:
 
 [source,bash]
 ----
 skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:123456 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0
 ----
 
 Explain:
-- It creates a human-readable, immutable tag.
-- Only validated images are promoted.
-- This tag is what’s deployed to the `stage` environment.
+- Applies a human-readable version tag to the validated image.
+- Ensures only verified images are tagged for release.
+- This tagged image is used for deployment to the `stage` environment.
 
-=== Task 4: `deploy-to-stage`
 
-Explain that this step updates the GitOps repository to reflect the new image tag.
+=== Task 4: deploy-to-stage
 
-The pipeline updates:
+* With the stage image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
+
+=== Do
+. In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
+. This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
+
+The pipeline modifies:
 
 `overlays/stage/deployment-patch.yaml`
 
@@ -158,10 +231,10 @@ spec:
     spec:
       containers:
         - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.2.3
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:v1.0
 ----
 
-And this patch is referenced by `kustomization.yaml`:
+This patch is referenced by `kustomization.yaml`:
 
 [source,yaml]
 ----
@@ -174,8 +247,8 @@ patchesStrategicMerge:
 ----
 
 Mention:
-- Jenkins commits and pushes this update to the GitOps repo.
-- Argo CD automatically detects the change and syncs it to the `stage` cluster.
+- Jenkins commits and pushes this change to the GitOps repository.
+- Argo CD detects the update and syncs the deployment to the `stage` environment automatically.
 
 == Summary
 
@@ -186,35 +259,35 @@ To quickly summarize:
 | Step | Description
 
 | Tag Push
-| Triggers staging pipeline and updates `overlays/prod/`
+| Triggers the staging pipeline and updates `overlays/stage/`
 
-| Task - gather-images
-| Resolves tag to commit, generates images.json for verification
+| gather-images
+| Resolves the Git tag to a commit, generates `images.json` for validation
 
-| Task - verify-ec
-| Validates signature, SBOM, provenance, CVEs, policy
+| verify-ec
+| Validates the image signature, SBOM, provenance, CVEs, and policy compliance
 
-| Task - update-image-tag-for-stage
-| Tags validated image with Git version
+| update-image-tag-for-stage
+| Tags the verified image with the release version (e.g., `v1.0`)
 
-| Task - deploy-to-stage
-| Updates `overlays/stage` to trigger Argo CD deployment
+| deploy-to-stage
+| Updates the `overlays/stage` directory to trigger deployment via Argo CD
 |===
 
-== 💡 Key Takeaways
+== Key Takeaways
 
-- Tagging a release triggers the entire secure promotion pipeline.
-- Enterprise Contract ensures only compliant images move forward.
-- Jenkins shared library `RHTAP_Jenkins@main` encapsulates best practices.
-- GitOps overlays manage environment-specific configuration.
-- Argo CD continuously ensures the cluster matches Git.
+- Tagging a Git release initiates a secure image promotion process.
+- Enterprise Contract enforces compliance, provenance, and security checks.
+- Jenkins shared library `RHTAP_Jenkins@main` standardizes CI/CD workflows.
+- GitOps overlays provide clear, auditable environment separation.
+- Argo CD ensures continuous deployment aligned with Git state.
 
-== 🧩 Optional Enhancements
+== Optional Enhancements
 
-Use these if you want to go deeper during the demo:
+Use these to explore additional details during the demo:
 
-- Simulate a failed validation (e.g., use an unsigned image)
-- Show image tags in Quay: `:abc123` and `:v1.2.3`
-- Demo Argo CD UI syncing to `stage`
-- Display the Enterprise Contract policy bundle
-- Explain that production promotion uses a different overlay and release tag
+- Simulate a failed Enterprise Contract validation by using an unsigned image
+- Show the image in Quay with both tags: `:abc123` (commit) and `:v1.0` (release)
+- Open the Argo CD UI and demonstrate syncing the `stage` environment
+- Display the Enterprise Contract policy bundle used for validation
+- Explain that production promotion uses a similar process, triggered by a GitLab release and applied to the `prod` overlay
