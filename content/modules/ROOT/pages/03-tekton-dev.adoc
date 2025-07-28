@@ -113,13 +113,22 @@ image::tekton-dev-6.png[]
 . Click the component name to open its *Overview* page
 . Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
 +
-image::tekton-dev-6.png[]
-. If redirected, click *Log In with OpenShift*, then sign in with:
+image::tekton-dev-7.png[]
+. If redirected, click *Log in with OpenShift*
++
+image::tekton-dev-8.png[]
+. Sign in with:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
 . On the *Authorize Access* screen, click *Allow selected permissions*
-. On the repository trust prompt, click *Continue*
++
+image::tekton-dev-9.png[]
+. On the repository trust prompt, click the checkbox and then click *Continue*
++
+image::tekton-dev-10.png[]
 . When prompted to authenticate with GitLab:
++
+image::tekton-dev-11.png[]
   - Username: `{gitlab_user}`
   - Password: `{gitlab_user_password}`
 . Click *Authorize devspaces*
