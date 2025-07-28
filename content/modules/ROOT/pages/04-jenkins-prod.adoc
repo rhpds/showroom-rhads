@@ -176,7 +176,7 @@ By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams
 === Task 4: deploy-to-prod
 
 === Say
-* With the production image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
+. With the production image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
 
 === Do
 . In the `deploy-to-prod` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for production.
