@@ -8,15 +8,21 @@ You’ll start by showing how a Git tag acts as a release trigger. This simulate
 
 Walk the audience through the GitLab web interface:
 
-. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] using username `{gitlab_user}` and password `{gitlab_user_password}`.
+. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
++
+image::tekton-stage-1.png[]
 . In the left menu, click on *Code > Tags > New Tag*.
++
+image::tekton-stage-2.png[]
 . Enter a version tag like `v1.2.3`.
 . Choose the target branch (typically `main`).
 . Click *Create Tag*.
++
+image::tekton-stage-3.png[]
 
 [NOTE]
 ====
-_As you do this, explain:_  
+_As you do this, explain:_
 "This simulates a release event. The moment this tag is created, a GitLab webhook kicks off the OpenShift Pipelines pipeline — the one that promotes the image to ACME's staging environment."
 ====
 
@@ -32,7 +38,7 @@ git push --tags
 
 [NOTE]
 ====
-_Explain:_  
+_Explain:_
 "This does the same thing — triggers the pipeline tied to this Git tag."
 ====
 
@@ -41,10 +47,12 @@ Now guide your audience to *Developer Hub*:
 . Go to the *my-quarkus-tkn* component.
 . Click the *CI* tab to see pipeline runs.
 . Expand the job labeled *promote-to-stage* to follow its progress.
++
+image::tekton-stage-3.png[]
 
 [NOTE]
 ====
-Use this view to explain each task as it executes.  
+Use this view to explain each task as it executes.
 Let your audience see the automation in action — no manual approvals, just policy-driven promotion.
 ====
 
@@ -55,18 +63,18 @@ As the OpenShift Pipelines pipeline runs, guide your audience through the follow
 
 === Task 1.1: `extract-destination-image-tag`
 
-Say:  
+Say:
 "This task grabs the Git tag we just created — like `v1.2.3` — and makes it available as a variable in the pipeline."
 
-Explain:  
+Explain:
 It’s a simple but essential step. Every subsequent task needs to know which version it’s working with, and this tag becomes the anchor point for traceability.
 
 === Task 1.2: `gather-images-to-verify`
 
-Say:  
+Say:
 "This task figures out which image we're actually trying to promote."
 
-Explain:  
+Explain:
 During the original CI build, the image was tagged with the Git commit ID — something like `abc123def456`. Now we’re mapping the Git tag (e.g., `v1.2.3`) back to that commit ID, and linking that to the corresponding container image.
 
 The result is saved into an `images.json` file, which becomes the single source of truth for what’s about to be verified and promoted.
@@ -91,14 +99,14 @@ The result is saved into an `images.json` file, which becomes the single source 
 
 [NOTE]
 ====
-_Point out:_  
+_Point out:_
 "This mapping between Git commit and container image provides end-to-end traceability — we know exactly what code went into what image."
 ====
 
 
 === Task 2: `verify-enterprise-contract`
 
-Say:  
+Say:
 "This is where ACME enforces policy before anything reaches staging. We validate the image using Enterprise Contract — a tool that ensures everything meets the organization’s security and compliance requirements."
 
 ==== Do:
@@ -154,14 +162,14 @@ The `ec` CLI bundles multiple supply chain checks into one command, making compl
 
 [IMPORTANT]
 ====
-If any check fails, the pipeline halts.  
+If any check fails, the pipeline halts.
 If everything passes, the image moves forward to the next promotion step.
 ====
 
 
 === Task 3: `copy-image`
 
-Say:  
+Say:
 "Now that ACME’s image has passed validation, we promote it. But instead of rebuilding, we tag the verified image with the release version for clarity and traceability."
 
 ==== Do:
@@ -188,7 +196,7 @@ This guarantees that only validated artifacts are promoted — no sneaky image c
 
 === Task 4: `update-deployment`
 
-Say:  
+Say:
 "Now we need to reflect this new image in the actual environment — and we do that by updating the GitOps repo."
 
 ==== Do:
