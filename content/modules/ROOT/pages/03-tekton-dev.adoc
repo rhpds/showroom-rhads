@@ -38,12 +38,15 @@ Now that we understand the problem, let’s show how a developer at Acme Retail 
 
 Do::
 . Navigate to `{rhdh_url}` and click *Sign In* on the OIDC login prompt.
+image::tekton-dev-1.jpg[]
 . Enter your credentials:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
 . In the top-right corner, click the **+ Self-service** button to create a new software component.
+image::tekton-dev-2.jpg[]
 . Select the template:
-  _Securing a Quarkus Service Software Supply Chain (OpenShift Pipelines)_
+  _Securing a Quarkus Service Software Supply Chain (Tekton)_
+image::tekton-dev-3.jpg[]
 . Accept the default values provided in the form unless customization is needed.
 
 Application Information:
@@ -140,7 +143,7 @@ git commit -m "Update"
 . The terminal will prompt you with a URL for commit signing via `gitsign`
 . Open the URL in your browser and approve the request
 . Copy the verification code shown in the browser
-. Paste the code into the terminal to complete the signing process  
+. Paste the code into the terminal to complete the signing process
   (Allow paste functionality if prompted)
 
 . Push your changes:
@@ -199,17 +202,17 @@ Walk your audience through each stage of the pipeline to show how it enforces se
 
 === Task 1: `init`
 
-Initializes pipeline resources and artifacts required for this pipeline run.  
+Initializes pipeline resources and artifacts required for this pipeline run.
 This sets up any reusable components needed downstream.
 
 === Task 2: `clone-repository`
 
-Clones the source code repository that triggered the pipeline.  
+Clones the source code repository that triggered the pipeline.
 This ensures the latest code is fetched for verification and build.
 
 === Task 3: `verify-commit`
 
-Verifies the Git commit signature using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).  
+Verifies the Git commit signature using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).
 This step ensures the commit comes from a trusted source and hasn’t been tampered with.
 
 > Clicking on this task in the pipeline UI will show details like who signed the commit and whether it passed verification.
@@ -233,12 +236,12 @@ It then:
 
 Uploads the SBOM to **Red Hat Trusted Profile Analyzer (TPA)** so teams can analyze it for CVEs, vendor advisories, and vulnerabilities.
 
-> You can access TPA at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.  
+> You can access TPA at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.
 > Click *SBOMs* on the left menu to view results.
 
 === Task 6.2: `update-deployment`
 
-Commits the new image reference into the GitOps repository.  
+Commits the new image reference into the GitOps repository.
 This allows **OpenShift GitOps** (Argo CD) to automatically deploy the new version.
 
 === Task 7.1: `acs-image-check`
@@ -329,15 +332,15 @@ This demo showcases how Red Hat Developer Hub and the Advanced Developer Suite e
 
 === Optional Enhancements
 
-* *Explore the Developer Hub Catalog entry* for the new software component  
+* *Explore the Developer Hub Catalog entry* for the new software component
   - Highlight metadata like links to GitLab, pipeline history, Quay images, and RHACS results.
 
-* *Show integration depth*  
-  - Follow the commit link from Developer Hub to GitLab.  
+* *Show integration depth*
+  - Follow the commit link from Developer Hub to GitLab.
   - View the running OpenShift Pipelines execution and associated artifacts.
 
-* *Demonstrate template flexibility*  
+* *Demonstrate template flexibility*
   - Mention how teams can build similar templates for other tech stacks like Python, Node.js, or Spring Boot.
 
-* *Highlight collaboration opportunities*  
+* *Highlight collaboration opportunities*
   - Emphasize how platform and security teams can co-develop templates and pipelines to bake in policy and compliance.
