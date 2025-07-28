@@ -108,8 +108,12 @@ Now that the application has been scaffolded and registered, let’s make a code
 
 Do::
 . In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
++
+image::tekton-dev-6.png[]
 . Click the component name to open its *Overview* page
 . Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
++
+image::tekton-dev-6.png[]
 . If redirected, click *Log In with OpenShift*, then sign in with:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
