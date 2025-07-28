@@ -234,7 +234,7 @@ You should see three pipeline runs:
 - `promote-to-stage`
 - `promote-to-prod`
 
-image::jenkins-dev-17.png[]
+image::jenkins-dev-18.png[]
 
 The pipeline `maven-ci-build` should be running. Click on *View build* to open Jenkins.
 
