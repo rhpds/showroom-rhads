@@ -229,6 +229,8 @@ Say this:
 > “Now that we’ve pushed code, let’s switch over to see what the CI/CD pipeline is doing behind the scenes.”
 
 In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
++
+image::tekton-dev-18.png[]
 
 Walk your audience through each stage of the pipeline to show how it enforces security and automation at every step.
 
