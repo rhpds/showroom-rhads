@@ -99,7 +99,7 @@ This single action bootstraps the entire delivery stack for the developer:
 
 The developer doesn't have to write YAML or coordinate with platform or security teams — it’s all baked into the golden path template.
 +
-image::tekton-dev-4.png[]
+image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
