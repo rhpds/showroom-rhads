@@ -80,7 +80,9 @@ Tell your audience:
 == Pipeline Tasks
 
 image::jenkins-stage-6.png[]
-As the Jenkins pipeline runs, guide the audience through each of the following tasks. Each task demonstrates a critical part of the secure software supply chain.
+=== Say
+* Let’s walk through what happens in each step of the Jenkins pipeline as we promote the image to stage.
+* Each task here is essential for ensuring a secure and trusted software delivery pipeline.
 
 === Task 1: gather-images
 
@@ -115,26 +117,21 @@ This file becomes the source of truth for the validation step. It captures both 
 
 === Task 2: verify-ec
 
-Let your audience know this is where supply chain security checks occur.
+=== Say
+* Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes to production.
 
-The goal here is to validate the image to ensure it’s safe, verified, and meets your organization’s security policies.
-
-.Step 1: Initialize trust with Cosign
-
-This step sets up the trust system Cosign uses to verify digital signatures.
+=== Do
+. Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
+. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
 
 [source,bash]
 ----
 cosign initialize \
-  --mirror http://tuf.tssc-tas.svc \
-  --root http://tuf.tssc-tas.svc/root.json
+  --mirror https://tuf.tssc-tas.dev \
+  --root https://tuf.tssc-tas.dev/root.json
 ----
 
-Explain:
-- `cosign` is a tool that verifies if a container image was signed by a trusted source.
-- `tuf.tssc-tas.svc` is the internal trust server that holds our root of trust data.
-
-.Step 2: Validate the image with Enterprise Contract
+. It validates the image using Enterprise Contract:
 
 [source,bash]
 ----
@@ -145,9 +142,21 @@ ec validate image \
   --output json
 ----
 
-This command checks the image against a set of security and compliance rules.
+.Sample output
+[source,json]
+----
+{
+  "successes": [
+    "Image is signed and verified with cosign",
+    "SBOM (CycloneDX) is present",
+    "Provenance matches repository",
+    "No critical vulnerabilities found"
+  ],
+  "failures": []
+}
+----
 
-Explain:
+=== Explain
 - `ec validate` means "Enterprise Contract is now checking your image"
 - `--image` is the container image you want to validate
 - `--policy` is the set of rules it must follow (stored in Git)
@@ -179,7 +188,11 @@ Optional: Simulate a failed validation by pushing an unsigned image or one missi
 
 === Task 3: update-image-tag-for-stage
 
-Let the audience know that once the image passes validation, this step applies a release version tag.
+=== Say
+* Now that the image has passed all security gates, we give it a special tag to mark it as ready for stage i.e qa.
+
+=== Do
+In the `update-image-tag-for-stage` stage, Jenkins uses `skopeo` to copy the image and apply a new tag.  Let the audience know that once the image passes validation, this step applies a release version tag:
 
 [source,bash]
 ----
@@ -196,7 +209,11 @@ Explain:
 
 === Task 4: deploy-to-stage
 
-Let the audience know that this step updates the GitOps repository with the new image tag.
+* With the stage image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
+
+=== Do
+. In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
+. This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
 
 The pipeline modifies:
 

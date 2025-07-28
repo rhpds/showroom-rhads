@@ -97,7 +97,7 @@ The same Jenkins pipeline is reused, but its behavior changes based on the trigg
 === Explain
 This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
 
-=== Task 2: verify-enterprise-contract
+=== Task 2: verify-ec
 
 === Say
 * Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes anywhere near production.
