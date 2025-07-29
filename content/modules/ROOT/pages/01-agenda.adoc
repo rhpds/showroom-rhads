@@ -2,9 +2,6 @@
 :toc:
 :toc-placement: preamble
 :icons: font
-:numbered: false
-:sectnums!:
-:chapter-signifier:
 
 == Module 1: Demo Agenda
 

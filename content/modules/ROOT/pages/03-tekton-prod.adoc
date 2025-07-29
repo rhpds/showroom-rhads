@@ -1,9 +1,6 @@
 = Advanced Developer Suite Demo Narrative
 Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion
 :icons: font
-:numbered: false
-:sectnums!:
-:chapter-signifier:
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1
