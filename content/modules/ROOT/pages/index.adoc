@@ -30,6 +30,7 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Presentation Tips
 
 **Opening (5 minutes):**
+
 * Start with Module 1 (Agenda) to set expectations
 * Use Module 2 (Introduction) to establish ACME's business context
 * Emphasize the "4 weeks vs 10 weeks" crisis that resonates with most enterprises
@@ -61,6 +62,7 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Technical Environment Requirements
 
 **Demo Infrastructure:**
+
 * Red Hat Developer Hub instance
 * GitLab repository access
 * OpenShift cluster with Tekton/Jenkins
@@ -68,6 +70,7 @@ This guide helps sales engineers and technical presenters deliver an effective R
 * Enterprise Contract policies configured
 
 **Credentials Needed:**
+
 * RHDH user access
 * GitLab credentials
 * OpenShift login details
@@ -75,16 +78,19 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Troubleshooting Common Issues
 
 **Pipeline Failures:**
+
 * Check GitLab webhook configuration
 * Verify container registry credentials
 * Confirm Enterprise Contract policies are accessible
 
 **Authentication Problems:**
+
 * Validate OIDC configuration in Developer Hub
 * Check OpenShift user permissions
 * Verify GitLab token expiration
 
 **Performance Issues:**
+
 * Monitor OpenShift cluster resources
 * Check pipeline queue status
 * Verify container image pull times
@@ -92,11 +98,13 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Follow-Up Resources
 
 **Customer Handouts:**
+
 * RHADS product overview documentation
 * Enterprise Contract policy examples
 * ROI calculator and business case templates
 
 **Next Steps:**
+
 * Schedule technical deep-dive sessions
 * Provide evaluation environment access
 * Connect with Red Hat solution architects
@@ -104,12 +112,14 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Success Metrics
 
 **Demo Success Indicators:**
+
 * Customer asks specific implementation questions
 * Request for proof-of-concept or pilot
 * Interest in enterprise licensing discussions
 * Follow-up meetings scheduled with technical teams
 
 **Business Value Delivered:**
+
 * Clear understanding of automation benefits
 * Confidence in security and compliance capabilities
 * Awareness of existing tool enhancement vs replacement
@@ -118,6 +128,6 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Contact Information
 
 For demo environment issues or technical questions:
-* Red Hat Solution Architecture team
+* Red Hat Demo Platform Team
 * Product documentation: https://developers.redhat.com/products/advanced-developer-suite
 * Technical support channels 

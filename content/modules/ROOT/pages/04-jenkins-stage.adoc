@@ -46,12 +46,14 @@ The code snippets in this guide are provided for illustrative and simplified pur
 Know:: ACME's transformation from manual Jenkins staging coordination to instant automated validation — showing how a simple Git tag action triggers enterprise-grade staging deployment automatically while preserving familiar Jenkins workflows.
 
 **ACME's Traditional Jenkins Staging Initiation:**
+
 * Platform team manually schedules Jenkins staging deployments during specific maintenance windows
 * Development teams wait 2-3 days for Jenkins staging environment availability
 * Manual coordination between multiple teams before Jenkins staging deployment
 * Emergency staging requests often bypass proper Jenkins validation under deadline pressure
 
 **Business Cost of Manual Jenkins Staging Coordination:**
+
 * Each staging deployment requires 15+ hours of cross-team coordination
 * Staging delays cost ACME competitive advantage during feature development cycles
 * Manual Jenkins processes create unpredictable staging timelines for business planning
@@ -65,6 +67,7 @@ Know:: ACME's transformation from manual Jenkins staging coordination to instant
 * **Business Velocity:** Features validated quickly using enhanced Jenkins infrastructure
 
 **Business Impact for ACME:**
+
 * Staging coordination time: 2-3 days → Instant through Git tag
 * Platform team efficiency: 80% reduction in Jenkins staging requests
 * Development velocity: No staging bottlenecks using automated Jenkins
@@ -258,6 +261,7 @@ Know:: ACME's staging quality gate for production readiness through Jenkins — 
 * **Production Preview:** Staging becomes accurate production preview using Jenkins-validated images
 
 **Why This Matters for ACME's Business:**
+
 * **Feature Confidence:** Only security-validated features deployed through Jenkins to staging environment
 * **Staging Reliability:** Jenkins audit trail proving every staging feature was properly validated
 * **Quality Excellence:** Clear separation between development and staging-ready features in Jenkins
@@ -290,6 +294,7 @@ Know:: ACME's automated bridge from Jenkins staging validation to feature testin
 * **Continuous Validation:** All staging changes follow the same validated Jenkins security process
 
 **Business Impact for ACME:**
+
 * **Staging Confidence:** Jenkins and Argo CD ensure exactly what was validated gets deployed to staging
 * **Risk Elimination:** No manual staging steps that could introduce errors during critical feature validation
 * **Quality Automation:** Staging environment continuously reflects audited Git state through Jenkins
@@ -372,6 +377,7 @@ skopeo copy \
 ----
 
 **Task 4: deploy-to-stage**
+
 * In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
 * This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
 
