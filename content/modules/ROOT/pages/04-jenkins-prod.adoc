@@ -32,14 +32,8 @@ The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
 The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
 ====
 
-=== Say
-. We have two types of triggers configured in this setup: one for staging and one for production.
+Know:: We have two types of triggers configured in this setup: one for staging and one for production.
 
-=== Do
-. Push a Git tag to simulate a staging promotion
-. Create a GitLab release to simulate a production promotion
-
-=== Explain
 The pipeline reacts differently based on the trigger:
 
 - A simple Git tag push promotes the image to *staging* using the `stage` overlay.
@@ -47,12 +41,19 @@ The pipeline reacts differently based on the trigger:
 
 This separation allows teams to enforce distinct policies and approval flows for different environments, while still using the same Jenkins pipeline under the hood.
 
+Show::
+. Push a Git tag to simulate a staging promotion
+. Create a GitLab release to simulate a production promotion
+
 == GitLab Release – Promote to Production
 
-=== Say
-. Now let’s see how a developer promotes a validated image from staging to production using a GitLab Release.
+Know:: Now let's see how a developer promotes a validated image from staging to production using a GitLab Release.
 
-=== Do
+Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. The pipeline automatically detects that this is a *release event* and switches into production promotion mode. This ensures the same validated image is now promoted to the production environment.
+
+The same Jenkins pipeline is reused, but its behavior changes based on the trigger type — a Git tag push promotes to staging, while a GitLab release promotes to production.
+
+Show::
 . Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
 image::jenkins-prod-1.png[]
@@ -80,27 +81,65 @@ image::jenkins-prod-4.png[]
 +
 image::jenkins-prod-5.png[]
 
-=== Explain
-Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. The pipeline automatically detects that this is a *release event* and switches into production promotion mode. This ensures the same validated image is now promoted to the production environment.
 
-The same Jenkins pipeline is reused, but its behavior changes based on the trigger type — a Git tag push promotes to staging, while a GitLab release promotes to production.
 
 == Pipeline Tasks
 
 image::jenkins-prod-6.png[]
-=== Say
-* Let’s walk through what happens in each step of the Jenkins pipeline as we promote the image to production.
-* Each task here is essential for ensuring a secure and trusted software delivery pipeline.
+
+Know:: Let's walk through what happens in each step of the Jenkins pipeline as we promote the image to production. Each task here is essential for ensuring a secure and trusted software delivery pipeline.
 
 === Task 1: gather-images
+The first thing Jenkins needs to know is: what exactly are we promoting?
 
-=== Say
-* The first thing Jenkins needs to know is: what exactly are we promoting?
+In the `gather-images` stage, Jenkins calls the GitLab API to fetch the release tag (e.g. `v1.0`). Based on this tag, it constructs the container image URL that was built and signed in the staging phase. It creates an `images.json` file to describe the image metadata and where it came from.
 
-=== Do
-. In the `gather-images` stage, Jenkins calls the GitLab API to fetch the release tag (e.g. `v1.0`).
-. Based on this tag, it constructs the container image URL that was built and signed in the staging phase.
-. It creates an `images.json` file to describe the image metadata and where it came from.
+This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
+
+=== Task 2: verify-ec
+Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes anywhere near production.
+
+Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots, then validates the image using Enterprise Contract.
+
+This check bundles multiple security policies into one step:
+
+- Verifies signatures (Cosign)
+- Checks for Software Bill of Materials (SBOM)
+- Confirms supply chain integrity (SLSA provenance)
+- Runs CVE checks
+- Enforces any custom org rules
+
+If any of these fail, the pipeline stops immediately — the image is not promoted.
+
+=== Task 3: update-image-tag-for-prod
+Now that the image has passed all security gates, we give it a special tag to mark it as production-ready.
+
+In the `update-image-tag-for-prod` stage, Jenkins uses `skopeo` to copy the image and apply a new tag. This tag includes a `prod-` prefix to clearly distinguish it from staging or dev versions.
+
+This step doesn't rebuild the image. It simply re-tags a verified, immutable image — ensuring traceability.
+
+By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams, and auditors that:
+- The image has passed all validations
+- It's safe and approved for production
+- Its origin and promotion path are transparent
+
+=== Task 4: deploy-to-prod
+With the production image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
+
+In the `deploy-to-prod` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for production. This updates the image tag in the `deployment-patch.yaml` to reference the new production-approved image.
+
+This change is committed and pushed to the GitOps repository under the `overlays/prod/` directory.
+
+Argo CD is continuously watching this repository. Once it sees the update:
+- It syncs the manifests
+- Deploys the new image to the production cluster
+- No manual approval or CLI interaction is needed
+
+This final step completes the promotion workflow — fully automated, fully auditable, and GitOps-native.
+
+Show::
+
+=== Task 1: gather-images Example
 
 .Example `images.json`
 [source,json,subs="attributes"]
@@ -120,17 +159,9 @@ image::jenkins-prod-6.png[]
 }
 ----
 
-=== Explain
-This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
+=== Task 2: verify-ec Commands
 
-=== Task 2: verify-ec
-
-=== Say
-* Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes anywhere near production.
-
-=== Do
-. Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
-. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
+Cosign trust initialization:
 
 [source,bash]
 ----
@@ -139,7 +170,7 @@ cosign initialize \
   --root https://tuf.tssc-tas.dev/root.json
 ----
 
-. It validates the image using Enterprise Contract:
+Enterprise Contract validation:
 
 [source,bash]
 ----
@@ -164,25 +195,7 @@ ec validate image \
 }
 ----
 
-=== Explain
-This check bundles multiple security policies into one step:
-
-- Verifies signatures (Cosign)
-- Checks for Software Bill of Materials (SBOM)
-- Confirms supply chain integrity (SLSA provenance)
-- Runs CVE checks
-- Enforces any custom org rules
-
-If any of these fail, the pipeline stops immediately — the image is not promoted.
-
-=== Task 3: update-image-tag-for-prod
-
-=== Say
-* Now that the image has passed all security gates, we give it a special tag to mark it as production-ready.
-
-=== Do
-. In the `update-image-tag-for-prod` stage, Jenkins uses `skopeo` to copy the image and apply a new tag.
-. This tag includes a `prod-` prefix to clearly distinguish it from staging or dev versions.
+=== Task 3: update-image-tag-for-prod Command
 
 [source,bash]
 ----
@@ -191,22 +204,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
-=== Explain
-This step doesn’t rebuild the image. It simply re-tags a verified, immutable image — ensuring traceability.
-
-By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams, and auditors that:
-- The image has passed all validations
-- It’s safe and approved for production
-- Its origin and promotion path are transparent
-
-=== Task 4: deploy-to-prod
-
-=== Say
-. With the production image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
-
-=== Do
-. In the `deploy-to-prod` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for production.
-. This updates the image tag in the `deployment-patch.yaml` to reference the new production-approved image.
+=== Task 4: deploy-to-prod Files
 
 .`deployment-patch.yaml`
 [source,yaml]
@@ -230,23 +228,15 @@ spec:
 +          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
-=== Explain
-This change is committed and pushed to the GitOps repository under the `overlays/prod/` directory.
-
-Argo CD is continuously watching this repository. Once it sees the update:
-- It syncs the manifests
-- Deploys the new image to the production cluster
-- No manual approval or CLI interaction is needed
-
-This final step completes the promotion workflow — fully automated, fully auditable, and GitOps-native.
-
 == Summary
 
-=== Say
-* Let’s wrap up this workflow with a quick summary of what just happened during the production promotion.
+Know:: Let's wrap up this workflow with a quick summary of what just happened during the production promotion.
 
-=== Do
-* Review the following steps to reinforce the end-to-end flow.
+This summary illustrates how production promotion is secure, automated, and fully traceable — using GitOps best practices and Red Hat's trusted CI/CD tooling.
+
+Show::
+
+Review the following steps to reinforce the end-to-end flow:
 
 [cols="1,1",options="header"]
 |===
@@ -262,11 +252,8 @@ This final step completes the promotion workflow — fully automated, fully audi
 | The pipeline validates the image using EC policies — checking signatures, SBOM, provenance, and CVEs.
 
 | Tagging
-| Once validated, the image is re-tagged with a `prod-<tag>` suffix to indicate it’s production-ready.
+| Once validated, the image is re-tagged with a `prod-<tag>` suffix to indicate it's production-ready.
 
 | GitOps Update
 | The pipeline updates the `overlays/prod/` directory in the GitOps repo. Argo CD picks up the change and deploys it automatically.
 |===
-
-=== Explain
-This summary illustrates how production promotion is secure, automated, and fully traceable — using GitOps best practices and Red Hat’s trusted CI/CD tooling.

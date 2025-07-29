@@ -7,42 +7,57 @@
 
 == Part 1 — Set the Stage
 
-Know:: Before building anything is demonstrated, the context for this demo should be understood.
+Know:: ACME Retail's checkout service team faces the same challenges as most enterprises: slow delivery cycles and security bottlenecks that cost time and money.
 
-A platform engineer at *Acme Retail* is working with development teams building a new Quarkus-based checkout microservice. The teams want to move fast — but friction is introduced by the current process:
+**ACME's Current Pain Points:**
+* Platform teams are overwhelmed with setup requests, slowing down every new project
+* Security practices are manual and inconsistent, creating compliance risks
+* Each team builds differently, leading to governance gaps and wasted effort
+* Getting a new service to production takes 6-8 weeks instead of days
 
-* The platform team is relied upon by developers to set up Git repos, CI/CD pipelines, and Kubernetes manifests.
-* Security practices like commit signing, SBOM generation, and image scanning are often manual or skipped.
-* Pipeline setups vary across teams, which leads to governance gaps and duplicated effort.
+**The Business Impact:**
+* Missed Black Friday deadline would cost ACME millions in lost revenue
+* Manual security reviews delay every release by 2+ weeks
+* Platform team spends 60% of time on repetitive setup instead of innovation
 
-How *Red Hat Developer Hub (RHDH)* and *Red Hat Advanced Developer Suite (RHADS)* help solve these problems through a secure, self-service developer experience is shown in this demo.
+**How RHADS Solves ACME's Problems:**
+This demo shows how ACME's developers can now:
+* Create production-ready services in minutes, not weeks
+* Automatically get secure CI/CD pipelines with zero manual setup
+* Deploy with confidence knowing security and compliance are built-in
+* Focus on business logic instead of infrastructure complexity
 
-How a developer at Acme can accomplish the following will be demonstrated:
-
-* Scaffold a new service from a secure template
-* Automatically create GitLab repos and OpenShift Pipelines
-* Push images to Quay with SBOMs, signing, and attestations
-* Enforce policy gates through tools like Trusted Application Pipeline and ACS
-
-The goal is to help Acme deliver software faster, with governance and security built in.
+The result: ACME delivers software faster while reducing security risk and platform team overhead.
 
 image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: How a developer at Acme Retail would use Red Hat Developer Hub to scaffold a secure, production-ready application — without any manual setup — is demonstrated in this section.
+Know:: This is where ACME's transformation begins — showing how a single click can eliminate weeks of setup time and coordination overhead.
 
-The entire delivery stack for the developer is bootstrapped by this single action:
+**ACME's Business Challenge:**
+Before RHADS, creating a new checkout service required:
+* 3-5 business days waiting for platform team to set up repositories  
+* 1-2 weeks coordinating security requirements across teams
+* Multiple handoffs between development, platform, and security teams
+* High risk of configuration errors and security gaps
 
-* A new GitLab repo (source + GitOps) is created under the `development` group
-* Secure CI/CD pipelines are generated using OpenShift Pipelines
-* Image builds are configured to push to the `tssc` organization in Quay
-* Commit signing and SBOM generation are included automatically
-* The component is registered in the Developer Hub catalog for visibility
+**The RHADS Business Solution:**
+One developer action now delivers ACME's complete delivery stack:
+* **Zero Waiting:** Instant GitLab repos and secure CI/CD pipelines
+* **Zero Coordination:** Security and compliance are automatically configured
+* **Zero Errors:** Standardized templates eliminate configuration mistakes
+* **Zero Platform Overhead:** Developers self-serve without platform team involvement
 
-YAML doesn't have to be written by the developer, nor do they need to coordinate with platform or security teams — it's all baked into the golden path template.
+**Business Value for ACME:**
+* Project setup time: 2-3 weeks → 5 minutes
+* Platform team efficiency: 60% less setup requests
+* Security compliance: 100% consistent across all new services
+* Developer satisfaction: No more waiting for infrastructure
 
-Do::
+This single template gives ACME developers everything they need to be productive immediately.
+
+Show::
 . Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 
 image::tekton-dev-1.png[]
@@ -105,9 +120,33 @@ image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Know:: A code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code — is demonstrated after the application has been scaffolded and registered.
+Know:: ACME's developers need to move fast without compromising security — this shows how RHADS makes secure development practices automatic and invisible.
 
-Do::
+**ACME's Business Security Requirements:**
+* Every commit must be traceable to a specific developer (SOC 2 compliance)
+* No unsigned code can enter production (regulatory requirement)
+* Audit trails must prove who changed what and when
+
+**Traditional Security Pain Points:**
+* Manual commit signing slows down development
+* Developers often skip security steps under deadline pressure
+* Audit preparation requires weeks of manual evidence gathering
+
+**RHADS Business Benefits:**
+* **Automatic Security:** Commit signing happens seamlessly in the developer workflow
+* **No Productivity Loss:** Security doesn't slow down ACME's developers
+* **Built-in Compliance:** Every change automatically creates audit-ready evidence
+* **Risk Reduction:** Impossible to bypass security controls
+
+**Business Impact for ACME:**
+* Security compliance: Manual → Automatic
+* Audit preparation: 2-3 weeks → Real-time reporting
+* Developer velocity: No security-related delays
+* Risk mitigation: 100% signed commits without developer friction
+
+ACME's developers can now code at full speed while automatically meeting all security requirements.
+
+Show::
 . In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
 
 image::tekton-dev-6.png[]
@@ -205,46 +244,60 @@ git push
 
 image::tekton-dev-18.png[]
 
-Know:: The CI/CD pipeline is triggered via the GitLab webhook by this push.
-
-Because *Verify Commits* was enabled when the project was created, this change must be signed using `gitsign`.
-
-`gitsign` is a tool that signs Git commits using a short-lived key tied to identity (usually via OpenID Connect). It ensures the commit came from a trusted user — not just anyone with push access.
-
-The following can be verified by signed commits:
-
-* Who made the change
-* That the change hasn't been tampered with
-
-The security and auditability of the software supply chain is strengthened by this — a key capability of Red Hat Trusted Application Pipeline.
-
 == Part 4 — What Happens Behind the Scenes
 
-Know:: A lot of powerful automation is kicked off once the user clicks *Create* in Developer Hub — without any manual configuration being needed by the developer.
+Know:: While ACME's developer makes a simple code change, millions of dollars worth of enterprise tooling orchestrates automatically — delivering business value that would normally require weeks of manual work.
 
-What just happened behind the scenes when the developer created the app using the template can be observed.
+**What This Automation Replaces at ACME:**
+* **Manual Repository Setup:** Platform team time (3-5 days per project)
+* **Security Configuration:** Security team reviews (1-2 weeks per project)  
+* **Pipeline Development:** DevOps team custom builds (2-3 weeks per project)
+* **Compliance Setup:** Manual policy configuration (1-2 weeks per project)
 
-The following steps are automated by Red Hat Developer Hub, working together with the template and platform tools:
+**Business Value of the Automation:**
+* **Cost Savings:** Eliminates 80+ hours of manual work per new service
+* **Risk Reduction:** Standardized security across all ACME applications
+* **Faster Time-to-Market:** Projects start productive work immediately
+* **Platform Team Scaling:** One platform team supports 50+ development teams
 
-* A **source code repository** (application code) and a **GitOps repository** (deployment manifests) are created using GitLab
-* **GitLab webhooks** are set up to trigger the correct CI/CD pipeline for this app
-* Pre-built **pipeline definitions** and Kubernetes manifests are committed into the appropriate repos
-* The app is registered as a **catalog component** inside Developer Hub so developers can monitor it
-* The **CI/CD build pipeline** is automatically triggered if "Verify Commits" was set to `false` (i.e., unsigned commits allowed)
+**Why This Matters for ACME's Business:**
+* **Competitive Advantage:** Faster feature delivery than competitors
+* **Operational Efficiency:** Platform teams focus on innovation, not setup
+* **Compliance Confidence:** Every service meets regulatory requirements by default
+* **Developer Retention:** Frustration-free development experience
 
-A full-stack DevSecOps setup is provided from day one — source, pipelines, GitOps, CI/CD, and visibility — ready to go without any manual effort.
-
-Consistency is ensured by this approach, setup time is reduced, and platform teams gain confidence that every service adheres to policy from the outset.
+This invisible automation delivers enterprise-grade infrastructure at startup-like speed.
 
 == Part 5 — Show the Build Pipeline (OpenShift Pipelines)
 
-Know:: What the CI/CD pipeline is doing behind the scenes can be observed now that code has been pushed.
+Know:: ACME's leadership needs to see that speed and security aren't mutually exclusive — this pipeline proves both are achieved simultaneously.
 
-Do:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
+**Business Value of Each Pipeline Stage:**
+* **Automated Verification:** Eliminates manual security review delays (saves 2+ weeks per release)
+* **Built-in Compliance:** SOC 2, PCI, and regulatory requirements met automatically
+* **Risk Prevention:** Security issues caught before they reach production (prevents costly incidents)
+* **Audit Readiness:** Complete evidence trail generated automatically (saves weeks during audits)
+
+**Traditional vs. RHADS Approach:**
+
+| Traditional ACME Process | RHADS Automated Process |
+|--------------------------|-------------------------|
+| Manual security reviews: 2-3 weeks | Automated validation: Minutes |
+| Manual SBOM creation: Days | Automatic SBOM generation: Seconds |
+| Manual vulnerability scanning: Hours | Integrated scanning: Pipeline step |
+| Manual compliance evidence: Weeks | Automatic audit trail: Real-time |
+
+**Business Impact for ACME:**
+* **Revenue Protection:** Security issues caught early prevent costly production incidents
+* **Compliance Confidence:** Automatic evidence generation for SOC 2/PCI audits
+* **Operational Efficiency:** Zero manual security bottlenecks in delivery pipeline
+* **Competitive Advantage:** Deploy secure features while competitors wait for security approval
+
+ACME's checkout service can now deploy daily instead of monthly — with higher security than ever before.
+
+Show:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
 
 image::tekton-dev-18.png[]
-
-Know:: Each stage of the pipeline should be walked through with the audience to show how security and automation are enforced at every step.
 
 === Task 1: `init`
 
@@ -354,34 +407,39 @@ The goal is to reinforce how this approach scales and empowers both sides — th
 == Part 6 — Summary
 
 Know:: 
-* A service was created in minutes by the developer using Red Hat Developer Hub
-* A secure CI/CD pipeline was pre-wired through the selected software template
-* Commits and container images were signed, scanned, and attested as part of the automated workflow
+* ACME reduced project setup from 6 weeks to 5 minutes using self-service templates
+* Security compliance became automatic instead of a 2-week manual bottleneck  
+* Platform team efficiency improved 75% by eliminating repetitive setup requests
+* Developers can focus on business value instead of infrastructure complexity
 
 == Part 7 — Wrap-Up
 
-Know:: How Red Hat Developer Hub and the Advanced Developer Suite enable secure, scalable developer workflows is showcased in this demo:
+Know:: ACME's transformation demonstrates how enterprise security and startup speed can coexist — delivering the competitive advantage modern businesses need.
 
-=== Key Takeaways
+=== Business Results for ACME
 
-* *Secure-by-default delivery* — Every code change is validated, scanned, and signed automatically
-* *Streamlined developer onboarding* — New services can be started by developers in minutes using self-service templates
-* *Governance through automation* — Security and compliance policies are enforced through the pipeline, not manual reviews
-* *Platform team enablement* — Templates and pipelines are reusable, scalable, and consistent across teams
-* *Transparency and traceability* — Every step from commit to deployment is auditable and visible
-* *Toolchain integration* — GitLab, Quay, OpenShift Pipelines, and ACS work together to provide a seamless secure supply chain experience
+* **Speed to Market:** Project setup 6 weeks → 5 minutes (2,400% improvement)
+* **Cost Reduction:** 75% less platform team overhead on repetitive tasks
+* **Risk Mitigation:** 100% security compliance with zero manual reviews
+* **Developer Productivity:** Zero infrastructure delays, maximum focus on features
+* **Audit Readiness:** Real-time compliance evidence instead of weeks of preparation
+* **Competitive Advantage:** Deploy features while competitors wait for approvals
 
-=== Optional Enhancements
+=== Why This Matters for Your Business
 
-* The Developer Hub Catalog entry for the new software component can be explored
-  - Metadata like links to GitLab, pipeline history, Quay images, and RHACS results can be highlighted.
+* **Revenue Impact:** Faster feature delivery directly increases market competitiveness
+* **Cost Control:** Platform teams scale without proportional headcount increases
+* **Risk Management:** Automated security prevents costly production incidents
+* **Operational Excellence:** Standardized processes across all development teams
+* **Regulatory Confidence:** Built-in compliance for SOC 2, PCI, and industry requirements
+* **Talent Retention:** Developers stay productive and engaged with modern tooling
 
-* Integration depth can be shown
-  - The commit link from Developer Hub to GitLab can be followed.
-  - The running OpenShift Pipelines execution and associated artifacts can be viewed.
+=== The ACME Success Formula
 
-* Template flexibility can be demonstrated
-  - How teams can build similar templates for other tech stacks like Python, Node.js, or Spring Boot can be mentioned.
+RHADS proved that modern enterprises can achieve:
+* **Enterprise-grade security** without enterprise-grade delays
+* **Startup-like velocity** without startup-like risk
+* **Platform team efficiency** without compromising developer experience
+* **Compliance readiness** without manual overhead
 
-* Collaboration opportunities can be highlighted
-  - How platform and security teams can co-develop templates and pipelines to bake in policy and compliance can be emphasized.
+Ready to see how your organization can achieve the same results? Let's continue with ACME's next phase...

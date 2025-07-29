@@ -7,30 +7,14 @@
 
 == Part 1 — Introduce the Context
 
-=== Say
+Know:: Let's take a step back and look at what this demo is really about. Imagine you're a developer at ACME Corp. You just want to write code and ship features. But what usually slows you down? Setting up CI/CD, figuring out how to wire up webhooks, managing GitOps deployment, and making sure all of it meets your company's security and compliance standards.
 
-Let’s take a step back and look at what this demo is really about. Imagine you’re a developer at ACME Corp. You just want to write code and ship features. But what usually slows you down? Setting up CI/CD, figuring out how to wire up webhooks, managing GitOps deployment, and making sure all of it meets your company’s security and compliance standards.
-
-=== Do
-
-Introduce the characters and setup:
-
-* Show the ACME context and explain the developer’s challenge.
-* Display the following image to illustrate the Jenkins-based flow:
-+
-image::jenkins_car.jpg[align="center",width=500]
-
-* Mention ACME Corp as the fictional company used throughout this guide.
-* Say: "ACME's platform engineering team has built a system using Red Hat Developer Hub and Advanced Developer Suite to solve this."
-
-=== Explain
-
-Here’s the big picture:
+Here's the big picture:
 
 * *Developers* want to move fast and focus on writing code.
 * But *DevOps bottlenecks* like setting up CI/CD, webhooks, and policy enforcement slow them down.
 * *ACME's platform team* uses *Red Hat Developer Hub* to offer *self-service software templates* that generate a new Quarkus application with *Jenkins pipelines already integrated*.
-* The application’s source code is stored in *GitLab*, images go to *Quay*, and Jenkins drives the CI/CD process.
+* The application's source code is stored in *GitLab*, images go to *Quay*, and Jenkins drives the CI/CD process.
 
 This setup allows teams to:
 
@@ -45,8 +29,50 @@ This demo complements a previous one which used OpenShift Pipelines (Tekton). Wh
 
 By presenting this Jenkins path, you're addressing a realistic need: helping customers *modernize workflows* without abandoning trusted tooling.
 
+Show::
+
+Introduce the characters and setup:
+
+* Show the ACME context and explain the developer's challenge.
+* Display the following image to illustrate the Jenkins-based flow:
++
+image::jenkins_car.jpg[align="center",width=500]
+
+* Mention ACME Corp as the fictional company used throughout this guide.
+* Say: "ACME's platform engineering team has built a system using Red Hat Developer Hub and Advanced Developer Suite to solve this."
+
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
+Know:: This step does more than just generate code — it also sets up:
+
+- A fully initialized GitLab repository with source and GitOps manifests
+- A signed commit flow if "Verify Commits" is enabled
+- CI/CD pipeline integration using Jenkins
+- Component registration inside Developer Hub for visibility
+
+Behind the scenes, Red Hat Developer Hub and the ADS template do the heavy lifting:
+
+* Creates both the **source code** and **GitOps** repositories using information from the template.
+* Configures **GitLab webhooks** to trigger Jenkins pipelines on push events.
+* Commits **pipeline configuration**, including Jenkinsfiles and Kubernetes manifests.
+* Registers the component in the **Developer Hub catalog**, enabling traceability and lifecycle management.
+* Automatically triggers the initial CI/CD build if *Verify Commits* is disabled (for demo convenience).
+
+[TIP]
+====
+Let your audience know:
+
+_"The developer doesn't have to manually wire any of this. Developer Hub handles everything — Git setup, CI/CD triggers, pipeline configs, and deployment — all in a few clicks."_
+====
+
+[NOTE]
+====
+The `Verify Commits` option enables signing and verification of Git commits using `gitsign`, which integrates with Red Hat's Trusted Software Supply Chain.
+
+For customers already using Jenkins, this template shows how ADS can plug into their existing tools while still enforcing secure supply chain policies.
+====
+
+Show::
 . Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 +
 image::jenkins-dev-1.png[]
@@ -134,8 +160,25 @@ For customers already using Jenkins, this template shows how ADS can plug into t
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Once the application has been created and registered in the Developer Hub:
+Know:: Once the application has been created and registered in the Developer Hub, we'll demonstrate making a code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code.
 
+This push will trigger the CI/CD pipeline via the GitLab webhook. Because *Verify Commits* was enabled when the project was created, this change must be signed using `gitsign`.
+
+`gitsign` is a tool that signs Git commits using a short-lived key tied to identity (usually via OpenID Connect). It ensures the commit came from a trusted user — not just anyone with push access.
+
+The following can be verified by signed commits:
+
+* Who made the change
+* That the change hasn't been tampered with
+
+The security and auditability of the software supply chain is strengthened by this — a key capability of Red Hat Trusted Application Pipeline.
+
+[NOTE]
+====
+If *Verify Commits* was enabled when creating the template, a signed commit is required to trigger the pipeline.
+====
+
+Show::
 . Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`).
 +
 image::jenkins-dev-6.png[]
@@ -224,8 +267,13 @@ If *Verify Commits* was enabled when creating the template, a signed commit is r
 
 == Part 5 — Show the Build Pipeline (Jenkins)
 
-In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
-You should see three pipeline runs:
+Know:: What the CI/CD pipeline is doing behind the scenes can be observed now that code has been pushed.
+
+You should see three pipeline runs in Developer Hub: `maven-ci-build`, `promote-to-stage`, and `promote-to-prod`. The pipeline `maven-ci-build` should be running and can be opened in Jenkins using Blue Ocean for visual walkthrough.
+
+Show::
+. In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
+. You should see three pipeline runs:
 
 - `maven-ci-build`
 - `promote-to-stage`
@@ -233,9 +281,8 @@ You should see three pipeline runs:
 
 image::jenkins-dev-18.png[]
 
-The pipeline `maven-ci-build` should be running. Click on *View build* to open Jenkins.
-
-Then click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
+. Click on *View build* to open Jenkins.
+. Click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
 image::jenkins-dev-19.png[]
 
@@ -243,81 +290,44 @@ image::jenkins-dev-19.png[]
 
 image::jenkins-dev-20.png[]
 
-As the Jenkins pipeline runs, guide your audience through each stage.
-Each step supports secure software supply chain automation.
+Know:: As the Jenkins pipeline runs, guide your audience through each stage. Each step supports secure software supply chain automation.
 
 === Stage: verify-commit (optional)
-
-=== Say
 This verifies that the Git commit was signed and trusted.
 
-=== Do
-Click the `verify-commit` stage in the Jenkins UI.
-
-Explain:
 * Uses `gitsign` and Red Hat Trusted Application Signer (RHTAS) to verify commit authenticity.
 * Ensures the commit came from a known developer.
 * This stage appears only if *Verify Commits* was enabled in the software template.
 
 === Stage: mvn package
-
-=== Say
 Now we compile and package the Quarkus application.
 
-=== Do
-Click the `mvn package` stage.
-
-=== Explain
 * Runs `mvn package` to build the Java app.
 * Produces the runnable JAR used for container image creation.
 
 === Stage: init
+Next, we prepare the environment for the build.
 
-=== Say
-* Next, we prepare the environment for the build.
-
-=== Do
-* Click the `init` stage.
-
-=== Explain
 * Sets environment variables (e.g., Git tag, timestamp, registry).
 * Uses the shared `rhtap` Jenkins library to standardize CI behavior.
 
 === Stage: build
+Let's build and sign the container image.
 
-=== Say
-* Let’s build and sign the container image.
-
-=== Do
-* Click the `build` stage.
-
-=== Explain
 * Uses `buildah` to containerize the app.
 * Uses `cosign` to sign the image and generate provenance metadata.
 
 === Stage: deploy-and-upload-to-tpa (parallel)
+This stage handles GitOps deployment and SBOM upload.
 
-=== Say
-* This stage handles GitOps deployment and SBOM upload.
-
-=== Do
-* Expand the `deploy-and-upload-to-tpa` stage.
-
-=== Explain
 * *deploy*: updates the GitOps repo with the new image tag — this triggers Argo CD to redeploy the app to dev.
 * *upload_sbom_to_trustification*: pushes the SBOM to Red Hat Trusted Profile Analyzer (TPA) for compliance tracking.
 
 Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}` / `{tpa_user_password}` to explore SBOM results.
 
 === Stage: acs (parallel)
+Now we perform security and policy checks.
 
-=== Say
-* Now we perform security and policy checks.
-
-=== Do
-* Expand the `acs` stage.
-
-=== Explain
 * *acs_deploy_check*: verifies Kubernetes manifests (e.g., RBAC, host access).
 * *acs_image_check*: enforces policy on image config.
 * *acs_image_scan*: performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).
@@ -325,26 +335,14 @@ Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}
 Visit `{acs_url}[Red Hat Advanced Cluster Security^]` using `{acs_admin_user}` / `{acs_admin_password}` to see the results.
 
 === Stage: summary
+This final stage summarizes the build and validations.
 
-=== Say
-* This final stage summarizes the build and validations.
-
-=== Do
-* Click the `summary` stage.
-
-=== Explain
 * Shows build status and key artifacts (e.g., SBOM, scan summary).
 * Uses reusable functions from the `rhtap` library.
 
 === Pipelines as Code
+Let's quickly look at the pipeline definition inside the codebase.
 
-=== Say
-* Let’s quickly look at the pipeline definition inside the codebase.
-
-=== Do
-* Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
-
-=== Explain
 * This is a *Pipelines as Code* setup — the CI logic lives alongside app code.
 * Easy to update via PRs. Version-controlled. No central team required.
 
@@ -356,6 +354,15 @@ Visit `{acs_url}[Red Hat Advanced Cluster Security^]` using `{acs_admin_user}` /
 * Shared libraries enforce security policies and reusability.
 * Full audit trail across all stages of the pipeline.
 
+Show::
+. Click the `verify-commit` stage in the Jenkins UI.
+. Click the `mvn package` stage.
+. Click the `init` stage.
+. Click the `build` stage.
+. Expand the `deploy-and-upload-to-tpa` stage.
+. Expand the `acs` stage.
+. Click the `summary` stage.
+. Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
 
 
 == Part 7 — Summary

@@ -4,38 +4,97 @@
 :icons: font
 :sectnums!:
 
-== Agenda
+== Demo Overview
 
-This demo walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one powered by OpenShift Pipelines (Tekton), the other by Jenkins. Both enforce the same security standards: Enterprise Contract validation, image signing, SBOMs, and GitOps-based promotion with Argo CD.
+This demonstration showcases how Red Hat Advanced Developer Suite (RHADS) accelerates secure application delivery through two distinct approaches. Choose the module that best matches your customer's environment and CI/CD preferences.
 
-[cols="1,2",options="header"]
-|===
-| Section | Description
+Both modules deliver the same business outcomes: faster delivery, automated security, and compliance-ready pipelines.
 
-| Introduction
-| Overview of Red Hat Advanced Developer Suite, software supply chain security, and GitOps automation
+---
 
-| ADS with OpenShift Pipelines (Tekton)
-| CI/CD using Developer Hub, Tekton tasks, Enterprise Contract, and Argo CD
+== 🚀 Module 1: Cloud-Native with OpenShift Pipelines (Tekton)
 
-| └ Build Phase
-| App scaffolded in Developer Hub, built via Tekton, pushed to Quay with SBOMs and signatures
+*Perfect for: Organizations adopting cloud-native, Kubernetes-first development*
 
-| └ Promote to Stage
-| Validated by Enterprise Contract, deployed to `stage` via GitOps
+**Introduction & Setup**
+- ACME Retail business scenario and challenges
+- Red Hat Advanced Developer Suite overview
+- Cloud-native architecture and benefits
 
-| └ Release to Production
-| GitLab Release triggers promotion to `prod` with the same secure pipeline
+**Developer Experience**
+- Self-Service Onboarding: Create new project via Developer Hub
+- Cloud-Native Development: OpenShift Dev Spaces with VS Code
+- Modern CI/CD: Tekton pipelines with Kubernetes YAML
 
-| ADS with Jenkins
-| CI/CD using Developer Hub, Jenkins shared libraries, Enterprise Contract, and GitOps promotion
+**Security & Compliance Automation**
+- Build & Sign: Automated SBOM generation and image signing
+- Policy Validation: Enterprise Contract enforcement
+- Secure Promotion: GitOps-based deployment workflows
 
-| └ Build Phase
-| App scaffolded in Developer Hub, built via Jenkins, pushed to Quay with SBOMs and signatures
+**End-to-End Workflow**
+- Development Phase: Code, commit, and trigger cloud-native builds
+- Stage Promotion: Automated validation and staging deployment  
+- Production Release: GitLab release triggers secure production promotion
 
-| └ Promote to Stage
-| Validated by Enterprise Contract, deployed to `stage` via GitOps
+---
 
-| └ Release to Production
-| GitLab Release triggers promotion to `prod` with the same secure pipeline
-|===
+== ⚙️ Module 2: Enterprise Integration with Jenkins
+
+*Perfect for: Organizations with existing Jenkins investments and traditional CI/CD*
+
+**Introduction & Setup**
+- ACME Retail business scenario and challenges  
+- Red Hat Advanced Developer Suite overview
+- Enterprise integration strategy
+
+**Developer Experience**
+- Self-Service Onboarding: Create new project via Developer Hub
+- Familiar Tools: Jenkins pipelines with existing Jenkinsfiles
+- Enhanced Security: Integrated security steps in current workflows
+
+**Security & Compliance Automation**
+- Build & Sign: Enhanced Jenkins with SBOM generation and signing
+- Policy Validation: Enterprise Contract enforcement in Jenkins
+- Secure Promotion: GitOps-based deployment workflows
+
+**End-to-End Workflow**
+- Development Phase: Code, commit, and trigger enhanced Jenkins builds
+- Stage Promotion: Automated validation and staging deployment
+- Production Release: GitLab release triggers secure production promotion
+
+---
+
+== 📊 Common Business Outcomes
+
+**Speed Improvements:**
+- Project setup: 6 weeks → 2 days
+- Zero security review delays
+- Faster time-to-market
+
+**Security & Compliance:**
+- 100% automated policy enforcement
+- Complete audit trail with cryptographic proof
+- SOC 2/PCI/FedRAMP ready
+
+**Cost Reduction:**  
+- 75% reduction in manual security reviews
+- Reduced platform team overhead
+- Standardized operations
+
+---
+
+== 🎯 Module Selection Guide
+
+**Choose Module 1 (Tekton) for customers who:**
+- Are adopting cloud-native development practices
+- Want Kubernetes-native CI/CD pipelines
+- Prefer declarative YAML-based pipeline definitions
+- Are building new applications or modernizing existing ones
+
+**Choose Module 2 (Jenkins) for customers who:**
+- Have significant Jenkins infrastructure investments
+- Want to enhance existing CI/CD workflows
+- Need gradual migration to cloud-native practices
+- Have teams experienced with Jenkins pipelines
+
+Both modules demonstrate how RHADS delivers secure, compliant application delivery without disrupting existing developer workflows.
