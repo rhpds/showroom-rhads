@@ -168,12 +168,22 @@ Know:: ACME's leadership needs to see that Jenkins-based production deployments 
 
 **Traditional vs. Enhanced Jenkins for ACME Production:**
 
-| Traditional ACME Jenkins | RHADS-Enhanced Jenkins |
-|--------------------------|------------------------|
-| Manual security reviews: 2-3 weeks | Automated validation: Minutes |
-| Custom Jenkins configuration: High maintenance | Standardized Jenkins: Self-maintaining |
-| Manual compliance evidence: Weeks during audits | Automatic audit trails: Real-time |
-| Security often bypassed: High risk | Security always enforced: Zero bypass |
+[cols="1,1"]
+|===
+| Traditional ACME Jenkins | RHADS-Enhanced Jenkins
+
+| Manual security reviews: 2-3 weeks 
+| Automated validation: Minutes
+
+| Custom Jenkins configuration: High maintenance 
+| Standardized Jenkins: Self-maintaining
+
+| Manual compliance evidence: Weeks during audits 
+| Automatic audit trails: Real-time
+
+| Security often bypassed: High risk 
+| Security always enforced: Zero bypass
+|===
 
 **Strategic Business Value for ACME:**
 * **Competitive Advantage:** Deploy production features using Jenkins while competitors wait for security approval

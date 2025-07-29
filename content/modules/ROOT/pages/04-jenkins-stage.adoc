@@ -128,12 +128,22 @@ Know:: ACME's leadership needs to see that Jenkins-based staging deployments are
 
 **Traditional vs. Enhanced Jenkins for ACME Staging:**
 
-| Traditional ACME Jenkins Staging | RHADS-Enhanced Jenkins Staging |
-|----------------------------------|--------------------------------|
-| Manual coordination: 3-5 days | Automated trigger: Minutes |
-| Inconsistent validation: High risk | Standardized validation: Zero risk |
-| Manual security checks: Often skipped | Automated security: Always enforced |
-| Platform team bottleneck: Delays | Self-service staging: Instant |
+[cols="1,1"]
+|===
+| Traditional ACME Jenkins Staging | RHADS-Enhanced Jenkins Staging
+
+| Manual coordination: 3-5 days 
+| Automated trigger: Minutes
+
+| Inconsistent validation: High risk 
+| Standardized validation: Zero risk
+
+| Manual security checks: Often skipped 
+| Automated security: Always enforced
+
+| Platform team bottleneck: Delays 
+| Self-service staging: Instant
+|===
 
 **Strategic Business Value for ACME:**
 * **Feature Velocity:** Validate features using Jenkins while competitors wait for staging access

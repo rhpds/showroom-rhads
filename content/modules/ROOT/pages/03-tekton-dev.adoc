@@ -248,54 +248,25 @@ image::tekton-dev-18.png[]
 
 == Part 4 — What Happens Behind the Scenes
 
-Know:: While ACME's developer makes a simple code change, millions of dollars worth of enterprise tooling orchestrates automatically — delivering business value that would normally require weeks of manual work.
+Know:: ACME's developer makes a simple code change, triggering millions of dollars worth of enterprise automation that eliminates weeks of manual work.
 
-**What This Automation Replaces at ACME:**
-* **Manual Repository Setup:** Platform team time (3-5 days per project)
-* **Security Configuration:** Security team reviews (1-2 weeks per project)  
-* **Pipeline Development:** DevOps team custom builds (2-3 weeks per project)
-* **Compliance Setup:** Manual policy configuration (1-2 weeks per project)
+**Business Value:**
 
-**Business Value of the Automation:**
-* **Cost Savings:** Eliminates 80+ hours of manual work per new service
-* **Risk Reduction:** Standardized security across all ACME applications
-* **Faster Time-to-Market:** Projects start productive work immediately
-* **Platform Team Scaling:** One platform team supports 50+ development teams
-
-**Why This Matters for ACME's Business:**
-* **Competitive Advantage:** Faster feature delivery than competitors
-* **Operational Efficiency:** Platform teams focus on innovation, not setup
-* **Compliance Confidence:** Every service meets regulatory requirements by default
-* **Developer Retention:** Frustration-free development experience
-
-This invisible automation delivers enterprise-grade infrastructure at startup-like speed.
+* Setup time: 6-8 weeks → 5 minutes
+* Eliminates 80+ hours of manual work per service
+* Standardized security across all applications
+* Platform team supports 50+ development teams
 
 == Part 5 — Show the Build Pipeline (OpenShift Pipelines)
 
-Know:: ACME's leadership needs to see that speed and security aren't mutually exclusive — this pipeline proves both are achieved simultaneously.
+Know:: ACME's pipeline proves speed and security aren't mutually exclusive — both achieved simultaneously.
 
-**Business Value of Each Pipeline Stage:**
-* **Automated Verification:** Eliminates manual security review delays (saves 2+ weeks per release)
-* **Built-in Compliance:** SOC 2, PCI, and regulatory requirements met automatically
-* **Risk Prevention:** Security issues caught before they reach production (prevents costly incidents)
-* **Audit Readiness:** Complete evidence trail generated automatically (saves weeks during audits)
+**Business Value:**
 
-**Traditional vs. RHADS Approach:**
-
-| Traditional ACME Process | RHADS Automated Process |
-|--------------------------|-------------------------|
-| Manual security reviews: 2-3 weeks | Automated validation: Minutes |
-| Manual SBOM creation: Days | Automatic SBOM generation: Seconds |
-| Manual vulnerability scanning: Hours | Integrated scanning: Pipeline step |
-| Manual compliance evidence: Weeks | Automatic audit trail: Real-time |
-
-**Business Impact for ACME:**
-* **Revenue Protection:** Security issues caught early prevent costly production incidents
-* **Compliance Confidence:** Automatic evidence generation for SOC 2/PCI audits
-* **Operational Efficiency:** Zero manual security bottlenecks in delivery pipeline
-* **Competitive Advantage:** Deploy secure features while competitors wait for security approval
-
-ACME's checkout service can now deploy daily instead of monthly — with higher security than ever before.
+* Security reviews: 2-3 weeks → Minutes
+* Deploy frequency: Monthly → Daily
+* Zero manual security bottlenecks
+* Complete SOC 2/PCI audit trails automatically
 
 Show:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
 

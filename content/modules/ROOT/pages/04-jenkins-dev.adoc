@@ -387,14 +387,23 @@ Know:: ACME's leadership needs to see that their Jenkins investment can deliver 
 * **Enhance Compliance:** Automatic evidence generation for SOC 2, PCI, and enterprise audits
 
 **ACME's Jenkins Transformation Results:**
-Traditional Jenkins at ACME vs. RHADS-Enhanced Jenkins:
 
-| Traditional ACME Jenkins | RHADS-Enhanced Jenkins |
-|--------------------------|------------------------|
-| Manual security integration: 1-2 weeks | Automatic security: Built-in |
-| Custom pipeline maintenance: Ongoing overhead | Standardized pipelines: Self-maintaining |
-| Manual compliance evidence: Weeks during audits | Automatic audit trails: Real-time |
-| Security often skipped: Risk exposure | Security always enforced: Zero bypass |
+[cols="1,1"]
+|===
+| Traditional ACME Jenkins | RHADS-Enhanced Jenkins
+
+| Manual security integration: 1-2 weeks 
+| Automatic security: Built-in
+
+| Custom pipeline maintenance: Ongoing overhead 
+| Standardized pipelines: Self-maintaining
+
+| Manual compliance evidence: Weeks during audits 
+| Automatic audit trails: Real-time
+
+| Security often skipped: Risk exposure 
+| Security always enforced: Zero bypass
+|===
 
 **Business Impact for ACME:**
 * **ROI Protection:** Jenkins investment enhanced rather than replaced
