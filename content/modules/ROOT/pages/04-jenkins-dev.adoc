@@ -6,28 +6,14 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Part 1 — Introduce the Context
 
-Know:: ACME Retail's development teams face the same challenges as most enterprises with significant Jenkins investments — they want to modernize their delivery pipelines without abandoning proven tooling that powers critical business operations.
+Know:: ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise.
 
-**ACME's Enterprise Jenkins Reality:**
+**Business Value:**
 
-* 15+ Jenkins instances supporting 200+ applications across the organization
-* Years of Jenkins expertise and custom pipeline investments
-* Existing Jenkins-based compliance and security processes
-* Business-critical applications that can't afford CI/CD disruption during modernization
-
-**The Business Challenge:**
-
-* Developers want modern self-service capabilities and faster delivery cycles
-* Platform teams are overwhelmed with Jenkins pipeline setup and maintenance requests
-* Security and compliance checks are often manual additions to existing Jenkins workflows
-* Each team builds Jenkins pipelines differently, creating governance gaps and duplicated effort
-
-**Traditional ACME Jenkins Problems:**
-
-* Setting up new Jenkins pipelines takes 1-2 weeks of DevOps team coordination
-* Manual security configurations lead to inconsistent compliance across applications
-* Jenkins expertise bottlenecks slow down new project onboarding
-* Maintaining 200+ custom Jenkins pipelines requires significant platform team overhead
+* Jenkins pipeline setup: 1-2 weeks → 5 minutes
+* Preserves millions in Jenkins infrastructure investment
+* Zero manual security configuration or coordination
+* Standardized pipelines eliminate maintenance overhead
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
 This demo shows how ACME transforms their Jenkins investment into a modern, secure, self-service platform:
@@ -80,7 +66,7 @@ image::jenkins_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: ACME's Jenkins transformation begins here — showing how a single developer action eliminates weeks of Jenkins setup work while maintaining the familiar Jenkins workflows that teams trust.
+Know:: ACME's Jenkins transformation starts here — one developer action eliminates weeks of setup while maintaining familiar Jenkins workflows.
 
 **ACME's Traditional Jenkins Setup Challenge:**
 Before RHADS, creating a new Jenkins-based application required:

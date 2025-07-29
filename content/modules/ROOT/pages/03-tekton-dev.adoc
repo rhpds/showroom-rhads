@@ -6,34 +6,20 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Part 1 — Set the Stage
 
-Know:: ACME Retail's checkout service team faces the same challenges as most enterprises: slow delivery cycles and security bottlenecks that cost time and money.
+Know:: ACME's checkout service team faced slow delivery cycles and security bottlenecks. RHADS transforms this into minutes-not-weeks delivery with enterprise security built-in.
 
-**ACME's Current Pain Points:**
-* Platform teams are overwhelmed with setup requests, slowing down every new project
-* Security practices are manual and inconsistent, creating compliance risks
-* Each team builds differently, leading to governance gaps and wasted effort
-* Getting a new service to production takes 6-8 weeks instead of days
+**Business Value:**
 
-**The Business Impact:**
-* Missed Black Friday deadline would cost ACME millions in lost revenue
-* Manual security reviews delay every release by 2+ weeks
-* Platform team spends 60% of time on repetitive setup instead of innovation
-
-**How RHADS Solves ACME's Problems:**
-This demo shows how ACME's developers can now:
-
-* Create production-ready services in minutes, not weeks
-* Automatically get secure CI/CD pipelines with zero manual setup
-* Deploy with confidence knowing security and compliance are built-in
-* Focus on business logic instead of infrastructure complexity
-
-The result: ACME delivers software faster while reducing security risk and platform team overhead.
+* Service creation time: 6-8 weeks → 5 minutes
+* Zero manual security reviews or setup
+* Platform team focuses on innovation, not repetitive tasks
+* Production-ready pipelines with enterprise security built-in
 
 image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: This is where ACME's transformation begins — showing how a single click can eliminate weeks of setup time and coordination overhead.
+Know:: ACME's transformation starts here — one developer action eliminates weeks of setup and coordination overhead.
 
 **ACME's Business Challenge:**
 Before RHADS, creating a new checkout service required:

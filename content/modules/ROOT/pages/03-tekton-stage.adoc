@@ -6,31 +6,14 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Pipeline Flow
 
-Know:: ACME Retail's staging deployments are critical for validating features before Black Friday — this shows how RHADS transforms risky manual staging processes into confident automated validation that accelerates delivery while reducing risk.
+Know:: ACME's staging validation was taking 3-5 days and causing production surprises. RHADS transforms this into 30-minute automated validation with enterprise security built-in.
 
-**ACME's Traditional Staging Challenges:**
-* Manual staging deployments take 3-5 days of platform team coordination
-* Inconsistent validation processes lead to production surprises
-* Security checks often skipped under deadline pressure
-* Each staging deployment requires manual testing and approval cycles
+**Business Value:**
 
-**Business Impact of Slow Staging:**
-* Feature validation delays push back production releases by weeks
-* Manual processes don't scale during high-velocity development periods
-* Staging issues discovered late become expensive production problems
-* Teams lose confidence in staging as a reliable production preview
-
-**How RHADS Solves ACME's Staging Bottleneck:**
-* **Instant Staging Validation:** Git tag triggers immediate, automated promotion to staging
-* **Production-Like Security:** Same validation policies as production, catching issues early
-* **Zero Manual Overhead:** Platform teams focus on innovation instead of deployment coordination
-* **Continuous Confidence:** Every staging deployment proves production readiness
-
-**Business Value for ACME:**
-* Staging deployment time: 3-5 days → 30 minutes
-* Feature validation cycles: Weeks → Hours
-* Production incident prevention: Early detection of integration issues
-* Developer velocity: No waiting for staging environment access
+* Staging time: 3-5 days → 30 minutes
+* Feature validation: Weeks → Hours  
+* Zero manual coordination overhead
+* Production-ready confidence every deployment
 
 The moment ACME creates this tag, a GitLab webhook triggers the staging pipeline — proving that automation delivers both speed and quality.
 

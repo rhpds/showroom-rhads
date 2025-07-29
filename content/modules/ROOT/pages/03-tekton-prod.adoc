@@ -9,7 +9,7 @@ toc::[]
 
 == Overview
 
-Know:: ACME Retail's Black Friday success depends on deploying checkout service updates to production safely and quickly — this module shows how RHADS transforms production deployments from risky manual processes to confident automated workflows.
+Know:: ACME's Black Friday success requires safe, fast production deployments. RHADS transforms risky manual processes into confident automated workflows.
 
 **ACME's Production Deployment Challenge:**
 * Traditional production releases take 2-3 weeks of manual security reviews

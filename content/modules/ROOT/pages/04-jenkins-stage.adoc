@@ -8,37 +8,14 @@ toc::[]
 
 == Overview
 
-Know:: ACME Retail's staging deployments are critical for validating checkout service features before Black Friday using their existing Jenkins infrastructure — this demonstrates how RHADS transforms risky manual staging processes into confident automated validation that accelerates delivery while preserving valuable Jenkins investments.
+Know:: ACME's Jenkins staging took 3-5 days and caused production surprises. RHADS transforms this into 30-minute automated validation while preserving valuable Jenkins infrastructure and expertise.
 
-**ACME's Traditional Jenkins Staging Challenges:**
-* Manual Jenkins staging deployments require 3-5 days of platform team coordination
-* Inconsistent validation processes in Jenkins lead to production surprises
-* Security checks often skipped under deadline pressure in Jenkins workflows
-* Each staging deployment requires manual testing and approval cycles through Jenkins
+**Business Value:**
 
-**Business Impact of Slow Jenkins Staging for ACME:**
-* Feature validation delays push back production releases by weeks
-* Manual Jenkins processes don't scale during high-velocity development periods
-* Staging issues discovered late become expensive production problems
-* Teams lose confidence in Jenkins staging as a reliable production preview
-
-**How RHADS Solves ACME's Jenkins Staging Bottleneck:**
-* **Instant Staging Validation:** Git tag triggers immediate, automated promotion through enhanced Jenkins
-* **Production-Like Security:** Same validation policies as production, catching issues early in Jenkins
-* **Zero Manual Overhead:** Platform teams focus on innovation instead of Jenkins deployment coordination
-* **Continuous Confidence:** Every Jenkins staging deployment proves production readiness
-
-**Business Value for ACME:**
-* Jenkins staging deployment time: 3-5 days → 30 minutes
-* Feature validation cycles: Weeks → Hours using automated Jenkins
-* Production incident prevention: Early detection of integration issues
-* Developer velocity: No waiting for staging environment access through Jenkins
-
-**Investment Protection Benefits:**
-* Leverage existing Jenkins infrastructure worth millions while adding modern capabilities
-* Preserve Jenkins expertise and team knowledge while enhancing productivity
-* Maintain familiar Jenkins workflows while gaining enterprise-grade validation
-* Transform Jenkins from staging bottleneck to competitive advantage
+* Jenkins staging time: 3-5 days → 30 minutes
+* Feature validation: Weeks → Hours
+* Preserves millions in Jenkins investment
+* Zero manual coordination overhead
 
 The moment ACME creates this tag, a GitLab webhook triggers the staging pipeline — proving that automation delivers both speed and quality through enhanced Jenkins infrastructure.
 
