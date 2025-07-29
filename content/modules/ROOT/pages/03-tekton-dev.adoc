@@ -42,13 +42,16 @@ Before RHADS, creating a new checkout service required:
 * High risk of configuration errors and security gaps
 
 **The RHADS Business Solution:**
+
 One developer action now delivers ACME's complete delivery stack:
+
 * **Zero Waiting:** Instant GitLab repos and secure CI/CD pipelines
-* **Zero Coordination:** Security and compliance are automatically configured
+* **Zero Coordination:** Security and compliance are automatically configured  
 * **Zero Errors:** Standardized templates eliminate configuration mistakes
 * **Zero Platform Overhead:** Developers self-serve without platform team involvement
 
 **Business Value for ACME:**
+
 * Project setup time: 2-3 weeks → 5 minutes
 * Platform team efficiency: 60% less setup requests
 * Security compliance: 100% consistent across all new services
@@ -62,8 +65,12 @@ Show::
 image::tekton-dev-1.png[]
 
 * Enter your credentials:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 
 * In the top-right corner, click the **+ Self-service** button to create a new software component.
 
@@ -161,8 +168,12 @@ image::tekton-dev-7.png[]
 image::tekton-dev-8.png[]
 
 * Sign in with:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 
 * On the *Authorize Access* screen, click *Allow selected permissions*
 
@@ -173,11 +184,15 @@ image::tekton-dev-9.png[]
 image::tekton-dev-10.png[]
 
 * When prompted to authenticate with GitLab:
-
++
 image::tekton-dev-11.png[]
-  - Username: `{gitlab_user}`
-  - Password: `{gitlab_user_password}`
-  and click *Sign in*.
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
+and click *Sign in*.
 
 * Click *Authorize devspaces* on the next window.
 
@@ -223,7 +238,7 @@ git commit -m "Update"
 
 image::tekton-dev-15.png[]
 
-* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Open the URL in your browser, enter your credentials for user `{rhdh_user}` and password `{rhdh_user_password}` if prompted
 
 * Copy the verification code shown in the browser
 

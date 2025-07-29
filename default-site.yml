@@ -1,7 +1,7 @@
 site:
   title: "Red Hat Advanced Developer Suite Demonstration"
   url: https://redhat-scholars.github.io/course-template
-  start_page: How to use this demo::00-how-to-guide.adoc
+  start_page: demo-guide::00-how-to-guide.adoc
 
 ui:
   bundle:

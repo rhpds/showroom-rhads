@@ -91,19 +91,23 @@ Before RHADS, creating a new Jenkins-based application required:
 * Inconsistent Jenkins configurations create compliance and audit challenges
 
 **RHADS Business Solution for ACME:**
+
 One developer action now delivers ACME's complete Jenkins-powered delivery stack:
+
 * **Zero Jenkins Setup Time:** Instant production-ready Jenkins pipelines with security built-in
 * **Zero Platform Coordination:** Developers self-serve without DevOps team involvement
 * **Zero Configuration Drift:** Standardized Jenkins templates ensure consistency
 * **Zero Security Gaps:** Enterprise security automatically integrated into Jenkins workflows
 
 **Business Impact for ACME:**
+
 * Jenkins pipeline creation time: 1-2 weeks → 5 minutes
 * Platform team efficiency: 75% reduction in Jenkins setup requests
 * Security compliance: 100% consistent across all new Jenkins applications
 * Developer velocity: No waiting for Jenkins infrastructure or security integration
 
 **What RHADS Automates for ACME:**
+
 * **Jenkins Pipeline Configuration:** Production-ready Jenkinsfiles with enterprise security steps
 * **GitLab Integration:** Automatic webhook setup to trigger Jenkins builds
 * **Security Automation:** Built-in commit signing, image scanning, and policy validation
@@ -145,8 +149,12 @@ Show::
 +
 image::jenkins-dev-1.png[]
 * Enter your credentials:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 * In the top-right corner, click the **+ Self-service** button to create a new software component.
 +
 image::jenkins-dev-2.png[]
@@ -292,8 +300,12 @@ image::jenkins-dev-7.png[]
 +
 image::jenkins-dev-8.png[]
 * Sign in with:
-  Username: `{rhdh_user}`
-  Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 * If prompted, click *Allow selected permissions* on the *Authorize Access* page.
 +
 image::jenkins-dev-9.png[]
@@ -303,9 +315,13 @@ image::jenkins-dev-10.png[]
 * When prompted to authenticate with GitLab:
 +
 image::jenkins-dev-11.png[]
-  Username: `{gitlab_user}`
-  Password: `{gitlab_user_password}`
-  and click *Sign in*.
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
+and click *Sign in*.
 * Click *Authorize devspaces* on the next window.
 +
 image::jenkins-dev-12.png[]
@@ -344,7 +360,7 @@ git commit -m "Update"
 * The terminal will prompt you with a URL for commit signing via `gitsign`
 +
 image::jenkins-dev-15.png[]
-* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Open the URL in your browser, enter your credentials for user `{rhdh_user}` and password `{rhdh_user_password}` if prompted
 * Copy the verification code shown in the browser
 +
 image::jenkins-dev-16.png[]

@@ -1,4 +1,4 @@
-name: How to use this demo
+name: demo-guide
 version: master
 nav:
   - modules/ROOT/nav.adoc
