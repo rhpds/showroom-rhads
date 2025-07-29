@@ -6,49 +6,40 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Part 1 — Set the Stage
 
-Know:: ACME Retail's checkout service team faces the same challenges as most enterprises: slow delivery cycles and security bottlenecks that cost time and money.
+Know:: ACME's checkout service team faced slow delivery cycles and security bottlenecks. RHADS transforms this into minutes-not-weeks delivery with enterprise security built-in.
 
-**ACME's Current Pain Points:**
-* Platform teams are overwhelmed with setup requests, slowing down every new project
-* Security practices are manual and inconsistent, creating compliance risks
-* Each team builds differently, leading to governance gaps and wasted effort
-* Getting a new service to production takes 6-8 weeks instead of days
+**Business Value:**
 
-**The Business Impact:**
-* Missed Black Friday deadline would cost ACME millions in lost revenue
-* Manual security reviews delay every release by 2+ weeks
-* Platform team spends 60% of time on repetitive setup instead of innovation
-
-**How RHADS Solves ACME's Problems:**
-This demo shows how ACME's developers can now:
-* Create production-ready services in minutes, not weeks
-* Automatically get secure CI/CD pipelines with zero manual setup
-* Deploy with confidence knowing security and compliance are built-in
-* Focus on business logic instead of infrastructure complexity
-
-The result: ACME delivers software faster while reducing security risk and platform team overhead.
+* Service creation time: 6-8 weeks → 5 minutes
+* Zero manual security reviews or setup
+* Platform team focuses on innovation, not repetitive tasks
+* Production-ready pipelines with enterprise security built-in
 
 image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: This is where ACME's transformation begins — showing how a single click can eliminate weeks of setup time and coordination overhead.
+Know:: ACME's transformation starts here — one developer action eliminates weeks of setup and coordination overhead.
 
 **ACME's Business Challenge:**
 Before RHADS, creating a new checkout service required:
+
 * 3-5 business days waiting for platform team to set up repositories  
 * 1-2 weeks coordinating security requirements across teams
 * Multiple handoffs between development, platform, and security teams
 * High risk of configuration errors and security gaps
 
 **The RHADS Business Solution:**
+
 One developer action now delivers ACME's complete delivery stack:
+
 * **Zero Waiting:** Instant GitLab repos and secure CI/CD pipelines
-* **Zero Coordination:** Security and compliance are automatically configured
+* **Zero Coordination:** Security and compliance are automatically configured  
 * **Zero Errors:** Standardized templates eliminate configuration mistakes
 * **Zero Platform Overhead:** Developers self-serve without platform team involvement
 
 **Business Value for ACME:**
+
 * Project setup time: 2-3 weeks → 5 minutes
 * Platform team efficiency: 60% less setup requests
 * Security compliance: 100% consistent across all new services
@@ -62,8 +53,12 @@ Show::
 image::tekton-dev-1.png[]
 
 * Enter your credentials:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 
 * In the top-right corner, click the **+ Self-service** button to create a new software component.
 
@@ -119,31 +114,14 @@ image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Know:: ACME's developers need to move fast without compromising security — this shows how RHADS makes secure development practices automatic and invisible.
+Know:: ACME's developers need to move fast without compromising security — RHADS makes secure development practices automatic and invisible.
 
-**ACME's Business Security Requirements:**
-* Every commit must be traceable to a specific developer (SOC 2 compliance)
-* No unsigned code can enter production (regulatory requirement)
-* Audit trails must prove who changed what and when
+**Business Value:**
 
-**Traditional Security Pain Points:**
-* Manual commit signing slows down development
-* Developers often skip security steps under deadline pressure
-* Audit preparation requires weeks of manual evidence gathering
-
-**RHADS Business Benefits:**
-* **Automatic Security:** Commit signing happens seamlessly in the developer workflow
-* **No Productivity Loss:** Security doesn't slow down ACME's developers
-* **Built-in Compliance:** Every change automatically creates audit-ready evidence
-* **Risk Reduction:** Impossible to bypass security controls
-
-**Business Impact for ACME:**
 * Security compliance: Manual → Automatic
 * Audit preparation: 2-3 weeks → Real-time reporting
-* Developer velocity: No security-related delays
-* Risk mitigation: 100% signed commits without developer friction
-
-ACME's developers can now code at full speed while automatically meeting all security requirements.
+* 100% signed commits without developer friction
+* Impossible to bypass security controls
 
 Show::
 * In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
@@ -161,8 +139,12 @@ image::tekton-dev-7.png[]
 image::tekton-dev-8.png[]
 
 * Sign in with:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 
 * On the *Authorize Access* screen, click *Allow selected permissions*
 
@@ -173,11 +155,15 @@ image::tekton-dev-9.png[]
 image::tekton-dev-10.png[]
 
 * When prompted to authenticate with GitLab:
-
++
 image::tekton-dev-11.png[]
-  - Username: `{gitlab_user}`
-  - Password: `{gitlab_user_password}`
-  and click *Sign in*.
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
+and click *Sign in*.
 
 * Click *Authorize devspaces* on the next window.
 
@@ -223,7 +209,7 @@ git commit -m "Update"
 
 image::tekton-dev-15.png[]
 
-* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Open the URL in your browser, enter your credentials for user `{rhdh_user}` and password `{rhdh_user_password}` if prompted
 
 * Copy the verification code shown in the browser
 
@@ -245,54 +231,25 @@ image::tekton-dev-18.png[]
 
 == Part 4 — What Happens Behind the Scenes
 
-Know:: While ACME's developer makes a simple code change, millions of dollars worth of enterprise tooling orchestrates automatically — delivering business value that would normally require weeks of manual work.
+Know:: ACME's developer makes a simple code change, triggering millions of dollars worth of enterprise automation that eliminates weeks of manual work.
 
-**What This Automation Replaces at ACME:**
-* **Manual Repository Setup:** Platform team time (3-5 days per project)
-* **Security Configuration:** Security team reviews (1-2 weeks per project)  
-* **Pipeline Development:** DevOps team custom builds (2-3 weeks per project)
-* **Compliance Setup:** Manual policy configuration (1-2 weeks per project)
+**Business Value:**
 
-**Business Value of the Automation:**
-* **Cost Savings:** Eliminates 80+ hours of manual work per new service
-* **Risk Reduction:** Standardized security across all ACME applications
-* **Faster Time-to-Market:** Projects start productive work immediately
-* **Platform Team Scaling:** One platform team supports 50+ development teams
-
-**Why This Matters for ACME's Business:**
-* **Competitive Advantage:** Faster feature delivery than competitors
-* **Operational Efficiency:** Platform teams focus on innovation, not setup
-* **Compliance Confidence:** Every service meets regulatory requirements by default
-* **Developer Retention:** Frustration-free development experience
-
-This invisible automation delivers enterprise-grade infrastructure at startup-like speed.
+* Setup time: 6-8 weeks → 5 minutes
+* Eliminates 80+ hours of manual work per service
+* Standardized security across all applications
+* Platform team supports 50+ development teams
 
 == Part 5 — Show the Build Pipeline (OpenShift Pipelines)
 
-Know:: ACME's leadership needs to see that speed and security aren't mutually exclusive — this pipeline proves both are achieved simultaneously.
+Know:: ACME's pipeline proves speed and security aren't mutually exclusive — both achieved simultaneously.
 
-**Business Value of Each Pipeline Stage:**
-* **Automated Verification:** Eliminates manual security review delays (saves 2+ weeks per release)
-* **Built-in Compliance:** SOC 2, PCI, and regulatory requirements met automatically
-* **Risk Prevention:** Security issues caught before they reach production (prevents costly incidents)
-* **Audit Readiness:** Complete evidence trail generated automatically (saves weeks during audits)
+**Business Value:**
 
-**Traditional vs. RHADS Approach:**
-
-| Traditional ACME Process | RHADS Automated Process |
-|--------------------------|-------------------------|
-| Manual security reviews: 2-3 weeks | Automated validation: Minutes |
-| Manual SBOM creation: Days | Automatic SBOM generation: Seconds |
-| Manual vulnerability scanning: Hours | Integrated scanning: Pipeline step |
-| Manual compliance evidence: Weeks | Automatic audit trail: Real-time |
-
-**Business Impact for ACME:**
-* **Revenue Protection:** Security issues caught early prevent costly production incidents
-* **Compliance Confidence:** Automatic evidence generation for SOC 2/PCI audits
-* **Operational Efficiency:** Zero manual security bottlenecks in delivery pipeline
-* **Competitive Advantage:** Deploy secure features while competitors wait for security approval
-
-ACME's checkout service can now deploy daily instead of monthly — with higher security than ever before.
+* Security reviews: 2-3 weeks → Minutes
+* Deploy frequency: Monthly → Daily
+* Zero manual security bottlenecks
+* Complete SOC 2/PCI audit trails automatically
 
 Show:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
 
@@ -436,6 +393,7 @@ Know:: ACME's transformation demonstrates how enterprise security and startup sp
 === The ACME Success Formula
 
 RHADS proved that modern enterprises can achieve:
+
 * **Enterprise-grade security** without enterprise-grade delays
 * **Startup-like velocity** without startup-like risk
 * **Platform team efficiency** without compromising developer experience

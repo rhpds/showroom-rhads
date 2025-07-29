@@ -6,34 +6,26 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Part 1 — Introduce the Context
 
-Know:: ACME Retail's development teams face the same challenges as most enterprises with significant Jenkins investments — they want to modernize their delivery pipelines without abandoning proven tooling that powers critical business operations.
+Know:: ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise.
 
-**ACME's Enterprise Jenkins Reality:**
-* 15+ Jenkins instances supporting 200+ applications across the organization
-* Years of Jenkins expertise and custom pipeline investments
-* Existing Jenkins-based compliance and security processes
-* Business-critical applications that can't afford CI/CD disruption during modernization
+**Business Value:**
 
-**The Business Challenge:**
-* Developers want modern self-service capabilities and faster delivery cycles
-* Platform teams are overwhelmed with Jenkins pipeline setup and maintenance requests
-* Security and compliance checks are often manual additions to existing Jenkins workflows
-* Each team builds Jenkins pipelines differently, creating governance gaps and duplicated effort
-
-**Traditional ACME Jenkins Problems:**
-* Setting up new Jenkins pipelines takes 1-2 weeks of DevOps team coordination
-* Manual security configurations lead to inconsistent compliance across applications
-* Jenkins expertise bottlenecks slow down new project onboarding
-* Maintaining 200+ custom Jenkins pipelines requires significant platform team overhead
+* Jenkins pipeline setup: 1-2 weeks → 5 minutes
+* Preserves millions in Jenkins infrastructure investment
+* Zero manual security configuration or coordination
+* Standardized pipelines eliminate maintenance overhead
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
+
 This demo shows how ACME transforms their Jenkins investment into a modern, secure, self-service platform:
+
 * **Preserve Jenkins Investment:** Leverage existing Jenkins infrastructure and team expertise
 * **Add Modern Self-Service:** Developers create production-ready Jenkins pipelines in minutes
 * **Enhance Security:** Automatically integrate enterprise security into existing Jenkins workflows
 * **Reduce Platform Overhead:** Standardized Jenkins templates eliminate custom pipeline maintenance
 
 **Business Value for ACME:**
+
 * Jenkins pipeline setup time: 1-2 weeks → 5 minutes
 * Platform team efficiency: 75% reduction in Jenkins setup requests
 * Security compliance: 100% consistent across all new Jenkins-based applications
@@ -75,35 +67,41 @@ image::jenkins_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: ACME's Jenkins transformation begins here — showing how a single developer action eliminates weeks of Jenkins setup work while maintaining the familiar Jenkins workflows that teams trust.
+Know:: ACME's Jenkins transformation starts here — one developer action eliminates weeks of setup while maintaining familiar Jenkins workflows.
 
 **ACME's Traditional Jenkins Setup Challenge:**
 Before RHADS, creating a new Jenkins-based application required:
+
 * 1-2 weeks waiting for DevOps team to create custom Jenkins pipelines
 * Multiple coordination meetings between development, platform, and security teams
 * Manual integration of security tools into Jenkins workflows
 * High risk of configuration inconsistencies across different Jenkins pipelines
 
 **The Hidden Costs:**
+
 * Platform team spends 40+ hours per new application on Jenkins pipeline setup
 * Security integration delays add another 1-2 weeks to project timelines
 * Each custom Jenkins pipeline becomes a maintenance burden requiring ongoing platform team support
 * Inconsistent Jenkins configurations create compliance and audit challenges
 
 **RHADS Business Solution for ACME:**
+
 One developer action now delivers ACME's complete Jenkins-powered delivery stack:
+
 * **Zero Jenkins Setup Time:** Instant production-ready Jenkins pipelines with security built-in
 * **Zero Platform Coordination:** Developers self-serve without DevOps team involvement
 * **Zero Configuration Drift:** Standardized Jenkins templates ensure consistency
 * **Zero Security Gaps:** Enterprise security automatically integrated into Jenkins workflows
 
 **Business Impact for ACME:**
+
 * Jenkins pipeline creation time: 1-2 weeks → 5 minutes
 * Platform team efficiency: 75% reduction in Jenkins setup requests
 * Security compliance: 100% consistent across all new Jenkins applications
 * Developer velocity: No waiting for Jenkins infrastructure or security integration
 
 **What RHADS Automates for ACME:**
+
 * **Jenkins Pipeline Configuration:** Production-ready Jenkinsfiles with enterprise security steps
 * **GitLab Integration:** Automatic webhook setup to trigger Jenkins builds
 * **Security Automation:** Built-in commit signing, image scanning, and policy validation
@@ -145,8 +143,12 @@ Show::
 +
 image::jenkins-dev-1.png[]
 * Enter your credentials:
-  - Username: `{rhdh_user}`
-  - Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 * In the top-right corner, click the **+ Self-service** button to create a new software component.
 +
 image::jenkins-dev-2.png[]
@@ -292,8 +294,12 @@ image::jenkins-dev-7.png[]
 +
 image::jenkins-dev-8.png[]
 * Sign in with:
-  Username: `{rhdh_user}`
-  Password: `{rhdh_user_password}`
++
+[subs=attributes+]
+----
+Username: {rhdh_user}
+Password: {rhdh_user_password}
+----
 * If prompted, click *Allow selected permissions* on the *Authorize Access* page.
 +
 image::jenkins-dev-9.png[]
@@ -303,9 +309,13 @@ image::jenkins-dev-10.png[]
 * When prompted to authenticate with GitLab:
 +
 image::jenkins-dev-11.png[]
-  Username: `{gitlab_user}`
-  Password: `{gitlab_user_password}`
-  and click *Sign in*.
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
+and click *Sign in*.
 * Click *Authorize devspaces* on the next window.
 +
 image::jenkins-dev-12.png[]
@@ -344,7 +354,7 @@ git commit -m "Update"
 * The terminal will prompt you with a URL for commit signing via `gitsign`
 +
 image::jenkins-dev-15.png[]
-* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Open the URL in your browser, enter your credentials for user `{rhdh_user}` and password `{rhdh_user_password}` if prompted
 * Copy the verification code shown in the browser
 +
 image::jenkins-dev-16.png[]
@@ -378,14 +388,23 @@ Know:: ACME's leadership needs to see that their Jenkins investment can deliver 
 * **Enhance Compliance:** Automatic evidence generation for SOC 2, PCI, and enterprise audits
 
 **ACME's Jenkins Transformation Results:**
-Traditional Jenkins at ACME vs. RHADS-Enhanced Jenkins:
 
-| Traditional ACME Jenkins | RHADS-Enhanced Jenkins |
-|--------------------------|------------------------|
-| Manual security integration: 1-2 weeks | Automatic security: Built-in |
-| Custom pipeline maintenance: Ongoing overhead | Standardized pipelines: Self-maintaining |
-| Manual compliance evidence: Weeks during audits | Automatic audit trails: Real-time |
-| Security often skipped: Risk exposure | Security always enforced: Zero bypass |
+[cols="1,1"]
+|===
+| Traditional ACME Jenkins | RHADS-Enhanced Jenkins
+
+| Manual security integration: 1-2 weeks 
+| Automatic security: Built-in
+
+| Custom pipeline maintenance: Ongoing overhead 
+| Standardized pipelines: Self-maintaining
+
+| Manual compliance evidence: Weeks during audits 
+| Automatic audit trails: Real-time
+
+| Security often skipped: Risk exposure 
+| Security always enforced: Zero bypass
+|===
 
 **Business Impact for ACME:**
 * **ROI Protection:** Jenkins investment enhanced rather than replaced
@@ -607,6 +626,7 @@ Know:: ACME's success story proves that enterprises can achieve startup-like vel
 
 **The ACME Jenkins Success Formula:**
 RHADS proved that enterprises can achieve:
+
 * **Modern developer experience** without abandoning proven Jenkins tooling
 * **Enterprise-grade security** without disrupting familiar workflows
 * **Platform team efficiency** without losing Jenkins expertise and investment

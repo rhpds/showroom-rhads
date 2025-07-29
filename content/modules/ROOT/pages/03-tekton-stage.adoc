@@ -6,31 +6,14 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Pipeline Flow
 
-Know:: ACME Retail's staging deployments are critical for validating features before Black Friday — this shows how RHADS transforms risky manual staging processes into confident automated validation that accelerates delivery while reducing risk.
+Know:: ACME's staging validation was taking 3-5 days and causing production surprises. RHADS transforms this into 30-minute automated validation with enterprise security built-in.
 
-**ACME's Traditional Staging Challenges:**
-* Manual staging deployments take 3-5 days of platform team coordination
-* Inconsistent validation processes lead to production surprises
-* Security checks often skipped under deadline pressure
-* Each staging deployment requires manual testing and approval cycles
+**Business Value:**
 
-**Business Impact of Slow Staging:**
-* Feature validation delays push back production releases by weeks
-* Manual processes don't scale during high-velocity development periods
-* Staging issues discovered late become expensive production problems
-* Teams lose confidence in staging as a reliable production preview
-
-**How RHADS Solves ACME's Staging Bottleneck:**
-* **Instant Staging Validation:** Git tag triggers immediate, automated promotion to staging
-* **Production-Like Security:** Same validation policies as production, catching issues early
-* **Zero Manual Overhead:** Platform teams focus on innovation instead of deployment coordination
-* **Continuous Confidence:** Every staging deployment proves production readiness
-
-**Business Value for ACME:**
-* Staging deployment time: 3-5 days → 30 minutes
-* Feature validation cycles: Weeks → Hours
-* Production incident prevention: Early detection of integration issues
-* Developer velocity: No waiting for staging environment access
+* Staging time: 3-5 days → 30 minutes
+* Feature validation: Weeks → Hours  
+* Zero manual coordination overhead
+* Production-ready confidence every deployment
 
 The moment ACME creates this tag, a GitLab webhook triggers the staging pipeline — proving that automation delivers both speed and quality.
 
@@ -88,52 +71,22 @@ image::tekton-stage-4.png[]
 
 == Pipeline Tasks
 
-Know:: ACME's leadership needs to see that staging deployments now provide production-level confidence while eliminating manual bottlenecks — each pipeline task proves that automation delivers both speed and quality assurance.
+Know:: ACME's staging pipeline provides production-level confidence while eliminating manual bottlenecks.
 
-**Business Value of Automated Staging Pipeline:**
-* **Risk Reduction:** Production-grade validation in staging prevents costly production incidents
-* **Velocity Increase:** Zero manual staging bottlenecks accelerate feature delivery cycles  
-* **Confidence Building:** Staging becomes a reliable predictor of production success
-* **Cost Efficiency:** Platform teams scale without proportional staging overhead
+**Business Value:**
 
-**ACME's Staging Success Metrics:**
-* Staging validation time: Manual days → Automated minutes
-* Production incident prevention: Early detection of integration and security issues
-* Developer productivity: No waiting for staging environment access or manual approvals
-* Platform team efficiency: Focus on innovation instead of deployment coordination
+* Staging time: 3-5 days → 30 minutes
+* Zero manual coordination overhead
+* Production-grade validation catches issues early
+* Platform teams focus on innovation, not deployment coordination
 
 === Task 1.1: Extract Destination Image Tag
 
-Know:: ACME requires perfect traceability for compliance and quality assurance — this task ensures every staging deployment can be tracked from source code to business feature validation.
-
-**Business Value for ACME:**
-* **Release Coordination:** Clear version tracking enables coordinated feature rollouts
-* **Quality Assurance:** QA teams know exactly which features they're validating in staging
-* **Issue Resolution:** If staging issues arise, teams know exactly what code is involved
-* **Audit Trail:** Complete traceability for compliance and release management
-
-The Git tag (e.g., `v1.0`) becomes ACME's coordinate system for organizing feature validation and release planning across teams.
+Know:: ACME gets perfect traceability — Git tags enable coordinated feature rollouts and complete audit trails.
 
 === Task 1.2: Gather Images to Verify
 
-Know:: ACME's business depends on staging environments that perfectly mirror production — this task ensures the exact same artifacts tested in staging will be deployed to production, eliminating deployment surprises.
-
-**Traditional ACME Challenge:**
-* Different images between staging and production caused production surprises
-* Manual image tracking led to "works in staging, fails in production" incidents
-* Unclear provenance made issue diagnosis difficult and time-consuming
-
-**RHADS Business Solution:**
-* **Perfect Consistency:** Same validated images from development to staging to production
-* **Issue Prevention:** Staging truly represents what customers will experience
-* **Rapid Diagnosis:** Complete image provenance available for quick troubleshooting
-* **Confidence Building:** Teams trust that staging validation predicts production success
-
-**Business Impact:**
-* Production surprise elimination: Staging becomes a reliable production preview
-* Incident reduction: Issues caught in staging, not production
-* Deployment confidence: Teams trust the staging validation process
-* Customer satisfaction: Fewer production issues mean better customer experience
+Know:: ACME ensures staging perfectly mirrors production — same validated images eliminate "works in staging, fails in production" surprises.
 
 The `images.json` file becomes ACME's guarantee that staging validation represents real production deployment quality.
 
@@ -144,26 +97,14 @@ This mapping between Git commit and container image provides end-to-end traceabi
 
 === Task 2: Verify Enterprise Contract
 
-Know:: ACME's most critical business protection for staging — automated security validation that catches compliance issues before they become expensive production problems or audit failures.
+Know:: ACME's critical business protection — automated security validation catches compliance issues before expensive production problems.
 
-**Business Risk Without Staging Security Validation:**
-* Security vulnerabilities discovered in production cost millions in incident response
-* Compliance violations found during audits trigger expensive remediation projects
-* Manual security reviews create 1-2 week staging deployment delays
-* Inconsistent security standards between staging and production environments
+**Business Value:**
 
-**RHADS Business Protection for ACME:**
-* **Early Risk Detection:** Security issues caught in staging, not production
-* **Compliance Confidence:** Same security standards as production, ensuring audit readiness
-* **Zero Deployment Delays:** Security validation happens automatically in minutes
-* **Cost Avoidance:** Preventing one production security incident pays for the entire platform
-
-**Enterprise Security Validations in Staging:**
-* **Cosign signature verification:** Ensures staging uses only trusted, signed images
-* **SBOM presence validation:** Complete dependency scanning for vulnerability management
-* **Provenance verification:** Confirms staging images came from trusted build processes
-* **CVE scanning:** Automatic vulnerability detection before production exposure
-* **Policy compliance:** Enterprise security rules enforced consistently
+* Security validation: 1-2 weeks → Minutes
+* Early risk detection prevents costly production incidents
+* Same security standards as production ensure audit readiness
+* Automatic CVE scanning and policy compliance
 
 **Business Impact for ACME:**
 * Security incident prevention: Issues caught before customer exposure
@@ -180,21 +121,7 @@ If any check fails, the pipeline halts. If everything passes, the image moves fo
 
 === Task 3: Copy Image
 
-Know:: ACME's quality gateway for staging readiness — only images that pass enterprise security validation earn the staging deployment designation, ensuring staging truly represents production quality.
-
-**Business Value of Staging Image Promotion:**
-* **Quality Assurance:** Only validated, compliant images reach ACME's staging environment
-* **Consistency Guarantee:** Same image promotion process for staging and production
-* **Deployment Confidence:** Teams trust that staging validation represents production quality
-* **Risk Management:** Impossible to accidentally deploy non-validated code to staging
-
-**Why This Matters for ACME's Business:**
-* **Staging Reliability:** Staging becomes a true production preview environment
-* **Issue Prevention:** Quality problems caught before expensive production incidents
-* **Process Standardization:** Same validation rigor across all ACME environments
-* **Customer Protection:** Features validated with production-grade security in staging
-
-The human-readable tag (`v1.0`) signals that this image met ACME's enterprise standards and is ready for business validation.
+Know:: ACME's quality gateway — only validated, compliant images reach staging, ensuring production-grade quality.
 
 [IMPORTANT]
 ====
@@ -203,27 +130,14 @@ This guarantees that only validated artifacts are promoted — no sneaky image c
 
 === Task 4: Update Deployment
 
-Know:: ACME's automated bridge from security validation to business feature testing — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation without deployment delays.
+Know:: ACME's automated bridge — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation.
 
-**Traditional ACME Staging Deployment Risks:**
-* Manual staging deployments prone to configuration errors
-* Emergency feature testing bypassed proper validation processes
-* Inconsistent staging configurations led to production surprises
-* Manual deployment steps delayed feature validation cycles
+**Business Value:**
 
-**RHADS Business Benefits for ACME:**
-* **Zero Deployment Errors:** GitOps automation eliminates manual staging mistakes
-* **Immediate Validation:** Features available for testing within minutes of validation
-* **Consistent Environments:** Staging perfectly mirrors production configuration
-* **Continuous Readiness:** Staging environment always reflects the latest validated features
-
-**Business Impact:**
-* **Faster Feature Validation:** QA teams can test immediately after development completion
-* **Reduced Production Risk:** Staging catches configuration and integration issues early
-* **Team Efficiency:** No manual coordination needed for staging deployments
-* **Release Confidence:** Staging success reliably predicts production success
-
-The GitOps overlay system ensures ACME's staging environment stays current, secure, and production-representative.
+* QA teams can test immediately after development completion
+* Staging catches configuration issues before production
+* No manual coordination needed for deployments
+* Staging success reliably predicts production success
 
 [NOTE]
 ====
@@ -359,43 +273,16 @@ spec:
 
 === Key Takeaways
 
-Know:: ACME's staging transformation demonstrates how automated validation creates business value by enabling faster, safer feature delivery:
+Know:: ACME's staging transformation delivers faster, safer feature delivery.
 
-**Business Results Achieved:**
-* **Staging Speed:** Deployment time from 3-5 days → 30 minutes
-* **Quality Assurance:** Production-grade validation catches issues early
-* **Team Efficiency:** Zero manual staging coordination overhead
-* **Risk Reduction:** Staging becomes reliable predictor of production success
-* **Developer Velocity:** No waiting for staging environment access
+**Business Value:**
 
-**Strategic Business Value:**
-* **Faster Time-to-Market:** Features validated quickly without compromising quality
-* **Cost Avoidance:** Staging catches expensive production issues before customer impact
-* **Operational Excellence:** Consistent, automated processes across all environments
-* **Confidence Building:** Teams trust staging validation represents production reality
-* **Platform Scaling:** Automated staging supports rapid team and application growth
-
-**Why This Matters for Your Business:**
-* Staging environments that teams actually trust and use effectively
-* Security and compliance validation happens early, not at production gates
-* Platform teams focus on innovation instead of manual deployment coordination
-* Development velocity increases without compromising enterprise security standards
+* Staging time: 3-5 days → 30 minutes
+* Production-grade validation catches issues early
+* Zero manual coordination overhead
+* Teams trust staging validation represents production reality
 
 === Optional Enhancements
 
-Know:: These demonstrations can reinforce ACME's staging transformation and address specific customer concerns:
-
-**Demonstrating ACME's Quality Protection:**
-* Simulate a failed validation scenario to show Enterprise Contract blocking unsafe deployments
-* Show how ACME's quality gates prevent issues from reaching production
-
-**Showing ACME's Operational Excellence:**
-* Display the new image tag (e.g., `v1.0`) in the Quay UI showing staging readiness
-* Demonstrate Argo CD interface syncing the deployment after GitOps changes
-
-**Proving ACME's Business Value:**
-* Show the Enterprise Contract policy bundle that defines ACME's quality standards
-* Explain how the same validation process ensures consistency between staging and production
-
-These enhancements prove that ACME achieved staging efficiency without compromising quality or security.
+Know:: Optional demonstrations to show ACME's staging transformation — simulate failed validations, display Quay image tags, demonstrate Argo CD syncing, and show Enterprise Contract policies.
 
