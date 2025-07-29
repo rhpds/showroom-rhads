@@ -11,7 +11,7 @@ Know:: ACME's staging validation was taking 3-5 days and causing production surp
 **Business Value:**
 
 * Staging time: 3-5 days → 30 minutes
-* Feature validation: Weeks → Hours  
+* Feature validation: Weeks → Hours
 * Zero manual coordination overhead
 * Production-ready confidence every deployment
 
@@ -80,11 +80,11 @@ Know:: ACME's staging pipeline provides production-level confidence while elimin
 * Production-grade validation catches issues early
 * Platform teams focus on innovation, not deployment coordination
 
-=== Task 1.1: Extract Destination Image Tag
+=== Task 1.1: extract-destination-image-tag
 
 Know:: ACME gets perfect traceability — Git tags enable coordinated feature rollouts and complete audit trails.
 
-=== Task 1.2: Gather Images to Verify
+=== Task 1.2: gather-images-to-verify
 
 Know:: ACME ensures staging perfectly mirrors production — same validated images eliminate "works in staging, fails in production" surprises.
 
@@ -95,7 +95,7 @@ The `images.json` file becomes ACME's guarantee that staging validation represen
 This mapping between Git commit and container image provides end-to-end traceability — we know exactly what code went into what image.
 ====
 
-=== Task 2: Verify Enterprise Contract
+=== Task 2: verify-enterprise-contract
 
 Know:: ACME's critical business protection — automated security validation catches compliance issues before expensive production problems.
 
@@ -119,7 +119,7 @@ This step enforces multiple critical validations that protect ACME's business an
 If any check fails, the pipeline halts. If everything passes, the image moves forward to the next promotion step.
 ====
 
-=== Task 3: Copy Image
+=== Task 3: copy-image
 
 Know:: ACME's quality gateway — only validated, compliant images reach staging, ensuring production-grade quality.
 
@@ -128,7 +128,7 @@ Know:: ACME's quality gateway — only validated, compliant images reach staging
 This guarantees that only validated artifacts are promoted — no sneaky image changes slip through.
 ====
 
-=== Task 4: Update Deployment
+=== Task 4: update-deployment
 
 Know:: ACME's automated bridge — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation.
 
@@ -146,7 +146,7 @@ No manual `kubectl`, no YAML editing in the console — the system reacts to Git
 
 Show::
 
-**Task 2: Verify Enterprise Contract Commands**
+**Task 2: verify-enterprise-contract Commands**
 
 First, the pipeline bootstraps trust using `cosign` and a local TUF (The Update Framework) server:
 
@@ -182,7 +182,7 @@ ec validate image \
 }
 ----
 
-=== Task 2: Sample images.json
+**Task 2: Sample images.json**
 
 .Sample `images.json`
 [source,json,subs="attributes"]
@@ -202,7 +202,7 @@ ec validate image \
 }
 ----
 
-=== Task 3: Copy Image Command
+**Task 3: copy-image Command**
 
 Use `skopeo` to copy and retag the image:
 
@@ -213,7 +213,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
-=== Task 4: Update Deployment Files
+**Task 4: Update Deployment Files**
 
 .`kustomization.yaml`
 [source,yaml]
