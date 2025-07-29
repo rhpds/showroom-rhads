@@ -1,4 +1,4 @@
-name: modules
+name: How to use this demo
 version: master
 nav:
   - modules/ROOT/nav.adoc
