@@ -1,3 +1,5 @@
+* xref:00-how-to-guide.adoc[How to Use This Demo]
+
 * xref:01-agenda.adoc[1. Agenda]
 
 * xref:02-introduction.adoc[2. Introduction]
