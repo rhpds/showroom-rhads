@@ -51,7 +51,7 @@ Use the Developer Hub view to explain each task as it executes. Let your audienc
 
 Show::
 
-=== Option 1: Tag via GitLab UI
+**Option 1: Tag via GitLab UI**
 
 Walk the audience through the GitLab web interface:
 
@@ -232,7 +232,7 @@ No manual `kubectl`, no YAML editing in the console — the system reacts to Git
 
 Show::
 
-=== Task 2: Verify Enterprise Contract Commands
+**Task 2: Verify Enterprise Contract Commands**
 
 First, the pipeline bootstraps trust using `cosign` and a local TUF (The Update Framework) server:
 

@@ -98,7 +98,7 @@ Choose one of the following methods to create the tag:
 
 Show::
 
-=== Option 1: Tag via GitLab UI
+**Option 1: Tag via GitLab UI**
 
 * Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
@@ -113,7 +113,7 @@ image::jenkins-stage-2.png[]
 +
 image::jenkins-stage-3.png[]
 
-=== Option 2: Tag via Git CLI
+**Option 2: Tag via Git CLI**
 
 Alternatively, you can trigger the pipeline by pushing a Git tag from your local machine:
 
@@ -306,7 +306,7 @@ Mention:
 
 Show::
 
-=== Task 1: gather-images
+**Task 1: gather-images**
 Click on the 'gather-images' stage in the pipeline and click on the last step. This should show the below json:
 
 [source,json,subs="attributes"]
@@ -326,7 +326,7 @@ Click on the 'gather-images' stage in the pipeline and click on the last step. T
 }
 ----
 
-=== Task 2: verify-ec
+**Task 2: verify-ec**
 * Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
 * It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
 
@@ -362,7 +362,7 @@ ec validate image \
 }
 ----
 
-=== Task 3: update-image-tag-for-stage
+**Task 3: update-image-tag-for-stage**
 In the `update-image-tag-for-stage` stage, Jenkins uses `skopeo` to copy the image and apply a new tag. Let the audience know that once the image passes validation, this step applies a release version tag:
 
 [source,bash]
@@ -372,7 +372,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0
 ----
 
-=== Task 4: deploy-to-stage
+**Task 4: deploy-to-stage**
 * In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
 * This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
 

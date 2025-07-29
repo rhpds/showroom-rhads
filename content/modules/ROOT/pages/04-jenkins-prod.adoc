@@ -307,7 +307,7 @@ This final step completes the promotion workflow — fully automated, fully audi
 
 Show::
 
-=== Task 1: gather-images Example
+**Task 1: gather-images Example**
 
 .Example `images.json`
 [source,json,subs="attributes"]

@@ -298,7 +298,7 @@ Show:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the run
 
 image::tekton-dev-18.png[]
 
-=== Task 1: `init`
+**Task 1: `init`**
 
 Pipeline resources and artifacts required for this pipeline run are initialized.
 Any reusable components needed downstream are set up.
