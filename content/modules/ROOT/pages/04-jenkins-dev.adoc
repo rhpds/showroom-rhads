@@ -16,6 +16,7 @@ Know:: ACME has significant Jenkins investments powering critical applications. 
 * Standardized pipelines eliminate maintenance overhead
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
+
 This demo shows how ACME transforms their Jenkins investment into a modern, secure, self-service platform:
 
 * **Preserve Jenkins Investment:** Leverage existing Jenkins infrastructure and team expertise

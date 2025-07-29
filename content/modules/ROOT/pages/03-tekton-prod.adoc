@@ -11,27 +11,12 @@ toc::[]
 
 Know:: ACME's Black Friday success requires safe, fast production deployments. RHADS transforms risky manual processes into confident automated workflows.
 
-**ACME's Production Deployment Challenge:**
-* Traditional production releases take 2-3 weeks of manual security reviews
-* Each production deployment risks downtime during peak shopping season
-* Manual validation processes create opportunities for human error
-* Security teams become bottlenecks during critical release cycles
+**Business Value:**
 
-**The Business Stakes:**
-* Black Friday downtime could cost ACME $50,000+ per minute in lost sales
-* Failed deployments during peak season damage customer trust and revenue
-* Manual processes don't scale during high-velocity release periods
-* Compliance violations could trigger expensive audit failures
-
-**How RHADS Solves ACME's Production Risk:**
-This module demonstrates how ACME now:
-
-* Deploys to production with zero manual security reviews (saves 2-3 weeks per release)
-* Automatically validates every production candidate before deployment
-* Eliminates human error through automated policy enforcement
-* Maintains complete audit trails for SOC 2 and PCI compliance
-
-The result: ACME deploys confidently to production while reducing risk and accelerating delivery.
+* Production deployment time: 2-3 weeks → 30 minutes
+* Zero manual security reviews or bottlenecks
+* Eliminates human error through automation
+* Complete SOC 2 and PCI audit trails automatically
 
 [NOTE]
 ====
@@ -121,18 +106,21 @@ This metadata ensures traceability — the image is linked back to its source co
 Know:: ACME's most critical business protection — automated security validation that prevents costly production incidents while eliminating manual security review delays.
 
 **Business Risk Without Automated Validation:**
+
 * Security vulnerabilities in production could cost millions in damages and compliance fines
 * Manual security reviews create 2-3 week deployment delays
 * Human error in security checks leads to production incidents
 * Inconsistent security standards across different teams and deployments
 
 **RHADS Business Protection:**
+
 * **Zero Security Incidents:** Automated validation catches issues before they reach customers
 * **100% Consistent Standards:** Every deployment meets the same enterprise security policies
 * **Instant Compliance:** SOC 2, PCI, and regulatory requirements enforced automatically
 * **No Deployment Delays:** Security validation happens in minutes, not weeks
 
 **Enterprise Security Validations Performed:**
+
 * **Digital signature verification:** Proves the image hasn't been tampered with
 * **SBOM validation:** Complete dependency scanning for vulnerability management
 * **Provenance verification:** Confirms the image came from trusted build processes
@@ -140,6 +128,7 @@ Know:: ACME's most critical business protection — automated security validatio
 * **Organizational policy compliance:** Custom security rules enforced automatically
 
 **Business Impact for ACME:**
+
 * Security incident prevention: Saves potential millions in damages
 * Compliance confidence: Automatic evidence for audits
 * Deployment velocity: Minutes instead of weeks for security approval
@@ -215,18 +204,21 @@ The previously validated image is promoted by this command by creating a new tag
 Know:: ACME's automated bridge from security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention or risk.
 
 **Traditional ACME Production Deployment Risks:**
+
 * Manual deployment steps prone to human error during critical releases
 * Emergency changes bypass proper validation under pressure
 * Inconsistent deployment processes across different teams
 * Production changes without proper audit trails
 
 **RHADS Business Benefits:**
+
 * **Zero Manual Errors:** GitOps automation eliminates human deployment mistakes
 * **100% Audit Trail:** Every production change tracked and traceable
 * **Consistent Process:** Same deployment method for routine and emergency changes
 * **Continuous Compliance:** All changes follow the same validated security process
 
 **Business Impact for ACME:**
+
 * **Deployment Confidence:** Argo CD ensures exactly what was validated gets deployed
 * **Risk Elimination:** No manual steps that could introduce errors during critical releases
 * **Compliance Automation:** Production environment continuously reflects audited Git state

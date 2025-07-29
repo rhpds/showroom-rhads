@@ -58,6 +58,7 @@ Know:: ACME's transformation from manual Jenkins staging coordination to instant
 * Teams lose development momentum waiting for Jenkins staging availability
 
 **RHADS Business Benefits for ACME's Jenkins Staging:**
+
 * **Instant Staging Access:** Git tag immediately triggers Jenkins staging deployment
 * **Zero Coordination Overhead:** No manual scheduling or team coordination required
 * **Predictable Staging Timeline:** Consistent Jenkins staging deployment within minutes
@@ -121,6 +122,7 @@ Tell your audience:
 Know:: ACME's leadership needs to see that Jenkins-based staging deployments are now safer AND faster than ever before — each pipeline task proves that automation enhances Jenkins capabilities while reducing business risk and accelerating feature validation.
 
 **Business Value of Enhanced Jenkins Staging Pipeline:**
+
 * **Investment Protection:** Leverage existing Jenkins infrastructure worth millions while adding modern staging capabilities
 * **Feature Validation:** Critical staging validation happens in minutes instead of days through Jenkins
 * **Risk Prevention:** Security violations caught in Jenkins staging before they reach production
@@ -146,6 +148,7 @@ Know:: ACME's leadership needs to see that Jenkins-based staging deployments are
 |===
 
 **Strategic Business Value for ACME:**
+
 * **Feature Velocity:** Validate features using Jenkins while competitors wait for staging access
 * **Quality Confidence:** Enhanced Jenkins staging ensures production readiness
 * **Cost Efficiency:** Platform teams focus on innovation instead of manual Jenkins coordination
@@ -160,12 +163,14 @@ Let's walk through what happens in each step of the Jenkins pipeline as we promo
 Know:: ACME requires perfect traceability for staging validation using their Jenkins infrastructure — this task ensures every staging deployment can be traced back to its exact source through familiar Jenkins processes while providing audit confidence.
 
 **Business Value for ACME's Jenkins Staging:**
+
 * **Feature Traceability:** Every staging deployment links back to specific developer changes through Jenkins
 * **Quality Assurance:** Staging validation proves the exact code that will reach production
 * **Development Confidence:** Teams know precisely what is being validated in Jenkins staging
 * **Investment Leverage:** Existing Jenkins expertise becomes more valuable with enhanced traceability
 
 **Why This Matters for ACME's Business:**
+
 * **Risk Management:** If staging issues arise, ACME knows exactly what was deployed through Jenkins tracking
 * **Audit Readiness:** Complete staging evidence trail through Jenkins for compliance reviews
 * **Quality Control:** Staging validation only happens on properly tracked and approved changes
@@ -180,18 +185,21 @@ This gets written into an `images.json` file — which becomes the authoritative
 Know:: ACME's most critical staging protection through enhanced Jenkins — automated security validation that prevents costly staging issues while eliminating manual security review delays in familiar Jenkins workflows before features reach production.
 
 **Business Risk Without Automated Jenkins Staging Security:**
+
 * Staging security vulnerabilities could leak into production costing ACME millions
 * Manual security reviews in Jenkins staging create 1-2 week validation delays
 * Human error in Jenkins staging checks leads to production incidents
 * Inconsistent staging security standards across different Jenkins teams
 
 **RHADS Business Protection for ACME's Jenkins Staging:**
+
 * **Zero Staging Security Incidents:** Automated validation in Jenkins catches issues before production
 * **100% Consistent Standards:** Every Jenkins staging deployment meets the same enterprise security policies
 * **Instant Staging Validation:** Security validation in Jenkins staging happens in minutes, not weeks
 * **Production Confidence:** Only security-validated features progress from Jenkins staging
 
 **Enterprise Staging Security Validations in ACME's Jenkins Pipeline:**
+
 * **Digital signature verification:** Proves staging images haven't been tampered with
 * **SBOM validation:** Complete dependency scanning for staging vulnerability management
 * **Provenance verification:** Confirms staging images came from trusted build processes
@@ -199,6 +207,7 @@ Know:: ACME's most critical staging protection through enhanced Jenkins — auto
 * **Organizational policy compliance:** Custom ACME security rules enforced automatically in Jenkins staging
 
 **Business Impact for ACME:**
+
 * Staging security incident prevention: Saves potential millions through automated Jenkins validation
 * Feature validation confidence: 100% security-validated features in staging
 * Staging deployment velocity: Minutes instead of weeks for security approval through Jenkins
@@ -242,6 +251,7 @@ Optional: Simulate a failed validation by pushing an unsigned image or one missi
 Know:: ACME's staging quality gate for production readiness through Jenkins — only images that pass enterprise security validation earn the "staging-ready" designation, ensuring staging deployments represent true quality and security standards for Black Friday features.
 
 **Business Value of Staging Tagging in ACME's Jenkins:**
+
 * **Clear Staging Intent:** Release version tag signals this image passed all enterprise security checks in Jenkins staging
 * **Feature Validation:** Complete traceability from source code to staging deployment through Jenkins
 * **Quality Assurance:** Only validated, compliant features can be tested in ACME's staging through Jenkins workflows
@@ -266,12 +276,14 @@ In the `update-image-tag-for-stage` stage, Jenkins uses `skopeo` to copy the ima
 Know:: ACME's automated bridge from Jenkins staging validation to feature testing — GitOps ensures validated changes reach staging automatically without manual intervention or risk while leveraging familiar Jenkins workflows for business feedback cycles.
 
 **Traditional ACME Jenkins Staging Deployment Risks:**
+
 * Manual Jenkins staging deployment steps prone to human error during critical feature validation
 * Emergency staging changes bypass proper Jenkins validation under deadline pressure
 * Inconsistent Jenkins staging deployment processes across different teams
 * Staging changes without proper audit trails through Jenkins
 
 **RHADS Business Benefits for ACME's Jenkins Staging:**
+
 * **Zero Manual Errors:** GitOps automation eliminates human staging deployment mistakes in Jenkins workflows
 * **100% Staging Audit Trail:** Every staging change tracked and traceable through Jenkins
 * **Consistent Process:** Same Jenkins staging deployment method for routine and emergency features
@@ -398,6 +410,7 @@ patchesStrategicMerge:
 Know:: ACME's Jenkins-based staging transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure and team expertise for critical feature validation.
 
 **Business Results Achieved by ACME:**
+
 * **Staging Speed:** Jenkins staging deployment from 3-5 days → 30 minutes
 * **Security Confidence:** 100% automated policy enforcement through enhanced Jenkins staging
 * **Risk Reduction:** Eliminated human error from Jenkins staging deployment process
@@ -405,6 +418,7 @@ Know:: ACME's Jenkins-based staging transformation demonstrates how enterprise i
 * **Investment Protection:** Jenkins infrastructure and expertise enhanced rather than replaced
 
 **Strategic Business Value for ACME:**
+
 * **Competitive Advantage:** Validate features using Jenkins while competitors wait for staging access
 * **Feature Quality:** Confident Jenkins-based staging validation ensures production readiness
 * **Cost Efficiency:** Platform teams focus on innovation instead of manual Jenkins staging coordination
@@ -412,6 +426,7 @@ Know:: ACME's Jenkins-based staging transformation demonstrates how enterprise i
 * **Team Retention:** Jenkins experts become more valuable with enhanced staging capabilities rather than obsolete
 
 **Why This Matters for Your Business:**
+
 * Preserve and enhance millions in Jenkins infrastructure investment for staging
 * Transform Jenkins from staging bottleneck to competitive advantage
 * Maintain team expertise while gaining modern staging validation capabilities

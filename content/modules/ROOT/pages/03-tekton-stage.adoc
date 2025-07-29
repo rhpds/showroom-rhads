@@ -97,26 +97,14 @@ This mapping between Git commit and container image provides end-to-end traceabi
 
 === Task 2: Verify Enterprise Contract
 
-Know:: ACME's most critical business protection for staging — automated security validation that catches compliance issues before they become expensive production problems or audit failures.
+Know:: ACME's critical business protection — automated security validation catches compliance issues before expensive production problems.
 
-**Business Risk Without Staging Security Validation:**
-* Security vulnerabilities discovered in production cost millions in incident response
-* Compliance violations found during audits trigger expensive remediation projects
-* Manual security reviews create 1-2 week staging deployment delays
-* Inconsistent security standards between staging and production environments
+**Business Value:**
 
-**RHADS Business Protection for ACME:**
-* **Early Risk Detection:** Security issues caught in staging, not production
-* **Compliance Confidence:** Same security standards as production, ensuring audit readiness
-* **Zero Deployment Delays:** Security validation happens automatically in minutes
-* **Cost Avoidance:** Preventing one production security incident pays for the entire platform
-
-**Enterprise Security Validations in Staging:**
-* **Cosign signature verification:** Ensures staging uses only trusted, signed images
-* **SBOM presence validation:** Complete dependency scanning for vulnerability management
-* **Provenance verification:** Confirms staging images came from trusted build processes
-* **CVE scanning:** Automatic vulnerability detection before production exposure
-* **Policy compliance:** Enterprise security rules enforced consistently
+* Security validation: 1-2 weeks → Minutes
+* Early risk detection prevents costly production incidents
+* Same security standards as production ensure audit readiness
+* Automatic CVE scanning and policy compliance
 
 **Business Impact for ACME:**
 * Security incident prevention: Issues caught before customer exposure
@@ -143,15 +131,13 @@ This guarantees that only validated artifacts are promoted — no sneaky image c
 === Task 4: Update Deployment
 
 Know:: ACME's automated bridge — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation.
-* **Continuous Readiness:** Staging environment always reflects the latest validated features
 
-**Business Impact:**
-* **Faster Feature Validation:** QA teams can test immediately after development completion
-* **Reduced Production Risk:** Staging catches configuration and integration issues early
-* **Team Efficiency:** No manual coordination needed for staging deployments
-* **Release Confidence:** Staging success reliably predicts production success
+**Business Value:**
 
-The GitOps overlay system ensures ACME's staging environment stays current, secure, and production-representative.
+* QA teams can test immediately after development completion
+* Staging catches configuration issues before production
+* No manual coordination needed for deployments
+* Staging success reliably predicts production success
 
 [NOTE]
 ====
