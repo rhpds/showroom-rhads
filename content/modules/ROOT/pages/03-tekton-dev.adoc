@@ -114,31 +114,14 @@ image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Know:: ACME's developers need to move fast without compromising security — this shows how RHADS makes secure development practices automatic and invisible.
+Know:: ACME's developers need to move fast without compromising security — RHADS makes secure development practices automatic and invisible.
 
-**ACME's Business Security Requirements:**
-* Every commit must be traceable to a specific developer (SOC 2 compliance)
-* No unsigned code can enter production (regulatory requirement)
-* Audit trails must prove who changed what and when
+**Business Value:**
 
-**Traditional Security Pain Points:**
-* Manual commit signing slows down development
-* Developers often skip security steps under deadline pressure
-* Audit preparation requires weeks of manual evidence gathering
-
-**RHADS Business Benefits:**
-* **Automatic Security:** Commit signing happens seamlessly in the developer workflow
-* **No Productivity Loss:** Security doesn't slow down ACME's developers
-* **Built-in Compliance:** Every change automatically creates audit-ready evidence
-* **Risk Reduction:** Impossible to bypass security controls
-
-**Business Impact for ACME:**
 * Security compliance: Manual → Automatic
 * Audit preparation: 2-3 weeks → Real-time reporting
-* Developer velocity: No security-related delays
-* Risk mitigation: 100% signed commits without developer friction
-
-ACME's developers can now code at full speed while automatically meeting all security requirements.
+* 100% signed commits without developer friction
+* Impossible to bypass security controls
 
 Show::
 * In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
