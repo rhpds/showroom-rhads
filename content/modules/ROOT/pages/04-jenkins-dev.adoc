@@ -9,18 +9,21 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 Know:: ACME Retail's development teams face the same challenges as most enterprises with significant Jenkins investments — they want to modernize their delivery pipelines without abandoning proven tooling that powers critical business operations.
 
 **ACME's Enterprise Jenkins Reality:**
+
 * 15+ Jenkins instances supporting 200+ applications across the organization
 * Years of Jenkins expertise and custom pipeline investments
 * Existing Jenkins-based compliance and security processes
 * Business-critical applications that can't afford CI/CD disruption during modernization
 
 **The Business Challenge:**
+
 * Developers want modern self-service capabilities and faster delivery cycles
 * Platform teams are overwhelmed with Jenkins pipeline setup and maintenance requests
 * Security and compliance checks are often manual additions to existing Jenkins workflows
 * Each team builds Jenkins pipelines differently, creating governance gaps and duplicated effort
 
 **Traditional ACME Jenkins Problems:**
+
 * Setting up new Jenkins pipelines takes 1-2 weeks of DevOps team coordination
 * Manual security configurations lead to inconsistent compliance across applications
 * Jenkins expertise bottlenecks slow down new project onboarding
@@ -28,12 +31,14 @@ Know:: ACME Retail's development teams face the same challenges as most enterpri
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
 This demo shows how ACME transforms their Jenkins investment into a modern, secure, self-service platform:
+
 * **Preserve Jenkins Investment:** Leverage existing Jenkins infrastructure and team expertise
 * **Add Modern Self-Service:** Developers create production-ready Jenkins pipelines in minutes
 * **Enhance Security:** Automatically integrate enterprise security into existing Jenkins workflows
 * **Reduce Platform Overhead:** Standardized Jenkins templates eliminate custom pipeline maintenance
 
 **Business Value for ACME:**
+
 * Jenkins pipeline setup time: 1-2 weeks → 5 minutes
 * Platform team efficiency: 75% reduction in Jenkins setup requests
 * Security compliance: 100% consistent across all new Jenkins-based applications
@@ -79,12 +84,14 @@ Know:: ACME's Jenkins transformation begins here — showing how a single develo
 
 **ACME's Traditional Jenkins Setup Challenge:**
 Before RHADS, creating a new Jenkins-based application required:
+
 * 1-2 weeks waiting for DevOps team to create custom Jenkins pipelines
 * Multiple coordination meetings between development, platform, and security teams
 * Manual integration of security tools into Jenkins workflows
 * High risk of configuration inconsistencies across different Jenkins pipelines
 
 **The Hidden Costs:**
+
 * Platform team spends 40+ hours per new application on Jenkins pipeline setup
 * Security integration delays add another 1-2 weeks to project timelines
 * Each custom Jenkins pipeline becomes a maintenance burden requiring ongoing platform team support
@@ -623,6 +630,7 @@ Know:: ACME's success story proves that enterprises can achieve startup-like vel
 
 **The ACME Jenkins Success Formula:**
 RHADS proved that enterprises can achieve:
+
 * **Modern developer experience** without abandoning proven Jenkins tooling
 * **Enterprise-grade security** without disrupting familiar workflows
 * **Platform team efficiency** without losing Jenkins expertise and investment

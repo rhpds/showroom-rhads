@@ -25,6 +25,7 @@ Know:: ACME Retail's Black Friday success depends on deploying checkout service 
 
 **How RHADS Solves ACME's Production Risk:**
 This module demonstrates how ACME now:
+
 * Deploys to production with zero manual security reviews (saves 2-3 weeks per release)
 * Automatically validates every production candidate before deployment
 * Eliminates human error through automated policy enforcement

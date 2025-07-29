@@ -21,6 +21,7 @@ Know:: ACME Retail's checkout service team faces the same challenges as most ent
 
 **How RHADS Solves ACME's Problems:**
 This demo shows how ACME's developers can now:
+
 * Create production-ready services in minutes, not weeks
 * Automatically get secure CI/CD pipelines with zero manual setup
 * Deploy with confidence knowing security and compliance are built-in
@@ -36,6 +37,7 @@ Know:: This is where ACME's transformation begins — showing how a single click
 
 **ACME's Business Challenge:**
 Before RHADS, creating a new checkout service required:
+
 * 3-5 business days waiting for platform team to set up repositories  
 * 1-2 weeks coordinating security requirements across teams
 * Multiple handoffs between development, platform, and security teams
@@ -451,6 +453,7 @@ Know:: ACME's transformation demonstrates how enterprise security and startup sp
 === The ACME Success Formula
 
 RHADS proved that modern enterprises can achieve:
+
 * **Enterprise-grade security** without enterprise-grade delays
 * **Startup-like velocity** without startup-like risk
 * **Platform team efficiency** without compromising developer experience

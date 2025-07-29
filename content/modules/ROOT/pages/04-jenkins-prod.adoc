@@ -25,6 +25,7 @@ Know:: ACME Retail's Black Friday success depends on deploying checkout service 
 
 **How RHADS Solves ACME's Jenkins Production Risk:**
 This module demonstrates how ACME transforms their Jenkins investment for production:
+
 * **Preserve Jenkins Infrastructure:** Leverage existing Jenkins expertise and multi-million dollar infrastructure investment
 * **Eliminate Manual Reviews:** Deploy to production with zero manual security bottlenecks (saves 2-3 weeks per release)
 * **Automate Enterprise Security:** Every production candidate automatically validated before deployment
