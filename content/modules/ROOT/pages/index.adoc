@@ -128,6 +128,13 @@ This guide helps sales engineers and technical presenters deliver an effective R
 == Contact Information
 
 For demo environment issues or technical questions:
-* Red Hat Demo Platform Team
-* Product documentation: https://developers.redhat.com/products/advanced-developer-suite
-* Technical support channels 
+
+* **Red Hat Demo Platform Team**
+* **Product documentation:** https://developers.redhat.com/products/advanced-developer-suite
+* **Technical support channels**
+
+For technical issues, reach out to Red Hat Demo Platform team:
+
+* **Slack channels:**
+  - `#forum-demo-platform`
+  - `#forum-rhtap` 
