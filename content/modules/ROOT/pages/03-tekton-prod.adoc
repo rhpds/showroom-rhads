@@ -1,7 +1,7 @@
-= Advanced Developer Suite Demo Instructions
-Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
+= Advanced Developer Suite Demo Narrative
+Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion
 :icons: font
-:sectnums:
+:sectnums!:
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1

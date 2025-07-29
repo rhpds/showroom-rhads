@@ -1,8 +1,8 @@
-= Red Hat Developer Hub + Red Hat Advanced Developer Suite Demo Guide
-:author: Sales Engineer / Developer Advocate
-:revdate: 2025-07-02
-:icons!:
-:toc:
+= Advanced Developer Suite Demo Instructions
+Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
+:sectnums!:
+:source-highlighter: rouge
+:toc: macro
 :toclevels: 1
 
 == Part 1 — Set the Stage
