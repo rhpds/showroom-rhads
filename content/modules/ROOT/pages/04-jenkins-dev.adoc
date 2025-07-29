@@ -141,20 +141,20 @@ For customers already using Jenkins, this template shows how ADS can plug into t
 ====
 
 Show::
-. Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
+* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 +
 image::jenkins-dev-1.png[]
-. Enter your credentials:
+* Enter your credentials:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
-. In the top-right corner, click the **+ Self-service** button to create a new software component.
+* In the top-right corner, click the **+ Self-service** button to create a new software component.
 +
 image::jenkins-dev-2.png[]
-. In the top-right corner, click the *+* button to start creating a new software component.
-. Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_.
+* In the top-right corner, click the *+* button to start creating a new software component.
+* Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_.
 +
 image::jenkins-dev-3.png[]
-. Accept the default values unless customization is needed. The template collects basic metadata like app name, registry info, and repository setup.
+* Accept the default values unless customization is needed. The template collects basic metadata like app name, registry info, and repository setup.
 
 Fields like the following are preconfigured:
 
@@ -186,7 +186,7 @@ Fields like the following are preconfigured:
 | Verify Commits | `enabled`
 |===
 
-. Click *Review* to verify your inputs, then click *Create* to generate the new application.
+* Click *Review* to verify your inputs, then click *Create* to generate the new application.
 +
 image::jenkins-dev-5.png[]
 
@@ -281,45 +281,45 @@ If *Verify Commits* was enabled when creating the template, a signed commit is r
 ====
 
 Show::
-. Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`).
+* Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`).
 +
 image::jenkins-dev-6.png[]
-. Click on the component name to open the *Overview* page.
-. Locate the *OpenShift Dev Spaces* link and click on it — this launches a Red Hat OpenShift Dev Spaces environment preloaded with your project.
+* Click on the component name to open the *Overview* page.
+* Locate the *OpenShift Dev Spaces* link and click on it — this launches a Red Hat OpenShift Dev Spaces environment preloaded with your project.
 +
 image::jenkins-dev-7.png[]
-. If redirected, click *Log in with OpenShift*
+* If redirected, click *Log in with OpenShift*
 +
 image::jenkins-dev-8.png[]
-. Sign in with:
+* Sign in with:
   Username: `{rhdh_user}`
   Password: `{rhdh_user_password}`
-. If prompted, click *Allow selected permissions* on the *Authorize Access* page.
+* If prompted, click *Allow selected permissions* on the *Authorize Access* page.
 +
 image::jenkins-dev-9.png[]
-. On the repository trust prompt, click the checkbox and then click *Continue*
+* On the repository trust prompt, click the checkbox and then click *Continue*
 +
 image::jenkins-dev-10.png[]
-. When prompted to authenticate with GitLab:
+* When prompted to authenticate with GitLab:
 +
 image::jenkins-dev-11.png[]
   Username: `{gitlab_user}`
   Password: `{gitlab_user_password}`
   and click *Sign in*.
-. Click *Authorize devspaces* on the next window.
+* Click *Authorize devspaces* on the next window.
 +
 image::jenkins-dev-12.png[]
-. Wait for the workspace to fully start.
-. Wait for the workspace to start and fully load VS Code
-. If prompted, trust all workspaces and authors
+* Wait for the workspace to fully start.
+* Wait for the workspace to start and fully load VS Code
+* If prompted, trust all workspaces and authors
 +
 image::jenkins-dev-13.png[]
 
 In the Dev Spaces IDE:
 
-. Open the file: `my-quarkus-jnk/docs/index.md`
-. Add a new line of text at the bottom (e.g., “This is a test edit.”)
-. Open the integrated terminal:
+* Open the file: `my-quarkus-jnk/docs/index.md`
+* Add a new line of text at the bottom (e.g., “This is a test edit.”)
+* Open the integrated terminal:
   * From the top menu bar, click on `Terminal → New Terminal`
   * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
 +
@@ -327,32 +327,32 @@ image::jenkins-dev-14.png[]
 
 Then, in the terminal:
 
-. Stage your changes:
+* Stage your changes:
 
 [source,bash]
 ----
 git add .
 ----
 
-. Commit your changes:
+* Commit your changes:
 
 [source,bash]
 ----
 git commit -m "Update"
 ----
 
-. The terminal will prompt you with a URL for commit signing via `gitsign`
+* The terminal will prompt you with a URL for commit signing via `gitsign`
 +
 image::jenkins-dev-15.png[]
-. Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
-. Copy the verification code shown in the browser
+* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Copy the verification code shown in the browser
 +
 image::jenkins-dev-16.png[]
-. Paste the code into the terminal to complete the signing process
+* Paste the code into the terminal to complete the signing process
   (Allow paste functionality if prompted)
 +
 image::jenkins-dev-17.png[]
-. Push your changes:
+* Push your changes:
 
 [source,bash]
 ----
@@ -398,8 +398,8 @@ What the CI/CD pipeline is doing behind the scenes can be observed now that code
 You should see three pipeline runs in Developer Hub: `maven-ci-build`, `promote-to-stage`, and `promote-to-prod`. The pipeline `maven-ci-build` should be running and can be opened in Jenkins using Blue Ocean for visual walkthrough.
 
 Show::
-. In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
-. You should see three pipeline runs:
+* In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
+* You should see three pipeline runs:
 
 - `maven-ci-build`
 - `promote-to-stage`
@@ -407,8 +407,8 @@ Show::
 
 image::jenkins-dev-18.png[]
 
-. Click on *View build* to open Jenkins.
-. Click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
+* Click on *View build* to open Jenkins.
+* Click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
 
 image::jenkins-dev-19.png[]
 
@@ -433,14 +433,14 @@ image::jenkins-dev-20.png[]
 As the Jenkins pipeline runs, guide your audience through each stage. Each step supports secure software supply chain automation.
 
 Show::
-. Click the `verify-commit` stage in the Jenkins UI.
-. Click the `mvn package` stage.
-. Click the `init` stage.
-. Click the `build` stage.
-. Expand the `deploy-and-upload-to-tpa` stage.
-. Expand the `acs` stage.
-. Click the `summary` stage.
-. Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
+* Click the `verify-commit` stage in the Jenkins UI.
+* Click the `mvn package` stage.
+* Click the `init` stage.
+* Click the `build` stage.
+* Expand the `deploy-and-upload-to-tpa` stage.
+* Expand the `acs` stage.
+* Click the `summary` stage.
+* Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
 
 === Stage: verify-commit (optional)
 

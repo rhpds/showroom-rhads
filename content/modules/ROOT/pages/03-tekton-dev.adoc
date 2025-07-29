@@ -57,24 +57,24 @@ One developer action now delivers ACME's complete delivery stack:
 This single template gives ACME developers everything they need to be productive immediately.
 
 Show::
-. Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
+* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 
 image::tekton-dev-1.png[]
 
-. Enter your credentials:
+* Enter your credentials:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
 
-. In the top-right corner, click the **+ Self-service** button to create a new software component.
+* In the top-right corner, click the **+ Self-service** button to create a new software component.
 
 image::tekton-dev-2.png[]
 
-. Select the template:
+* Select the template:
   _Securing a Quarkus Service Software Supply Chain (Tekton)_
 
 image::tekton-dev-3.png[]
 
-. Accept the default values provided in the form unless customization is needed.
+* Accept the default values provided in the form unless customization is needed.
 
 Application Information:
 
@@ -88,7 +88,7 @@ Application Information:
 | Description | `A cool Quarkus app`
 |===
 
-. Click *Next*
+* Click *Next*
 
 Image Registry Information:
 
@@ -99,7 +99,7 @@ Image Registry Information:
 | Organization | `tssc`
 |===
 
-. Click *Next*
+* Click *Next*
 
 Repository Information:
 
@@ -111,7 +111,7 @@ Repository Information:
 | Verify Commits | `enabled`
 |===
 
-. Click *Review*, then click *Create*
+* Click *Review*, then click *Create*
 
 image::tekton-dev-4.png[]
 
@@ -146,58 +146,58 @@ Know:: ACME's developers need to move fast without compromising security — thi
 ACME's developers can now code at full speed while automatically meeting all security requirements.
 
 Show::
-. In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
+* In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
 
 image::tekton-dev-6.png[]
 
-. Click the component name to open its *Overview* page
+* Click the component name to open its *Overview* page
 
-. Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
+* Find and click the *OpenShift Dev Spaces* link to launch a preloaded workspace
 
 image::tekton-dev-7.png[]
 
-. If redirected, click *Log in with OpenShift*
+* If redirected, click *Log in with OpenShift*
 
 image::tekton-dev-8.png[]
 
-. Sign in with:
+* Sign in with:
   - Username: `{rhdh_user}`
   - Password: `{rhdh_user_password}`
 
-. On the *Authorize Access* screen, click *Allow selected permissions*
+* On the *Authorize Access* screen, click *Allow selected permissions*
 
 image::tekton-dev-9.png[]
 
-. On the repository trust prompt, click the checkbox and then click *Continue*
+* On the repository trust prompt, click the checkbox and then click *Continue*
 
 image::tekton-dev-10.png[]
 
-. When prompted to authenticate with GitLab:
+* When prompted to authenticate with GitLab:
 
 image::tekton-dev-11.png[]
   - Username: `{gitlab_user}`
   - Password: `{gitlab_user_password}`
   and click *Sign in*.
 
-. Click *Authorize devspaces* on the next window.
+* Click *Authorize devspaces* on the next window.
 
 image::tekton-dev-12.png[]
 
-. Wait for the workspace to fully start.
+* Wait for the workspace to fully start.
 
-. Wait for the workspace to start and fully load VS Code
+* Wait for the workspace to start and fully load VS Code
 
-. If prompted, trust all workspaces and authors
+* If prompted, trust all workspaces and authors
 
 image::tekton-dev-13.png[]
 
 In the Dev Spaces IDE:
 
-. Open the file: `my-quarkus-tkn/docs/index.md`
+* Open the file: `my-quarkus-tkn/docs/index.md`
 
-. Add a new line of text at the bottom (e.g., "This is a test edit.")
+* Add a new line of text at the bottom (e.g., "This is a test edit.")
 
-. Open the integrated terminal:
+* Open the integrated terminal:
   * From the top menu bar, click on `Terminal → New Terminal`
   * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
 
@@ -205,36 +205,36 @@ image::tekton-dev-14.png[]
 
 Then, in the terminal:
 
-. Stage your changes:
+* Stage your changes:
 
 [source,bash]
 ----
 git add .
 ----
 
-. Commit your changes:
+* Commit your changes:
 
 [source,bash]
 ----
 git commit -m "Update"
 ----
 
-. The terminal will prompt you with a URL for commit signing via `gitsign`
+* The terminal will prompt you with a URL for commit signing via `gitsign`
 
 image::tekton-dev-15.png[]
 
-. Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
+* Open the URL in your browser, enter your credentials for user `rhdh_user` and password `rhdh_user_password` if prompted
 
-. Copy the verification code shown in the browser
+* Copy the verification code shown in the browser
 
 image::tekton-dev-16.png[]
 
-. Paste the code into the terminal to complete the signing process
+* Paste the code into the terminal to complete the signing process
   (Allow paste functionality if prompted)
 
 image::tekton-dev-17.png[]
 
-. Push your changes:
+* Push your changes:
 
 [source,bash]
 ----

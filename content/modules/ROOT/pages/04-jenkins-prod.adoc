@@ -82,8 +82,8 @@ The pipeline reacts differently based on the trigger:
 This separation allows teams to enforce distinct policies and approval flows for different environments, while still using the same Jenkins pipeline under the hood.
 
 Show::
-. Push a Git tag to simulate a staging promotion
-. Create a GitLab release to simulate a production promotion
+* Push a Git tag to simulate a staging promotion
+* Create a GitLab release to simulate a production promotion
 
 == GitLab Release – Promote to Production
 
@@ -126,30 +126,30 @@ Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. T
 The same Jenkins pipeline is reused, but its behavior changes based on the trigger type — a Git tag push promotes to staging, while a GitLab release promotes to production.
 
 Show::
-. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
+* Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
 image::jenkins-prod-1.png[]
-. In the left navigation menu, go to *Deploy > Releases*
+* In the left navigation menu, go to *Deploy > Releases*
 +
 image::jenkins-prod-2.png[]
-. Click *Create a new release*
-. Select the existing tag, such as `v1.0`
-. Optionally add release notes
-. Click *Create release*
+* Click *Create a new release*
+* Select the existing tag, such as `v1.0`
+* Optionally add release notes
+* Click *Create release*
 +
 image::jenkins-prod-3.png[]
 
 Now guide your audience to *Developer Hub*:
 
-. On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
+* On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
 +
 image::jenkins-prod-7.png[]
-. Click the *CI* tab to see pipeline runs.
-. Locate the build labeled **promote-to-prod**
-. Click on the *View build* icon on the *promote-to-prod* build to follow progress
+* Click the *CI* tab to see pipeline runs.
+* Locate the build labeled **promote-to-prod**
+* Click on the *View build* icon on the *promote-to-prod* build to follow progress
 +
 image::jenkins-prod-4.png[]
-. Click *Open Blue Ocean* to view the pipeline stages
+* Click *Open Blue Ocean* to view the pipeline stages
 +
 image::jenkins-prod-5.png[]
 

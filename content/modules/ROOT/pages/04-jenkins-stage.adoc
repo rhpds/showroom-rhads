@@ -100,16 +100,16 @@ Show::
 
 === Option 1: Tag via GitLab UI
 
-. Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
+* Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
 +
 image::jenkins-stage-1.png[]
-. In the left navigation menu, go to *Code > Tags > New Tag*
+* In the left navigation menu, go to *Code > Tags > New Tag*
 +
 image::jenkins-stage-2.png[]
-. Fill in the tag details:
+* Fill in the tag details:
   - **Tag name**: `v1.0`
   - **Target branch**: `main`
-. Click *Create Tag*
+* Click *Create Tag*
 +
 image::jenkins-stage-3.png[]
 
@@ -125,14 +125,14 @@ git push --tags
 
 Now guide your audience to *Developer Hub*:
 
-. On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
+* On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
 +
 image::jenkins-stage-7.png[]
-. Click the *CI* tab to see pipeline runs.
-. Click on the *View build* icon on the *promote-to-stage* build to follow progress
+* Click the *CI* tab to see pipeline runs.
+* Click on the *View build* icon on the *promote-to-stage* build to follow progress
 +
 image::jenkins-stage-4.png[]
-. Click *Open Blue Ocean* to view the pipeline stages
+* Click *Open Blue Ocean* to view the pipeline stages
 +
 image::jenkins-stage-5.png[]
 
@@ -327,8 +327,8 @@ Click on the 'gather-images' stage in the pipeline and click on the last step. T
 ----
 
 === Task 2: verify-ec
-. Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
-. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
+* Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library.
+* It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots:
 
 [source,bash]
 ----
@@ -337,7 +337,7 @@ cosign initialize \
   --root https://tuf.tssc-tas.dev/root.json
 ----
 
-. It validates the image using Enterprise Contract:
+* It validates the image using Enterprise Contract:
 
 [source,bash]
 ----
@@ -373,8 +373,8 @@ skopeo copy \
 ----
 
 === Task 4: deploy-to-stage
-. In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
-. This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
+* In the `deploy-to-stage` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for stage.
+* This updates the image tag in the `deployment-patch.yaml` to reference the new qa-approved image.
 
 The pipeline modifies:
 

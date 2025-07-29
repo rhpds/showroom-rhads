@@ -62,28 +62,28 @@ Know:: ACME's transformation from manual production releases to automated confid
 After creating the release, ACME teams use Developer Hub to watch each validation step — proving that speed and security deliver better business outcomes together.
 
 Show::
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
+* Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
   Use username `{gitlab_user}` and password `{gitlab_user_password}`
 
 image::tekton-prod-1.png[]
 
-. Navigate to *Deploy > Releases > Create a new release*
+* Navigate to *Deploy > Releases > Create a new release*
 
 image::tekton-prod-2.png[]
 
-. Select an existing tag (e.g., `v1.0`) or create a new one
+* Select an existing tag (e.g., `v1.0`) or create a new one
 
-. Optionally, enter release notes
+* Optionally, enter release notes
 
-. Click *Create release*
+* Click *Create release*
 
 image::tekton-prod-3.png[]
 
-. Go to the `my-quarkus-tkn` component in *Developer Hub*
+* Go to the `my-quarkus-tkn` component in *Developer Hub*
 
-. Click the **CI** tab
+* Click the **CI** tab
 
-. Look for a pipeline run labeled **promote-to-prod** and expand it to view details
+* Look for a pipeline run labeled **promote-to-prod** and expand it to view details
 
 image::tekton-prod-4.png[]
 
