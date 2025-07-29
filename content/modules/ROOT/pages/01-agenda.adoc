@@ -2,40 +2,56 @@
 :toc:
 :toc-placement: preamble
 :icons: font
-:sectnums!:
 
-== Agenda
+== Module 1: Demo Agenda
 
-This demo walks through two secure CI/CD workflows using Red Hat’s Advanced Developer Suite — one powered by OpenShift Pipelines (Tekton), the other by Jenkins. Both enforce the same security standards: Enterprise Contract validation, image signing, SBOMs, and GitOps-based promotion with Argo CD.
+**Overview:** RHADS accelerates secure app delivery through two technical approaches.
 
-[cols="1,2",options="header"]
-|===
-| Section | Description
+**Business Results:**
+- Project setup: 6 weeks → 2 days
+- 100% automated security compliance
+- 75% reduction in manual reviews
 
-| Introduction
-| Overview of Red Hat Advanced Developer Suite, software supply chain security, and GitOps automation
+**Choose Your Path:**
+- **Module 3 (Tekton):** Cloud-native, Kubernetes-first development
+- **Module 4 (Jenkins):** Enhance existing Jenkins investments
 
-| ADS with OpenShift Pipelines (Tekton)
-| CI/CD using Developer Hub, Tekton tasks, Enterprise Contract, and Argo CD
+'''
 
-| └ Build Phase
-| App scaffolded in Developer Hub, built via Tekton, pushed to Quay with SBOMs and signatures
+== Module 2: Introduction
 
-| └ Promote to Stage
-| Validated by Enterprise Contract, deployed to `stage` via GitOps
+**ACME Retail Challenge:**
+- 10-week deployment cycles vs 4-week Black Friday deadline
+- Manual security bottlenecks and platform team overwhelm
 
-| └ Release to Production
-| GitLab Release triggers promotion to `prod` with the same secure pipeline
+**RHADS Solution:**
+- Transforms security from manual gates to automation
+- Delivers speed + security without changing developer workflows
 
-| ADS with Jenkins
-| CI/CD using Developer Hub, Jenkins shared libraries, Enterprise Contract, and GitOps promotion
+'''
 
-| └ Build Phase
-| App scaffolded in Developer Hub, built via Jenkins, pushed to Quay with SBOMs and signatures
+== Module 3: Cloud-Native with OpenShift Pipelines (Tekton)
 
-| └ Promote to Stage
-| Validated by Enterprise Contract, deployed to `stage` via GitOps
+*For: Organizations adopting cloud-native development*
 
-| └ Release to Production
-| GitLab Release triggers promotion to `prod` with the same secure pipeline
-|===
+**Flow:**
+- Self-service project creation via Developer Hub
+- Cloud-native development with OpenShift Dev Spaces
+- Automated security with Tekton pipelines
+- GitOps deployment to staging and production
+
+**Value:** Modern development velocity with enterprise security
+
+'''
+
+== Module 4: Enterprise Integration with Jenkins
+
+*For: Organizations with existing Jenkins investments*
+
+**Flow:**
+- Self-service project creation via Developer Hub
+- Enhanced Jenkins pipelines with integrated security
+- Automated validation and GitOps deployment
+- Familiar workflows with enterprise-grade protection
+
+**Value:** Preserve Jenkins investment while gaining modern capabilities

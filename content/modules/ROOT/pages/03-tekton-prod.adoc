@@ -1,7 +1,6 @@
-= Advanced Developer Suite Demo Instructions
-Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
+= Advanced Developer Suite Demo Narrative
+Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion
 :icons: font
-:sectnums:
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1
@@ -10,74 +9,124 @@ toc::[]
 
 == Overview
 
-This module extends the RHADS demo by showing how the Advanced Developer Suite enables secure promotion of container images using GitOps, Enterprise Contract, and Argo CD — all built on top of OpenShift Pipelines.
+Know:: ACME Retail's Black Friday success depends on deploying checkout service updates to production safely and quickly — this module shows how RHADS transforms production deployments from risky manual processes to confident automated workflows.
 
-In this scenario, we simulate a platform team at *acme* tagging a new release in Git. That simple action triggers a series of automated steps:
+**ACME's Production Deployment Challenge:**
+* Traditional production releases take 2-3 weeks of manual security reviews
+* Each production deployment risks downtime during peak shopping season
+* Manual validation processes create opportunities for human error
+* Security teams become bottlenecks during critical release cycles
 
-* Validates the container image using Enterprise Contract policies
-* Tags the verified image with the release version (e.g., `v1.0.0`)
-* Promotes the image to the `prod` environment via GitOps
-* Argo CD detects and applies the change, deploying the updated version to production
+**The Business Stakes:**
+* Black Friday downtime could cost ACME $50,000+ per minute in lost sales
+* Failed deployments during peak season damage customer trust and revenue
+* Manual processes don't scale during high-velocity release periods
+* Compliance violations could trigger expensive audit failures
 
-This module demonstrates how *acme* achieves secure, traceable, and automated release workflows using open standards like SLSA and GitOps principles.
+**How RHADS Solves ACME's Production Risk:**
+This module demonstrates how ACME now:
+* Deploys to production with zero manual security reviews (saves 2-3 weeks per release)
+* Automatically validates every production candidate before deployment
+* Eliminates human error through automated policy enforcement
+* Maintains complete audit trails for SOC 2 and PCI compliance
+
+The result: ACME deploys confidently to production while reducing risk and accelerating delivery.
 
 [NOTE]
 ====
-The examples and commands in this guide are representative of the *acme* demo environment. Replace with actual repository URLs, credentials, or config as needed in your setup.
+The examples and commands in this guide are representative of the *ACME* demo environment. Actual repository URLs, credentials, or config should be replaced as needed in your setup.
 ====
-
 
 == Pipeline Flow
 
-To demonstrate how *acme* securely promotes builds to production, explain to your audience that the pipeline is triggered by creating a release from an existing Git tag in GitLab.
+Know:: ACME's transformation from manual production releases to automated confidence — showing how a simple Git release action triggers enterprise-grade security validation automatically.
 
-To show this:
+**ACME's Traditional Production Release Process:**
+* Platform team manually tags and validates images (2-4 days)
+* Security team manually reviews every production candidate (1-2 weeks)
+* Manual promotion steps with high error potential
+* Emergency deployments bypass security controls under pressure
 
-. Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
+**RHADS Business Benefits for ACME:**
+* **Zero Manual Bottlenecks:** GitLab release triggers automatic validation and deployment
+* **100% Security Compliance:** Every production deployment automatically enforced by policy
+* **Risk Elimination:** Impossible to bypass security controls, even under pressure
+* **Audit Confidence:** Complete evidence trail generated automatically
+
+**Business Impact:**
+* Production deployment time: 2-3 weeks → 30 minutes
+* Security review overhead: 100% manual → 100% automated
+* Risk of failed deployments: High → Near zero
+* Compliance evidence generation: Manual weeks → Automatic real-time
+
+After creating the release, ACME teams use Developer Hub to watch each validation step — proving that speed and security deliver better business outcomes together.
+
+Show::
+* Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
   Use username `{gitlab_user}` and password `{gitlab_user_password}`
-+
+
 image::tekton-prod-1.png[]
-. Navigate to *Deploy > Releases > Create a new release*
-+
+
+* Navigate to *Deploy > Releases > Create a new release*
+
 image::tekton-prod-2.png[]
-. Select an existing tag (e.g., `v1.0`) or create a new one
-. Optionally, enter release notes
-. Click *Create release*
-+
+
+* Select an existing tag (e.g., `v1.0`) or create a new one
+
+* Optionally, enter release notes
+
+* Click *Create release*
+
 image::tekton-prod-3.png[]
 
-Tell your audience:
-“This release event kicks off the OpenShift Pipelines pipeline via a GitLab webhook. After validating the image, it automatically promotes it to the `prod` environment.”
+* Go to the `my-quarkus-tkn` component in *Developer Hub*
 
-After creating the release, switch to the Developer Hub:
+* Click the **CI** tab
 
-. Go to the `my-quarkus-tkn` component in *Developer Hub*
-. Click the **CI** tab
-. Look for a pipeline run labeled **promote-to-prod** and expand it to view details
-+
+* Look for a pipeline run labeled **promote-to-prod** and expand it to view details
+
 image::tekton-prod-4.png[]
-
-Use this view to walk through each step of the promotion pipeline — from validation to tagging to GitOps update — showing how *acme* automates trusted delivery to production.
 
 == Pipeline Tasks
 
-As the OpenShift Pipelines pipeline runs, guide your audience through each task. These steps demonstrate how *acme* enforces trust and security before promoting anything to production.
+Know:: ACME's leadership needs to see that production deployments are now safer AND faster than ever before — each pipeline task proves that automation reduces risk while accelerating delivery.
+
+**Business Value of Production Pipeline Automation:**
+* **Regulatory Compliance:** SOC 2, PCI, and audit requirements met automatically (saves weeks of manual evidence gathering)
+* **Risk Prevention:** Security violations caught before they reach customers (prevents costly incidents and reputation damage)
+* **Operational Efficiency:** Zero manual reviews or human bottlenecks (platform teams focus on innovation, not validation)
+* **Revenue Protection:** Confident deployments during peak shopping seasons (no Black Friday downtime fears)
 
 === Task 1.1: `extract-destination-image-tag`
 
-This task captures the Git tag from the release event and makes it available to subsequent tasks.
+Know:: ACME needs perfect traceability for audit and compliance purposes — this task ensures every production deployment can be traced back to its exact source.
 
-Explain:
-“This step ensures the pipeline knows which image version is associated with the release. The tag (e.g., `v1.0`) becomes the reference point for all future validations and promotions.”
+**Business Value:**
+* **Audit Confidence:** Regulators can trace every production change to its source developer and approval
+* **Compliance Automation:** SOC 2 and PCI requirements satisfied without manual documentation
+* **Risk Management:** If issues arise, ACME knows exactly what was deployed and when
+
+The Git tag (e.g., `v1.0`) becomes ACME's source of truth for all validations and provides the traceability required for enterprise compliance.
 
 === Task 1.2: `gather-images-to-verify`
 
-This task maps the Git release to the image produced during staging. It uses the tag to locate the previously built container image and creates a metadata file named `images.json`.
+Know:: ACME's business requires absolute certainty about what goes to production — this task creates the definitive record that prevents deployment confusion and ensures regulatory compliance.
 
-Tell the audience:
-“We’re not building a new image here — we’re promoting an already built and verified one. The `images.json` tells us exactly what image we’re promoting and where it came from.”
+**Traditional ACME Challenge:**
+* Multiple image versions floating around with unclear provenance
+* Manual tracking leads to deployment mistakes and audit failures
+* Production incidents caused by deploying wrong versions
 
-.Show sample `images.json`
+**RHADS Business Solution:**
+* **Perfect Traceability:** Every production image linked definitively to its source code
+* **Error Prevention:** Impossible to deploy the wrong version accidentally
+* **Audit Ready:** Complete metadata available instantly for compliance reviews
+
+The `images.json` file becomes ACME's legal proof of what was deployed and why — essential for regulatory compliance and incident response.
+
+Show:: The Git release is mapped to the image produced during staging by this task. The tag is used to locate the previously built container image and a metadata file named `images.json` is created.
+
+.Sample `images.json` can be shown
 [source,json,subs="attributes"]
 ----
 {
@@ -95,15 +144,53 @@ Tell the audience:
 }
 ----
 
-Emphasize:
-“This metadata ensures traceability — it links the image back to its source code and verifies it hasn't been tampered with.”
-
+This metadata ensures traceability — the image is linked back to its source code and it is verified that it hasn't been tampered with.
 
 === Task 2: `verify-enterprise-contract`
 
-Let your audience know this is where supply chain security checks occur.
+Know:: ACME's most critical business protection — automated security validation that prevents costly production incidents while eliminating manual security review delays.
 
-Step 1: The pipeline initializes trust via Cosign:
+**Business Risk Without Automated Validation:**
+* Security vulnerabilities in production could cost millions in damages and compliance fines
+* Manual security reviews create 2-3 week deployment delays
+* Human error in security checks leads to production incidents
+* Inconsistent security standards across different teams and deployments
+
+**RHADS Business Protection:**
+* **Zero Security Incidents:** Automated validation catches issues before they reach customers
+* **100% Consistent Standards:** Every deployment meets the same enterprise security policies
+* **Instant Compliance:** SOC 2, PCI, and regulatory requirements enforced automatically
+* **No Deployment Delays:** Security validation happens in minutes, not weeks
+
+**Enterprise Security Validations Performed:**
+* **Digital signature verification:** Proves the image hasn't been tampered with
+* **SBOM validation:** Complete dependency scanning for vulnerability management
+* **Provenance verification:** Confirms the image came from trusted build processes
+* **CVE scanning:** Automatic vulnerability detection and policy enforcement
+* **Organizational policy compliance:** Custom security rules enforced automatically
+
+**Business Impact for ACME:**
+* Security incident prevention: Saves potential millions in damages
+* Compliance confidence: Automatic evidence for audits
+* Deployment velocity: Minutes instead of weeks for security approval
+* Risk mitigation: 100% consistent security enforcement
+
+[NOTE]
+====
+*Enterprise Contract (EC)* protects ACME's business by ensuring only compliant, secure images reach production.
+
+*TUF (The Update Framework)* prevents tampering with security metadata — protecting ACME from supply chain attacks.
+
+*SBOM (Software Bill of Materials)* enables rapid vulnerability response — critical for ACME's security posture.
+
+*Provenance* proves build integrity — essential for ACME's compliance and audit requirements.
+====
+
+Failed validation demonstrates ACME's protection — the pipeline halts automatically if any security check fails, preventing risky deployments.
+
+Show:: Supply chain security checks occur at this point.
+
+Step 1: Trust is initialized by the pipeline via Cosign:
 
 [source,bash]
 ----
@@ -112,7 +199,7 @@ cosign initialize \
   --root http://tuf.tssc-tas.svc/root.json
 ----
 
-Step 2: Enterprise Contract validates the image:
+Step 2: The image is validated by Enterprise Contract:
 
 [source,bash]
 ----
@@ -123,7 +210,7 @@ ec validate image \
   --output json
 ----
 
-Describe the validations performed:
+The following validations are performed:
 
 * Digital signature with Cosign
 * SBOM presence (e.g., SPDX, CycloneDX)
@@ -131,23 +218,27 @@ Describe the validations performed:
 * CVE scanning
 * Organizational policy compliance
 
-[NOTE]
-====
-*Enterprise Contract (EC)* validates that container images meet your organization's security and compliance policies before promotion.
-
-*TUF (The Update Framework)* protects signing metadata and ensures it hasn’t been tampered with.
-
-*SBOM (Software Bill of Materials)* is a dependency list used to scan for known vulnerabilities.
-
-*Provenance* proves how and where the image was built — establishing a trusted build process.
-====
-
-Tip: You can simulate a failed validation (e.g., by modifying the EC policy or image) to demonstrate that the pipeline halts if verification fails.
-
+A failed validation can be simulated (e.g., by modifying the EC policy or image) to demonstrate that the pipeline halts if verification fails.
 
 === Task 3: `copy-image`
 
-“Now that our image has passed all security checks, let’s promote it to production by tagging it with a release label.”
+Know:: ACME's quality gate for production readiness — only images that pass enterprise security validation earn the "production-ready" designation.
+
+**Business Value of Production Tagging:**
+* **Clear Production Intent:** `prod-v1.0` tag signals this image passed all enterprise security checks
+* **Audit Trail:** Complete traceability from source code to production deployment
+* **Risk Mitigation:** Only validated, compliant images can reach ACME's customers
+* **Operational Clarity:** Teams know instantly which images are production-approved
+
+**Why This Matters for ACME's Business:**
+* **Incident Prevention:** Only security-validated images deployed to customer-facing systems
+* **Compliance Confidence:** Audit trail proving every production image was properly validated
+* **Operational Excellence:** Clear separation between development, staging, and production-ready artifacts
+* **Risk Management:** Impossible to accidentally deploy non-validated images
+
+The `prod-` prefix becomes ACME's guarantee that this image met all enterprise security and compliance requirements.
+
+Show:: Now that the image has passed all security checks, it is promoted to production by tagging it with a release label.
 
 [source,bash]
 ----
@@ -156,21 +247,40 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.0
 ----
 
-==== Explain
-
-This command promotes the previously validated image by creating a new tag prefixed with `prod-`.
+The previously validated image is promoted by this command by creating a new tag prefixed with `prod-`.
 
 * This tag (`prod-v1.0`) clearly identifies the image as production-ready.
-* It ensures traceability — we know which exact source and validation steps led to this image.
+* Traceability is ensured — the exact source and validation steps that led to this image are known.
 * Only images that pass EC validation make it this far, preventing unsafe code from being deployed.
 * Argo CD will watch for this tag and deploy it to the production environment.
 
-
 === Task 4: `update-deployment`
 
-“Next, let’s update the GitOps repo so Argo CD knows to deploy the newly promoted image.”
+Know:: ACME's automated bridge from security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention or risk.
 
-The pipeline updates the following file:
+**Traditional ACME Production Deployment Risks:**
+* Manual deployment steps prone to human error during critical releases
+* Emergency changes bypass proper validation under pressure
+* Inconsistent deployment processes across different teams
+* Production changes without proper audit trails
+
+**RHADS Business Benefits:**
+* **Zero Manual Errors:** GitOps automation eliminates human deployment mistakes
+* **100% Audit Trail:** Every production change tracked and traceable
+* **Consistent Process:** Same deployment method for routine and emergency changes
+* **Continuous Compliance:** All changes follow the same validated security process
+
+**Business Impact for ACME:**
+* **Deployment Confidence:** Argo CD ensures exactly what was validated gets deployed
+* **Risk Elimination:** No manual steps that could introduce errors during critical releases
+* **Compliance Automation:** Production environment continuously reflects audited Git state
+* **Operational Excellence:** Standardized deployment process across all ACME services
+
+The GitOps overlay system ensures ACME's production environment stays secure, compliant, and traceable — while enabling rapid deployment of business-critical features.
+
+Show:: The GitOps repo is updated next so Argo CD knows to deploy the newly promoted image.
+
+The following file is updated by the pipeline:
 
 [source,yaml]
 ----
@@ -202,13 +312,10 @@ patchesStrategicMerge:
   - deployment-patch.yaml
 ----
 
-==== Explain
-
-* This patch updates the container image reference in the production overlay.
-* Openshift Pipelines commits and pushes this patch to the GitOps repository.
-* Argo CD is watching this repo — as soon as it detects the change, it syncs the deployment to the `prod` cluster.
-* This ensures that only verified, tagged images are deployed, and the entire process is fully auditable.
-
+* The container image reference in the production overlay is updated by this patch.
+* This patch is committed and pushed to the GitOps repository by OpenShift Pipelines.
+* Argo CD is watching this repo — as soon as the change is detected, the deployment is synced to the `prod` cluster.
+* Only verified, tagged images are deployed by this process, and the entire process is fully auditable.
 
 == Wrap-Up
 
@@ -238,29 +345,37 @@ patchesStrategicMerge:
 
 === Key Takeaways
 
-* Creating a release from a Git tag triggers the secure promotion pipeline.
-* Enterprise Contract ensures only compliant, trusted images are promoted.
-* Tasks and pipelines are reusable, scalable, and consistent across teams.
-* GitOps overlays manage environment-specific configuration cleanly.
-* Argo CD continuously ensures that the production cluster reflects the Git source of truth.
+Know:: ACME's production deployment transformation demonstrates how enterprise security and business velocity reinforce each other:
 
+**Business Results Achieved:**
+* **Deployment Speed:** Production releases from 2-3 weeks → 30 minutes
+* **Security Confidence:** 100% automated policy enforcement with zero manual bottlenecks
+* **Risk Reduction:** Eliminated human error from production deployment process
+* **Compliance Automation:** SOC 2 and PCI evidence generated automatically
+* **Operational Excellence:** Consistent, auditable process across all ACME services
+
+**Strategic Business Value:**
+* **Competitive Advantage:** Deploy features while competitors wait for security approval
+* **Revenue Protection:** Confident production deployments during peak shopping seasons
+* **Cost Efficiency:** Platform teams focus on innovation instead of manual validation
+* **Risk Management:** Enterprise-grade security without enterprise-grade delays
+* **Audit Readiness:** Continuous compliance evidence instead of periodic scrambling
 
 == Optional Enhancements
 
-Use these if you want to go deeper during the demo:
+Know:: These demonstrations can reinforce ACME's transformation and address specific customer concerns:
 
-* Simulate a failed validation
-  - For example, promote an unsigned image to show Enterprise Contract blocking the release.
+**Demonstrating ACME's Security Protection:**
+* Simulate a failed validation to show Enterprise Contract blocking unsafe deployments
+* Show how ACME's security is enforced automatically, even under pressure
 
-* Show image tags in Quay
-  - Display both the `:v1.0` (staged) and `:prod-v1.0` (promoted) tags.
+**Showing ACME's Operational Excellence:**
+* Display image tags in Quay showing both staged (`:v1.0`) and production-ready (`:prod-v1.0`) versions
+* Demonstrate Argo CD automatically syncing validated changes to production
 
-* Demo Argo CD UI
-  - Show how Argo CD detects the Git change and syncs to the `prod` environment automatically.
+**Proving ACME's Compliance Readiness:**
+* Show Enterprise Contract policy bundles that define ACME's security requirements
+* Explain how the same process works for staging and production with different overlays
 
-* Display the Enterprise Contract policy bundle
-  - Help the audience understand what rules are being enforced during validation.
-
-* Mention stage promotion
-  - Explain that promoting to `stage` works similarly using a different overlay and trigger mechanism.
+These enhancements prove that ACME achieved enterprise security without sacrificing business velocity.
 

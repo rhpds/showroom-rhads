@@ -9,7 +9,10 @@ asciidoc:
     release-version: master
     page-pagination: true
     experimental:
-    numbered:
+    sectnums!:
+    numbered!:
+    chapter-signifier: 
+    part-signifier:
     lab_name: "Red Hat Advanced Developer Suite Demonstration"
     guid: my-guid
     ssh_user: lab-user

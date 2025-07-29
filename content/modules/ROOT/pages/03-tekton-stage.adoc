@@ -1,30 +1,71 @@
+= Advanced Developer Suite Demo Instructions
+Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
+:source-highlighter: rouge
+:toc: macro
+:toclevels: 1
+
 == Pipeline Flow
 
-=== Git Tag Triggers the Pipeline
+Know:: ACME Retail's staging deployments are critical for validating features before Black Friday — this shows how RHADS transforms risky manual staging processes into confident automated validation that accelerates delivery while reducing risk.
 
-You’ll start by showing how a Git tag acts as a release trigger. This simulates what an ACME developer would do to promote a verified image.
+**ACME's Traditional Staging Challenges:**
+* Manual staging deployments take 3-5 days of platform team coordination
+* Inconsistent validation processes lead to production surprises
+* Security checks often skipped under deadline pressure
+* Each staging deployment requires manual testing and approval cycles
 
-=== Option 1: Tag via GitLab UI
+**Business Impact of Slow Staging:**
+* Feature validation delays push back production releases by weeks
+* Manual processes don't scale during high-velocity development periods
+* Staging issues discovered late become expensive production problems
+* Teams lose confidence in staging as a reliable production preview
 
-Walk the audience through the GitLab web interface:
+**How RHADS Solves ACME's Staging Bottleneck:**
+* **Instant Staging Validation:** Git tag triggers immediate, automated promotion to staging
+* **Production-Like Security:** Same validation policies as production, catching issues early
+* **Zero Manual Overhead:** Platform teams focus on innovation instead of deployment coordination
+* **Continuous Confidence:** Every staging deployment proves production readiness
 
-. Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
-+
-image::tekton-stage-1.png[]
-. In the left menu, click on *Code > Tags > New Tag*.
-+
-image::tekton-stage-2.png[]
-. Enter a version tag like `v1.0`.
-. Choose the target branch (typically `main`).
-. Click *Create Tag*.
-+
-image::tekton-stage-3.png[]
+**Business Value for ACME:**
+* Staging deployment time: 3-5 days → 30 minutes
+* Feature validation cycles: Weeks → Hours
+* Production incident prevention: Early detection of integration issues
+* Developer velocity: No waiting for staging environment access
+
+The moment ACME creates this tag, a GitLab webhook triggers the staging pipeline — proving that automation delivers both speed and quality.
 
 [NOTE]
 ====
-_As you do this, explain:_
-"This simulates a release event. The moment this tag is created, a GitLab webhook kicks off the OpenShift Pipelines pipeline — the one that promotes the image to ACME's staging environment."
+This simulates a release event. The moment this tag is created, a GitLab webhook kicks off the OpenShift Pipelines pipeline — the one that promotes the image to ACME's staging environment.
 ====
+
+[NOTE]
+====
+The CLI approach does the same thing — triggers the pipeline tied to this Git tag.
+====
+
+[NOTE]
+====
+Use the Developer Hub view to explain each task as it executes. Let your audience see the automation in action — no manual approvals, just policy-driven promotion.
+====
+
+Show::
+
+**Option 1: Tag via GitLab UI**
+
+Walk the audience through the GitLab web interface:
+
+* Open your GitLab repository {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
++
+image::tekton-stage-1.png[]
+* In the left menu, click on *Code > Tags > New Tag*.
++
+image::tekton-stage-2.png[]
+* Enter a version tag like `v1.0`.
+* Choose the target branch (typically `main`).
+* Click *Create Tag*.
++
+image::tekton-stage-3.png[]
 
 === Option 2: Tag via Git CLI
 
@@ -36,80 +77,162 @@ git tag v1.0
 git push --tags
 ----
 
-[NOTE]
-====
-_Explain:_
-"This does the same thing — triggers the pipeline tied to this Git tag."
-====
-
 Now guide your audience to *Developer Hub*:
 
-. Go to the *my-quarkus-tkn* component.
-. Click the *CI* tab to see pipeline runs.
-. Expand the job labeled *promote-to-stage* to follow its progress.
+* Go to the *my-quarkus-tkn* component.
+* Click the *CI* tab to see pipeline runs.
+* Expand the job labeled *promote-to-stage* to follow its progress.
 +
 image::tekton-stage-4.png[]
-
-[NOTE]
-====
-Use this view to explain each task as it executes.
-Let your audience see the automation in action — no manual approvals, just policy-driven promotion.
-====
 
 
 == Pipeline Tasks
 
-As the OpenShift Pipelines pipeline runs, guide your audience through the following key tasks — each one enforcing a layer of software supply chain security for ACME’s release process.
+Know:: ACME's leadership needs to see that staging deployments now provide production-level confidence while eliminating manual bottlenecks — each pipeline task proves that automation delivers both speed and quality assurance.
 
-=== Task 1.1: `extract-destination-image-tag`
+**Business Value of Automated Staging Pipeline:**
+* **Risk Reduction:** Production-grade validation in staging prevents costly production incidents
+* **Velocity Increase:** Zero manual staging bottlenecks accelerate feature delivery cycles  
+* **Confidence Building:** Staging becomes a reliable predictor of production success
+* **Cost Efficiency:** Platform teams scale without proportional staging overhead
 
-Say:
-"This task grabs the Git tag we just created — like `v1.0` — and makes it available as a variable in the pipeline."
+**ACME's Staging Success Metrics:**
+* Staging validation time: Manual days → Automated minutes
+* Production incident prevention: Early detection of integration and security issues
+* Developer productivity: No waiting for staging environment access or manual approvals
+* Platform team efficiency: Focus on innovation instead of deployment coordination
 
-Explain:
-It’s a simple but essential step. Every subsequent task needs to know which version it’s working with, and this tag becomes the anchor point for traceability.
+=== Task 1.1: Extract Destination Image Tag
 
-=== Task 1.2: `gather-images-to-verify`
+Know:: ACME requires perfect traceability for compliance and quality assurance — this task ensures every staging deployment can be tracked from source code to business feature validation.
 
-Say:
-"This task figures out which image we're actually trying to promote."
+**Business Value for ACME:**
+* **Release Coordination:** Clear version tracking enables coordinated feature rollouts
+* **Quality Assurance:** QA teams know exactly which features they're validating in staging
+* **Issue Resolution:** If staging issues arise, teams know exactly what code is involved
+* **Audit Trail:** Complete traceability for compliance and release management
 
-Explain:
-During the original CI build, the image was tagged with the Git commit ID — something like `abc123def456`. Now we’re mapping the Git tag (e.g., `v1.0`) back to that commit ID, and linking that to the corresponding container image.
+The Git tag (e.g., `v1.0`) becomes ACME's coordinate system for organizing feature validation and release planning across teams.
 
-The result is saved into an `images.json` file, which becomes the single source of truth for what’s about to be verified and promoted.
+=== Task 1.2: Gather Images to Verify
 
-.Sample `images.json`
-[source,json,subs="attributes"]
-----
-{
-  "components": [
-    {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:abc123def456",
-      "source": {
-        "git": {
-          "url": "{gitlab_url}/development/my-quarkus-tkn",
-          "revision": "abc123def456"
-        }
-      }
-    }
-  ]
-}
-----
+Know:: ACME's business depends on staging environments that perfectly mirror production — this task ensures the exact same artifacts tested in staging will be deployed to production, eliminating deployment surprises.
+
+**Traditional ACME Challenge:**
+* Different images between staging and production caused production surprises
+* Manual image tracking led to "works in staging, fails in production" incidents
+* Unclear provenance made issue diagnosis difficult and time-consuming
+
+**RHADS Business Solution:**
+* **Perfect Consistency:** Same validated images from development to staging to production
+* **Issue Prevention:** Staging truly represents what customers will experience
+* **Rapid Diagnosis:** Complete image provenance available for quick troubleshooting
+* **Confidence Building:** Teams trust that staging validation predicts production success
+
+**Business Impact:**
+* Production surprise elimination: Staging becomes a reliable production preview
+* Incident reduction: Issues caught in staging, not production
+* Deployment confidence: Teams trust the staging validation process
+* Customer satisfaction: Fewer production issues mean better customer experience
+
+The `images.json` file becomes ACME's guarantee that staging validation represents real production deployment quality.
 
 [NOTE]
 ====
-_Point out:_
-"This mapping between Git commit and container image provides end-to-end traceability — we know exactly what code went into what image."
+This mapping between Git commit and container image provides end-to-end traceability — we know exactly what code went into what image.
 ====
 
+=== Task 2: Verify Enterprise Contract
 
-=== Task 2: `verify-enterprise-contract`
+Know:: ACME's most critical business protection for staging — automated security validation that catches compliance issues before they become expensive production problems or audit failures.
 
-Say:
-"This is where ACME enforces policy before anything reaches staging. We validate the image using Enterprise Contract — a tool that ensures everything meets the organization’s security and compliance requirements."
+**Business Risk Without Staging Security Validation:**
+* Security vulnerabilities discovered in production cost millions in incident response
+* Compliance violations found during audits trigger expensive remediation projects
+* Manual security reviews create 1-2 week staging deployment delays
+* Inconsistent security standards between staging and production environments
 
-==== Do:
+**RHADS Business Protection for ACME:**
+* **Early Risk Detection:** Security issues caught in staging, not production
+* **Compliance Confidence:** Same security standards as production, ensuring audit readiness
+* **Zero Deployment Delays:** Security validation happens automatically in minutes
+* **Cost Avoidance:** Preventing one production security incident pays for the entire platform
+
+**Enterprise Security Validations in Staging:**
+* **Cosign signature verification:** Ensures staging uses only trusted, signed images
+* **SBOM presence validation:** Complete dependency scanning for vulnerability management
+* **Provenance verification:** Confirms staging images came from trusted build processes
+* **CVE scanning:** Automatic vulnerability detection before production exposure
+* **Policy compliance:** Enterprise security rules enforced consistently
+
+**Business Impact for ACME:**
+* Security incident prevention: Issues caught before customer exposure
+* Audit confidence: Staging proves production security compliance
+* Deployment velocity: Minutes for security validation instead of weeks
+* Risk mitigation: 100% consistent security enforcement across environments
+
+This step enforces multiple critical validations that protect ACME's business and customers.
+
+[IMPORTANT]
+====
+If any check fails, the pipeline halts. If everything passes, the image moves forward to the next promotion step.
+====
+
+=== Task 3: Copy Image
+
+Know:: ACME's quality gateway for staging readiness — only images that pass enterprise security validation earn the staging deployment designation, ensuring staging truly represents production quality.
+
+**Business Value of Staging Image Promotion:**
+* **Quality Assurance:** Only validated, compliant images reach ACME's staging environment
+* **Consistency Guarantee:** Same image promotion process for staging and production
+* **Deployment Confidence:** Teams trust that staging validation represents production quality
+* **Risk Management:** Impossible to accidentally deploy non-validated code to staging
+
+**Why This Matters for ACME's Business:**
+* **Staging Reliability:** Staging becomes a true production preview environment
+* **Issue Prevention:** Quality problems caught before expensive production incidents
+* **Process Standardization:** Same validation rigor across all ACME environments
+* **Customer Protection:** Features validated with production-grade security in staging
+
+The human-readable tag (`v1.0`) signals that this image met ACME's enterprise standards and is ready for business validation.
+
+[IMPORTANT]
+====
+This guarantees that only validated artifacts are promoted — no sneaky image changes slip through.
+====
+
+=== Task 4: Update Deployment
+
+Know:: ACME's automated bridge from security validation to business feature testing — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation without deployment delays.
+
+**Traditional ACME Staging Deployment Risks:**
+* Manual staging deployments prone to configuration errors
+* Emergency feature testing bypassed proper validation processes
+* Inconsistent staging configurations led to production surprises
+* Manual deployment steps delayed feature validation cycles
+
+**RHADS Business Benefits for ACME:**
+* **Zero Deployment Errors:** GitOps automation eliminates manual staging mistakes
+* **Immediate Validation:** Features available for testing within minutes of validation
+* **Consistent Environments:** Staging perfectly mirrors production configuration
+* **Continuous Readiness:** Staging environment always reflects the latest validated features
+
+**Business Impact:**
+* **Faster Feature Validation:** QA teams can test immediately after development completion
+* **Reduced Production Risk:** Staging catches configuration and integration issues early
+* **Team Efficiency:** No manual coordination needed for staging deployments
+* **Release Confidence:** Staging success reliably predicts production success
+
+The GitOps overlay system ensures ACME's staging environment stays current, secure, and production-representative.
+
+[NOTE]
+====
+No manual `kubectl`, no YAML editing in the console — the system reacts to Git. That's the GitOps advantage.
+====
+
+Show::
+
+**Task 2: Verify Enterprise Contract Commands**
 
 First, the pipeline bootstraps trust using `cosign` and a local TUF (The Update Framework) server:
 
@@ -131,16 +254,6 @@ ec validate image \
   --output json
 ----
 
-==== Explain:
-
-This step enforces multiple critical validations:
-
-- *Cosign signature check* — ensures the image is cryptographically signed.
-- *SBOM presence* — confirms that a Software Bill of Materials exists (e.g., CycloneDX).
-- *Provenance* — verifies how and where the image was built.
-- *CVE scan* — checks for known vulnerabilities.
-- *Policy compliance* — validates against rules defined by ACME’s platform team.
-
 .Sample output
 [source,json]
 ----
@@ -155,24 +268,27 @@ This step enforces multiple critical validations:
 }
 ----
 
-[NOTE]
-====
-The `ec` CLI bundles multiple supply chain checks into one command, making complex validation simple and repeatable.
-====
+=== Task 2: Sample images.json
 
-[IMPORTANT]
-====
-If any check fails, the pipeline halts.
-If everything passes, the image moves forward to the next promotion step.
-====
+.Sample `images.json`
+[source,json,subs="attributes"]
+----
+{
+  "components": [
+    {
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:abc123def456",
+      "source": {
+        "git": {
+          "url": "{gitlab_url}/development/my-quarkus-tkn",
+          "revision": "abc123def456"
+        }
+      }
+    }
+  ]
+}
+----
 
-
-=== Task 3: `copy-image`
-
-Say:
-"Now that ACME’s image has passed validation, we promote it. But instead of rebuilding, we tag the verified image with the release version for clarity and traceability."
-
-==== Do:
+=== Task 3: Copy Image Command
 
 Use `skopeo` to copy and retag the image:
 
@@ -183,25 +299,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
-==== Explain:
-
-- The image was already built and validated — no need to rebuild.
-- We simply promote it using a clean, human-readable tag (`v1.0`).
-- This ensures traceability from commit → image → deployment.
-
-[IMPORTANT]
-====
-This guarantees that only validated artifacts are promoted — no sneaky image changes slip through.
-====
-
-=== Task 4: `update-deployment`
-
-Say:
-"Now we need to reflect this new image in the actual environment — and we do that by updating the GitOps repo."
-
-==== Do:
-
-The deployment overlay in the `stage` environment gets updated with the new image tag.
+=== Task 4: Update Deployment Files
 
 .`kustomization.yaml`
 [source,yaml]
@@ -236,17 +334,6 @@ spec:
 +          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
 ----
 
-==== Explain:
-
-- The pipeline commits and pushes this change to the GitOps repo.
-- Argo CD is watching the repo and detects this change automatically.
-- It then syncs the new deployment to the cluster.
-
-[NOTE]
-====
-No manual `kubectl`, no YAML editing in the console — the system reacts to Git. That’s the GitOps advantage.
-====
-
 == Part 5 — Wrap-Up
 
 === Summary
@@ -272,18 +359,43 @@ No manual `kubectl`, no YAML editing in the console — the system reacts to Git
 
 === Key Takeaways
 
-- No manual validation or promotion — it’s all automated.
-- Only signed, validated, policy-compliant images move forward.
-- Cosign and EC CLI give us both cryptographic and policy-based trust.
-- Git remains the single source of truth for promotion and deployment.
-- Fully automated and auditable — ideal for platform teams and auditors alike.
+Know:: ACME's staging transformation demonstrates how automated validation creates business value by enabling faster, safer feature delivery:
+
+**Business Results Achieved:**
+* **Staging Speed:** Deployment time from 3-5 days → 30 minutes
+* **Quality Assurance:** Production-grade validation catches issues early
+* **Team Efficiency:** Zero manual staging coordination overhead
+* **Risk Reduction:** Staging becomes reliable predictor of production success
+* **Developer Velocity:** No waiting for staging environment access
+
+**Strategic Business Value:**
+* **Faster Time-to-Market:** Features validated quickly without compromising quality
+* **Cost Avoidance:** Staging catches expensive production issues before customer impact
+* **Operational Excellence:** Consistent, automated processes across all environments
+* **Confidence Building:** Teams trust staging validation represents production reality
+* **Platform Scaling:** Automated staging supports rapid team and application growth
+
+**Why This Matters for Your Business:**
+* Staging environments that teams actually trust and use effectively
+* Security and compliance validation happens early, not at production gates
+* Platform teams focus on innovation instead of manual deployment coordination
+* Development velocity increases without compromising enterprise security standards
 
 === Optional Enhancements
 
-You can optionally demo:
+Know:: These demonstrations can reinforce ACME's staging transformation and address specific customer concerns:
 
-- A failed validation scenario (e.g., using an image missing an SBOM).
-- The actual Enterprise Contract policy bundle in YAML format.
-- The new image tag (e.g., `v1.0`) in the Quay UI.
-- The Argo CD interface syncing the deployment after the GitOps change.
+**Demonstrating ACME's Quality Protection:**
+* Simulate a failed validation scenario to show Enterprise Contract blocking unsafe deployments
+* Show how ACME's quality gates prevent issues from reaching production
+
+**Showing ACME's Operational Excellence:**
+* Display the new image tag (e.g., `v1.0`) in the Quay UI showing staging readiness
+* Demonstrate Argo CD interface syncing the deployment after GitOps changes
+
+**Proving ACME's Business Value:**
+* Show the Enterprise Contract policy bundle that defines ACME's quality standards
+* Explain how the same validation process ensures consistency between staging and production
+
+These enhancements prove that ACME achieved staging efficiency without compromising quality or security.
 
