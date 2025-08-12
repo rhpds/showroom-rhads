@@ -9,7 +9,8 @@ toc::[]
 
 == Overview
 
-Know:: ACME's Black Friday success requires safe, fast production deployments. RHADS transforms risky manual processes into confident automated workflows.
+=== Know
+_ACME's Black Friday success requires safe, fast production deployments. RHADS transforms risky manual processes into confident automated workflows._
 
 **Business Value:**
 
@@ -25,7 +26,8 @@ The examples and commands in this guide are representative of the *ACME* demo en
 
 == Pipeline Flow
 
-Know:: ACME's transformation from manual production releases to automated confidence — Git release triggers enterprise-grade security validation automatically.
+=== Know
+_ACME's transformation from manual production releases to automated confidence — Git release triggers enterprise-grade security validation automatically._
 
 **Business Value:**
 
@@ -34,10 +36,15 @@ Know:: ACME's transformation from manual production releases to automated confid
 * Zero manual review bottlenecks
 * Complete audit trail generated automatically
 
-Show::
-* Open your GitLab repository: {gitlab_url}/development/my-quarkus-tkn[my-quarkus-tkn^]
-  Use username `{gitlab_user}` and password `{gitlab_user_password}`
-
+=== Show
+* Open your {gitlab_url}/development/my-quarkus-tkn GitLab repository and use the following credentials to sign in:
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
++
 image::tekton-prod-1.png[]
 
 * Navigate to *Deploy > Releases > Create a new release*
@@ -62,7 +69,8 @@ image::tekton-prod-4.png[]
 
 == Pipeline Tasks
 
-Know:: ACME's production deployments are now safer AND faster — automation reduces risk while accelerating delivery.
+=== Know
+_ACME's production deployments are now safer AND faster — automation reduces risk while accelerating delivery._
 
 **Business Value:**
 
@@ -71,16 +79,16 @@ Know:: ACME's production deployments are now safer AND faster — automation red
 * Zero manual review bottlenecks
 * Confident deployments during peak shopping seasons
 
-=== Task 1.1: `extract-destination-image-tag`
+** Task 1.1: `extract-destination-image-tag`
 
-Know:: ACME gets perfect traceability — Git tags provide complete audit trail and compliance automation.
+ACME gets perfect traceability — Git tags provide complete audit trail and compliance automation.
 
-=== Task 1.2: `gather-images-to-verify`
+** Task 1.2: `gather-images-to-verify`
 
-Know:: ACME gets absolute certainty about production deployments — `images.json` provides definitive proof of what was deployed and why.
+ACME gets absolute certainty about production deployments — `images.json` provides definitive proof of what was deployed and why.
 
-Show:: The Git release is mapped to the image produced during staging by this task. The tag is used to locate the previously built container image and a metadata file named `images.json` is created.
-
+The Git release is mapped to the image produced during staging by this task. The tag is used to locate the previously built container image and a metadata file named `images.json` is created.
++
 .Sample `images.json` can be shown
 [source,json,subs="attributes"]
 ----
@@ -101,9 +109,9 @@ Show:: The Git release is mapped to the image produced during staging by this ta
 
 This metadata ensures traceability — the image is linked back to its source code and it is verified that it hasn't been tampered with.
 
-=== Task 2: `verify-enterprise-contract`
+** Task 2: `verify-enterprise-contract`
 
-Know:: ACME's most critical business protection — automated security validation that prevents costly production incidents while eliminating manual security review delays.
+ACME's most critical business protection — automated security validation that prevents costly production incidents while eliminating manual security review delays.
 
 **Business Risk Without Automated Validation:**
 
@@ -147,10 +155,10 @@ Know:: ACME's most critical business protection — automated security validatio
 
 Failed validation demonstrates ACME's protection — the pipeline halts automatically if any security check fails, preventing risky deployments.
 
-Show:: Supply chain security checks occur at this point.
+Supply chain security checks occur at this point.
 
-Step 1: Trust is initialized by the pipeline via Cosign:
-
+* Step 1: Trust is initialized by the pipeline via Cosign:
++
 [source,bash]
 ----
 cosign initialize \
@@ -158,8 +166,8 @@ cosign initialize \
   --root http://tuf.tssc-tas.svc/root.json
 ----
 
-Step 2: The image is validated by Enterprise Contract:
-
+* Step 2: The image is validated by Enterprise Contract:
++
 [source,bash]
 ----
 ec validate image \
@@ -179,12 +187,12 @@ The following validations are performed:
 
 A failed validation can be simulated (e.g., by modifying the EC policy or image) to demonstrate that the pipeline halts if verification fails.
 
-=== Task 3: `copy-image`
+** Task 3: `copy-image`
 
-Know:: ACME's quality gate — only validated images earn "prod-" designation, ensuring enterprise security compliance.
+ACME's quality gate — only validated images earn "prod-" designation, ensuring enterprise security compliance.
 
-Show:: Now that the image has passed all security checks, it is promoted to production by tagging it with a release label.
-
+Now that the image has passed all security checks, it is promoted to production by tagging it with a release label.
++
 [source,bash]
 ----
 skopeo copy \
@@ -199,9 +207,9 @@ The previously validated image is promoted by this command by creating a new tag
 * Only images that pass EC validation make it this far, preventing unsafe code from being deployed.
 * Argo CD will watch for this tag and deploy it to the production environment.
 
-=== Task 4: `update-deployment`
+** Task 4: `update-deployment`
 
-Know:: ACME's automated bridge from security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention or risk.
+ACME's automated bridge from security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention or risk.
 
 **Traditional ACME Production Deployment Risks:**
 
@@ -226,10 +234,10 @@ Know:: ACME's automated bridge from security validation to customer value — Gi
 
 The GitOps overlay system ensures ACME's production environment stays secure, compliant, and traceable — while enabling rapid deployment of business-critical features.
 
-Show:: The GitOps repo is updated next so Argo CD knows to deploy the newly promoted image.
+The GitOps repo is updated next so Argo CD knows to deploy the newly promoted image.
 
 The following file is updated by the pipeline:
-
++
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -293,7 +301,7 @@ patchesStrategicMerge:
 
 === Key Takeaways
 
-Know:: ACME's production transformation demonstrates how enterprise security and business velocity reinforce each other.
+ACME's production transformation demonstrates how enterprise security and business velocity reinforce each other.
 
 **Business Value:**
 
@@ -304,5 +312,5 @@ Know:: ACME's production transformation demonstrates how enterprise security and
 
 == Optional Enhancements
 
-Know:: Optional demonstrations to show ACME's transformation — simulate failed validations, display Quay image tags, demonstrate Argo CD syncing, and show Enterprise Contract policies.
+Optional demonstrations to show ACME's transformation — simulate failed validations, display Quay image tags, demonstrate Argo CD syncing, and show Enterprise Contract policies.
 

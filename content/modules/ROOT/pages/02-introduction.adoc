@@ -7,10 +7,11 @@ ACME's e-commerce platform processes millions of transactions daily, but their d
 **The Crisis:** ACME needs checkout service updates for Black Friday in 4 weeks. Their current process takes 10 weeks.
 
 **The Problem:** Like most enterprises, ACME faces:
-- 6-8 week deployment cycles  
-- 2-week security review bottlenecks
-- Manual compliance audits across 50+ apps
-- Platform teams drowning in setup requests
+
+* 6-8 week deployment cycles  
+* 2-week security review bottlenecks
+* Manual compliance audits across 50+ apps
+* Platform teams drowning in setup requests
 
 *This is how ACME transformed their delivery pipeline.*
 
@@ -18,9 +19,9 @@ ACME's e-commerce platform processes millions of transactions daily, but their d
 
 RHADS makes security and compliance *automatic* instead of manual gates:
 
-**For Developers:** Self-service project creation, no security delays, familiar tools
-**For Security:** Automated policy enforcement, complete audit trails, less manual work  
-**For Platform:** Standardized patterns, fewer tickets, measurable compliance
+* **For Developers:** Self-service project creation, no security delays, familiar tools
+* **For Security:** Automated policy enforcement, complete audit trails, less manual work  
+* **For Platform:** Standardized patterns, fewer tickets, measurable compliance
 
 == Demo: ACME's Transformation
 
@@ -36,16 +37,17 @@ Watch ACME solve their Black Friday crisis:
 
 == ACME's Results
 
-**Speed:** Project setup from 6 weeks → 2 days  
-**Security:** 100% policy compliance, zero production incidents  
-**Cost:** 75% reduction in manual security reviews
+* **Speed:** Project setup from 6 weeks → 2 days  
+* **Security:** 100% policy compliance, zero production incidents  
+* **Cost:** 75% reduction in manual security reviews
 
 == When to Use This Demo
 
 Perfect for customers asking:
-- "How do we deliver faster without compromising security?"
-- "Can we automate SOC 2/PCI compliance?"  
-- "How do we scale platform teams without adding headcount?"
+
+* "How do we deliver faster without compromising security?"
+* "Can we automate SOC 2/PCI compliance?"  
+* "How do we scale platform teams without adding headcount?"
 
 == Reference Links
 

@@ -36,11 +36,13 @@ This guide helps sales engineers and technical presenters deliver an effective R
 * Emphasize the "4 weeks vs 10 weeks" crisis that resonates with most enterprises
 
 **Technical Demo (30-40 minutes):**
+
 * **Know:: sections** provide business context - share these insights with stakeholders
 * **Show:: sections** contain hands-on demonstration steps - follow these precisely
 * Focus on automation and business velocity, not just technical features
 
 **Closing (5-10 minutes):**
+
 * Summarize business results: "6 weeks → 2 days", "75% reduction in manual reviews"
 * Connect to customer's specific pain points identified in discovery
 * Provide clear next steps for evaluation or pilot
