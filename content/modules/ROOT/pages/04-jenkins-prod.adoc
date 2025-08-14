@@ -9,7 +9,8 @@ toc::[]
 
 == Overview
 
-Know:: ACME's Black Friday success requires safe, fast production deployments using Jenkins. RHADS transforms risky manual processes into confident automated workflows while preserving Jenkins investments.
+=== Know
+_ACME's Black Friday success requires safe, fast production deployments using Jenkins. RHADS transforms risky manual processes into confident automated workflows while preserving Jenkins investments._
 
 **Business Value:**
 
@@ -40,7 +41,8 @@ The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
 The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
 ====
 
-Know:: ACME's production deployment flexibility through enhanced Jenkins — the same trusted Jenkins infrastructure supports both staging validation and production deployment with appropriate risk management.
+=== Know
+_ACME's production deployment flexibility through enhanced Jenkins — the same trusted Jenkins infrastructure supports both staging validation and production deployment with appropriate risk management._
 
 **Business Value:**
 
@@ -56,13 +58,14 @@ The pipeline reacts differently based on the trigger:
 
 This separation allows teams to enforce distinct policies and approval flows for different environments, while still using the same Jenkins pipeline under the hood.
 
-Show::
+=== Show
 * Push a Git tag to simulate a staging promotion
 * Create a GitLab release to simulate a production promotion
 
 == GitLab Release – Promote to Production
 
-Know:: ACME's transformation from risky manual production releases to confident automated Jenkins-based deployments — GitLab Release triggers enterprise-grade validation automatically while preserving familiar Jenkins workflows.
+=== Know
+_ACME's transformation from risky manual production releases to confident automated Jenkins-based deployments — GitLab Release triggers enterprise-grade validation automatically while preserving familiar Jenkins workflows._
 
 **Business Value:**
 
@@ -75,8 +78,14 @@ Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. T
 
 The same Jenkins pipeline is reused, but its behavior changes based on the trigger type — a Git tag push promotes to staging, while a GitLab release promotes to production.
 
-Show::
-* Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
+=== Show
+* Open your {gitlab_url}/development/my-quarkus-jnk GitLab repository and use the following credentials to sign in:
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
 +
 image::jenkins-prod-1.png[]
 * In the left navigation menu, go to *Deploy > Releases*
@@ -107,7 +116,8 @@ image::jenkins-prod-5.png[]
 
 == Pipeline Tasks
 
-Know:: ACME's Jenkins-based production deployments are now safer AND faster — each pipeline task proves that automation enhances existing Jenkins capabilities.
+=== Know
+_ACME's Jenkins-based production deployments are now safer AND faster — each pipeline task proves that automation enhances existing Jenkins capabilities._
 
 **Business Value:**
 
@@ -122,7 +132,8 @@ Let's walk through what happens in each step of the Jenkins pipeline as we promo
 
 === Task 1: gather-images
 
-Know:: ACME requires perfect traceability for audit and compliance — this task ensures every production deployment can be traced back to its exact source through Jenkins.
+=== Know
+_ACME requires perfect traceability for audit and compliance — this task ensures every production deployment can be traced back to its exact source through Jenkins._
 
 **Business Value:**
 
@@ -139,7 +150,8 @@ This file becomes the source of truth for the validation step. It captures both 
 
 === Task 2: verify-ec
 
-Know:: ACME's most critical business protection through enhanced Jenkins — automated security validation that prevents costly production incidents.
+=== Know
+_ACME's most critical business protection through enhanced Jenkins — automated security validation that prevents costly production incidents._
 
 **Business Value:**
 
@@ -164,7 +176,8 @@ If any of these fail, the pipeline stops immediately — the image is not promot
 
 === Task 3: update-image-tag-for-prod
 
-Know:: ACME's quality gate for production readiness — only images that pass enterprise security validation earn the "production-ready" designation.
+=== Know
+_ACME's quality gate for production readiness — only images that pass enterprise security validation earn the "production-ready" designation._
 
 **Business Value:**
 
@@ -186,7 +199,8 @@ By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams
 
 === Task 4: deploy-to-prod
 
-Know:: ACME's automated bridge from Jenkins security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention.
+=== Know
+_ACME's automated bridge from Jenkins security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention._
 
 **Business Value:**
 
@@ -208,7 +222,7 @@ Argo CD is continuously watching this repository. Once it sees the update:
 
 This final step completes the promotion workflow — fully automated, fully auditable, and GitOps-native.
 
-Show::
+=== Show
 
 **Task 1: gather-images Example**
 
@@ -301,7 +315,8 @@ spec:
 
 == Summary
 
-Know:: ACME's Jenkins-based production deployment transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure.
+=== Know
+_ACME's Jenkins-based production deployment transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure._
 
 **Business Value:**
 
@@ -312,7 +327,7 @@ Know:: ACME's Jenkins-based production deployment transformation demonstrates ho
 
 This summary illustrates how production promotion is secure, automated, and fully traceable — using GitOps best practices and Red Hat's trusted CI/CD tooling enhanced with familiar Jenkins workflows.
 
-Show::
+=== Show
 
 Review the following steps to reinforce the end-to-end flow:
 

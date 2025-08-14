@@ -6,7 +6,8 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Part 1 — Introduce the Context
 
-Know:: ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise.
+=== Know
+_ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise._
 
 **Business Value:**
 
@@ -53,7 +54,7 @@ This demo complements a previous one which used OpenShift Pipelines (Tekton). Wh
 
 By presenting this Jenkins path, you're addressing a realistic need: helping customers *modernize workflows* without abandoning trusted tooling.
 
-Show::
+=== Show
 
 Introduce the characters and setup:
 
@@ -67,7 +68,8 @@ image::jenkins_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: ACME's Jenkins transformation starts here — one developer action eliminates weeks of setup while maintaining familiar Jenkins workflows.
+=== Know
+_ACME's Jenkins transformation starts here — one developer action eliminates weeks of setup while maintaining familiar Jenkins workflows._
 
 **ACME's Traditional Jenkins Setup Challenge:**
 Before RHADS, creating a new Jenkins-based application required:
@@ -138,11 +140,11 @@ The `Verify Commits` option enables signing and verification of Git commits usin
 For customers already using Jenkins, this template shows how ADS can plug into their existing tools while still enforcing secure supply chain policies.
 ====
 
-Show::
+=== Show
 * Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 +
 image::jenkins-dev-1.png[]
-* Enter your credentials:
+* Use the following credentials to sign in:
 +
 [subs=attributes+]
 ----
@@ -230,7 +232,8 @@ For customers already using Jenkins, this template shows how ADS can plug into t
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Know:: ACME's developers need to maintain velocity while meeting enterprise security requirements — this shows how RHADS makes secure development practices seamless within familiar Jenkins workflows.
+=== Know
+_ACME's developers need to maintain velocity while meeting enterprise security requirements — this shows how RHADS makes secure development practices seamless within familiar Jenkins workflows._
 
 **ACME's Enterprise Security Requirements:**
 * Every commit must be traceable to a specific developer (SOC 2 and PCI compliance)
@@ -282,7 +285,7 @@ The security and auditability of the software supply chain is strengthened by th
 If *Verify Commits* was enabled when creating the template, a signed commit is required to trigger the pipeline.
 ====
 
-Show::
+=== Show
 * Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`).
 +
 image::jenkins-dev-6.png[]
@@ -293,7 +296,7 @@ image::jenkins-dev-7.png[]
 * If redirected, click *Log in with OpenShift*
 +
 image::jenkins-dev-8.png[]
-* Sign in with:
+* Use the following credentials to sign in:
 +
 [subs=attributes+]
 ----
@@ -306,16 +309,15 @@ image::jenkins-dev-9.png[]
 * On the repository trust prompt, click the checkbox and then click *Continue*
 +
 image::jenkins-dev-10.png[]
-* When prompted to authenticate with GitLab:
-+
-image::jenkins-dev-11.png[]
+* When prompted to authenticate with GitLab, use the following credentials and click *Sign in*:
 +
 [subs=attributes+]
 ----
 Username: {gitlab_user}
 Password: {gitlab_user_password}
 ----
-and click *Sign in*.
++
+image::jenkins-dev-11.png[]
 * Click *Authorize devspaces* on the next window.
 +
 image::jenkins-dev-12.png[]
@@ -379,7 +381,8 @@ If *Verify Commits* was enabled when creating the template, a signed commit is r
 
 == Part 5 — Show the Build Pipeline (Jenkins)
 
-Know:: ACME's leadership needs to see that their Jenkins investment can deliver modern security and compliance without sacrificing the familiar workflows that teams depend on for business-critical applications.
+=== Know
+_ACME's leadership needs to see that their Jenkins investment can deliver modern security and compliance without sacrificing the familiar workflows that teams depend on for business-critical applications._
 
 **Business Value of Enhanced Jenkins Pipelines:**
 * **Preserve Investment:** Leverage existing Jenkins infrastructure worth millions in setup and expertise
@@ -416,7 +419,7 @@ What the CI/CD pipeline is doing behind the scenes can be observed now that code
 
 You should see three pipeline runs in Developer Hub: `maven-ci-build`, `promote-to-stage`, and `promote-to-prod`. The pipeline `maven-ci-build` should be running and can be opened in Jenkins using Blue Ocean for visual walkthrough.
 
-Show::
+=== Show
 * In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
 * You should see three pipeline runs:
 
@@ -433,7 +436,8 @@ image::jenkins-dev-19.png[]
 
 == Part 6 — Jenkins Pipeline Tasks
 
-Know:: ACME's enhanced Jenkins pipelines prove that enterprise security and familiar tooling can coexist — each pipeline stage shows how automation enhances rather than replaces ACME's Jenkins expertise.
+=== Know
+_ACME's enhanced Jenkins pipelines prove that enterprise security and familiar tooling can coexist — each pipeline stage shows how automation enhances rather than replaces ACME's Jenkins expertise._
 
 **Business Value of Each Enhanced Jenkins Stage:**
 * **Familiar Interface:** Teams use the same Jenkins Blue Ocean interface they know and trust
@@ -451,7 +455,7 @@ image::jenkins-dev-20.png[]
 
 As the Jenkins pipeline runs, guide your audience through each stage. Each step supports secure software supply chain automation.
 
-Show::
+=== Show
 * Click the `verify-commit` stage in the Jenkins UI.
 * Click the `mvn package` stage.
 * Click the `init` stage.
@@ -463,7 +467,8 @@ Show::
 
 === Stage: verify-commit (optional)
 
-Know:: ACME's automatic commit verification in Jenkins — proving that enterprise security can enhance rather than disrupt familiar development workflows.
+=== Know
+_ACME's automatic commit verification in Jenkins — proving that enterprise security can enhance rather than disrupt familiar development workflows._
 
 **Business Value:** 
 * **Compliance Automation:** SOC 2 requirements met automatically within existing Jenkins processes
@@ -478,7 +483,8 @@ This verifies that the Git commit was signed and trusted.
 
 === Stage: mvn package
 
-Know:: ACME's familiar Maven build process enhanced with enterprise-grade dependency tracking and security scanning.
+=== Know
+_ACME's familiar Maven build process enhanced with enterprise-grade dependency tracking and security scanning._
 
 **Business Value:**
 * **Process Continuity:** Same Maven commands teams know, enhanced with security insights
@@ -492,7 +498,8 @@ Now we compile and package the Quarkus application.
 
 === Stage: init
 
-Know:: ACME's standardized Jenkins initialization that eliminates configuration drift and reduces platform team maintenance overhead.
+=== Know
+_ACME's standardized Jenkins initialization that eliminates configuration drift and reduces platform team maintenance overhead._
 
 **Business Value:**
 * **Consistency:** Standardized environment setup across all ACME Jenkins pipelines
@@ -506,7 +513,8 @@ Next, we prepare the environment for the build.
 
 === Stage: build
 
-Know:: ACME's container build process that automatically adds enterprise-grade security without changing familiar Jenkins patterns.
+=== Know
+_ACME's container build process that automatically adds enterprise-grade security without changing familiar Jenkins patterns._
 
 **Business Value:**
 * **Security Automation:** Image signing and provenance generation happen automatically
@@ -520,7 +528,8 @@ Let's build and sign the container image.
 
 === Stage: deploy-and-upload-to-tpa (parallel)
 
-Know:: ACME's automatic deployment and compliance tracking that eliminates manual Jenkins GitOps coordination and SBOM management.
+=== Know
+_ACME's automatic deployment and compliance tracking that eliminates manual Jenkins GitOps coordination and SBOM management._
 
 **Business Value:**
 * **Deployment Automation:** GitOps updates happen automatically without manual Jenkins coordination
@@ -536,7 +545,8 @@ Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}
 
 === Stage: acs (parallel)
 
-Know:: ACME's automatic security validation that prevents production incidents while maintaining Jenkins workflow familiarity.
+=== Know
+_ACME's automatic security validation that prevents production incidents while maintaining Jenkins workflow familiarity._
 
 **Business Value:**
 * **Risk Prevention:** Security issues caught in Jenkins pipelines before production exposure
@@ -553,7 +563,8 @@ Visit `{acs_url}[Red Hat Advanced Cluster Security^]` using `{acs_admin_user}` /
 
 === Stage: summary
 
-Know:: ACME's comprehensive build summary that provides complete visibility into security and compliance status within familiar Jenkins interfaces.
+=== Know
+_ACME's comprehensive build summary that provides complete visibility into security and compliance status within familiar Jenkins interfaces._
 
 **Business Value:**
 * **Operational Visibility:** Complete build and security status in familiar Jenkins interface
@@ -567,7 +578,8 @@ This final stage summarizes the build and validations.
 
 === Pipelines as Code
 
-Know:: ACME's Jenkins expertise becomes more valuable with Pipelines as Code — developers get self-service capabilities while platform teams maintain governance through shared Jenkins libraries.
+=== Know
+_ACME's Jenkins expertise becomes more valuable with Pipelines as Code — developers get self-service capabilities while platform teams maintain governance through shared Jenkins libraries._
 
 **Business Benefits for ACME:**
 * **Developer Velocity:** Teams modify Jenkins pipelines via pull requests instead of platform team tickets
@@ -590,7 +602,8 @@ Let's quickly look at the pipeline definition inside the codebase.
 
 == Part 7 — Summary
 
-Know:: ACME's Jenkins transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and developer velocity while preserving valuable team expertise and infrastructure.
+=== Know
+_ACME's Jenkins transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and developer velocity while preserving valuable team expertise and infrastructure._
 
 **What ACME Achieved:**
 * Enhanced their Jenkins investment with enterprise-grade security and compliance
@@ -608,7 +621,8 @@ Summarize what happened during the demo:
 
 == Part 8 — Wrap-Up
 
-Know:: ACME's success story proves that enterprises can achieve startup-like velocity while preserving valuable Jenkins investments and maintaining enterprise-grade security and compliance.
+=== Know
+_ACME's success story proves that enterprises can achieve startup-like velocity while preserving valuable Jenkins investments and maintaining enterprise-grade security and compliance._
 
 **Business Results for ACME:**
 * **Investment Protection:** Jenkins infrastructure and expertise enhanced rather than replaced
