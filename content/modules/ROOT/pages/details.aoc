@@ -1,0 +1,78 @@
+= Red Hat Advanced Developer Suite (RHADS) Demo Details
+:toc:
+:toc-placement: preamble
+:icons: font
+
+== Proposed Timing
+**Opening (5 minutes):**
+* Discuss background and introduce the use case
+* Start with the end result to show the business impact
+* Reference the ACME Retail Black Friday crisis
+
+**Technical Demo (30–40 minutes):**
+* Follow the guide and demonstrate the solution
+* Focus on automation, business velocity, and security
+* Cover both Tekton and Jenkins paths where relevant
+* Each part includes a **Know** section and most have a **Show** section
+
+**Closing (5–10 minutes):**
+* Repeat the problem and how RHADS solved it
+* Relate the demo back to the customer’s own challenges
+* Allow time for Q&A
+
+== Products and Versions
+[cols="3,1"]
+|===
+|Product Name |Product Version
+
+|Red Hat OpenShift |4.15+
+|Red Hat Advanced Developer Suite |1.1
+|Red Hat Developer Hub |Latest
+|GitLab |15.x+
+|Quay Container Registry |Latest
+|Enterprise Contract |Latest
+|Tekton Pipelines |0.59+
+|Jenkins |2.x LTS
+|===
+
+== Credentials
+[cols="2,1,1"]
+|===
+|System/URL |Username |Password
+
+|Red Hat Developer Hub |demo-user |provided-by-admin
+|GitLab |demo-user |provided-by-admin
+|OpenShift Console |admin |provided-by-admin
+|Quay Container Registry |demo-user |provided-by-admin
+|===
+
+== Troubleshooting Common Issues
+Pipeline failures:
+* Check GitLab webhook configuration
+* Verify container registry credentials
+* Confirm Enterprise Contract policies are accessible
+
+Authentication problems:
+* Validate OIDC configuration in Developer Hub
+* Check OpenShift user permissions
+* Verify GitLab token expiration
+
+Performance issues:
+* Monitor OpenShift cluster resources
+* Check pipeline queue status
+* Verify container image pull times
+
+== Follow-up Resources
+* RHADS product overview documentation
+* Enterprise Contract policy examples
+* ROI calculator and business case templates
+* https://developers.redhat.com/products/advanced-developer-suite[RHADS Product Page^]
+* https://tekton.dev[Tekton Documentation^]
+* https://www.jenkins.io[Jenkins Documentation^]
+
+== Authors and Contact Information
+For content-related questions:
+* Slack: `#forum-demo-platform`, `#forum-rhdp-rhads-tssc-community`
+
+For technical environment issues:
+* Slack: `#forum-demo-platform`
