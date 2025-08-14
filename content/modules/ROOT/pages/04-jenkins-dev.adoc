@@ -173,6 +173,7 @@ Fields like the following are preconfigured:
 | Description | `A cool Quarkus app`
 |===
 
++
 .Image Registry Info
 |===
 | Field | Example Value
@@ -181,6 +182,7 @@ Fields like the following are preconfigured:
 | Organization | `tssc`
 |===
 
++
 .Repository Info
 |===
 | Field | Example Value
