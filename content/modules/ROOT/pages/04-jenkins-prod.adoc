@@ -66,20 +66,26 @@ _ACME’s transformation from risky manual releases to confident, automated Jenk
 Username: {gitlab_user}
 Password: {gitlab_user_password}
 ----
+
 image::jenkins-prod-1.png[]
 
 * Go to *Deploy → Releases*  
+
 image::jenkins-prod-2.png[]
 
 * Click *Create a new release*  
 * Select the existing tag (e.g. `v1.0`), optionally add notes, click *Create release*  
+
 image::jenkins-prod-3.png[]
 
 * In **Developer Hub**, go to *Catalog* → *my-quarkus-jnk* → *CI* tab  
+
 image::jenkins-prod-7.png[]
 
 * Find **promote-to-prod** pipeline run, click *View build*, then *Open Blue Ocean*  
+
 image::jenkins-prod-4.png[]  
+
 image::jenkins-prod-5.png[]
 
 == Part 4 — Jenkins Pipeline Stages
