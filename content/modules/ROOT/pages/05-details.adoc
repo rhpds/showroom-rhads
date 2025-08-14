@@ -48,16 +48,19 @@
 
 == Troubleshooting Common Issues
 Pipeline failures:
+
 * Check GitLab webhook configuration
 * Verify container registry credentials
 * Confirm Enterprise Contract policies are accessible
 
 Authentication problems:
+
 * Validate OIDC configuration in Developer Hub
 * Check OpenShift user permissions
 * Verify GitLab token expiration
 
 Performance issues:
+
 * Monitor OpenShift cluster resources
 * Check pipeline queue status
 * Verify container image pull times
