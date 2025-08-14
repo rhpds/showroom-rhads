@@ -40,8 +40,8 @@
 |===
 |System/URL |Username |Password
 
-|Red Hat Developer Hub |{rhdh_user} |{rhdh_password}
-|GitLab |{gitlab_user} |{gitlab_password}
+|Red Hat Developer Hub |{rhdh_user} |{rhdh_user_password}
+|GitLab |{gitlab_user} |{gitlab_user_password}
 |OpenShift Console |{openshift_admin_user} |{openshift_admin_password}
 |Quay Container Registry |{quay_admin_user} |{quay_admin_password}
 |===
