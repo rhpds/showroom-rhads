@@ -10,160 +10,76 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 _ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise._
 
 **Business Value:**
-
-* Jenkins pipeline setup: 1-2 weeks → 5 minutes
-* Preserves millions in Jenkins infrastructure investment
+* Jenkins pipeline setup: 1–2 weeks → 5 minutes
+* Preserves existing Jenkins infrastructure and team expertise
 * Zero manual security configuration or coordination
 * Standardized pipelines eliminate maintenance overhead
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
+* **Preserve Jenkins Investment:** Leverage existing infrastructure and skills
+* **Add Modern Self-Service:** Developers create production-ready pipelines in minutes
+* **Enhance Security:** Enterprise security integrated into existing workflows
+* **Reduce Platform Overhead:** Standardized templates replace hand-crafted pipelines
 
-This demo shows how ACME transforms their Jenkins investment into a modern, secure, self-service platform:
-
-* **Preserve Jenkins Investment:** Leverage existing Jenkins infrastructure and team expertise
-* **Add Modern Self-Service:** Developers create production-ready Jenkins pipelines in minutes
-* **Enhance Security:** Automatically integrate enterprise security into existing Jenkins workflows
-* **Reduce Platform Overhead:** Standardized Jenkins templates eliminate custom pipeline maintenance
-
-**Business Value for ACME:**
-
-* Jenkins pipeline setup time: 1-2 weeks → 5 minutes
-* Platform team efficiency: 75% reduction in Jenkins setup requests
-* Security compliance: 100% consistent across all new Jenkins-based applications
-* Developer satisfaction: Self-service capabilities without losing familiar Jenkins tooling
-
-This approach helps ACME modernize at enterprise speed while protecting their Jenkins investment and team expertise.
-
-Here's the big picture:
-
-* *Developers* want to move fast and focus on writing code.
-* But *DevOps bottlenecks* like setting up CI/CD, webhooks, and policy enforcement slow them down.
-* *ACME's platform team* uses *Red Hat Developer Hub* to offer *self-service software templates* that generate a new Quarkus application with *Jenkins pipelines already integrated*.
-* The application's source code is stored in *GitLab*, images go to *Quay*, and Jenkins drives the CI/CD process.
-
-This setup allows teams to:
-
-* Use automation and governance by default
-* Avoid manual pipeline setup or policy wiring
-* Enable a *Jenkins-based flow* for customers who still rely on it due to existing investments
+This approach modernizes at enterprise speed while protecting Jenkins investments and expertise.
 
 [NOTE]
 ====
-This demo complements a previous one which used OpenShift Pipelines (Tekton). While Tekton is cloud-native and fully integrated with OpenShift, this version focuses on Jenkins — which remains widely adopted across many enterprise customers.
+This demo complements the OpenShift Pipelines (Tekton) path. While Tekton is cloud-native and tightly integrated with OpenShift, this version focuses on Jenkins, which remains widely adopted in many enterprises.
 ====
 
-By presenting this Jenkins path, you're addressing a realistic need: helping customers *modernize workflows* without abandoning trusted tooling.
-
 === Show
-
-Introduce the characters and setup:
-
-* Show the ACME context and explain the developer's challenge.
-* Display the following image to illustrate the Jenkins-based flow:
+* Introduce ACME and the developer challenge.
+* Display the Jenkins flow diagram:
 +
 image::jenkins_car.jpg[align="center",width=500]
-
-* Mention ACME Corp as the fictional company used throughout this guide.
-* Say: "ACME's platform engineering team has built a system using Red Hat Developer Hub and Advanced Developer Suite to solve this."
+* Explain: ACME uses Red Hat Developer Hub and RHADS to deliver a self-service template that provisions a Quarkus app with Jenkins-based CI/CD, using GitLab for source, Quay for images, and Jenkins for pipelines.
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
 === Know
-_ACME's Jenkins transformation starts here — one developer action eliminates weeks of setup while maintaining familiar Jenkins workflows._
+_ACME's Jenkins transformation starts with one developer action that eliminates weeks of setup while maintaining familiar Jenkins workflows._
 
 **ACME's Traditional Jenkins Setup Challenge:**
-Before RHADS, creating a new Jenkins-based application required:
-
-* 1-2 weeks waiting for DevOps team to create custom Jenkins pipelines
-* Multiple coordination meetings between development, platform, and security teams
-* Manual integration of security tools into Jenkins workflows
-* High risk of configuration inconsistencies across different Jenkins pipelines
-
-**The Hidden Costs:**
-
-* Platform team spends 40+ hours per new application on Jenkins pipeline setup
-* Security integration delays add another 1-2 weeks to project timelines
-* Each custom Jenkins pipeline becomes a maintenance burden requiring ongoing platform team support
-* Inconsistent Jenkins configurations create compliance and audit challenges
+* 1–2 weeks waiting for custom Jenkins pipelines
+* Multiple coordination meetings across dev, platform, and security
+* Manual security integration into Jenkins
+* Inconsistent configurations and compliance challenges
 
 **RHADS Business Solution for ACME:**
-
-One developer action now delivers ACME's complete Jenkins-powered delivery stack:
-
-* **Zero Jenkins Setup Time:** Instant production-ready Jenkins pipelines with security built-in
-* **Zero Platform Coordination:** Developers self-serve without DevOps team involvement
-* **Zero Configuration Drift:** Standardized Jenkins templates ensure consistency
-* **Zero Security Gaps:** Enterprise security automatically integrated into Jenkins workflows
+* **Zero Jenkins Setup Time:** Instant production-ready pipelines with security built-in
+* **Zero Platform Coordination:** Self-service without DevOps intervention
+* **Zero Configuration Drift:** Standardized templates ensure consistency
+* **Zero Security Gaps:** Enterprise security integrated by default
 
 **Business Impact for ACME:**
-
-* Jenkins pipeline creation time: 1-2 weeks → 5 minutes
-* Platform team efficiency: 75% reduction in Jenkins setup requests
-* Security compliance: 100% consistent across all new Jenkins applications
-* Developer velocity: No waiting for Jenkins infrastructure or security integration
-
-**What RHADS Automates for ACME:**
-
-* **Jenkins Pipeline Configuration:** Production-ready Jenkinsfiles with enterprise security steps
-* **GitLab Integration:** Automatic webhook setup to trigger Jenkins builds
-* **Security Automation:** Built-in commit signing, image scanning, and policy validation
-* **Component Registration:** Automatic catalog entry for visibility and lifecycle management
-
-This single template transforms ACME's Jenkins investment from a bottleneck into a competitive advantage.
-
-This step does more than just generate code — it also sets up:
-
-- A fully initialized GitLab repository with source and GitOps manifests
-- A signed commit flow if "Verify Commits" is enabled
-- CI/CD pipeline integration using Jenkins
-- Component registration inside Developer Hub for visibility
-
-Behind the scenes, Red Hat Developer Hub and the ADS template do the heavy lifting:
-
-* Creates both the **source code** and **GitOps** repositories using information from the template.
-* Configures **GitLab webhooks** to trigger Jenkins pipelines on push events.
-* Commits **pipeline configuration**, including Jenkinsfiles and Kubernetes manifests.
-* Registers the component in the **Developer Hub catalog**, enabling traceability and lifecycle management.
-* Automatically triggers the initial CI/CD build if *Verify Commits* is disabled (for demo convenience).
-
-[TIP]
-====
-Let your audience know:
-
-_"The developer doesn't have to manually wire any of this. Developer Hub handles everything — Git setup, CI/CD triggers, pipeline configs, and deployment — all in a few clicks."_
-====
-
-[NOTE]
-====
-The `Verify Commits` option enables signing and verification of Git commits using `gitsign`, which integrates with Red Hat's Trusted Software Supply Chain.
-
-For customers already using Jenkins, this template shows how ADS can plug into their existing tools while still enforcing secure supply chain policies.
-====
+* Pipeline creation: 1–2 weeks → 5 minutes
+* Platform efficiency: 75% fewer Jenkins setup requests
+* Compliance: 100% consistent across new Jenkins apps
+* Developer velocity: No waiting for infrastructure or security wiring
 
 === Show
-* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
+* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In*.
 +
 image::jenkins-dev-1.png[]
-* Use the following credentials to sign in:
+* Sign in:
 +
 [subs=attributes+]
 ----
 Username: {rhdh_user}
 Password: {rhdh_user_password}
 ----
-* In the top-right corner, click the **+ Self-service** button to create a new software component.
+* Click **+ Self-service** to create a new software component.
 +
 image::jenkins-dev-2.png[]
-* In the top-right corner, click the *+* button to start creating a new software component.
 * Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_.
 +
 image::jenkins-dev-3.png[]
+* Accept defaults unless customization is needed.
 
-* Accept the default values provided in the form unless customization is needed.
-+
 Application Information:
 
-[cols="1,2", options="header"]
+[cols="1,2",options="header"]
 |===
 | Field | Default Value
 | Name | `my-quarkus-jnk`
@@ -173,22 +89,22 @@ Application Information:
 | Description | `A cool Quarkus app`
 |===
 
-* Click *Next*
-+
+* Click *Next*.
+
 Image Registry Information:
 
-[cols="1,2", options="header"]
+[cols="1,2",options="header"]
 |===
 | Field | Default Value
 | Image Registry | `Quay`
 | Organization | `tssc`
 |===
 
-* Click *Next*
-+
+* Click *Next*.
+
 Repository Information:
 
-[cols="1,2", options="header"]
+[cols="1,2",options="header"]
 |===
 | Field | Default Value
 | Source Repo | `GitLab`
@@ -196,126 +112,71 @@ Repository Information:
 | Verify Commits | `enabled`
 |===
 
-* Click *Review* to verify your inputs, then click *Create* to generate the new application.
+* Click *Review*, then *Create*.
 +
 image::jenkins-dev-5.png[]
 
 [TIP]
 ====
-As the presenter, explain that this step does more than just generate code — it also sets up:
-
-- A fully initialized GitLab repository with source and GitOps manifests
-- A signed commit flow if "Verify Commits" is enabled
-- CI/CD pipeline integration using Jenkins
-- Component registration inside Developer Hub for visibility
+This step does more than generate code. The template:
+* Initializes source and GitOps repos in GitLab
+* Configures GitLab webhooks to trigger Jenkins
+* Commits Jenkinsfiles and Kubernetes manifests
+* Registers the component in the Developer Hub catalog
+* Optionally triggers the initial CI/CD run if *Verify Commits* is disabled
 ====
 
 [NOTE]
 ====
-The `Verify Commits` option enables signing and verification of Git commits using `gitsign`, which integrates with Red Hat’s Trusted Software Supply Chain.
-====
----
-
-Behind the scenes, Red Hat Developer Hub and the ADS template do the heavy lifting:
-
-* Creates both the **source code** and **GitOps** repositories using information from the template.
-* Configures **GitLab webhooks** to trigger Jenkins pipelines on push events.
-* Commits **pipeline configuration**, including Jenkinsfiles and Kubernetes manifests.
-* Registers the component in the **Developer Hub catalog**, enabling traceability and lifecycle management.
-* Automatically triggers the initial CI/CD build if *Verify Commits* is disabled (for demo convenience).
-
-[TIP]
-====
-Let your audience know:
-
-_"The developer doesn’t have to manually wire any of this. Developer Hub handles everything — Git setup, CI/CD triggers, pipeline configs, and deployment — all in a few clicks."_
-====
-
-[NOTE]
-====
-For customers already using Jenkins, this template shows how ADS can plug into their existing tools while still enforcing secure supply chain policies.
+`Verify Commits` enables signing and verification via `gitsign` with Red Hat's Trusted Software Supply Chain.
 ====
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
 === Know
-_ACME's developers need to maintain velocity while meeting enterprise security requirements — this shows how RHADS makes secure development practices seamless within familiar Jenkins workflows._
+_ACME must maintain velocity while meeting enterprise security requirements. RHADS makes secure development seamless within familiar Jenkins workflows._
 
-**ACME's Enterprise Security Requirements:**
-* Every commit must be traceable to a specific developer (SOC 2 and PCI compliance)
-* No unsigned code can enter Jenkins pipelines (regulatory requirement)
-* Complete audit trails required for enterprise compliance reviews
-* Security practices must integrate seamlessly with existing Jenkins processes
+**Enterprise Security Requirements:**
+* Commit traceability to a specific developer
+* No unsigned code in pipelines
+* Complete audit trails
+* Seamless integration with Jenkins
 
-**Traditional Enterprise Development Friction:**
-* Manual commit signing slows development velocity and frustrates developers
-* Security steps often skipped under deadline pressure in Jenkins workflows
-* Complex tooling setup required for commit verification and signing
-* Audit preparation requires weeks of manual evidence gathering across Jenkins instances
-
-**RHADS Business Benefits for ACME:**
-* **Invisible Security:** Commit signing happens automatically in the developer workflow
-* **No Velocity Loss:** Security enhances rather than slows ACME's Jenkins-based development
-* **Built-in Compliance:** Every change automatically generates enterprise audit evidence
-* **Jenkins Integration:** Security practices work seamlessly with existing Jenkins expertise
-
-**Business Impact for ACME:**
-* Developer productivity: No security-related delays in Jenkins workflows
-* Compliance automation: Manual audit preparation → Real-time evidence generation
-* Risk mitigation: 100% signed commits without developer friction
-* Jenkins enhancement: Existing workflows become more secure without disruption
-
-**Why This Matters for ACME's Business:**
-* Developers can code at full speed while automatically meeting enterprise security standards
-* Jenkins pipelines gain enterprise-grade security without losing familiar functionality
-* Security becomes an enabler rather than a blocker in ACME's development process
-* Complete integration with ACME's existing Jenkins investment and team expertise
-
-ACME's developers now get the best of both worlds: familiar Jenkins tooling enhanced with automated enterprise security.
-
-Once the application has been created and registered in the Developer Hub, we'll demonstrate making a code change using OpenShift Dev Spaces — a cloud IDE experience based on VS Code.
-
-This push will trigger the CI/CD pipeline via the GitLab webhook. Because *Verify Commits* was enabled when the project was created, this change must be signed using `gitsign`.
-
-`gitsign` is a tool that signs Git commits using a short-lived key tied to identity (usually via OpenID Connect). It ensures the commit came from a trusted user — not just anyone with push access.
-
-The following can be verified by signed commits:
-
-* Who made the change
-* That the change hasn't been tampered with
-
-The security and auditability of the software supply chain is strengthened by this — a key capability of Red Hat Trusted Application Pipeline.
+**RHADS Benefits:**
+* **Invisible Security:** Signing happens in the normal flow
+* **No Velocity Loss:** Security enhances productivity
+* **Built-in Compliance:** Real-time audit evidence
+* **Jenkins Integration:** Works with current expertise
 
 [NOTE]
 ====
-If *Verify Commits* was enabled when creating the template, a signed commit is required to trigger the pipeline.
+If *Verify Commits* was enabled, a signed commit is required to trigger the pipeline.
 ====
 
 === Show
-* Navigate to the *Catalog* and find your new component (`my-quarkus-jnk`).
+* In Developer Hub, open the *Catalog* and select `my-quarkus-jnk`.
 +
 image::jenkins-dev-6.png[]
-* Click on the component name to open the *Overview* page.
-* Locate the *OpenShift Dev Spaces* link and click on it — this launches a Red Hat OpenShift Dev Spaces environment preloaded with your project.
+* Open the component *Overview* page and click *OpenShift Dev Spaces*.
 +
 image::jenkins-dev-7.png[]
-* If redirected, click *Log in with OpenShift*
+* If redirected, click *Log in with OpenShift*.
 +
 image::jenkins-dev-8.png[]
-* Use the following credentials to sign in:
+* Sign in:
 +
 [subs=attributes+]
 ----
 Username: {rhdh_user}
 Password: {rhdh_user_password}
 ----
-* If prompted, click *Allow selected permissions* on the *Authorize Access* page.
+* Click *Allow selected permissions* when prompted.
 +
 image::jenkins-dev-9.png[]
-* On the repository trust prompt, click the checkbox and then click *Continue*
+* Trust the repository when prompted and click *Continue*.
 +
 image::jenkins-dev-10.png[]
-* When prompted to authenticate with GitLab, use the following credentials and click *Sign in*:
+* When asked to authenticate with GitLab:
 +
 [subs=attributes+]
 ----
@@ -324,362 +185,248 @@ Password: {gitlab_user_password}
 ----
 +
 image::jenkins-dev-11.png[]
-* Click *Authorize devspaces* on the next window.
+* Click *Authorize devspaces*.
 +
 image::jenkins-dev-12.png[]
-* Wait for the workspace to fully start.
-* Wait for the workspace to start and fully load VS Code
-* If prompted, trust all workspaces and authors
+* Wait for the workspace to load VS Code. Trust all workspaces/authors if prompted.
 +
 image::jenkins-dev-13.png[]
 
-In the Dev Spaces IDE:
-
-* Open the file: `my-quarkus-jnk/docs/index.md`
-* Add a new line of text at the bottom (e.g., “This is a test edit.”)
+In Dev Spaces:
+* Open `my-quarkus-jnk/docs/index.md`.
+* Add a new line (for example, `This is a test edit.`).
 * Open the integrated terminal:
-  * From the top menu bar, click on `Terminal → New Terminal`
-  * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
+  * `Terminal → New Terminal`
 +
 image::jenkins-dev-14.png[]
 
-Then, in the terminal:
-
-* Stage your changes:
+Stage, commit, sign, and push:
 
 [source,bash]
 ----
 git add .
-----
-
-* Commit your changes:
-
-[source,bash]
-----
 git commit -m "Update"
 ----
 
-* The terminal will prompt you with a URL for commit signing via `gitsign`
+* The terminal shows a `gitsign` URL.
 +
 image::jenkins-dev-15.png[]
-* Open the URL in your browser, enter your credentials for user `{rhdh_user}` and password `{rhdh_user_password}` if prompted
-* Copy the verification code shown in the browser
+* Open the URL, authenticate with `{rhdh_user}` / `{rhdh_user_password}`, and copy the code.
 +
 image::jenkins-dev-16.png[]
-* Paste the code into the terminal to complete the signing process
-  (Allow paste functionality if prompted)
+* Paste the code into the terminal to complete signing. Allow paste if prompted.
 +
 image::jenkins-dev-17.png[]
-* Push your changes:
 
 [source,bash]
 ----
 git push
 ----
 
-This push will trigger the CI/CD pipeline via the GitLab webhook.
+This push triggers the CI/CD pipeline via GitLab webhook.
 
 [NOTE]
 ====
-If *Verify Commits* was enabled when creating the template, a signed commit is required to trigger the pipeline.
+A signed commit is required when *Verify Commits* is enabled.
 ====
 
+== Part 4 — What Happens Behind the Scenes
+
+=== Know
+_A simple code change triggers enterprise automation that eliminates weeks of manual work while enforcing security and compliance._
+
+**Business Value:**
+* Setup time: weeks → minutes
+* Eliminates manual handoffs and configuration
+* Standardizes security across applications
+* Scales platform teams across many dev teams
 
 == Part 5 — Show the Build Pipeline (Jenkins)
 
 === Know
-_ACME's leadership needs to see that their Jenkins investment can deliver modern security and compliance without sacrificing the familiar workflows that teams depend on for business-critical applications._
+_ACME's leadership wants to see that their Jenkins investment can deliver modern security and compliance without leaving familiar workflows._
 
 **Business Value of Enhanced Jenkins Pipelines:**
-* **Preserve Investment:** Leverage existing Jenkins infrastructure worth millions in setup and expertise
-* **Add Modern Security:** Enterprise-grade security automation integrated into familiar Jenkins workflows
-* **Maintain Expertise:** Teams keep using Jenkins skills while gaining modern supply chain security
-* **Enhance Compliance:** Automatic evidence generation for SOC 2, PCI, and enterprise audits
+* Preserve Jenkins investment and expertise
+* Add modern supply chain security and compliance
+* Maintain familiar interfaces and operational continuity
+* Generate real-time audit evidence
 
-**ACME's Jenkins Transformation Results:**
-
-[cols="1,1"]
-|===
-| Traditional ACME Jenkins | RHADS-Enhanced Jenkins
-
-| Manual security integration: 1-2 weeks
-| Automatic security: Built-in
-
-| Custom pipeline maintenance: Ongoing overhead
-| Standardized pipelines: Self-maintaining
-
-| Manual compliance evidence: Weeks during audits
-| Automatic audit trails: Real-time
-
-| Security often skipped: Risk exposure
-| Security always enforced: Zero bypass
-|===
-
-**Business Impact for ACME:**
-* **ROI Protection:** Jenkins investment enhanced rather than replaced
-* **Risk Reduction:** Enterprise security automatically enforced in all Jenkins pipelines
-* **Operational Efficiency:** Platform team focuses on innovation instead of Jenkins maintenance
-* **Competitive Advantage:** Secure delivery velocity while competitors struggle with Jenkins modernization
-
-What the CI/CD pipeline is doing behind the scenes can be observed now that code has been pushed.
-
-You should see three pipeline runs in Developer Hub: `maven-ci-build`, `promote-to-stage`, and `promote-to-prod`. The pipeline `maven-ci-build` should be running and can be opened in Jenkins using Blue Ocean for visual walkthrough.
+You should see three pipeline runs in Developer Hub: `maven-ci-build`, `promote-to-stage`, and `promote-to-prod`. Open `maven-ci-build` in Jenkins Blue Ocean for a visual walkthrough.
 
 === Show
-* In *Developer Hub*, navigate to the *CI* tab of the `my-quarkus-jnk` component.
-* You should see three pipeline runs:
-
-- `maven-ci-build`
-- `promote-to-stage`
-- `promote-to-prod`
-
+* In Developer Hub, open the *CI* tab for `my-quarkus-jnk`.
+* Verify the three pipeline runs:
+  * `maven-ci-build`
+  * `promote-to-stage`
+  * `promote-to-prod`
++
 image::jenkins-dev-18.png[]
-
-* Click on *View build* to open Jenkins.
-* Click *Open Blue Ocean* to walk through the Jenkins pipeline visually.
-
+* Click *View build* to open Jenkins, then *Open Blue Ocean*.
++
 image::jenkins-dev-19.png[]
+
+=== Brief Note on Pipelines as Code
+
+=== Know
+_Pipelines are versioned with the application code, enabling transparency, consistency, and adaptability._
+
+**Benefits:**
+* Transparent: developers see how builds work
+* Consistent: shared structure across projects
+* Adaptable: changes tracked like code
+
+* For developers: faster iteration without tickets
+* For platform/security teams: standards enforced via shared libraries and templates
 
 == Part 6 — Jenkins Pipeline Tasks
 
 === Know
-_ACME's enhanced Jenkins pipelines prove that enterprise security and familiar tooling can coexist — each pipeline stage shows how automation enhances rather than replaces ACME's Jenkins expertise._
+_The pipeline stages show how enterprise security integrates into familiar Jenkins patterns._
 
-**Business Value of Each Enhanced Jenkins Stage:**
-* **Familiar Interface:** Teams use the same Jenkins Blue Ocean interface they know and trust
-* **Enhanced Security:** Enterprise-grade security seamlessly integrated into Jenkins workflows
-* **Automatic Compliance:** SOC 2, PCI, and audit requirements met without manual Jenkins configuration
-* **Operational Continuity:** Existing Jenkins expertise becomes more valuable, not obsolete
-
-**Why This Matters for ACME's Business:**
-* **Team Retention:** Jenkins experts stay productive and engaged with enhanced capabilities
-* **Knowledge Preservation:** Years of Jenkins pipeline patterns and expertise remain valuable
-* **Gradual Modernization:** Teams modernize at their own pace without disruptive technology changes
-* **Business Continuity:** Critical applications continue running on proven Jenkins infrastructure
+**Business Value of Each Stage:**
+* Familiar Jenkins interface with enhanced security
+* Automatic compliance for SOC 2 and PCI
+* Operational continuity and knowledge preservation
 
 image::jenkins-dev-20.png[]
 
-As the Jenkins pipeline runs, guide your audience through each stage. Each step supports secure software supply chain automation.
+Guide the audience through each stage.
 
 === Show
-* Click the `verify-commit` stage in the Jenkins UI.
-* Click the `mvn package` stage.
-* Click the `init` stage.
-* Click the `build` stage.
-* Expand the `deploy-and-upload-to-tpa` stage.
-* Expand the `acs` stage.
-* Click the `summary` stage.
-* Open the `Jenkinsfile` in the root of the `my-quarkus-jnk` GitLab repo.
+* Click through these stages in Jenkins:
+  * `verify-commit` (if present)
+  * `mvn package`
+  * `init`
+  * `build`
+  * `deploy-and-upload-to-tpa` (parallel)
+  * `acs` (parallel)
+  * `summary`
+* Open the `Jenkinsfile` in the root of the GitLab repo for `my-quarkus-jnk`.
 
 === Stage: verify-commit (optional)
 
-=== Know
-_ACME's automatic commit verification in Jenkins — proving that enterprise security can enhance rather than disrupt familiar development workflows._
+==== Know
+_Automatic commit verification enforces traceability and authenticity._
 
 **Business Value:**
-* **Compliance Automation:** SOC 2 requirements met automatically within existing Jenkins processes
-* **Developer Experience:** Security happens invisibly without changing Jenkins workflow familiarity
-* **Audit Readiness:** Complete commit traceability without manual evidence gathering
+* Compliance automation within Jenkins
+* Invisible security for developers
+* Complete audit readiness
 
-This verifies that the Git commit was signed and trusted.
-
-* Uses `gitsign` and Red Hat Trusted Application Signer (RHTAS) to verify commit authenticity.
-* Ensures the commit came from a known developer.
-* This stage appears only if *Verify Commits* was enabled in the software template.
+Verifies signed commit authenticity with `gitsign` and RHTAS. Appears only when *Verify Commits* is enabled.
 
 === Stage: mvn package
 
-=== Know
-_ACME's familiar Maven build process enhanced with enterprise-grade dependency tracking and security scanning._
+==== Know
+_Familiar Maven build enhanced with dependency tracking and security scanning._
 
 **Business Value:**
-* **Process Continuity:** Same Maven commands teams know, enhanced with security insights
-* **Risk Management:** Automatic dependency analysis prevents vulnerable libraries in production
-* **Audit Trail:** Complete build provenance for compliance and troubleshooting
+* Process continuity with added insights
+* Risk management for dependencies
+* Build provenance for audits
 
-Now we compile and package the Quarkus application.
-
-* Runs `mvn package` to build the Java app.
-* Produces the runnable JAR used for container image creation.
+Runs `mvn package` to compile and produce the Quarkus JAR.
 
 === Stage: init
 
-=== Know
-_ACME's standardized Jenkins initialization that eliminates configuration drift and reduces platform team maintenance overhead._
+==== Know
+_Standardized initialization eliminates configuration drift._
 
 **Business Value:**
-* **Consistency:** Standardized environment setup across all ACME Jenkins pipelines
-* **Platform Efficiency:** Shared Jenkins library reduces custom pipeline maintenance
-* **Operational Excellence:** Predictable Jenkins behavior across all applications
+* Consistency across pipelines
+* Reduced maintenance via shared library
+* Predictable behavior
 
-Next, we prepare the environment for the build.
-
-* Sets environment variables (e.g., Git tag, timestamp, registry).
-* Uses the shared `rhtap` Jenkins library to standardize CI behavior.
+Prepares environment variables and shared context using the `rhtap` Jenkins library.
 
 === Stage: build
 
-=== Know
-_ACME's container build process that automatically adds enterprise-grade security without changing familiar Jenkins patterns._
+==== Know
+_Container build adds signing and provenance automatically._
 
 **Business Value:**
-* **Security Automation:** Image signing and provenance generation happen automatically
-* **Compliance Confidence:** Cryptographic proof of build integrity for audit requirements
-* **Jenkins Enhancement:** Familiar build processes enhanced with supply chain security
+* Security automation for images
+* Compliance confidence via cryptographic proof
+* Enhanced Jenkins process without disruption
 
-Let's build and sign the container image.
-
-* Uses `buildah` to containerize the app.
-* Uses `cosign` to sign the image and generate provenance metadata.
+Builds container with `buildah`, signs with `cosign`, and generates provenance.
 
 === Stage: deploy-and-upload-to-tpa (parallel)
 
-=== Know
-_ACME's automatic deployment and compliance tracking that eliminates manual Jenkins GitOps coordination and SBOM management._
+==== Know
+_Automatic GitOps updates and SBOM management without manual Jenkins coordination._
 
 **Business Value:**
-* **Deployment Automation:** GitOps updates happen automatically without manual Jenkins coordination
-* **Compliance Automation:** SBOM tracking for vulnerability management and audit requirements
-* **Platform Efficiency:** No manual handoffs between Jenkins and deployment teams
+* Automated deployment through GitOps
+* SBOM tracking for vulnerabilities and audits
+* Reduced platform handoffs
 
-This stage handles GitOps deployment and SBOM upload.
+* *deploy*: updates the GitOps repo with new image tag, triggering Argo CD for dev deployment.
+* *upload_sbom_to_trustification*: uploads SBOM to Red Hat Trusted Profile Analyzer (TPA).
 
-* *deploy*: updates the GitOps repo with the new image tag — this triggers Argo CD to redeploy the app to dev.
-* *upload_sbom_to_trustification*: pushes the SBOM to Red Hat Trusted Profile Analyzer (TPA) for compliance tracking.
-
-Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` and log in with `{tpa_user}` / `{tpa_user_password}` to explore SBOM results.
+Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` with `{tpa_user}` / `{tpa_user_password}`.
 
 === Stage: acs (parallel)
 
-=== Know
-_ACME's automatic security validation that prevents production incidents while maintaining Jenkins workflow familiarity._
+==== Know
+_Security validation catches issues before production exposure._
 
 **Business Value:**
-* **Risk Prevention:** Security issues caught in Jenkins pipelines before production exposure
-* **Compliance Enforcement:** Enterprise security policies automatically enforced
-* **Cost Avoidance:** Preventing one production security incident pays for the entire platform
+* Risk prevention within Jenkins
+* Policy enforcement by default
+* Avoidance of costly incidents
 
-Now we perform security and policy checks.
+* *acs_deploy_check*: verifies Kubernetes manifests
+* *acs_image_check*: enforces image policy
+* *acs_image_scan*: scans for vulnerabilities with RHACS
 
-* *acs_deploy_check*: verifies Kubernetes manifests (e.g., RBAC, host access).
-* *acs_image_check*: enforces policy on image config.
-* *acs_image_scan*: performs vulnerability scanning using Red Hat Advanced Cluster Security (RHACS).
-
-Visit `{acs_url}[Red Hat Advanced Cluster Security^]` using `{acs_admin_user}` / `{acs_admin_password}` to see the results.
+Visit `{acs_url}[Red Hat Advanced Cluster Security^]` with `{acs_admin_user}` / `{acs_admin_password}`.
 
 === Stage: summary
 
-=== Know
-_ACME's comprehensive build summary that provides complete visibility into security and compliance status within familiar Jenkins interfaces._
+==== Know
+_Comprehensive summary centralizes build and security status in Jenkins._
 
 **Business Value:**
-* **Operational Visibility:** Complete build and security status in familiar Jenkins interface
-* **Audit Evidence:** Comprehensive artifact summary for compliance and troubleshooting
-* **Team Efficiency:** All build information centralized in Jenkins where teams expect it
+* Operational visibility
+* Audit evidence
+* Team efficiency
 
-This final stage summarizes the build and validations.
-
-* Shows build status and key artifacts (e.g., SBOM, scan summary).
-* Uses reusable functions from the `rhtap` library.
-
-=== Pipelines as Code
-
-=== Know
-_ACME's Jenkins expertise becomes more valuable with Pipelines as Code — developers get self-service capabilities while platform teams maintain governance through shared Jenkins libraries._
-
-**Business Benefits for ACME:**
-* **Developer Velocity:** Teams modify Jenkins pipelines via pull requests instead of platform team tickets
-* **Jenkins Expertise Leverage:** Existing Jenkins skills become more valuable with enhanced capabilities
-* **Platform Scaling:** Shared libraries enforce standards while enabling team autonomy
-* **Knowledge Preservation:** Jenkins pipeline patterns and expertise remain relevant and valuable
-
-Let's quickly look at the pipeline definition inside the codebase.
-
-* This is a *Pipelines as Code* setup — the CI logic lives alongside app code.
-* Easy to update via PRs. Version-controlled. No central team required.
-
-*Benefits for developers:*
-* Fast iteration, no ticketing for pipeline changes.
-* Clear visibility and ownership over CI/CD.
-
-*Benefits for ACME (platform/security teams):*
-* Shared libraries enforce security policies and reusability.
-* Full audit trail across all stages of the pipeline.
+Summarizes build status and key artifacts, leveraging reusable `rhtap` library functions.
 
 == Part 7 — Summary
 
 === Know
-_ACME's Jenkins transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and developer velocity while preserving valuable team expertise and infrastructure._
-
-**What ACME Achieved:**
-* Enhanced their Jenkins investment with enterprise-grade security and compliance
-* Reduced Jenkins pipeline setup time from 1-2 weeks to 5 minutes
-* Maintained team expertise while gaining modern supply chain security capabilities
-* Preserved business continuity for critical applications running on Jenkins
-
-Summarize what happened during the demo:
-
-* The developer scaffolded a new Quarkus service using Red Hat Developer Hub
-* A secure CI/CD pipeline using Jenkins was automatically configured and triggered
-* Commits were signed using gitsign and verified via RHTAS
-* Container images were built, signed, scanned, and attested with Cosign, TPA, and ACS
-* The service was deployed to development via GitOps — with no manual intervention
+* ACME created a new Quarkus service via Developer Hub
+* Jenkins CI/CD pipeline was pre-configured and triggered automatically
+* Commits were signed and verified
+* Images were built, signed, scanned, and attested
+* Deployment to development occurred through GitOps
 
 == Part 8 — Wrap-Up
 
 === Know
-_ACME's success story proves that enterprises can achieve startup-like velocity while preserving valuable Jenkins investments and maintaining enterprise-grade security and compliance._
+_ACME's Jenkins transformation shows how enterprises can enhance investments while achieving modern security and speed._
 
 **Business Results for ACME:**
-* **Investment Protection:** Jenkins infrastructure and expertise enhanced rather than replaced
-* **Velocity Increase:** Pipeline setup time from weeks to minutes without changing familiar workflows
-* **Security Enhancement:** Enterprise-grade security automatically integrated into existing Jenkins processes
-* **Team Satisfaction:** Developers get modern self-service capabilities using familiar Jenkins tooling
-* **Platform Efficiency:** 75% reduction in Jenkins setup and maintenance requests
-* **Compliance Automation:** SOC 2, PCI, and audit requirements met automatically
+* Investment protection: Jenkins enhanced, not replaced
+* Velocity increase: setup from weeks to minutes
+* Security enhancement: enterprise-grade security by default
+* Team satisfaction: familiar Jenkins with modern self-service
+* Platform efficiency: 75% fewer setup requests
+* Compliance automation: SOC 2 and PCI readiness built-in
 
-**Why This Matters for Your Business:**
-* **Preserve Investment:** Leverage existing Jenkins infrastructure and team expertise worth millions
-* **Enhance Capabilities:** Add modern security and self-service without disrupting proven workflows
-* **Accelerate Delivery:** Modern developer experience with familiar, trusted Jenkins foundation
-* **Reduce Risk:** Enterprise security becomes automatic rather than manual addition to Jenkins pipelines
+**Key Takeaways**
+* Secure-by-default delivery
+* Streamlined developer onboarding
+* Governance through automation
+* Platform scaling with templates and shared pipelines
+* Full transparency and traceability
+* End-to-end toolchain integration across GitLab, Quay, Jenkins, and RHACS
 
-**The ACME Jenkins Success Formula:**
-RHADS proved that enterprises can achieve:
-
-* **Modern developer experience** without abandoning proven Jenkins tooling
-* **Enterprise-grade security** without disrupting familiar workflows
-* **Platform team efficiency** without losing Jenkins expertise and investment
-* **Business velocity** without compromising on security or compliance standards
-
-Summarize again to reinforce the end-to-end flow:
-
-* Developer created a service in minutes using Developer Hub
-* CI/CD pipelines came pre-wired with Jenkins and advanced security integrations
-* Commits and container images were cryptographically signed, vulnerability scanned, and policy validated
-* GitOps deployment was triggered automatically, completing the promotion
-
-=== Key Takeaways
-
-* *Secure-by-default delivery* — Every change is signed, validated, and scanned automatically
-* *Streamlined developer onboarding* — Developers can go from idea to deployment in minutes
-* *Governance through automation* — Policy enforcement is built into the process — not bolted on
-* *Platform team enablement* — Templates and shared pipelines make it easy to scale best practices
-* *Transparency and traceability* — Every step in the lifecycle is logged, auditable, and versioned
-* *End-to-end toolchain integration* — GitLab, Quay, Jenkins, and ACS work together out of the box
-
-=== Optional Enhancements
-
-* *Explore the Developer Hub Catalog entry* for the new software component
-  → Highlight metadata such as links to GitLab, pipeline run history, Quay image repository, and RHACS (Advanced Cluster Security) scan results.
-
-* *Show integration depth*
-  → Follow the commit link from Developer Hub to the corresponding GitLab commit.
-  → Open the Jenkins job from the Developer Hub CI tab and view build logs, Blue Ocean pipeline stages, and generated artifacts.
-
-* *Demonstrate template flexibility*
-  → Point out that teams can easily adapt the existing software template to other tech stacks such as Python, Node.js, or Spring Boot.
-  → This approach enables consistent security and deployment practices across diverse applications.
-
-* *Mention collaboration opportunities*
-  → Platform engineers, AppDev leads, and InfoSec teams can co-author templates, enforce common policies, and accelerate delivery while maintaining governance.
+**Optional Enhancements**
+* Explore the Developer Hub Catalog entry for metadata and links
+* Follow the commit link to GitLab and the CI link to Jenkins
+* Show template flexibility for other stacks such as Python, Node.js, or Spring Boot
+* Highlight cross-team collaboration on templates and policies
