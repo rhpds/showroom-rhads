@@ -5,17 +5,20 @@
 
 == Proposed Timing
 **Opening (5 minutes):**
+
 * Discuss background and introduce the use case
 * Start with the end result to show the business impact
 * Reference the ACME Retail Black Friday crisis
 
 **Technical Demo (30–40 minutes):**
+
 * Follow the guide and demonstrate the solution
 * Focus on automation, business velocity, and security
 * Cover both Tekton and Jenkins paths where relevant
 * Each part includes a **Know** section and most have a **Show** section
 
 **Closing (5–10 minutes):**
+
 * Repeat the problem and how RHADS solved it
 * Relate the demo back to the customer’s own challenges
 * Allow time for Q&A
