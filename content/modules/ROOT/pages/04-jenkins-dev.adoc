@@ -158,35 +158,39 @@ image::jenkins-dev-2.png[]
 * Choose the template: _Securing a Quarkus Service Software Supply Chain (Jenkins)_.
 +
 image::jenkins-dev-3.png[]
-* Accept the default values unless customization is needed. The template collects basic metadata like app name, registry info, and repository setup.
 
-Fields like the following are preconfigured:
+* Accept the default values provided in the form unless customization is needed.
++
+Application Information:
 
-.Application Info
+[cols="1,2", options="header"]
 |===
-| Field | Example Value
-
+| Field | Default Value
 | Name | `my-quarkus-jnk`
-| Group Id | `redhat.rhdh`
-| Artifact Id | `my-quarkus-jnk`
+| Group ID | `redhat.rhdh`
+| Artifact ID | `my-quarkus-jnk`
 | Java Package Name | `org.redhat.rhdh`
 | Description | `A cool Quarkus app`
 |===
 
+* Click *Next*
 +
-.Image Registry Info
-|===
-| Field | Example Value
+Image Registry Information:
 
+[cols="1,2", options="header"]
+|===
+| Field | Default Value
 | Image Registry | `Quay`
 | Organization | `tssc`
 |===
 
+* Click *Next*
 +
-.Repository Info
-|===
-| Field | Example Value
+Repository Information:
 
+[cols="1,2", options="header"]
+|===
+| Field | Default Value
 | Source Repo | `GitLab`
 | Repo Owner | `development`
 | Verify Commits | `enabled`
@@ -398,16 +402,16 @@ _ACME's leadership needs to see that their Jenkins investment can deliver modern
 |===
 | Traditional ACME Jenkins | RHADS-Enhanced Jenkins
 
-| Manual security integration: 1-2 weeks 
+| Manual security integration: 1-2 weeks
 | Automatic security: Built-in
 
-| Custom pipeline maintenance: Ongoing overhead 
+| Custom pipeline maintenance: Ongoing overhead
 | Standardized pipelines: Self-maintaining
 
-| Manual compliance evidence: Weeks during audits 
+| Manual compliance evidence: Weeks during audits
 | Automatic audit trails: Real-time
 
-| Security often skipped: Risk exposure 
+| Security often skipped: Risk exposure
 | Security always enforced: Zero bypass
 |===
 
@@ -472,7 +476,7 @@ As the Jenkins pipeline runs, guide your audience through each stage. Each step 
 === Know
 _ACME's automatic commit verification in Jenkins — proving that enterprise security can enhance rather than disrupt familiar development workflows._
 
-**Business Value:** 
+**Business Value:**
 * **Compliance Automation:** SOC 2 requirements met automatically within existing Jenkins processes
 * **Developer Experience:** Security happens invisibly without changing Jenkins workflow familiarity
 * **Audit Readiness:** Complete commit traceability without manual evidence gathering
