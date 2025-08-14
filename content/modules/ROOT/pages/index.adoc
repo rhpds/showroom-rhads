@@ -5,138 +5,45 @@
 
 toc::[]
 
-== Overview
-
 This guide helps sales engineers and technical presenters deliver an effective Red Hat Advanced Developer Suite (RHADS) demonstration to customers.
 
-== Pre-Demo Preparation
+Every demo is different and you will have to adapt this guide to your specific needs.
+For instance, if you have less than the noted amount of time, you can skip some of the sections.
 
-**Before Your Customer Meeting:**
+The following sections will help you understand the guide and how to use it to prepare and execute the demo.
 
-* **Customer Discovery:** Understand their current CI/CD tools (Jenkins vs cloud-native)
-* **Environment Check:** Verify demo environment is running and accessible
-* **Persona Alignment:** Identify decision makers (developers, security, platform teams)
-* **Time Planning:** Allocate 45-60 minutes for complete demonstration
+== Demo Overview
+The **Demo Overview** section provides background, use case, and benefits to the customer.
 
-== Demo Structure
+IMPORTANT: Read the **Demo Overview** thoroughly to understand the scenario and the business context.
 
-**Choose Your Path Based on Customer Environment:**
+=== Background
+ACME Retail is preparing for Black Friday in 4 weeks, but their deployment process takes 10 weeks. They struggle with long release cycles, manual security reviews, compliance bottlenecks, and platform team overload.
 
-* **Module 3 (Tekton):** For customers adopting cloud-native, Kubernetes-first development
-* **Module 4 (Jenkins):** For customers with existing Jenkins investments
+=== Business Outcomes
+* Project setup reduced from 6 weeks to 2 days
+* 100% automated security compliance
+* 75% reduction in manual reviews
+* Enhanced productivity without changing existing workflows
 
-**Both paths deliver the same business outcomes:** faster delivery, automated security, compliance-ready pipelines.
+=== Paths Based on Customer Environment
+* Module 3 (Tekton) for cloud-native, Kubernetes-first development
+* Module 4 (Jenkins) for customers with existing Jenkins investments
 
-== Presentation Tips
+Both paths deliver the same outcome: faster delivery, automated security, and compliance-ready pipelines.
 
-**Opening (5 minutes):**
+== Demo Details
+The **Demo Details** section contains technical requirements, proposed timing, credentials, and troubleshooting tips. See `details.adoc` for the complete breakdown.
 
-* Start with Module 1 (Agenda) to set expectations
-* Use Module 2 (Introduction) to establish ACME's business context
-* Emphasize the "4 weeks vs 10 weeks" crisis that resonates with most enterprises
+== Demo Modules
+Most sections have both a **Know** and a **Show** section.
 
-**Technical Demo (30-40 minutes):**
+=== Know
+Provides background, insights, and business value for what you are going to show.
 
-* **Know:: sections** provide business context - share these insights with stakeholders
-* **Show:: sections** contain hands-on demonstration steps - follow these precisely
-* Focus on automation and business velocity, not just technical features
+=== Show
+Step-by-step instructions for delivering the demo.
 
-**Closing (5-10 minutes):**
-
-* Summarize business results: "6 weeks → 2 days", "75% reduction in manual reviews"
-* Connect to customer's specific pain points identified in discovery
-* Provide clear next steps for evaluation or pilot
-
-== Common Customer Questions
-
-**"How does this work with our existing tools?"**
-→ Show Jenkins path (Module 4) - enhances rather than replaces existing investments
-
-**"What about compliance and security?"**
-→ Emphasize automated policy enforcement and SOC 2/PCI readiness
-
-**"How complex is the implementation?"**
-→ Highlight self-service templates and zero-configuration developer experience
-
-**"What's the business impact timeline?"**
-→ Reference ACME's 4-week transformation and quantified results
-
-== Technical Environment Requirements
-
-**Demo Infrastructure:**
-
-* Red Hat Developer Hub instance
-* GitLab repository access
-* OpenShift cluster with Tekton/Jenkins
-* Quay container registry
-* Enterprise Contract policies configured
-
-**Credentials Needed:**
-
-* RHDH user access
-* GitLab credentials
-* OpenShift login details
-
-== Troubleshooting Common Issues
-
-**Pipeline Failures:**
-
-* Check GitLab webhook configuration
-* Verify container registry credentials
-* Confirm Enterprise Contract policies are accessible
-
-**Authentication Problems:**
-
-* Validate OIDC configuration in Developer Hub
-* Check OpenShift user permissions
-* Verify GitLab token expiration
-
-**Performance Issues:**
-
-* Monitor OpenShift cluster resources
-* Check pipeline queue status
-* Verify container image pull times
-
-== Follow-Up Resources
-
-**Customer Handouts:**
-
-* RHADS product overview documentation
-* Enterprise Contract policy examples
-* ROI calculator and business case templates
-
-**Next Steps:**
-
-* Schedule technical deep-dive sessions
-* Provide evaluation environment access
-* Connect with Red Hat solution architects
-
-== Success Metrics
-
-**Demo Success Indicators:**
-
-* Customer asks specific implementation questions
-* Request for proof-of-concept or pilot
-* Interest in enterprise licensing discussions
-* Follow-up meetings scheduled with technical teams
-
-**Business Value Delivered:**
-
-* Clear understanding of automation benefits
-* Confidence in security and compliance capabilities
-* Awareness of existing tool enhancement vs replacement
-* Quantified business impact expectations
-
-== Contact Information
-
-For demo environment issues or technical questions:
-
-* **Red Hat Demo Platform Team**
-* **Product documentation:** https://developers.redhat.com/products/advanced-developer-suite
-* **Technical support channels**
-
-For technical issues, reach out to Red Hat Demo Platform team:
-
-* **Slack channels:**
-  - `#forum-demo-platform`
-  - `#forum-rhtap` 
+== Next Steps
+Read the **Demo Overview** and **Demo Details**.  
+Choose the Tekton or Jenkins path based on the customer’s environment, then follow the **Know** and **Show** steps to deliver the demo.
