@@ -6,7 +6,8 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 
 == Pipeline Flow
 
-Know:: ACME's staging validation was taking 3-5 days and causing production surprises. RHADS transforms this into 30-minute automated validation with enterprise security built-in.
+=== Know
+_ACME's staging validation was taking 3-5 days and causing production surprises. RHADS transforms this into 30-minute automated validation with enterprise security built-in._
 
 **Business Value:**
 
@@ -32,7 +33,7 @@ The CLI approach does the same thing — triggers the pipeline tied to this Git 
 Use the Developer Hub view to explain each task as it executes. Let your audience see the automation in action — no manual approvals, just policy-driven promotion.
 ====
 
-Show::
+=== Show
 
 **Option 1: Tag via GitLab UI**
 
@@ -53,7 +54,7 @@ image::tekton-stage-3.png[]
 === Option 2: Tag via Git CLI
 
 If you prefer the CLI, demonstrate with:
-
++
 [source,bash]
 ----
 git tag v1.0
@@ -71,7 +72,8 @@ image::tekton-stage-4.png[]
 
 == Pipeline Tasks
 
-Know:: ACME's staging pipeline provides production-level confidence while eliminating manual bottlenecks.
+=== Know
+_ACME's staging pipeline provides production-level confidence while eliminating manual bottlenecks._
 
 **Business Value:**
 
@@ -80,13 +82,13 @@ Know:: ACME's staging pipeline provides production-level confidence while elimin
 * Production-grade validation catches issues early
 * Platform teams focus on innovation, not deployment coordination
 
-=== Task 1.1: extract-destination-image-tag
+** Task 1.1: extract-destination-image-tag
 
-Know:: ACME gets perfect traceability — Git tags enable coordinated feature rollouts and complete audit trails.
+ACME gets perfect traceability — Git tags enable coordinated feature rollouts and complete audit trails.
 
-=== Task 1.2: gather-images-to-verify
+** Task 1.2: gather-images-to-verify
 
-Know:: ACME ensures staging perfectly mirrors production — same validated images eliminate "works in staging, fails in production" surprises.
+ACME ensures staging perfectly mirrors production — same validated images eliminate "works in staging, fails in production" surprises.
 
 The `images.json` file becomes ACME's guarantee that staging validation represents real production deployment quality.
 
@@ -95,9 +97,9 @@ The `images.json` file becomes ACME's guarantee that staging validation represen
 This mapping between Git commit and container image provides end-to-end traceability — we know exactly what code went into what image.
 ====
 
-=== Task 2: verify-enterprise-contract
+** Task 2: verify-enterprise-contract
 
-Know:: ACME's critical business protection — automated security validation catches compliance issues before expensive production problems.
+ACME's critical business protection — automated security validation catches compliance issues before expensive production problems.
 
 **Business Value:**
 
@@ -107,6 +109,7 @@ Know:: ACME's critical business protection — automated security validation cat
 * Automatic CVE scanning and policy compliance
 
 **Business Impact for ACME:**
+
 * Security incident prevention: Issues caught before customer exposure
 * Audit confidence: Staging proves production security compliance
 * Deployment velocity: Minutes for security validation instead of weeks
@@ -119,18 +122,18 @@ This step enforces multiple critical validations that protect ACME's business an
 If any check fails, the pipeline halts. If everything passes, the image moves forward to the next promotion step.
 ====
 
-=== Task 3: copy-image
+** Task 3: copy-image
 
-Know:: ACME's quality gateway — only validated, compliant images reach staging, ensuring production-grade quality.
+ACME's quality gateway — only validated, compliant images reach staging, ensuring production-grade quality.
 
 [IMPORTANT]
 ====
 This guarantees that only validated artifacts are promoted — no sneaky image changes slip through.
 ====
 
-=== Task 4: update-deployment
+** Task 4: update-deployment
 
-Know:: ACME's automated bridge — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation.
+ACME's automated bridge — GitOps ensures validated changes reach staging automatically, enabling immediate feature validation.
 
 **Business Value:**
 
@@ -251,6 +254,7 @@ spec:
 == Part 5 — Wrap-Up
 
 === Summary
+We don't need to have an empty heading for Part 5 and then a summary heading. Put a sentence here. "The following table summarizes the tasks that are executed by the pipeline."
 
 |===
 | Phase | Purpose
@@ -273,7 +277,7 @@ spec:
 
 === Key Takeaways
 
-Know:: ACME's staging transformation delivers faster, safer feature delivery.
+ACME's staging transformation delivers faster, safer feature delivery.
 
 **Business Value:**
 
@@ -284,5 +288,4 @@ Know:: ACME's staging transformation delivers faster, safer feature delivery.
 
 === Optional Enhancements
 
-Know:: Optional demonstrations to show ACME's staging transformation — simulate failed validations, display Quay image tags, demonstrate Argo CD syncing, and show Enterprise Contract policies.
-
+Optional demonstrations to show ACME's staging transformation — simulate failed validations, display Quay image tags, demonstrate Argo CD syncing, and show Enterprise Contract policies.

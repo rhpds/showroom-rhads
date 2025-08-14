@@ -1,233 +1,110 @@
-= Advanced Developer Suite Demo Narrative
+= Advanced Developer Suite Demo Instructions
 Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion using Jenkins
-:icons: font
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1
 
-toc::[]
-
-== Overview
+== Part 1 — Set the Stage
 
 === Know
-_ACME's Black Friday success requires safe, fast production deployments using Jenkins. RHADS transforms risky manual processes into confident automated workflows while preserving Jenkins investments._
+_ACME’s Black Friday success requires safe, fast production deployments. RHADS transforms risky manual processes into confident automated workflows while preserving millions in Jenkins investments._
 
 **Business Value:**
 
-* Production deployment time: 2-3 weeks → 30 minutes
-* Preserves millions in Jenkins infrastructure investment
+* Production deployment time: 2–3 weeks → 30 minutes
 * Zero manual security reviews or bottlenecks
 * Complete SOC 2 and PCI audit trails automatically
+* No need to replace proven Jenkins workflows
 
-This guide is designed for technical sales engineers to demonstrate a secure software supply chain using:
+=== Show
+This demo will use Jenkins with Enterprise Contract, Artifact Signer, and GitOps (Argo CD) to:
 
-- Red Hat Advanced Developer Suite (ADS)
-- Enterprise Contract (EC)
-- GitOps with Argo CD
-- Artifact Signer
+* Validate container images
+* Tag validated images for production
+* Update GitOps manifests for automated deployment
 
-The goal of the demo is to show how tagging a release in Git can trigger a Jenkins pipeline that:
-
-- Validates the container image using Enterprise Contract
-- Tags the verified image using the Git tag value
-- Promotes the image from the staging environment to production via GitOps
-- Automatically deploys the application using Argo CD
-
-The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
-`RHTAP_Jenkins@main`
-
-[NOTE]
-====
-The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
-====
+== Part 2 — Understand the Promotion Flow
 
 === Know
-_ACME's production deployment flexibility through enhanced Jenkins — the same trusted Jenkins infrastructure supports both staging validation and production deployment with appropriate risk management._
+_ACME’s enhanced Jenkins pipeline supports both staging and production promotions with different triggers and controls — while using the same workflow._
+
+**Trigger Types:**
+
+[cols="1,2",options="header"]
+|===
+| Trigger | Action
+| Git tag push | Promote image to *staging* (`stage` overlay)
+| GitLab Release | Promote image to *production* (`prod` overlay)
+|===
 
 **Business Value:**
 
-* **Staging Speed:** Git tag push enables rapid staging validation through Jenkins
-* **Production Control:** GitLab Release provides intentional production gate with audit trail
-* **Risk Management:** Different triggers allow appropriate validation rigor per environment
-* **Jenkins Consistency:** Same familiar Jenkins pipeline handles both environments
-
-The pipeline reacts differently based on the trigger:
-
-- A simple Git tag push promotes the image to *staging* using the `stage` overlay.
-- A GitLab Release (created via the UI) triggers a *production* promotion using the `prod` overlay.
-
-This separation allows teams to enforce distinct policies and approval flows for different environments, while still using the same Jenkins pipeline under the hood.
+* Staging speed via Git tag push
+* Intentional production gates via GitLab Release
+* Different validation rigor per environment
+* Consistency from reusing the same Jenkins pipeline
 
 === Show
-* Push a Git tag to simulate a staging promotion
-* Create a GitLab release to simulate a production promotion
+The same pipeline runs for both environments, but the trigger type changes the overlay and validation process.
 
-== GitLab Release – Promote to Production
+== Part 3 — Promote to Production via GitLab Release
 
 === Know
-_ACME's transformation from risky manual production releases to confident automated Jenkins-based deployments — GitLab Release triggers enterprise-grade validation automatically while preserving familiar Jenkins workflows._
+_ACME’s transformation from risky manual releases to confident, automated Jenkins deployments — GitLab Release triggers enterprise-grade validation and GitOps promotion._
 
 **Business Value:**
 
-* Jenkins production deployment time: 2-3 weeks → 30 minutes
-* Preserves millions in Jenkins infrastructure investment
-* Zero manual security reviews or coordination
-* Complete audit trails generated automatically through Jenkins
-
-Creating a GitLab release triggers a webhook that starts the Jenkins pipeline. The pipeline automatically detects that this is a *release event* and switches into production promotion mode. This ensures the same validated image is now promoted to the production environment.
-
-The same Jenkins pipeline is reused, but its behavior changes based on the trigger type — a Git tag push promotes to staging, while a GitLab release promotes to production.
+* Production promotion: 2–3 weeks → 30 minutes
+* Zero manual reviews or coordination
+* Automatic audit trails via Jenkins and GitOps
 
 === Show
-* Open your {gitlab_url}/development/my-quarkus-jnk GitLab repository and use the following credentials to sign in:
+* Open `{gitlab_url}/development/my-quarkus-jnk`
 +
 [subs=attributes+]
 ----
 Username: {gitlab_user}
 Password: {gitlab_user_password}
 ----
-+
+
 image::jenkins-prod-1.png[]
-* In the left navigation menu, go to *Deploy > Releases*
-+
+
+* Go to *Deploy → Releases*
+
 image::jenkins-prod-2.png[]
+
 * Click *Create a new release*
-* Select the existing tag, such as `v1.0`
-* Optionally add release notes
-* Click *Create release*
-+
+* Select the existing tag (e.g. `v1.0`), optionally add notes, click *Create release*
+
 image::jenkins-prod-3.png[]
 
-Now guide your audience to *Developer Hub*:
+* In **Developer Hub**, go to *Catalog* → *my-quarkus-jnk* → *CI* tab
 
-* On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component.
-+
 image::jenkins-prod-7.png[]
-* Click the *CI* tab to see pipeline runs.
-* Locate the build labeled **promote-to-prod**
-* Click on the *View build* icon on the *promote-to-prod* build to follow progress
-+
+
+* Find **promote-to-prod** pipeline run, click *View build*, then *Open Blue Ocean*
+
 image::jenkins-prod-4.png[]
-* Click *Open Blue Ocean* to view the pipeline stages
-+
+
 image::jenkins-prod-5.png[]
 
-
-
-== Pipeline Tasks
+== Part 4 — Jenkins Pipeline Stages
 
 === Know
-_ACME's Jenkins-based production deployments are now safer AND faster — each pipeline task proves that automation enhances existing Jenkins capabilities._
+_ACME’s Jenkins promotions combine automation, compliance, and zero manual errors._
 
-**Business Value:**
-
-* **Investment Protection:** Leverage existing Jenkins infrastructure worth millions
-* **Compliance Automation:** SOC 2, PCI requirements met automatically
-* **Security Enhancement:** Automated validation in minutes vs. weeks
-* **Risk Elimination:** Consistent security enforcement across all deployments
-
-image::jenkins-prod-6.png[]
-
-Let's walk through what happens in each step of the Jenkins pipeline as we promote the image to production. Each task here is essential for ensuring a secure and trusted software delivery pipeline.
-
-=== Task 1: gather-images
-
-=== Know
-_ACME requires perfect traceability for audit and compliance — this task ensures every production deployment can be traced back to its exact source through Jenkins._
-
-**Business Value:**
-
-* **Audit Confidence:** Regulators can trace every production change to its source
-* **Compliance Automation:** SOC 2 and PCI requirements satisfied automatically
-* **Risk Management:** Perfect tracking of what was deployed when issues arise
-* **Investment Leverage:** Enhanced traceability through existing Jenkins infrastructure
-
-The first thing Jenkins needs to know is: what exactly are we promoting?
-
-In the `gather-images` stage, Jenkins calls the GitLab API to fetch the release tag (e.g. `v1.0`). Based on this tag, it constructs the container image URL that was built and signed in the staging phase. It creates an `images.json` file to describe the image metadata and where it came from.
-
-This file becomes the source of truth for the validation step. It captures both the image and its corresponding source code revision.
-
-=== Task 2: verify-ec
-
-=== Know
-_ACME's most critical business protection through enhanced Jenkins — automated security validation that prevents costly production incidents._
-
-**Business Value:**
-
-* **Zero Security Incidents:** Automated validation catches issues before customers
-* **Compliance Automation:** SOC 2, PCI requirements enforced automatically
-* **Speed Enhancement:** Security validation in minutes vs. weeks
-* **Risk Elimination:** 100% consistent security enforcement across deployments
-
-Now comes the security gate. We validate that the image is signed, scanned, and compliant before it goes anywhere near production.
-
-Jenkins runs the `verify-ec` stage using the Red Hat Trusted Application Pipeline shared library. It initializes Cosign trust using a TUF server to ensure validation only accepts trusted roots, then validates the image using Enterprise Contract.
-
-This check bundles multiple security policies into one step:
-
-- Verifies signatures (Cosign)
-- Checks for Software Bill of Materials (SBOM)
-- Confirms supply chain integrity (SLSA provenance)
-- Runs CVE checks
-- Enforces any custom org rules
-
-If any of these fail, the pipeline stops immediately — the image is not promoted.
-
-=== Task 3: update-image-tag-for-prod
-
-=== Know
-_ACME's quality gate for production readiness — only images that pass enterprise security validation earn the "production-ready" designation._
-
-**Business Value:**
-
-* **Clear Production Intent:** `prod-v1.0` tag signals security validation complete
-* **Audit Trail:** Complete traceability from source code to production
-* **Risk Mitigation:** Only validated, compliant images reach customers
-* **Operational Clarity:** Teams know instantly which images are production-approved
-
-Now that the image has passed all security gates, we give it a special tag to mark it as production-ready.
-
-In the `update-image-tag-for-prod` stage, Jenkins uses `skopeo` to copy the image and apply a new tag. This tag includes a `prod-` prefix to clearly distinguish it from staging or dev versions.
-
-This step doesn't rebuild the image. It simply re-tags a verified, immutable image — ensuring traceability.
-
-By tagging it `prod-v1.0`, we make it clear to downstream systems, release teams, and auditors that:
-- The image has passed all validations
-- It's safe and approved for production
-- Its origin and promotion path are transparent
-
-=== Task 4: deploy-to-prod
-
-=== Know
-_ACME's automated bridge from Jenkins security validation to customer value — GitOps ensures validated changes reach production automatically without manual intervention._
-
-**Business Value:**
-
-* **Zero Manual Errors:** GitOps automation eliminates deployment mistakes
-* **100% Audit Trail:** Every production change tracked and traceable
-* **Consistent Process:** Same deployment method for routine and emergency changes
-* **Risk Elimination:** No manual steps that could introduce errors during critical releases
-
-With the production image ready, the last step is to update the deployment configuration so Argo CD can roll it out.
-
-In the `deploy-to-prod` stage, the pipeline uses `rhtap.update_deployment()` to patch the `kustomization.yaml` overlay for production. This updates the image tag in the `deployment-patch.yaml` to reference the new production-approved image.
-
-This change is committed and pushed to the GitOps repository under the `overlays/prod/` directory.
-
-Argo CD is continuously watching this repository. Once it sees the update:
-- It syncs the manifests
-- Deploys the new image to the production cluster
-- No manual approval or CLI interaction is needed
-
-This final step completes the promotion workflow — fully automated, fully auditable, and GitOps-native.
+[cols="1,3",options="header"]
+|===
+| Stage | Description
+| gather-images | Fetch release tag from GitLab, map to staged container image, save `images.json` for traceability.
+| verify-ec | Validate image signatures, SBOM, provenance, CVEs, and org rules using Enterprise Contract.
+| update-image-tag-for-prod | Retag verified image as `prod-vX.Y` for audit clarity.
+| deploy-to-prod | Patch `prod` overlay in GitOps repo, triggering Argo CD to auto-deploy.
+|===
 
 === Show
-
-**Task 1: gather-images Example**
-
-.Example `images.json`
-[source,json,subs="attributes"]
+**Example — gather-images output**
+[source,json]
 ----
 {
   "components": [
@@ -244,21 +121,13 @@ This final step completes the promotion workflow — fully automated, fully audi
 }
 ----
 
-=== Task 2: verify-ec Commands
-
-Cosign trust initialization:
-
+**Enterprise Contract validation**
 [source,bash]
 ----
 cosign initialize \
   --mirror https://tuf.tssc-tas.dev \
   --root https://tuf.tssc-tas.dev/root.json
-----
 
-Enterprise Contract validation:
-
-[source,bash]
-----
 ec validate image \
   --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
   --policy default \
@@ -266,22 +135,7 @@ ec validate image \
   --output json
 ----
 
-.Sample output
-[source,json]
-----
-{
-  "successes": [
-    "Image is signed and verified with cosign",
-    "SBOM (CycloneDX) is present",
-    "Provenance matches repository",
-    "No critical vulnerabilities found"
-  ],
-  "failures": []
-}
-----
-
-=== Task 3: update-image-tag-for-prod Command
-
+**Re-tag for production**
 [source,bash]
 ----
 skopeo copy \
@@ -289,9 +143,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
-=== Task 4: deploy-to-prod Files
-
-.`deployment-patch.yaml`
+**GitOps deployment patch**
 [source,yaml]
 ----
 apiVersion: apps/v1
@@ -306,47 +158,67 @@ spec:
           image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
-.Sample Git diff
-[source,diff]
-----
--          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
-----
-
-== Summary
+== Part 5 — Summary
 
 === Know
-_ACME's Jenkins-based production deployment transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure._
-
-**Business Value:**
-
-* **Deployment Speed:** Jenkins production releases from 2-3 weeks → 30 minutes
-* **Investment Protection:** Jenkins infrastructure and expertise enhanced rather than replaced
-* **Security Automation:** 100% automated policy enforcement through enhanced Jenkins
-* **Risk Elimination:** Enterprise-grade security without disrupting proven Jenkins workflows
-
-This summary illustrates how production promotion is secure, automated, and fully traceable — using GitOps best practices and Red Hat's trusted CI/CD tooling enhanced with familiar Jenkins workflows.
+* ACME reduced production promotion from 2–3 weeks to 30 minutes using automated Jenkins workflows
+* Security compliance became automatic instead of a manual bottleneck
+* GitOps ensures deployments are consistent and fully auditable
+* Existing Jenkins investment is preserved and enhanced
 
 === Show
-
-Review the following steps to reinforce the end-to-end flow:
+End-to-end production promotion flow:
 
 [cols="1,1",options="header"]
 |===
 | Step | Description
 
-| GitLab Release
-| Creating a release in GitLab triggers the Jenkins pipeline for production promotion.
+| Git Release
+| Triggers the Jenkins production promotion pipeline
 
-| gather-images-to-verify
-| Jenkins pulls the image from staging using the Git tag and builds an `images.json`.
+| gather-images
+| Jenkins retrieves the image from development and records its metadata.
 
-| verify-enterprise-contract
-| The pipeline validates the image using EC policies — checking signatures, SBOM, provenance, and CVEs.
+| verify-ic
+| Image is validated for signatures, SBOM, provenance, and CVEs.
 
-| Tagging
-| Once validated, the image is re-tagged with a `prod-<tag>` suffix to indicate it's production-ready.
+| update-image-tag-for-prod
+| Image is re-tagged as `<image>:prod-<tag>` after passing checks.
 
-| GitOps Update
-| The pipeline updates the `overlays/prod/` directory in the GitOps repo. Argo CD picks up the change and deploys it automatically.
+| deploy-to-prod
+| Jenkins updates the prod overlay in the GitOps repo, and Argo CD deploys it automatically.
 |===
+
+== Part 6 — Wrap-Up
+
+=== Know
+_ACME’s transformation demonstrates how enterprise security and startup speed can coexist — delivering the competitive advantage modern businesses need._
+
+=== Show
+
+==== Business Results for ACME
+
+* **Speed to Market:** Production promotion 2–3 weeks → 30 minutes (1,400% improvement)
+* **Cost Reduction:** Avoids replacing millions in Jenkins infrastructure
+* **Risk Mitigation:** 100% security compliance with zero manual reviews
+* **Developer Productivity:** No infrastructure delays, faster delivery
+* **Audit Readiness:** Real-time compliance evidence instead of weeks of preparation
+* **Operational Consistency:** GitOps ensures identical deployments every time
+
+==== Why This Matters for Your Business
+
+* **Revenue Impact:** Faster releases directly increase market competitiveness
+* **Cost Control:** Maximize ROI from existing CI/CD investments
+* **Risk Management:** Automated security prevents costly production incidents
+* **Operational Excellence:** Standardized processes across all environments
+* **Regulatory Confidence:** Built-in compliance for SOC 2, PCI, and industry requirements
+* **Talent Retention:** Developers stay productive with familiar tooling
+
+==== The ACME Success Formula
+
+RHADS proved that modern enterprises can achieve:
+
+* **Enterprise-grade security** without enterprise-grade delays
+* **Startup-like velocity** without startup-like risk
+* **Platform team efficiency** without compromising developer experience
+* **Compliance readiness** without manual overhead

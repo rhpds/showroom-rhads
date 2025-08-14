@@ -1,0 +1,43 @@
+= Red Hat Advanced Developer Suite (RHADS) Demo Overview
+:toc:
+:toc-placement: preamble
+:icons: font
+
+Red Hat Advanced Developer Suite (RHADS) accelerates secure application delivery by combining developer productivity with automated security and compliance. It helps organizations deliver faster without compromising on quality or governance.
+
+== Background
+ACME Retail’s e-commerce platform processes millions of transactions daily.  
+They faced a critical challenge: update the checkout service in 4 weeks for Black Friday.  
+Their current process took 10 weeks, with:
+
+* 6–8 week deployment cycles
+* 2-week manual security review bottlenecks
+* Manual compliance audits for 50+ applications
+* Overloaded platform teams handling repetitive setup tasks
+
+== Problem
+Slow delivery and manual processes resulted in:
+* Missed deadlines and lost market opportunities
+* Increased operational costs
+* High risk of security gaps due to human error
+* Burnout among platform and security teams
+
+== Benefits to the Customer
+* Reduce project setup time from 6 weeks to 2 days
+* Achieve 100% automated security and compliance
+* Lower manual review workloads by 75%
+* Integrate seamlessly with existing tools (Tekton, Jenkins, GitLab, OpenShift)
+* Improve developer productivity and morale
+
+== Common Customer Questions to be Ready For
+"How does this work with our existing tools?"  
+Show Jenkins path (Module 4) which enhances rather than replaces existing investments
+
+"What about compliance and security?"  
+Emphasize automated policy enforcement and readiness for SOC 2 and PCI compliance
+
+"How complex is the implementation?"  
+Highlight self-service templates and zero-configuration developer experience
+
+"What is the business impact timeline?"  
+Reference ACME's 4-week transformation and quantified results

@@ -19,7 +19,8 @@ image::tekton_car.jpg[align="center",width=500]
 
 == Part 2 — Scaffold a New Application in Red Hat Developer Hub
 
-Know:: ACME's transformation starts here — one developer action eliminates weeks of setup and coordination overhead.
+=== Know
+_ACME's transformation starts here — one developer action eliminates weeks of setup and coordination overhead._
 
 **ACME's Business Challenge:**
 Before RHADS, creating a new checkout service required:
@@ -47,7 +48,7 @@ One developer action now delivers ACME's complete delivery stack:
 
 This single template gives ACME developers everything they need to be productive immediately.
 
-Show::
+=== Show
 * Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
 
 image::tekton-dev-1.png[]
@@ -70,7 +71,7 @@ image::tekton-dev-2.png[]
 image::tekton-dev-3.png[]
 
 * Accept the default values provided in the form unless customization is needed.
-
++
 Application Information:
 
 [cols="1,2", options="header"]
@@ -84,7 +85,7 @@ Application Information:
 |===
 
 * Click *Next*
-
++
 Image Registry Information:
 
 [cols="1,2", options="header"]
@@ -95,7 +96,7 @@ Image Registry Information:
 |===
 
 * Click *Next*
-
++
 Repository Information:
 
 [cols="1,2", options="header"]
@@ -114,7 +115,8 @@ image::tekton-dev-5.png[]
 
 == Part 3 — Make a Code Change in OpenShift Dev Spaces
 
-Know:: ACME's developers need to move fast without compromising security — RHADS makes secure development practices automatic and invisible.
+=== Know
+_ACME's developers need to move fast without compromising security — RHADS makes secure development practices automatic and invisible._
 
 **Business Value:**
 
@@ -123,7 +125,7 @@ Know:: ACME's developers need to move fast without compromising security — RHA
 * 100% signed commits without developer friction
 * Impossible to bypass security controls
 
-Show::
+=== Show
 * In Red Hat Developer Hub, go to the *Catalog* and locate your new component (`my-quarkus-tkn`)
 
 image::tekton-dev-6.png[]
@@ -154,22 +156,19 @@ image::tekton-dev-9.png[]
 
 image::tekton-dev-10.png[]
 
-* When prompted to authenticate with GitLab:
-+
-image::tekton-dev-11.png[]
+* When prompted to authenticate with GitLab, use the following credentials and click *Sign in*:
 +
 [subs=attributes+]
 ----
 Username: {gitlab_user}
 Password: {gitlab_user_password}
 ----
-and click *Sign in*.
++
+image::tekton-dev-11.png[]
 
 * Click *Authorize devspaces* on the next window.
 
 image::tekton-dev-12.png[]
-
-* Wait for the workspace to fully start.
 
 * Wait for the workspace to start and fully load VS Code
 
@@ -177,29 +176,24 @@ image::tekton-dev-12.png[]
 
 image::tekton-dev-13.png[]
 
-In the Dev Spaces IDE:
-
-* Open the file: `my-quarkus-tkn/docs/index.md`
+* Once you are in the Dev Spaces IDE, open the file: `my-quarkus-tkn/docs/index.md`.
 
 * Add a new line of text at the bottom (e.g., "This is a test edit.")
 
-* Open the integrated terminal:
-  * From the top menu bar, click on `Terminal → New Terminal`
-  * This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
+* Open the integrated terminal by clicking on `Terminal → New Terminal` in the top menu bar.
+This will open a terminal panel at the bottom of the IDE, with your project directory pre-selected
 
 image::tekton-dev-14.png[]
 
-Then, in the terminal:
-
-* Stage your changes:
-
+* In the terminal, stage your changes:
++
 [source,bash]
 ----
 git add .
 ----
 
 * Commit your changes:
-
++
 [source,bash]
 ----
 git commit -m "Update"
@@ -216,12 +210,12 @@ image::tekton-dev-15.png[]
 image::tekton-dev-16.png[]
 
 * Paste the code into the terminal to complete the signing process
-  (Allow paste functionality if prompted)
+  (allow paste functionality if prompted)
 
 image::tekton-dev-17.png[]
 
 * Push your changes:
-
++
 [source,bash]
 ----
 git push
@@ -231,7 +225,8 @@ image::tekton-dev-18.png[]
 
 == Part 4 — What Happens Behind the Scenes
 
-Know:: ACME's developer makes a simple code change, triggering millions of dollars worth of enterprise automation that eliminates weeks of manual work.
+=== Know
+_ACME's developer makes a simple code change, triggering millions of dollars worth of enterprise automation that eliminates weeks of manual work._
 
 **Business Value:**
 
@@ -242,7 +237,8 @@ Know:: ACME's developer makes a simple code change, triggering millions of dolla
 
 == Part 5 — Show the Build Pipeline (OpenShift Pipelines)
 
-Know:: ACME's pipeline proves speed and security aren't mutually exclusive — both achieved simultaneously.
+=== Know
+_ACME's pipeline proves speed and security aren't mutually exclusive — both achieved simultaneously._
 
 **Business Value:**
 
@@ -251,32 +247,34 @@ Know:: ACME's pipeline proves speed and security aren't mutually exclusive — b
 * Zero manual security bottlenecks
 * Complete SOC 2/PCI audit trails automatically
 
-Show:: In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
+=== Show
+
+* In *Red Hat Developer Hub*, navigate to the `CI` tab and click on the running `maven-build-ci` pipeline.
 
 image::tekton-dev-18.png[]
 
-**Task 1: `init`**
+** Task 1: `init`**
 
 Pipeline resources and artifacts required for this pipeline run are initialized.
 Any reusable components needed downstream are set up.
 
-=== Task 2: `clone-repository`
+** Task 2: `clone-repository`
 
 The source code repository that triggered the pipeline is cloned.
 The latest code is ensured to be fetched for verification and build.
 
-=== Task 3: `verify-commit`
+** Task 3: `verify-commit`
 
 The Git commit signature is verified using the `gitsign` tool, which is integrated with Red Hat Trusted Application Pipeline (RHTAP).
 It is ensured by this step that the commit comes from a trusted source and hasn't been tampered with.
 
 Details like who signed the commit and whether it passed verification will be shown by clicking on this task in the pipeline UI.
 
-=== Task 4: `package`
+** Task 4: `package`
 
 The Java source code is built and a Maven artifact — in this case, a Quarkus JAR file — is created.
 
-=== Task 5: `build-container`
+** Task 5: `build-container`
 
 A container image for the Quarkus application is built.
 
@@ -288,31 +286,32 @@ The following is then performed:
 
 The image tag corresponds to the Git commit ID that triggered the pipeline.
 
-=== Task 6.1: `upload-sboms-to-trustification`
+** Task 6.1: `upload-sboms-to-trustification`
 
 The SBOM is uploaded to **Red Hat Trusted Profile Analyzer (TPA)** so teams can analyze it for CVEs, vendor advisories, and vulnerabilities.
 
 TPA can be accessed at {tpa_url}[Red Hat Trusted Profile Analyzer^] using username `{tpa_user}` and password `{tpa_user_password}`.
+
 *SBOMs* on the left menu can be clicked to view results.
 
-=== Task 6.2: `update-deployment`
+** Task 6.2: `update-deployment`
 
 The new image reference is committed into the GitOps repository.
 **OpenShift GitOps** (Argo CD) is allowed by this to automatically deploy the new version.
 
-=== Task 7.1: `acs-image-check`
+** Task 7.1: `acs-image-check`
 
 Policy checks on the container image are performed using **Red Hat Advanced Cluster Security (ACS)**.
 
 It is ensured that the image doesn't violate any organization-defined security policies.
 
-=== Task 7.2: `acs-image-scan`
+** Task 7.2: `acs-image-scan`
 
 The image is scanned for known vulnerabilities and a report is generated.
 
 CVEs and risk scores identified in the image will be shown by clicking on this step.
 
-=== Task 7.3: `acs-deploy-check`
+** Task 7.3: `acs-deploy-check`
 
 The deployment configuration and image are evaluated from a security and compliance perspective.
 
@@ -320,11 +319,11 @@ The results are stored in ACS for auditability and enforcement.
 
 ACS can also be visited at {acs_url}[Red Hat Advanced Cluster Security^] using `{acs_admin_user}` / `{acs_admin_password}` to explore deeper policy and scan results.
 
-=== Task 8.1: `show-sbom`
+** Task 8.1: `show-sbom`
 
 The SBOM generated in earlier stages is displayed.
 
-=== Task 8.2: `show-summary`
+** Task 8.2: `show-summary`
 
 A high-level summary of the build, verification, signing, and scan results is shown.
 
@@ -362,7 +361,7 @@ The goal is to reinforce how this approach scales and empowers both sides — th
 
 == Part 6 — Summary
 
-Know:: 
+=== Know 
 * ACME reduced project setup from 6 weeks to 5 minutes using self-service templates
 * Security compliance became automatic instead of a 2-week manual bottleneck  
 * Platform team efficiency improved 75% by eliminating repetitive setup requests
