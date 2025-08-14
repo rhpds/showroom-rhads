@@ -1,4 +1,5 @@
-= Red Hat Advanced Developer Suite with Jenkins — Promote to Production
+= Advanced Developer Suite Demo Narrative
+Red Hat Advanced Developer Suite with Enterprise Contract and GitOps Promotion using Jenkins
 :icons: font
 :source-highlighter: rouge
 :toc: macro
@@ -6,145 +7,199 @@
 
 toc::[]
 
-== Part 1 — Set the Stage
-
-_ACME needs safe, fast production deployments using Jenkins. RHADS turns risky manual releases into confident automated workflows while preserving Jenkins investments._
-
-**Business Value**
-* Production deployment time: 2–3 weeks → ~30 minutes
-* Preserve existing Jenkins infrastructure and expertise
-* No manual security reviews or handoffs
-* Automatic SOC 2 and PCI audit evidence
-
-**What this demo shows**
-* ADS + Enterprise Contract (EC) + Artifact Signer + GitOps with Argo CD
-* Shared Jenkins library: `RHTAP_Jenkins@main`
-* Trigger model:
-  * Git tag push → **staging** (uses `stage` overlay)
-  * GitLab **Release** → **production** (uses `prod` overlay)
-
-== Part 2 — Promote to Production with a GitLab Release
+== Overview
 
 === Know
-* A GitLab Release triggers the Jenkins pipeline in *production* mode.
-* The same Jenkinsfile handles both staging and production by inspecting the event type.
-* Production promotion follows four major steps: gather images, verify with EC, tag for prod, deploy via GitOps.
+_ACME’s Black Friday success depends on fast, safe staging promotions to validate features before production. RHADS replaces slow manual reviews with automated Jenkins-based workflows that leverage existing investments._
+
+**Business Value:**
+
+* Staging deployment time: hours instead of days
+* Preserves millions in Jenkins infrastructure investment
+* Zero manual security review delays
+* Complete SOC 2 and PCI audit trails automatically
+
+This guide is designed for technical sales engineers to demonstrate a secure software supply chain using:
+
+- Red Hat Advanced Developer Suite (ADS)
+- Enterprise Contract (EC)
+- GitOps with Argo CD
+- Artifact Signer
+
+The goal of the demo is to show how pushing a Git tag in GitLab can trigger a Jenkins pipeline that:
+
+- Validates the container image using Enterprise Contract
+- Tags the verified image using the Git tag value
+- Promotes the image from the development environment to staging via GitOps
+- Automatically deploys the application using Argo CD
+
+The demo uses a Jenkins pipeline that relies on a shared Jenkins library:
+`RHTAP_Jenkins@main`
+
+[NOTE]
+====
+The code snippets in this guide are provided for illustrative and simplified purposes, as they are intended for demonstration only. Always refer to the actual Jenkins pipeline and repository configuration for production-ready details.
+====
 
 === Show
-. Open `{gitlab_url}/development/my-quarkus-jnk` and sign in:  
-  [subs=attributes+]
-  ----
-  Username: {gitlab_user}
-  Password: {gitlab_user_password}
-  ----
-  image::jenkins-prod-1.png[]
-. Go to *Deploy > Releases*.  
-  image::jenkins-prod-2.png[]
-. Click *Create a new release*, choose an existing tag (e.g., `v1.0`), optionally add notes, then click *Create release*.  
-  image::jenkins-prod-3.png[]
-. In Developer Hub, open *Catalog →* component **my-quarkus-jnk**.  
-  image::jenkins-prod-7.png[]
-. Open the *CI* tab, find **promote-to-prod**, click *View build*, then *Open Blue Ocean* to view stages.  
-  image::jenkins-prod-4.png[]  
-  image::jenkins-prod-5.png[]
+* Push a Git tag to trigger a staging promotion
+* Watch Jenkins validate and promote the image to the staging environment
 
-== Part 3 — Pipeline Tasks (Production Promotion)
+== Git Tag – Promote to Staging
 
-* **Gather images (traceability)**  
-  **Know**  
-  * Determines which image is being promoted and records its source revision for audits.  
-  **Show**  
-  * Reads the release tag via GitLab API, resolves the validated staging image, writes `images.json`.  
-  +
-  [source,json,subs="attributes"]
-  ----
-  {
-    "components": [
-      {
-        "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
-        "source": {
-          "git": {
-            "url": "{gitlab_url}/development/my-quarkus-jnk",
-            "revision": "v1.0"
-          }
+=== Know
+_ACME’s staging promotions are now lightning-fast with Jenkins — a simple Git tag push validates code and moves it to staging without manual intervention._
+
+**Business Value:**
+
+* **Staging Speed:** Git tag push triggers instant validation and deployment  
+* **Audit Trail:** Every staging change recorded automatically  
+* **Developer Velocity:** Quick feedback on release readiness  
+* **Risk Management:** Same pipeline enforces consistent policies
+
+When a developer pushes a Git tag (e.g., `v1.0`), Jenkins is triggered via a webhook. The pipeline detects this as a *tag event* and switches into staging promotion mode.
+
+This ensures that the latest validated image is promoted to the staging environment for further testing and verification.
+
+=== Show
+* Open your {gitlab_url}/development/my-quarkus-jnk GitLab repository and sign in with:
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
++
+image::jenkins-stage-1.png[]
+* Go to *Deploy > Tags*
+* Click *New tag*, enter `v1.0`, and select the commit to tag
+* Click *Create tag*
++
+image::jenkins-stage-2.png[]
+
+Now guide your audience to *Developer Hub*:
+
+* On the left menu, click on *Catalog*, then under *Kind* `Component`, click *my-quarkus-jnk* component
++
+image::jenkins-stage-3.png[]
+* Click the *CI* tab to see pipeline runs
+* Locate the build labeled **promote-to-stage**
+* Click the *View build* icon to follow progress
++
+image::jenkins-stage-4.png[]
+* Click *Open Blue Ocean* to view the pipeline stages
++
+image::jenkins-stage-5.png[]
+
+== Pipeline Steps
+
+=== Know
+_ACME’s Jenkins staging promotion proves that automation can be fast, secure, and consistent — every step is enforced by policy before deployment._
+
+**Business Value:**
+
+* **Faster Validation:** Staging feedback in minutes, not days  
+* **Security Automation:** Policies enforced automatically  
+* **Consistency:** Same checks applied for every change  
+* **Audit-Ready:** Complete record of what was deployed and when
+
+=== Show
+* **Gather Images:** Jenkins retrieves the Git tag, determines the corresponding container image from development, and records metadata in an `images.json` file for traceability.
++
+.Example `images.json`
+[source,json,subs="attributes"]
+----
+{
+  "components": [
+    {
+      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
+      "source": {
+        "git": {
+          "url": "{gitlab_url}/development/my-quarkus-jnk",
+          "revision": "v1.0"
         }
       }
-    ]
-  }
-  ----
+    }
+  ]
+}
+----
 
-* **Verify with Enterprise Contract (security/policy gate)**  
-  **Know**  
-  * Ensures image is signed, has SBOM/provenance, passes CVE checks, complies with org policy.  
-  **Show**  
-  +
-  [source,bash]
-  ----
-  cosign initialize \
-    --mirror https://tuf.tssc-tas.dev \
-    --root https://tuf.tssc-tas.dev/root.json
+* **Verify with Enterprise Contract:** Jenkins validates the image using EC, checking signatures, SBOM, provenance, CVEs, and custom org rules.  
++
+Cosign trust initialization:
+[source,bash]
+----
+cosign initialize \
+  --mirror https://tuf.tssc-tas.dev \
+  --root https://tuf.tssc-tas.dev/root.json
+----
+Enterprise Contract validation:
+[source,bash]
+----
+ec validate image \
+  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
+  --policy default \
+  --public-key k8s://openshift/trusted-keys \
+  --output json
+----
 
-  ec validate image \
-    --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
-    --policy default \
-    --public-key k8s://openshift/trusted-keys \
-    --output json
-  ----
-  +
-  [source,json]
-  ----
-  {
-    "successes": [
-      "Image is signed and verified with cosign",
-      "SBOM (CycloneDX) is present",
-      "Provenance matches repository",
-      "No critical vulnerabilities found"
-    ],
-    "failures": []
-  }
-  ----
+* **Update Image Tag for Staging:** Jenkins re-tags the verified image with the staging-specific tag, e.g., `stage-v1.0`, ensuring only validated images reach staging.  
++
+[source,bash]
+----
+skopeo copy \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
+  docker://quay.tssc-quay/tssc/my-quarkus-jnk:stage-v1.0
+----
 
-* **Tag image for production (immutability + clarity)**  
-  **Know**  
-  * Marks validated image as production-approved without rebuilding.  
-  **Show**  
-  +
-  [source,bash]
-  ----
-  skopeo copy \
-    docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
-    docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
-  ----
+* **Deploy to Staging via GitOps:** Jenkins updates the `kustomization.yaml` in the `overlays/stage/` directory of the GitOps repo. Argo CD detects the change and deploys it automatically.  
++
+.Sample patch
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-quarkus-jnk
+spec:
+  template:
+    spec:
+      containers:
+        - name: my-quarkus-jnk
+          image: quay.tssc-quay/tssc/my-quarkus-jnk:stage-v1.0
+----
 
-* **Deploy to production via GitOps (safe + traceable)**  
-  **Know**  
-  * Updates prod overlay so Argo CD syncs automatically.  
-  **Show**  
-  +
-  [source,yaml]
-  ----
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: my-quarkus-jnk
-  spec:
-    template:
-      spec:
-        containers:
-          - name: my-quarkus-jnk
-            image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
-  ----
-  +
-  [source,diff]
-  ----
-  -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-  +          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
-  ----
+== Summary
 
-== Part 4 — Summary
+=== Know
+_ACME’s staging promotions are now quick, secure, and fully traceable — accelerating feedback cycles while enforcing enterprise security standards._
 
-**You demonstrated**
-* Production releases in ~30 minutes with full policy enforcement
-* Jenkins enhanced — not replaced
-* All changes signed, verified, traceable via GitOps
-* Consistent, low-risk releases using one pipeline pattern
+**Business Value:**
+
+* **Rapid Feedback:** Staging validation in minutes  
+* **Security Assurance:** Automated checks before promotion  
+* **Audit-Ready:** Complete traceability for every deployment  
+* **Consistency:** Same process for all staging promotions
+
+=== Show
+Review the following flow:
+
+[cols="1,1",options="header"]
+|===
+| Step | Description
+
+| Git Tag Push
+| Developer pushes a Git tag, triggering the Jenkins pipeline for staging promotion.
+
+| Gather Images
+| Jenkins retrieves the image from development and records its metadata.
+
+| Verify with EC
+| Image is validated for signatures, SBOM, provenance, and CVEs.
+
+| Tag for Staging
+| Image is re-tagged as `stage-<tag>` after passing checks.
+
+| GitOps Update
+| Jenkins updates the staging overlay in the GitOps repo, and Argo CD deploys it automatically.
+|===
