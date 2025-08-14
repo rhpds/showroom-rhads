@@ -23,16 +23,16 @@
 == Products and Versions
 [cols="3,1"]
 |===
-|Product Name |Product Version
+|Product
 
-|Red Hat OpenShift |4.15+
-|Red Hat Advanced Developer Suite |1.1
-|Red Hat Developer Hub |Latest
-|GitLab |15.x+
-|Quay Container Registry |Latest
-|Enterprise Contract |Latest
-|Tekton Pipelines |0.59+
-|Jenkins |2.x LTS
+|Red Hat OpenShift
+|Red Hat Advanced Developer Suite
+|Red Hat Developer Hub
+|GitLab
+|Quay Container Registry
+|Enterprise Contract
+|Tekton Pipelines
+|Jenkins
 |===
 
 == Credentials

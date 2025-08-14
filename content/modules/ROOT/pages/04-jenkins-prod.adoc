@@ -173,7 +173,7 @@ End-to-end production promotion flow:
 |===
 | Step | Description
 
-| GitLab Release
+| Git Release
 | Triggers the Jenkins production promotion pipeline
 
 | gather-images
