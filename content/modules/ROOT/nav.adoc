@@ -1,4 +1,4 @@
-* xref:00-index.adoc[How to Use This Demo]
+* xref:index.adoc[How to Use This Demo]
 * xref:01-overview.adoc[Demo Overview]
 
 * 3. Red Hat Advanced Developer Suite with Tekton
