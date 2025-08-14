@@ -40,10 +40,10 @@
 |===
 |System/URL |Username |Password
 
-|Red Hat Developer Hub |demo-user |provided-by-admin
-|GitLab |demo-user |provided-by-admin
-|OpenShift Console |admin |provided-by-admin
-|Quay Container Registry |demo-user |provided-by-admin
+|Red Hat Developer Hub |{rhdh_user} |{rhdh_password}
+|GitLab |{gitlab_user} |{gitlab_password}
+|OpenShift Console |{openshift_admin_user} |{openshift_admin_password}
+|Quay Container Registry |{quay_admin_user} |{quay_admin_password}
 |===
 
 == Troubleshooting Common Issues
