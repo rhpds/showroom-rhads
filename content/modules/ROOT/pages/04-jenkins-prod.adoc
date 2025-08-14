@@ -11,16 +11,16 @@ _ACME’s Black Friday success requires safe, fast production deployments. RHADS
 
 **Business Value:**
 
-* Production deployment time: 2–3 weeks → 30 minutes  
-* Zero manual security reviews or bottlenecks  
-* Complete SOC 2 and PCI audit trails automatically  
+* Production deployment time: 2–3 weeks → 30 minutes
+* Zero manual security reviews or bottlenecks
+* Complete SOC 2 and PCI audit trails automatically
 * No need to replace proven Jenkins workflows
 
 === Show
-This demo will use Jenkins with Enterprise Contract, Artifact Signer, and GitOps (Argo CD) to:  
+This demo will use Jenkins with Enterprise Contract, Artifact Signer, and GitOps (Argo CD) to:
 
-* Validate container images  
-* Tag validated images for production  
+* Validate container images
+* Tag validated images for production
 * Update GitOps manifests for automated deployment
 
 == Part 2 — Understand the Promotion Flow
@@ -39,9 +39,9 @@ _ACME’s enhanced Jenkins pipeline supports both staging and production promoti
 
 **Business Value:**
 
-* Staging speed via Git tag push  
-* Intentional production gates via GitLab Release  
-* Different validation rigor per environment  
+* Staging speed via Git tag push
+* Intentional production gates via GitLab Release
+* Different validation rigor per environment
 * Consistency from reusing the same Jenkins pipeline
 
 === Show
@@ -54,8 +54,8 @@ _ACME’s transformation from risky manual releases to confident, automated Jenk
 
 **Business Value:**
 
-* Production promotion: 2–3 weeks → 30 minutes  
-* Zero manual reviews or coordination  
+* Production promotion: 2–3 weeks → 30 minutes
+* Zero manual reviews or coordination
 * Automatic audit trails via Jenkins and GitOps
 
 === Show
@@ -69,22 +69,22 @@ Password: {gitlab_user_password}
 
 image::jenkins-prod-1.png[]
 
-* Go to *Deploy → Releases*  
+* Go to *Deploy → Releases*
 
 image::jenkins-prod-2.png[]
 
-* Click *Create a new release*  
-* Select the existing tag (e.g. `v1.0`), optionally add notes, click *Create release*  
+* Click *Create a new release*
+* Select the existing tag (e.g. `v1.0`), optionally add notes, click *Create release*
 
 image::jenkins-prod-3.png[]
 
-* In **Developer Hub**, go to *Catalog* → *my-quarkus-jnk* → *CI* tab  
+* In **Developer Hub**, go to *Catalog* → *my-quarkus-jnk* → *CI* tab
 
 image::jenkins-prod-7.png[]
 
-* Find **promote-to-prod** pipeline run, click *View build*, then *Open Blue Ocean*  
+* Find **promote-to-prod** pipeline run, click *View build*, then *Open Blue Ocean*
 
-image::jenkins-prod-4.png[]  
+image::jenkins-prod-4.png[]
 
 image::jenkins-prod-5.png[]
 
@@ -161,9 +161,9 @@ spec:
 == Part 5 — Summary
 
 === Know
-* ACME reduced production promotion from 2–3 weeks to 30 minutes using automated Jenkins workflows  
-* Security compliance became automatic instead of a manual bottleneck  
-* GitOps ensures deployments are consistent and fully auditable  
+* ACME reduced production promotion from 2–3 weeks to 30 minutes using automated Jenkins workflows
+* Security compliance became automatic instead of a manual bottleneck
+* GitOps ensures deployments are consistent and fully auditable
 * Existing Jenkins investment is preserved and enhanced
 
 === Show
@@ -172,11 +172,21 @@ End-to-end production promotion flow:
 [cols="1,1",options="header"]
 |===
 | Step | Description
-| GitLab Release | Triggers the Jenkins production promotion pipeline
-| gather-images | Builds `images.json` with source and image metadata
-| verify-ec | Runs Enterprise Contract validation (signatures, SBOM, CVEs)
-| update-image-tag-for-prod | Retags image with `prod-<tag>` for audit clarity
-| GitOps Update | Updates `overlays/prod/` and lets Argo CD deploy automatically
+
+| GitLab Release
+| Triggers the Jenkins production promotion pipeline
+
+| gather-images
+| Jenkins retrieves the image from development and records its metadata.
+
+| verify-ic
+| Image is validated for signatures, SBOM, provenance, and CVEs.
+
+| update-image-tag-for-prod
+| Image is re-tagged as `<image>:prod-<tag>` after passing checks.
+
+| deploy-to-prod
+| Jenkins updates the prod overlay in the GitOps repo, and Argo CD deploys it automatically.
 |===
 
 == Part 6 — Wrap-Up

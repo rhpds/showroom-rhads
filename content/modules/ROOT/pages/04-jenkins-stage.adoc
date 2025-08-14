@@ -52,9 +52,9 @@ _ACME’s staging promotions are now lightning-fast with Jenkins — a simple Gi
 
 **Business Value:**
 
-* **Staging Speed:** Git tag push triggers instant validation and deployment  
-* **Audit Trail:** Every staging change recorded automatically  
-* **Developer Velocity:** Quick feedback on release readiness  
+* **Staging Speed:** Git tag push triggers instant validation and deployment
+* **Audit Trail:** Every staging change recorded automatically
+* **Developer Velocity:** Quick feedback on release readiness
 * **Risk Management:** Same pipeline enforces consistent policies
 
 When a developer pushes a Git tag (e.g., `v1.0`), Jenkins is triggered via a webhook. The pipeline detects this as a *tag event* and switches into staging promotion mode.
@@ -98,9 +98,9 @@ _ACME’s Jenkins staging promotion proves that automation can be fast, secure, 
 
 **Business Value:**
 
-* **Faster Validation:** Staging feedback in minutes, not days  
-* **Security Automation:** Policies enforced automatically  
-* **Consistency:** Same checks applied for every change  
+* **Faster Validation:** Staging feedback in minutes, not days
+* **Security Automation:** Policies enforced automatically
+* **Consistency:** Same checks applied for every change
 * **Audit-Ready:** Complete record of what was deployed and when
 
 === Show
@@ -124,7 +124,7 @@ _ACME’s Jenkins staging promotion proves that automation can be fast, secure, 
 }
 ----
 
-* **Verify with Enterprise Contract:** Jenkins validates the image using EC, checking signatures, SBOM, provenance, CVEs, and custom org rules.  
+* **Verify with Enterprise Contract:** Jenkins validates the image using EC, checking signatures, SBOM, provenance, CVEs, and custom org rules.
 +
 Cosign trust initialization:
 [source,bash]
@@ -143,7 +143,7 @@ ec validate image \
   --output json
 ----
 
-* **Update Image Tag for Staging:** Jenkins re-tags the verified image with the staging-specific tag, e.g., `stage-v1.0`, ensuring only validated images reach staging.  
+* **Update Image Tag for Staging:** Jenkins re-tags the verified image with the staging-specific tag, e.g., `stage-v1.0`, ensuring only validated images reach staging.
 +
 [source,bash]
 ----
@@ -152,7 +152,7 @@ skopeo copy \
   docker://quay.tssc-quay/tssc/my-quarkus-jnk:stage-v1.0
 ----
 
-* **Deploy to Staging via GitOps:** Jenkins updates the `kustomization.yaml` in the `overlays/stage/` directory of the GitOps repo. Argo CD detects the change and deploys it automatically.  
+* **Deploy to Staging via GitOps:** Jenkins updates the `kustomization.yaml` in the `overlays/stage/` directory of the GitOps repo. Argo CD detects the change and deploys it automatically.
 +
 .Sample patch
 [source,yaml]
@@ -176,9 +176,9 @@ _ACME’s staging promotions are now quick, secure, and fully traceable — acce
 
 **Business Value:**
 
-* **Rapid Feedback:** Staging validation in minutes  
-* **Security Assurance:** Automated checks before promotion  
-* **Audit-Ready:** Complete traceability for every deployment  
+* **Rapid Feedback:** Staging validation in minutes
+* **Security Assurance:** Automated checks before promotion
+* **Audit-Ready:** Complete traceability for every deployment
 * **Consistency:** Same process for all staging promotions
 
 === Show
@@ -191,15 +191,15 @@ Review the following flow:
 | Git Tag Push
 | Developer pushes a Git tag, triggering the Jenkins pipeline for staging promotion.
 
-| Gather Images
+| gather-images
 | Jenkins retrieves the image from development and records its metadata.
 
-| Verify with EC
+| verify-ic
 | Image is validated for signatures, SBOM, provenance, and CVEs.
 
-| Tag for Staging
-| Image is re-tagged as `stage-<tag>` after passing checks.
+| update-image-tag-for-stage
+| Image is re-tagged as `<image>:<tag>` after passing checks.
 
-| GitOps Update
+| deploy-to-stage
 | Jenkins updates the staging overlay in the GitOps repo, and Argo CD deploys it automatically.
 |===
