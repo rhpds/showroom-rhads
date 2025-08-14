@@ -8,7 +8,8 @@ toc::[]
 
 == Overview
 
-Know:: ACME's Jenkins staging took 3-5 days and caused production surprises. RHADS transforms this into 30-minute automated validation while preserving valuable Jenkins infrastructure and expertise.
+=== Know
+_ACME's Jenkins staging took 3-5 days and caused production surprises. RHADS transforms this into 30-minute automated validation while preserving valuable Jenkins infrastructure and expertise._
 
 **Business Value:**
 
@@ -43,7 +44,8 @@ The code snippets in this guide are provided for illustrative and simplified pur
 
 == Starting the Demo: Tag the Release
 
-Know:: ACME's transformation from manual Jenkins staging coordination to instant automated validation — showing how a simple Git tag action triggers enterprise-grade staging deployment automatically while preserving familiar Jenkins workflows.
+=== Know
+_ACME's transformation from manual Jenkins staging coordination to instant automated validation — showing how a simple Git tag action triggers enterprise-grade staging deployment automatically while preserving familiar Jenkins workflows._
 
 **ACME's Traditional Jenkins Staging Initiation:**
 
@@ -77,11 +79,17 @@ Let your audience know that this demo is initiated by tagging a release in Git. 
 
 Choose one of the following methods to create the tag:
 
-Show::
+=== Show
 
 **Option 1: Tag via GitLab UI**
 
-* Open your GitLab repository {gitlab_url}/development/my-quarkus-jnk[my-quarkus-jnk^] and sign in using username `{gitlab_user}` and password `{gitlab_user_password}`.
+* Open your {gitlab_url}/development/my-quarkus-jnk GitLab repository and use the following credentials to sign in:
++
+[subs=attributes+]
+----
+Username: {gitlab_user}
+Password: {gitlab_user_password}
+----
 +
 image::jenkins-stage-1.png[]
 * In the left navigation menu, go to *Code > Tags > New Tag*
@@ -122,7 +130,8 @@ Tell your audience:
 
 == Pipeline Tasks
 
-Know:: ACME's leadership needs to see that Jenkins-based staging deployments are now safer AND faster than ever before — each pipeline task proves that automation enhances Jenkins capabilities while reducing business risk and accelerating feature validation.
+=== Know
+_ACME's leadership needs to see that Jenkins-based staging deployments are now safer AND faster than ever before — each pipeline task proves that automation enhances Jenkins capabilities while reducing business risk and accelerating feature validation._
 
 **Business Value of Enhanced Jenkins Staging Pipeline:**
 
@@ -163,7 +172,8 @@ Let's walk through what happens in each step of the Jenkins pipeline as we promo
 
 === Task 1: gather-images
 
-Know:: ACME requires perfect traceability for staging validation using their Jenkins infrastructure — this task ensures every staging deployment can be traced back to its exact source through familiar Jenkins processes while providing audit confidence.
+=== Know
+_ACME requires perfect traceability for staging validation using their Jenkins infrastructure — this task ensures every staging deployment can be traced back to its exact source through familiar Jenkins processes while providing audit confidence._
 
 **Business Value for ACME's Jenkins Staging:**
 
@@ -185,7 +195,8 @@ This gets written into an `images.json` file — which becomes the authoritative
 
 === Task 2: verify-ec
 
-Know:: ACME's most critical staging protection through enhanced Jenkins — automated security validation that prevents costly staging issues while eliminating manual security review delays in familiar Jenkins workflows before features reach production.
+=== Know
+_ACME's most critical staging protection through enhanced Jenkins — automated security validation that prevents costly staging issues while eliminating manual security review delays in familiar Jenkins workflows before features reach production._
 
 **Business Risk Without Automated Jenkins Staging Security:**
 
@@ -251,7 +262,8 @@ Optional: Simulate a failed validation by pushing an unsigned image or one missi
 
 === Task 3: update-image-tag-for-stage
 
-Know:: ACME's staging quality gate for production readiness through Jenkins — only images that pass enterprise security validation earn the "staging-ready" designation, ensuring staging deployments represent true quality and security standards for Black Friday features.
+=== Know
+_ACME's staging quality gate for production readiness through Jenkins — only images that pass enterprise security validation earn the "staging-ready" designation, ensuring staging deployments represent true quality and security standards for Black Friday features._
 
 **Business Value of Staging Tagging in ACME's Jenkins:**
 
@@ -277,7 +289,8 @@ In the `update-image-tag-for-stage` stage, Jenkins uses `skopeo` to copy the ima
 
 === Task 4: deploy-to-stage
 
-Know:: ACME's automated bridge from Jenkins staging validation to feature testing — GitOps ensures validated changes reach staging automatically without manual intervention or risk while leveraging familiar Jenkins workflows for business feedback cycles.
+=== Know
+_ACME's automated bridge from Jenkins staging validation to feature testing — GitOps ensures validated changes reach staging automatically without manual intervention or risk while leveraging familiar Jenkins workflows for business feedback cycles._
 
 **Traditional ACME Jenkins Staging Deployment Risks:**
 
@@ -308,7 +321,7 @@ Mention:
 - Jenkins commits and pushes this change to the GitOps repository.
 - Argo CD detects the update and syncs the deployment to the `stage` environment automatically.
 
-Show::
+=== Show
 
 **Task 1: gather-images**
 Click on the 'gather-images' stage in the pipeline and click on the last step. This should show the below json:
@@ -404,7 +417,7 @@ This patch is referenced by `kustomization.yaml`:
 [source,yaml]
 ----
 apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+kind: Kization
 resources:
   - ../../base
 patchesStrategicMerge:
@@ -413,7 +426,8 @@ patchesStrategicMerge:
 
 == Summary
 
-Know:: ACME's Jenkins-based staging transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure and team expertise for critical feature validation.
+=== Know
+_ACME's Jenkins-based staging transformation demonstrates how enterprise investments can be enhanced rather than replaced — delivering modern security and business velocity while preserving valuable Jenkins infrastructure and team expertise for critical feature validation._
 
 **Business Results Achieved by ACME:**
 
@@ -440,7 +454,7 @@ Know:: ACME's Jenkins-based staging transformation demonstrates how enterprise i
 
 To quickly summarize:
 
-Show::
+=== Show
 
 [cols="1,1",options="header"]
 |===
