@@ -83,4 +83,4 @@ For content-related questions:
 
 For technical environment issues:
 
-* Slack: `#forum-demo-platform`
+* Slack: `#forum-demo-redhat-com`
