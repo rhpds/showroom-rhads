@@ -193,8 +193,6 @@ ACME's quality gate — only validated images earn "prod-" designation, ensuring
 
 Now that the image has passed all security checks, it is promoted to production by tagging it with a release label.
 
-+
-
 [source,bash]
 ----
 skopeo copy \
