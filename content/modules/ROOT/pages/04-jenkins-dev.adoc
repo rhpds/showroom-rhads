@@ -43,18 +43,21 @@ image::jenkins_car.jpg[align="center",width=500]
 _ACME's Jenkins transformation starts with one developer action that eliminates weeks of setup while maintaining familiar Jenkins workflows._
 
 **ACME's Traditional Jenkins Setup Challenge:**
+
 * 1–2 weeks waiting for custom Jenkins pipelines
 * Multiple coordination meetings across dev, platform, and security
 * Manual security integration into Jenkins
 * Inconsistent configurations and compliance challenges
 
 **RHADS Business Solution for ACME:**
+
 * **Zero Jenkins Setup Time:** Instant production-ready pipelines with security built-in
 * **Zero Platform Coordination:** Self-service without DevOps intervention
 * **Zero Configuration Drift:** Standardized templates ensure consistency
 * **Zero Security Gaps:** Enterprise security integrated by default
 
 **Business Impact for ACME:**
+
 * Pipeline creation: 1–2 weeks → 5 minutes
 * Platform efficiency: 75% fewer Jenkins setup requests
 * Compliance: 100% consistent across new Jenkins apps
@@ -121,6 +124,7 @@ image::jenkins-dev-5.png[]
 [TIP]
 ====
 This step does more than generate code. The template:
+
 * Initializes source and GitOps repos in GitLab
 * Configures GitLab webhooks to trigger Jenkins
 * Commits Jenkinsfiles and Kubernetes manifests
@@ -139,12 +143,14 @@ This step does more than generate code. The template:
 _ACME must maintain velocity while meeting enterprise security requirements. RHADS makes secure development seamless within familiar Jenkins workflows._
 
 **Enterprise Security Requirements:**
+
 * Commit traceability to a specific developer
 * No unsigned code in pipelines
 * Complete audit trails
 * Seamless integration with Jenkins
 
 **RHADS Benefits:**
+
 * **Invisible Security:** Signing happens in the normal flow
 * **No Velocity Loss:** Security enhances productivity
 * **Built-in Compliance:** Real-time audit evidence
@@ -238,6 +244,7 @@ A signed commit is required when *Verify Commits* is enabled.
 _A simple code change triggers enterprise automation that eliminates weeks of manual work while enforcing security and compliance._
 
 **Business Value:**
+
 * Setup time: weeks → minutes
 * Eliminates manual handoffs and configuration
 * Standardizes security across applications
@@ -249,6 +256,7 @@ _A simple code change triggers enterprise automation that eliminates weeks of ma
 _ACME's leadership wants to see that their Jenkins investment can deliver modern security and compliance without leaving familiar workflows._
 
 **Business Value of Enhanced Jenkins Pipelines:**
+
 * Preserve Jenkins investment and expertise
 * Add modern supply chain security and compliance
 * Maintain familiar interfaces and operational continuity
@@ -360,6 +368,7 @@ Builds container with `buildah`, signs with `cosign`, and generates provenance.
 _Automatic GitOps updates and SBOM management without manual Jenkins coordination._
 
 **Business Value:**
+
 * Automated deployment through GitOps
 * SBOM tracking for vulnerabilities and audits
 * Reduced platform handoffs
@@ -375,6 +384,7 @@ Visit `{tpa_url}[Red Hat Trusted Profile Analyzer^]` with `{tpa_user}` / `{tpa_u
 _Security validation catches issues before production exposure._
 
 **Business Value:**
+
 * Risk prevention within Jenkins
 * Policy enforcement by default
 * Avoidance of costly incidents
@@ -400,6 +410,7 @@ Summarizes build status and key artifacts, leveraging reusable `rhtap` library f
 == Part 7 — Summary
 
 === Know
+
 * ACME created a new Quarkus service via Developer Hub
 * Jenkins CI/CD pipeline was pre-configured and triggered automatically
 * Commits were signed and verified
@@ -409,9 +420,11 @@ Summarizes build status and key artifacts, leveraging reusable `rhtap` library f
 == Part 8 — Wrap-Up
 
 === Know
+
 _ACME's Jenkins transformation shows how enterprises can enhance investments while achieving modern security and speed._
 
 **Business Results for ACME:**
+
 * Investment protection: Jenkins enhanced, not replaced
 * Velocity increase: setup from weeks to minutes
 * Security enhancement: enterprise-grade security by default
@@ -420,6 +433,7 @@ _ACME's Jenkins transformation shows how enterprises can enhance investments whi
 * Compliance automation: SOC 2 and PCI readiness built-in
 
 **Key Takeaways**
+
 * Secure-by-default delivery
 * Streamlined developer onboarding
 * Governance through automation
@@ -428,6 +442,7 @@ _ACME's Jenkins transformation shows how enterprises can enhance investments whi
 * End-to-end toolchain integration across GitLab, Quay, Jenkins, and RHACS
 
 **Optional Enhancements**
+
 * Explore the Developer Hub Catalog entry for metadata and links
 * Follow the commit link to GitLab and the CI link to Jenkins
 * Show template flexibility for other stacks such as Python, Node.js, or Spring Boot
