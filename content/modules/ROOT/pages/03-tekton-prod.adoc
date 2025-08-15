@@ -88,7 +88,7 @@ ACME gets perfect traceability — Git tags provide complete audit trail and com
 ACME gets absolute certainty about production deployments — `images.json` provides definitive proof of what was deployed and why.
 
 The Git release is mapped to the image produced during staging by this task. The tag is used to locate the previously built container image and a metadata file named `images.json` is created.
-+
+
 .Sample `images.json` can be shown
 [source,json,subs="attributes"]
 ----
