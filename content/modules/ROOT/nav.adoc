@@ -1,17 +1,16 @@
 * xref:index.adoc[How to Use This Demo]
 * xref:01-overview.adoc[Demo Overview]
-
-* 3. Red Hat Advanced Developer Suite with Tekton
-** xref:03-tekton-dev.adoc[3.1 Building your application]
-** xref:03-tekton-stage.adoc[3.2 Promoting your application to stage]
-** xref:03-tekton-prod.adoc[3.3 Releasing your application to prod]
-
-* 4. Red Hat Advanced Developer Suite with Jenkins
-** xref:04-jenkins-dev.adoc[4.1 Building your application]
-** xref:04-jenkins-stage.adoc[4.2 Promoting your application to stage]
-** xref:04-jenkins-prod.adoc[4.3 Releasing your application to prod]
-
 * xref:05-details.adoc[Demo Details]
+
+* Red Hat Advanced Developer Suite with Tekton
+** xref:03-tekton-dev.adoc[ Building your application]
+** xref:03-tekton-stage.adoc[Promoting your application to stage]
+** xref:03-tekton-prod.adoc[Releasing your application to prod]
+
+* Red Hat Advanced Developer Suite with Jenkins
+** xref:04-jenkins-dev.adoc[Building your application]
+** xref:04-jenkins-stage.adoc[Promoting your application to stage]
+** xref:04-jenkins-prod.adoc[Releasing your application to prod]
 
 
 
