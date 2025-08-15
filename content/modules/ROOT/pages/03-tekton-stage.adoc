@@ -147,7 +147,7 @@ ACME's automated bridge — GitOps ensures validated changes reach staging autom
 No manual `kubectl`, no YAML editing in the console — the system reacts to Git. That's the GitOps advantage.
 ====
 
-Show::
+=== Show
 
 **Task 2: verify-enterprise-contract Commands**
 
@@ -254,7 +254,8 @@ spec:
 == Part 5 — Wrap-Up
 
 === Summary
-We don't need to have an empty heading for Part 5 and then a summary heading. Put a sentence here. "The following table summarizes the tasks that are executed by the pipeline."
+
+*The following table summarizes the tasks that are executed by the pipeline.*
 
 |===
 | Phase | Purpose
