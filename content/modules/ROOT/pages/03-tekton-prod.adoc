@@ -237,7 +237,7 @@ The GitOps overlay system ensures ACME's production environment stays secure, co
 The GitOps repo is updated next so Argo CD knows to deploy the newly promoted image.
 
 The following file is updated by the pipeline:
-+
+
 [source,yaml]
 ----
 apiVersion: apps/v1
