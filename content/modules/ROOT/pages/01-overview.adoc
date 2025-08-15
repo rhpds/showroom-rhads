@@ -31,14 +31,23 @@ Slow delivery and manual processes resulted in:
 * Improve developer productivity and morale
 
 == Common Customer Questions to be Ready For
-* Question: "How does this work with our existing tools?"  
-* Ans: Show Jenkins path (Module 4) which enhances rather than replaces existing investments
 
-* Question: "What about compliance and security?"  
-* Ans: Emphasize automated policy enforcement and readiness for SOC 2 and PCI compliance
+* **"How does this work with our existing tools?"**
+** We integrate, not replace.
+** Example: Jenkins integration in _Module 4_ extends your CI/CD setup.
+** Protects past investments while adding new automation capabilities.
 
-* Question: "How complex is the implementation?"  
-* Ans: Highlight self-service templates and zero-configuration developer experience
+* **"What about compliance and security?"**
+** Compliance is built in.
+** Automated policy checks run with every release.
+** Always aligned with SOC 2, PCI, and other standards — without slowing delivery.
 
-* Question: "What is the business impact timeline?"  
-* Ans: Reference ACME's 4-week transformation and quantified results
+* **"How complex is the implementation?"**
+** Designed for simplicity.
+** Self-service templates and zero-configuration developer experience.
+** Teams can be running in hours, not weeks.
+
+* **"What’s the business impact timeline?"**
+** Results are fast.
+** Example: ACME cut release cycles from 10 weeks to 4 weeks.
+** Measurable gains in speed, compliance, and deployment confidence.
