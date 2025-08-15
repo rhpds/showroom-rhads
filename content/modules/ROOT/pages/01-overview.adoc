@@ -17,6 +17,7 @@ Their current process took 10 weeks, with:
 
 == Problem
 Slow delivery and manual processes resulted in:
+
 * Missed deadlines and lost market opportunities
 * Increased operational costs
 * High risk of security gaps due to human error
@@ -30,14 +31,14 @@ Slow delivery and manual processes resulted in:
 * Improve developer productivity and morale
 
 == Common Customer Questions to be Ready For
-"How does this work with our existing tools?"  
-Show Jenkins path (Module 4) which enhances rather than replaces existing investments
+* Question: "How does this work with our existing tools?"  
+* Ans: Show Jenkins path (Module 4) which enhances rather than replaces existing investments
 
-"What about compliance and security?"  
-Emphasize automated policy enforcement and readiness for SOC 2 and PCI compliance
+* Question: "What about compliance and security?"  
+* Ans: Emphasize automated policy enforcement and readiness for SOC 2 and PCI compliance
 
-"How complex is the implementation?"  
-Highlight self-service templates and zero-configuration developer experience
+* Question: "How complex is the implementation?"  
+* Ans: Highlight self-service templates and zero-configuration developer experience
 
-"What is the business impact timeline?"  
-Reference ACME's 4-week transformation and quantified results
+* Question: "What is the business impact timeline?"  
+* Ans: Reference ACME's 4-week transformation and quantified results
