@@ -79,7 +79,7 @@ Performance issues:
 == Authors and Contact Information
 For content-related questions:
 
-* Slack: `#forum-demo-platform`, `#forum-rhdp-rhads-tssc-community`
+* Slack: `#forum-demo-redhat-com`, `#forum-rhdp-rhads-tssc-community`
 
 For technical environment issues:
 
