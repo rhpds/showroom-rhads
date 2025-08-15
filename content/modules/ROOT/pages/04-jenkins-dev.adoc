@@ -7,15 +7,17 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 == Part 1 — Introduce the Context
 
 === Know
-_ACME has significant Jenkins investments powering critical applications. RHADS modernizes their pipelines while preserving valuable Jenkins infrastructure and expertise._
+_ACME has significant Jenkins investments powering critical applications. RHADS modernizes its pipelines while preserving valuable Jenkins infrastructure and expertise._
 
 **Business Value:**
+
 * Jenkins pipeline setup: 1–2 weeks → 5 minutes
 * Preserves existing Jenkins infrastructure and team expertise
 * Zero manual security configuration or coordination
 * Standardized pipelines eliminate maintenance overhead
 
 **How RHADS Solves ACME's Jenkins Modernization Challenge:**
+
 * **Preserve Jenkins Investment:** Leverage existing infrastructure and skills
 * **Add Modern Self-Service:** Developers create production-ready pipelines in minutes
 * **Enhance Security:** Enterprise security integrated into existing workflows
