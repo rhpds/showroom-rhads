@@ -7,7 +7,6 @@ Red Hat Advanced Developer Suite with Enterprise Contract and Artifact Signer
 == Part 1 — Set the Stage
 
 === Know
-
 _ACME's checkout service team faced slow delivery cycles and security bottlenecks. RHADS transforms this into minutes-not-weeks delivery with enterprise security built-in.
 
 **Business Value:**
