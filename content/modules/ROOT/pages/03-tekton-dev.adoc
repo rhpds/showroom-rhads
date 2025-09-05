@@ -50,7 +50,7 @@ One developer action now delivers ACME's complete delivery stack:
 This single template gives ACME developers everything they need to be productive immediately.
 
 === Show
-* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In* on the OIDC login prompt.
+* In the Red Hat Developer Hub view on the right, click *Sign In* on the OIDC login prompt.
 
 image::tekton-dev-1.png[]
 

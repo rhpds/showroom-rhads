@@ -64,7 +64,7 @@ _ACME's Jenkins transformation starts with one developer action that eliminates 
 * Developer velocity: No waiting for infrastructure or security wiring
 
 === Show
-* Navigate to `{rhdh_url}[Red Hat Developer Hub^]` and click *Sign In*.
+* In the Red Hat Developer Hub view on the right, click *Sign In*.
 +
 image::jenkins-dev-1.png[]
 * Sign in:
