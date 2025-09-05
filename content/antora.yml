@@ -1,4 +1,4 @@
-name: How-To-Demo
+name: modules
 version: master
 nav:
   - modules/ROOT/nav.adoc
@@ -11,7 +11,7 @@ asciidoc:
     experimental:
     sectnums!:
     numbered!:
-    chapter-signifier: 
+    chapter-signifier:
     part-signifier:
     lab_name: "Red Hat Advanced Developer Suite Demonstration"
     guid: my-guid
