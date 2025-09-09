@@ -165,7 +165,7 @@ Then, the Enterprise Contract CLI performs validation:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-tkn:abc123... \
+  --image quay-{guid}/tssc/my-quarkus-tkn:abc123... \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -193,7 +193,7 @@ ec validate image \
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-tkn:abc123def456",
+      "containerImage": "quay-{guid}/tssc/my-quarkus-tkn:abc123def456",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-tkn",
@@ -212,8 +212,8 @@ Use `skopeo` to copy and retag the image:
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:abc123... \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
+  docker://quay-{guid}/tssc/my-quarkus-tkn:abc123... \
+  docker://quay-{guid}/tssc/my-quarkus-tkn:v1.0
 ----
 
 **Task 4: Update Deployment Files**
@@ -241,14 +241,14 @@ spec:
     spec:
       containers:
         - name: my-quarkus-tkn
-          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
+          image: quay-{guid}/tssc/my-quarkus-tkn:v1.0
 ----
 
 .Example Git diff
 [source,diff]
 ----
 -          image: quay.io/redhat-appstudio/rhtap-task-runner:latest
-+          image: quay.tssc-quay/tssc/my-quarkus-tkn:v1.0
++          image: quay-{guid}/tssc/my-quarkus-tkn:v1.0
 ----
 
 == Part 5 — Wrap-Up

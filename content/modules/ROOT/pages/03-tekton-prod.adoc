@@ -32,7 +32,7 @@ _ACME's transformation from manual production releases to automated confidence â
 **Business Value:**
 
 * Production deployment time: 2-3 weeks â†’ 30 minutes
-* 100% automated security compliance 
+* 100% automated security compliance
 * Zero manual review bottlenecks
 * Complete audit trail generated automatically
 
@@ -95,7 +95,7 @@ The Git release is mapped to the image produced during staging by this task. The
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
+      "containerImage": "quay-{guid}/tssc/my-quarkus-jnk:v1.0",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-jnk",
@@ -171,7 +171,7 @@ cosign initialize \
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-tkn:v1.0 \
+  --image quay-{guid}/tssc/my-quarkus-tkn:v1.0 \
   --policy git::github.com/org/ec-policies//default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -196,8 +196,8 @@ Now that the image has passed all security checks, it is promoted to production 
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:v1.0 \
-  docker://quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.0
+  docker://quay-{guid}/tssc/my-quarkus-tkn:v1.0 \
+  docker://quay-{guid}/tssc/my-quarkus-tkn:prod-v1.0
 ----
 
 The previously validated image is promoted by this command by creating a new tag prefixed with `prod-`.
@@ -249,7 +249,7 @@ spec:
     spec:
       containers:
         - name: my-quarkus-tkn
-          image: quay.tssc-quay/tssc/my-quarkus-tkn:prod-v1.0
+          image: quay-{guid}/tssc/my-quarkus-tkn:prod-v1.0
 ----
 
 This file lives at:

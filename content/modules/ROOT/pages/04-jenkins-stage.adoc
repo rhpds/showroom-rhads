@@ -112,7 +112,7 @@ _ACME’s Jenkins staging promotion proves that automation can be fast, secure, 
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
+      "containerImage": "quay-{guid}/tssc/my-quarkus-jnk:v1.0",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-jnk",
@@ -137,7 +137,7 @@ Enterprise Contract validation:
 [source,bash]
 ----
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
+  --image quay-{guid}/tssc/my-quarkus-jnk:v1.0 \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -148,8 +148,8 @@ ec validate image \
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:stage-v1.0
+  docker://quay-{guid}/tssc/my-quarkus-jnk:v1.0 \
+  docker://quay-{guid}/tssc/my-quarkus-jnk:stage-v1.0
 ----
 
 * **Deploy to Staging via GitOps:** Jenkins updates the `kustomization.yaml` in the `overlays/stage/` directory of the GitOps repo. Argo CD detects the change and deploys it automatically.
@@ -166,7 +166,7 @@ spec:
     spec:
       containers:
         - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:stage-v1.0
+          image: quay-{guid}/tssc/my-quarkus-jnk:stage-v1.0
 ----
 
 == Summary

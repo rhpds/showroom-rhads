@@ -109,7 +109,7 @@ _ACME’s Jenkins promotions combine automation, compliance, and zero manual err
 {
   "components": [
     {
-      "containerImage": "quay.tssc-quay/tssc/my-quarkus-jnk:v1.0",
+      "containerImage": "quay-{guid}/tssc/my-quarkus-jnk:v1.0",
       "source": {
         "git": {
           "url": "{gitlab_url}/development/my-quarkus-jnk",
@@ -129,7 +129,7 @@ cosign initialize \
   --root https://tuf.tssc-tas.dev/root.json
 
 ec validate image \
-  --image quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
+  --image quay-{guid}/tssc/my-quarkus-jnk:v1.0 \
   --policy default \
   --public-key k8s://openshift/trusted-keys \
   --output json
@@ -139,8 +139,8 @@ ec validate image \
 [source,bash]
 ----
 skopeo copy \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:v1.0 \
-  docker://quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
+  docker://quay-{guid}/tssc/my-quarkus-jnk:v1.0 \
+  docker://quay-{guid}/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
 **GitOps deployment patch**
@@ -155,7 +155,7 @@ spec:
     spec:
       containers:
         - name: my-quarkus-jnk
-          image: quay.tssc-quay/tssc/my-quarkus-jnk:prod-v1.0
+          image: quay-{guid}/tssc/my-quarkus-jnk:prod-v1.0
 ----
 
 == Part 5 — Summary
